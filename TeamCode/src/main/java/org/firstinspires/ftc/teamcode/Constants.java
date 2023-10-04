@@ -34,6 +34,37 @@ public final class Constants {
 
     }
 
+    public static final class RobotConstants {
+
+        static final double height = 13;
+
+        static final double width = 13;
+
+        public static final double length = 13;
+
+
+        static final double camToCenterX = 6;
+        static final double camToCenterY = 6;
+
+    }
+
+    public static final class FieldConstants {
+
+        static final double length = 144;
+        static final double width = 144;
+
+    }
+
+    public static final class TapeConstants {
+
+        static final double fieldLength = 164;
+        static final double fieldWidth = 164;
+        static final double tapeWidth = 2;
+        public static final double tapeLength = 12;
+        static final double gapBetweenTapeY = 20;
+    }
+
+
     public static final class DriveConstants {
 
         public static final double MOTOR_GEAR_RATIO = 13.7;

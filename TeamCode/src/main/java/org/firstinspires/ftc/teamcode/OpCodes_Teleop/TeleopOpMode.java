@@ -110,7 +110,7 @@ public class TeleopOpMode extends CommandOpMode {
 
         register(drive, elevator, claw);
 
-       drive.setDefaultCommand(new JogDrive(this.drive, driverGamepad));
+       drive.setDefaultCommand(new JogDrive(this.drive, driverGamepad,false));
 
         elevator.setDefaultCommand(new HoldElevatorAtPosition(this.elevator));
     }

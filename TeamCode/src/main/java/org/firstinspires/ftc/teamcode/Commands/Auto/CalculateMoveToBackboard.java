@@ -28,7 +28,7 @@ public class CalculateMoveToBackboard extends CommandBase {
     @Override
     public void execute() {
         //need to extract info from apriltagposeftc and create a roadrunner Pose2d
-        //
+        //need to add in robot length and camera offsets
 
         double x = aprilTagPoseFtc.x;
 

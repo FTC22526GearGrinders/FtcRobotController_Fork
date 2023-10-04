@@ -4,6 +4,7 @@ package org.firstinspires.ftc.teamcode.Commands.Auto;
 import com.arcrobotics.ftclib.command.CommandBase;
 
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
+import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.FieldConstantsBlue;
 
 public class SelectMotionValuesBlue extends CommandBase {
@@ -45,7 +46,7 @@ private int lcr;
 
                 ActiveMotionValues.startPose = FieldConstantsBlue.XPYP.StartPos;//start pose
 
-                ActiveMotionValues.yFirstPoint = FieldConstantsBlue.XPYP.LeftTapeMid.getY() + (FieldConstantsBlue.TAPE.tapeLength / 2);
+                ActiveMotionValues.yFirstPoint = FieldConstantsBlue.XPYP.LeftTapeMid.getY() + (Constants.TapeConstants.tapeLength / 2);
 
 
                 ActiveMotionValues.xFirstPoint = FieldConstantsBlue.XPYP.LeftTapeMid.getX();
@@ -91,7 +92,7 @@ private int lcr;
 
                 ActiveMotionValues.startPose = FieldConstantsBlue.XPYP.StartPos;//start pose
 
-                ActiveMotionValues.yFirstPoint = FieldConstantsBlue.XPYP.RightTapeMid.getY() + (FieldConstantsBlue.TAPE.tapeLength / 2);
+                ActiveMotionValues.yFirstPoint = FieldConstantsBlue.XPYP.RightTapeMid.getY() + (Constants.TapeConstants.tapeLength / 2);
 
 
                 ActiveMotionValues.xFirstPoint = FieldConstantsBlue.XPYP.RightTapeMid.getX();
@@ -115,7 +116,7 @@ private int lcr;
 
                 ActiveMotionValues.startPose = FieldConstantsBlue.XMYP.StartPos;//start pose
 
-                ActiveMotionValues.yFirstPoint = FieldConstantsBlue.XMYP.LeftTapeMid.getY() + (FieldConstantsBlue.TAPE.tapeLength / 2);
+                ActiveMotionValues.yFirstPoint = FieldConstantsBlue.XMYP.LeftTapeMid.getY() + (Constants.TapeConstants.tapeLength / 2);
 
 
                 ActiveMotionValues.xFirstPoint = FieldConstantsBlue.XMYP.LeftTapeMid.getX();
@@ -160,7 +161,7 @@ private int lcr;
 
                 ActiveMotionValues.startPose = FieldConstantsBlue.XMYP.StartPos;//start pose
 
-                ActiveMotionValues.yFirstPoint = FieldConstantsBlue.XMYP.RightTapeMid.getY() - (FieldConstantsBlue.TAPE.tapeLength / 2);
+                ActiveMotionValues.yFirstPoint = FieldConstantsBlue.XMYP.RightTapeMid.getY() - (Constants.TapeConstants.tapeLength / 2);
 
 
                 ActiveMotionValues.xFirstPoint = FieldConstantsBlue.XMYP.RightTapeMid.getX();

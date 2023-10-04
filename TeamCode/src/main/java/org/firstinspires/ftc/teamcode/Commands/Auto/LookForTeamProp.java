@@ -7,6 +7,7 @@ import com.arcrobotics.ftclib.command.CommandOpMode;
 import org.firstinspires.ftc.teamcode.CV.SpikeTapePipelineBlue;
 import org.firstinspires.ftc.teamcode.CV.SpikeTapePipelineRed;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
+import org.firstinspires.ftc.teamcode.Subsystems.IO_Subsystem;
 import org.opencv.core.Rect;
 import org.openftc.easyopencv.OpenCvWebcam;
 
@@ -37,6 +38,7 @@ public class LookForTeamProp extends CommandBase {
 
 
     private OpenCvWebcam webcam;
+
     private int lcr;
     private int xLeft;
     private int xRight;
@@ -54,7 +56,7 @@ public class LookForTeamProp extends CommandBase {
 
     @Override
     public void initialize() {
-        ActiveMotionValues.setRedAlliance(true);
+
 
         sptopB = new SpikeTapePipelineBlue();
 

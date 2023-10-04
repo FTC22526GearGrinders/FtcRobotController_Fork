@@ -6,6 +6,7 @@ import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.teamcode.Commands.Auto.RunAuto;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.IO_Subsystem;
@@ -16,12 +17,13 @@ import org.openftc.easyopencv.OpenCvWebcam;
 
 @Config
 @Autonomous(name = "Auto Main AutoStart", group = "Auto")
+
 public class AutoModeSwitchable extends CommandOpMode {
     private IO_Subsystem ioSubsystem;
+
     private Drive_Subsystem drive;
 
-
-    public OpenCvWebcam webcam;//
+    private OpenCvWebcam webcam;//
 
     @Override
     public void initialize() {
@@ -30,23 +32,15 @@ public class AutoModeSwitchable extends CommandOpMode {
 
         drive = new Drive_Subsystem(this);
 
-        ioSubsystem = new IO_Subsystem(this);
+        boolean redAlliance = !ioSubsystem.dc1.getState();
 
-        //vss=new VisionSubsystems(this);
-
-
-        boolean redAlliance = ioSubsystem.dc1.getState();
-
-        boolean bbStart = ioSubsystem.dc2.getState();
-
-        boolean nearPark = ioSubsystem.dc3.getState();
+        boolean bbStart = !ioSubsystem.dc2.getState();
 
 
         ActiveMotionValues.setRedAlliance(redAlliance);
 
         ActiveMotionValues.setBBStart(bbStart);
 
-        ActiveMotionValues.setNearPark(nearPark);
 
 
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
@@ -86,11 +80,7 @@ public class AutoModeSwitchable extends CommandOpMode {
         });
 
 
-        // new WaitCommand(10000000).schedule();
-      //  new RunAuto(this, drive,webcam, vss).schedule();
-
-
-        //new RunAuto(this,this.drive).schedule();
+        new RunAuto(this,drive,webcam).schedule();
 
 
     }

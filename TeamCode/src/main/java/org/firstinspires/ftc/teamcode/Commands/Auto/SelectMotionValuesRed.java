@@ -4,6 +4,7 @@ package org.firstinspires.ftc.teamcode.Commands.Auto;
 import com.arcrobotics.ftclib.command.CommandBase;
 
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
+import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.FieldConstantsRed;
 
 public class SelectMotionValuesRed extends CommandBase {
@@ -49,7 +50,7 @@ public class SelectMotionValuesRed extends CommandBase {
 
                 ActiveMotionValues.startPose = FieldConstantsRed.XPYM.StartPos;//start pose
 
-                ActiveMotionValues.yFirstPoint = FieldConstantsRed.XPYM.LeftTapeMid.getY() - (FieldConstantsRed.TAPE.tapeLength / 2);
+                ActiveMotionValues.yFirstPoint = FieldConstantsRed.XPYM.LeftTapeMid.getY() - (Constants.TapeConstants.tapeLength / 2);
 
 
                 ActiveMotionValues.xFirstPoint = FieldConstantsRed.XPYM.LeftTapeMid.getX();
@@ -73,7 +74,7 @@ public class SelectMotionValuesRed extends CommandBase {
 
                 ActiveMotionValues.startPose = FieldConstantsRed.XPYM.StartPos;//start pose;
 
-                ActiveMotionValues.yFirstPoint = FieldConstantsRed.XPYM.CenterTapeMid.getY() - FieldConstantsRed.ROBOT.length;
+                ActiveMotionValues.yFirstPoint = FieldConstantsRed.XPYM.CenterTapeMid.getY() - Constants.RobotConstants.length;
 
                 ActiveMotionValues.xFirstPoint = FieldConstantsRed.XPYM.CenterTapeMid.getX();
 
@@ -96,7 +97,7 @@ public class SelectMotionValuesRed extends CommandBase {
 
                 ActiveMotionValues.startPose = FieldConstantsRed.XPYM.StartPos;//start pose
 
-                ActiveMotionValues.yFirstPoint = FieldConstantsRed.XPYM.rightTapeMid.getY() - (FieldConstantsRed.TAPE.tapeLength / 2);
+                ActiveMotionValues.yFirstPoint = FieldConstantsRed.XPYM.rightTapeMid.getY() - (Constants.TapeConstants.tapeLength / 2);
 
 
                 ActiveMotionValues.xFirstPoint = FieldConstantsRed.XPYM.rightTapeMid.getX();
@@ -119,7 +120,7 @@ public class SelectMotionValuesRed extends CommandBase {
 
                 ActiveMotionValues.startPose = FieldConstantsRed.XMYM.StartPos;//start pose
 
-                ActiveMotionValues.yFirstPoint = FieldConstantsRed.XMYM.LeftTapeMid.getY() - (FieldConstantsRed.TAPE.tapeLength / 2);
+                ActiveMotionValues.yFirstPoint = FieldConstantsRed.XMYM.LeftTapeMid.getY() - (Constants.TapeConstants.tapeLength / 2);
 
 
                 ActiveMotionValues.xFirstPoint = FieldConstantsRed.XMYM.LeftTapeMid.getX();
@@ -165,7 +166,7 @@ public class SelectMotionValuesRed extends CommandBase {
 
                 ActiveMotionValues.startPose = FieldConstantsRed.XMYM.StartPos;//start pose
 
-                ActiveMotionValues.yFirstPoint = FieldConstantsRed.XMYM.RightTapeMid.getY() + (FieldConstantsRed.TAPE.tapeLength / 2);
+                ActiveMotionValues.yFirstPoint = FieldConstantsRed.XMYM.RightTapeMid.getY() + (Constants.TapeConstants.tapeLength / 2);
 
 
                 ActiveMotionValues.xFirstPoint = FieldConstantsRed.XMYM.RightTapeMid.getX();
