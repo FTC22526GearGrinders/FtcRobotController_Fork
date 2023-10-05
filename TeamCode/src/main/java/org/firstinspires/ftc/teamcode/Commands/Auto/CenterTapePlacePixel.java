@@ -26,17 +26,17 @@ public class CenterTapePlacePixel extends CommandBase {
     @Override
     public void initialize() {
 
-        traj1 = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.startPose)
+        traj1 = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
 
-                .lineTo(new Vector2d(ActiveMotionValues.xFirstPoint, ActiveMotionValues.startPose.getY() + ActiveMotionValues.yOffset))
+              .lineTo(new Vector2d(ActiveMotionValues.getxFirstPoint(), ActiveMotionValues.getStartPose().getY() + ActiveMotionValues.getyOffset()))
 
-                .addTemporalMarker(() -> new DeliverPixelSpikeTapeCommand().schedule())
+                .addTemporalMarker(() -> new DeliverPixelSpikeTapeCommand())
 
                 .waitSeconds(3)
 
-                .back(ActiveMotionValues.retractDistance)
-
-                .lineToLinearHeading(ActiveMotionValues.tagLookAheadPose)
+                .back(ActiveMotionValues.getRetractDistance())
+//
+                .lineToLinearHeading(ActiveMotionValues.getTagLookAheadPose())
 
                 .build();
 

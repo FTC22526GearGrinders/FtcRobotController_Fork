@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Commands.Auto;
 
 import com.arcrobotics.ftclib.command.CommandBase;
 
+import org.checkerframework.checker.units.qual.A;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.FieldConstantsRed;
@@ -21,6 +22,11 @@ public class SelectMotionValuesRed extends CommandBase {
 
     }
 
+    public SelectMotionValuesRed(){
+        bbstart=ActiveMotionValues.getBBStart();
+        lcr = ActiveMotionValues.getLcrpos();
+    }
+
 
     @Override
     public void initialize() {
@@ -30,7 +36,6 @@ public class SelectMotionValuesRed extends CommandBase {
         int motionSelected = lcr;
 
         if (!bbstart) motionSelected += 10;
-
 
         switch (motionSelected) {
 
@@ -58,7 +63,7 @@ public class SelectMotionValuesRed extends CommandBase {
 
                 ActiveMotionValues.finalPose = FieldConstantsRed.AprilTagConstants.atag4.plus(FieldConstantsRed.AprilTagConstants.tagLookAheadPose);
 
-
+                ActiveMotionValues.setActTag(4);
                 break;
 
             case 2://center Red
@@ -80,7 +85,7 @@ public class SelectMotionValuesRed extends CommandBase {
 
                 ActiveMotionValues.finalPose = FieldConstantsRed.AprilTagConstants.atag5.plus(FieldConstantsRed.AprilTagConstants.tagLookAheadPose);
 
-
+                ActiveMotionValues.setActTag(5);
                 break;
 
 
@@ -104,7 +109,7 @@ public class SelectMotionValuesRed extends CommandBase {
 
                 ActiveMotionValues.finalPose = FieldConstantsRed.AprilTagConstants.atag6.plus(FieldConstantsRed.AprilTagConstants.tagLookAheadPose);
 
-
+                ActiveMotionValues.setActTag(6);
                 break;
 
 

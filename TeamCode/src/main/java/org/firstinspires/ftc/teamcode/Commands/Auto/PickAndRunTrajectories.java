@@ -1,7 +1,10 @@
 package org.firstinspires.ftc.teamcode.Commands.Auto;
 
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.command.CommandBase;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
 
@@ -19,7 +22,10 @@ public class PickAndRunTrajectories extends CommandBase {
     @Override
     public void initialize() {
 
+
         int lcr = ActiveMotionValues.getLcrpos();
+
+
 
         switch (lcr) {
 

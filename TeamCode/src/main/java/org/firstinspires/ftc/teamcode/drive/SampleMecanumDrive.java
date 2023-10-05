@@ -29,6 +29,7 @@ import com.acmerobotics.roadrunner.trajectory.constraints.MinVelocityConstraint;
 import com.acmerobotics.roadrunner.trajectory.constraints.ProfileAccelerationConstraint;
 import com.acmerobotics.roadrunner.trajectory.constraints.TrajectoryAccelerationConstraint;
 import com.acmerobotics.roadrunner.trajectory.constraints.TrajectoryVelocityConstraint;
+import com.arcrobotics.ftclib.hardware.RevIMU;
 import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -41,6 +42,7 @@ import com.qualcomm.robotcore.hardware.VoltageSensor;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequenceBuilder;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequenceRunner;
@@ -55,10 +57,25 @@ import java.util.List;
  */
 @Config
 public class SampleMecanumDrive extends MecanumDrive {
-    public static PIDCoefficients TRANSLATIONAL_PID = new PIDCoefficients(0, 0, 0);
-    public static PIDCoefficients HEADING_PID = new PIDCoefficients(0, 0, 0);
+    public static PIDCoefficients TRANSLATIONAL_PID = new PIDCoefficients(6.9, 0, 0);
+    public static PIDCoefficients HEADING_PID = new PIDCoefficients(7.5, 0, 0);
 
-    public static double LATERAL_MULTIPLIER = 1;
+    public static double LATERAL_MULTIPLIER = 1.3953488 * 1.11111;
+
+    private static double kV = DriveConstants.kV;
+
+    private static double kA = DriveConstants.kA;
+
+    private static double kStatic = DriveConstants.kStatic;
+
+
+  private static double WHEEL_BASE = Constants.DriveConstants.WHEELBASE;
+    private static double TRACK_WIDTH = Constants.DriveConstants.TRACKWIDTH;
+
+    double lateralMultiplier = Constants.DriveConstants.LATERAL_MULTIPLIER;
+
+
+
 
     public static double VX_WEIGHT = 1;
     public static double VY_WEIGHT = 1;
@@ -86,7 +103,7 @@ public class SampleMecanumDrive extends MecanumDrive {
     public boolean fieldCentric;
 
     public SampleMecanumDrive(HardwareMap hardwareMap) {
-        super(kV, kA, kStatic, TRACK_WIDTH, TRACK_WIDTH, LATERAL_MULTIPLIER);
+        super(kV, kA, kStatic, TRACK_WIDTH, WHEEL_BASE, LATERAL_MULTIPLIER);
 
         follower = new HolonomicPIDVAFollower(TRANSLATIONAL_PID, TRANSLATIONAL_PID, HEADING_PID,
                 new Pose2d(0.5, 0.5, Math.toRadians(5.0)), 0.5);
@@ -105,10 +122,10 @@ public class SampleMecanumDrive extends MecanumDrive {
                DriveConstants.LOGO_FACING_DIR, DriveConstants.USB_FACING_DIR));
         imu.initialize(parameters);
 
-        leftFront = hardwareMap.get(DcMotorEx.class, "left motor");
+        leftFront = hardwareMap.get(DcMotorEx.class, "left front");
         leftRear = hardwareMap.get(DcMotorEx.class, "left back");
         rightRear = hardwareMap.get(DcMotorEx.class, "right back");
-        rightFront = hardwareMap.get(DcMotorEx.class, "right motor");
+        rightFront = hardwareMap.get(DcMotorEx.class, "right front");
 
         leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
         leftRear.setDirection(DcMotorSimple.Direction.REVERSE);

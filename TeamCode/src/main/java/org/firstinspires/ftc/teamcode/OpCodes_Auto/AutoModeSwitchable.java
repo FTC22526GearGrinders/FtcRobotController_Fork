@@ -19,7 +19,7 @@ import org.openftc.easyopencv.OpenCvWebcam;
 @Autonomous(name = "Auto Main AutoStart", group = "Auto")
 
 public class AutoModeSwitchable extends CommandOpMode {
-    private IO_Subsystem ioSubsystem;
+    private IO_Subsystem ioss;
 
     private Drive_Subsystem drive;
 
@@ -32,9 +32,11 @@ public class AutoModeSwitchable extends CommandOpMode {
 
         drive = new Drive_Subsystem(this);
 
-        boolean redAlliance = !ioSubsystem.dc1.getState();
+        ioss= new IO_Subsystem(this);
 
-        boolean bbStart = !ioSubsystem.dc2.getState();
+        boolean redAlliance = !ioss.dc0.getState();
+
+        boolean bbStart = !ioss.dc1.getState();
 
 
         ActiveMotionValues.setRedAlliance(redAlliance);

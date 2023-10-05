@@ -16,6 +16,7 @@ public class RunAuto extends SequentialCommandGroup {
 
 
         boolean redAlliance = ActiveMotionValues.getRedAlliance();
+
         boolean bbStart = ActiveMotionValues.getBBStart();
 
         addCommands(
@@ -23,9 +24,9 @@ public class RunAuto extends SequentialCommandGroup {
 
                 new LookForTeamProp(opMode, webcam),//reads team element position and sets LCR value. Red blue choice made internally
 
-                new ConditionalCommand(new SelectMotionValuesRed(bbStart, ActiveMotionValues.getLcrpos()),
+                new ConditionalCommand(new SelectMotionValuesRed(),
 
-                        new SelectMotionValuesBlue(bbStart, ActiveMotionValues.getLcrpos()), () -> redAlliance),//takes alliance and LCR and sets up data
+                        new SelectMotionValuesBlue(), () -> redAlliance),//takes alliance and LCR and sets up data
 
                 new PickAndRunTrajectories(drive),//takes alliance and lcr picks and runs trajectory
 

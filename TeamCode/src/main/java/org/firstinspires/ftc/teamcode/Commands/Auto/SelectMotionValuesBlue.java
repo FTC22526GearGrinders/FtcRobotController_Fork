@@ -9,15 +9,20 @@ import org.firstinspires.ftc.teamcode.FieldConstantsBlue;
 
 public class SelectMotionValuesBlue extends CommandBase {
 
-private final boolean bbstart;
+    private final boolean bbstart;
 
-private int lcr;
+    private int lcr;
 
     public SelectMotionValuesBlue(boolean bbStart, int lcr) {
 
         this.bbstart = bbStart;
         this.lcr = lcr;
 
+    }
+
+    public SelectMotionValuesBlue() {
+        bbstart = ActiveMotionValues.getBBStart();
+        lcr = ActiveMotionValues.getLcrpos();
     }
 
 
@@ -33,14 +38,14 @@ private int lcr;
 
         switch (motionSelected) {
 
-            case 1://left tape Red
+            case 1://left tape
 
 
                 ActiveMotionValues.yOffset = 0;
 
                 ActiveMotionValues.xOffset = 0;
 
-                ActiveMotionValues.retractDistance = 0;
+                ActiveMotionValues.retractDistance = 1;
 
                 ActiveMotionValues.strafeDistance = 0;
 
@@ -54,6 +59,7 @@ private int lcr;
 
                 ActiveMotionValues.finalPose = FieldConstantsBlue.AprilTagConstants.atag1.plus(FieldConstantsBlue.AprilTagConstants.tagLookAheadPose);
 
+                ActiveMotionValues.setActTag(1);
 
                 break;
 
@@ -76,6 +82,7 @@ private int lcr;
 
                 ActiveMotionValues.finalPose = FieldConstantsBlue.AprilTagConstants.atag2.plus(FieldConstantsBlue.AprilTagConstants.tagLookAheadPose);
 
+                ActiveMotionValues.setActTag(2);
 
                 break;
 
@@ -86,7 +93,7 @@ private int lcr;
 
                 ActiveMotionValues.xOffset = 0;
 
-                ActiveMotionValues.retractDistance = 0;
+                ActiveMotionValues.retractDistance = 1;
 
                 ActiveMotionValues.strafeDistance = 0;
 
@@ -94,11 +101,11 @@ private int lcr;
 
                 ActiveMotionValues.yFirstPoint = FieldConstantsBlue.XPYP.RightTapeMid.getY() + (Constants.TapeConstants.tapeLength / 2);
 
-
                 ActiveMotionValues.xFirstPoint = FieldConstantsBlue.XPYP.RightTapeMid.getX();
 
                 ActiveMotionValues.finalPose = FieldConstantsBlue.AprilTagConstants.atag3.plus(FieldConstantsBlue.AprilTagConstants.tagLookAheadPose);
 
+                ActiveMotionValues.setActTag(3);
 
                 break;
 
@@ -110,7 +117,7 @@ private int lcr;
 
                 ActiveMotionValues.xOffset = 0;
 
-                ActiveMotionValues.retractDistance = 0;
+                ActiveMotionValues.retractDistance = 1;
 
                 ActiveMotionValues.strafeDistance = 0;
 
@@ -121,7 +128,7 @@ private int lcr;
 
                 ActiveMotionValues.xFirstPoint = FieldConstantsBlue.XMYP.LeftTapeMid.getX();
 
-                       ActiveMotionValues.finalPose = FieldConstantsBlue.wingPose;
+                ActiveMotionValues.finalPose = FieldConstantsBlue.wingPose;
 
 
                 break;
@@ -155,7 +162,7 @@ private int lcr;
 
                 ActiveMotionValues.xOffset = 0;
 
-                ActiveMotionValues.retractDistance = 0;
+                ActiveMotionValues.retractDistance = 1;
 
                 ActiveMotionValues.strafeDistance = 0;
 

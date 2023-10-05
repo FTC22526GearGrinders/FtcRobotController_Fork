@@ -72,7 +72,7 @@ public final class Constants {
         public static final double GEARBOX_RATIO = 1;
         public static final double WHEEL_DIAMETER_INCH = 4;
 
-        public static final double WHEELWIDTH = 13;
+        public static final double WHEELBASE = 13;
 
         public static final double TRACKWIDTH = 16.25;
         public static final double WHEEL_CIRCUMFERENCE_INCH = Math.PI * WHEEL_DIAMETER_INCH;//12.57
@@ -103,6 +103,7 @@ public final class Constants {
 
         public static final double POSITION_POWER = .5;
         public static final double ROTATE_SPEED = .75;
+        public static final double LATERAL_MULTIPLIER = .8;
     }
 
     public static final class ClawConstants {

@@ -13,6 +13,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.Commands.Auto.SelectMotionValuesBlue;
 import org.firstinspires.ftc.teamcode.Commands.Auto.SelectMotionValuesRed;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
+import org.firstinspires.ftc.teamcode.Subsystems.IO_Subsystem;
 
 @Config
 @Autonomous(name = "Drive: Values", group = "Test")
@@ -20,13 +21,17 @@ import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 public class TestMotionData extends CommandOpMode {
 
     FtcDashboard dashboard;
+    private IO_Subsystem ioss;
 
-    public static boolean redAlliance;
     public static int lcr = 1;
+    private boolean redAlliance;
 
-    public static boolean bbstart=true;
+    private boolean bbStart;
+
 
     public void initialize() {
+
+        ioss = new IO_Subsystem(this);
 
         dashboard = FtcDashboard.getInstance();
 
@@ -37,21 +42,28 @@ public class TestMotionData extends CommandOpMode {
 
         telemetry.update();
 
+        redAlliance = !ioss.dc0.getState();
+
+        bbStart = !ioss.dc1.getState();
+
+
         ActiveMotionValues.setRedAlliance(redAlliance);
+
+        ActiveMotionValues.setBBStart(bbStart);
+
 
         ActiveMotionValues.setLcrpos(lcr);
 
-        ActiveMotionValues.setBBStart(!bbstart);
 
         new SequentialCommandGroup(
 
+
                 new ConditionalCommand(
 
-                        new SelectMotionValuesRed(bbstart,lcr), new SelectMotionValuesBlue(bbstart,lcr), () -> redAlliance),
+                        new SelectMotionValuesRed(), new SelectMotionValuesBlue(), () -> ActiveMotionValues.getRedAlliance()),
 
 
-                new WaitCommand(60000));
-
+                new WaitCommand(60000)).schedule();
 
 
     }
@@ -60,6 +72,10 @@ public class TestMotionData extends CommandOpMode {
     // Put run blocks here.
     public void run() {
 
+        telemetry.addData("RedAlliance", redAlliance);
+        telemetry.addData("BBstary", bbStart);
+        telemetry.addData("LCR", ActiveMotionValues.getLcrpos());
+
         telemetry.addData("StartPoseX", ActiveMotionValues.startPose.getX());
         telemetry.addData("StartPoseY", ActiveMotionValues.startPose.getY());
         telemetry.addData("StartPoseAng", ActiveMotionValues.startPose.getHeading());
@@ -67,18 +83,18 @@ public class TestMotionData extends CommandOpMode {
         telemetry.addData("XFirst", ActiveMotionValues.xFirstPoint);
         telemetry.addData("Y Secnd", ActiveMotionValues.ySecondPoint);
 
-           telemetry.addData("TagLAPoseX", ActiveMotionValues.finalPose.getX());
-//        telemetry.addData("TagLAPoseY", ActiveMotionValues.tagLookAheadPose.getY());
-//        telemetry.addData("TagLAPoseAng", ActiveMotionValues.tagLookAheadPose.getHeading());
+        telemetry.addData("TagLAPoseX", ActiveMotionValues.finalPose.getX());
+        telemetry.addData("TagLAPoseY", ActiveMotionValues.finalPose.getY());
+       telemetry.addData("TagLAPoseAng", ActiveMotionValues.finalPose.getHeading());
 
         telemetry.addData("RetctDist", ActiveMotionValues.retractDistance);
 
         telemetry.addData("XOffset", ActiveMotionValues.xOffset);
         telemetry.addData("YOffset", ActiveMotionValues.yOffset);
-       telemetry.addData("Atag", ActiveMotionValues.getActTag());
+        telemetry.addData("Atag", ActiveMotionValues.getActTag());
 //
 //
-       telemetry.update();
+        telemetry.update();
 
         CommandScheduler.getInstance().run();
     }

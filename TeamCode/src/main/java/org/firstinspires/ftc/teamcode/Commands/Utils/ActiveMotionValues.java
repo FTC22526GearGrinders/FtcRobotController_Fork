@@ -9,10 +9,10 @@ public class ActiveMotionValues {
 
     public static Pose2d startPose = new Pose2d();
     public static AprilTagPoseFtc currentTagPose;
-    public static double strafeDistance;
-    public static double yFirstPoint;
+    public static double strafeDistance = 0;
+    public static double yFirstPoint = 0;
     public static Pose2d finalPose = new Pose2d();
-    public static int atag;
+    public static int atag = 1;
 
     public static Pose2d getStartPose() {
         return startPose;
@@ -105,7 +105,7 @@ public class ActiveMotionValues {
     public static double xFirstPoint;
     public static double ySecondPoint;
 
-    public static Pose2d tagLookAheadPose;
+    public static Pose2d tagLookAheadPose= new Pose2d();
     public static double yOffset;
     public static double xOffset;
     public static double retractDistance = 0;
@@ -125,7 +125,7 @@ public class ActiveMotionValues {
     }
 
     private static boolean nearPark;
-    private static int lcrpos = 0;
+    private static int lcrpos = 2;
 
     private static int actTag = 1;
 
@@ -134,15 +134,15 @@ public class ActiveMotionValues {
 
     }
 
-    public double HSVAreaL;
-    public double HSVAreaC;
-    public double HSVAreaR;
+    public double HSVAreaL = 0;
+    public double HSVAreaC = 0;
+    public double HSVAreaR = 0;
 
-    public boolean HSVRed;
+    public boolean HSVRed = false;
 
     private static AprilTagPoseFtc tagPoseFtc;
 
-    private static Pose2d aprilTagPos2d;
+    private static Pose2d aprilTagPos2d = new Pose2d();
 
     public static void setPoseFromTag(AprilTagPoseFtc ftcPose) {
         tagPoseFtc = ftcPose;
