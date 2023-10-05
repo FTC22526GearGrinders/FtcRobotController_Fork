@@ -76,21 +76,23 @@ public class TestMotionData extends CommandOpMode {
         telemetry.addData("BBstary", bbStart);
         telemetry.addData("LCR", ActiveMotionValues.getLcrpos());
 
-        telemetry.addData("StartPoseX", ActiveMotionValues.startPose.getX());
-        telemetry.addData("StartPoseY", ActiveMotionValues.startPose.getY());
-        telemetry.addData("StartPoseAng", ActiveMotionValues.startPose.getHeading());
+        telemetry.addData("StartPoseX", ActiveMotionValues.getStartPose().getX());
+        telemetry.addData("StartPoseY", ActiveMotionValues.getStartPose().getY());
+        telemetry.addData("StartPoseAng", ActiveMotionValues.getStartPose().getHeading());
 
-        telemetry.addData("XFirst", ActiveMotionValues.xFirstPoint);
-        telemetry.addData("Y Secnd", ActiveMotionValues.ySecondPoint);
+        telemetry.addData("XFirst", ActiveMotionValues.getxFirstPoint());
+        telemetry.addData("Y First", ActiveMotionValues.getyFirstPoint());
 
-        telemetry.addData("TagLAPoseX", ActiveMotionValues.finalPose.getX());
-        telemetry.addData("TagLAPoseY", ActiveMotionValues.finalPose.getY());
-       telemetry.addData("TagLAPoseAng", ActiveMotionValues.finalPose.getHeading());
+        telemetry.addData("Y Secnd", ActiveMotionValues.getySecondPoint());
 
-        telemetry.addData("RetctDist", ActiveMotionValues.retractDistance);
+        telemetry.addData("TagLAPoseX", ActiveMotionValues.getFinalPose().getX());
+        telemetry.addData("TagLAPoseY", ActiveMotionValues.getFinalPose().getY());
+       telemetry.addData("TagLAPoseAng", ActiveMotionValues.getFinalPose().getHeading());
 
-        telemetry.addData("XOffset", ActiveMotionValues.xOffset);
-        telemetry.addData("YOffset", ActiveMotionValues.yOffset);
+        telemetry.addData("RetctDist", ActiveMotionValues.getRetractDistance());
+
+        telemetry.addData("XOffset", ActiveMotionValues.getxOffset());
+        telemetry.addData("YOffset", ActiveMotionValues.getyOffset());
         telemetry.addData("Atag", ActiveMotionValues.getActTag());
 //
 //

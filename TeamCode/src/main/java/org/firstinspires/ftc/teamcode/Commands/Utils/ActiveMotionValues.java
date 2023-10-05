@@ -7,19 +7,27 @@ import org.firstinspires.ftc.vision.apriltag.AprilTagPoseFtc;
 public class ActiveMotionValues {
 
 
-    public static Pose2d startPose = new Pose2d();
-    public static AprilTagPoseFtc currentTagPose;
-    public static double strafeDistance = 0;
-    public static double yFirstPoint = 0;
-    public static Pose2d finalPose = new Pose2d();
-    public static int atag = 1;
+    private static Pose2d startPose = new Pose2d();
+    private static AprilTagPoseFtc currentTagPose;
+    private static double strafeDistance = 0;
+    private static double yFirstPoint = 0;
+    private static Pose2d finalPose = new Pose2d();
+    private static int atag = 1;
 
     public static Pose2d getStartPose() {
         return startPose;
     }
 
-    public static void setStartPose(Pose2d startPose) {
-        ActiveMotionValues.startPose = startPose;
+    public static void setStartPose(Pose2d pose) {
+        startPose = pose;
+    }
+
+    public static Pose2d getFinalPose() {
+        return finalPose;
+    }
+
+    public static void setFinalPose(Pose2d pose) {
+        startPose = pose;
     }
 
     public static double getxFirstPoint() {
@@ -28,6 +36,14 @@ public class ActiveMotionValues {
 
     public static void setxFirstPoint(double xFirstPoint) {
         ActiveMotionValues.xFirstPoint = xFirstPoint;
+    }
+
+    public static double getyFirstPoint() {
+        return yFirstPoint;
+    }
+
+    public static void setyFirstPoint(double yFirstPoint) {
+        ActiveMotionValues.yFirstPoint = yFirstPoint;
     }
 
     public static double getySecondPoint() {
@@ -58,16 +74,24 @@ public class ActiveMotionValues {
         return xOffset;
     }
 
-    public static void setxOffset(double xOffset) {
-        ActiveMotionValues.xOffset = xOffset;
+    public static void setxOffset(double offset) {
+        xOffset = xOffset;
     }
 
     public static double getRetractDistance() {
         return retractDistance;
     }
 
-    public static void setRetractDistance(double retractDistance) {
-        ActiveMotionValues.retractDistance = retractDistance;
+    public static void setRetractDistance(double distance) {
+        retractDistance = distance;
+    }
+
+    public static double getStrafeDistance() {
+        return strafeDistance;
+    }
+
+    public static void setStrafeDistance(double distance) {
+        strafeDistance = distance;
     }
 
     public static boolean getRedAlliance() {
@@ -102,29 +126,21 @@ public class ActiveMotionValues {
         ActiveMotionValues.actTag = actTag;
     }
 
-    public static double xFirstPoint;
-    public static double ySecondPoint;
+    private static double xFirstPoint;
+    private static double ySecondPoint;
 
-    public static Pose2d tagLookAheadPose= new Pose2d();
-    public static double yOffset;
-    public static double xOffset;
-    public static double retractDistance = 0;
+    private static Pose2d tagLookAheadPose = new Pose2d();
+    private static double yOffset;
+    private static double xOffset;
+    private static double retractDistance = 0;
 
 
     //auto running
-    public static boolean redAlliance;
+    private static boolean redAlliance;
 
-    public static boolean bbStart;
+    private static boolean bbStart;
 
-    public static boolean isNearPark() {
-        return nearPark;
-    }
 
-    public static void setNearPark(boolean nearPark) {
-        ActiveMotionValues.nearPark = nearPark;
-    }
-
-    private static boolean nearPark;
     private static int lcrpos = 2;
 
     private static int actTag = 1;

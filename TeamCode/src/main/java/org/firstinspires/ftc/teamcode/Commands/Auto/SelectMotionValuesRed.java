@@ -44,70 +44,74 @@ public class SelectMotionValuesRed extends CommandBase {
             case 1://left tape Red
 
 
-                ActiveMotionValues.yOffset = 0;
+                ActiveMotionValues.setyOffset(0);
 
-                ActiveMotionValues.xOffset = 0;
+                ActiveMotionValues.setxOffset(0);
 
-                ActiveMotionValues.retractDistance = 0;
+                ActiveMotionValues.setRetractDistance(0);
 
-                ActiveMotionValues.strafeDistance = 0;
-
-
-                ActiveMotionValues.startPose = FieldConstantsRed.XPYM.StartPos;//start pose
-
-                ActiveMotionValues.yFirstPoint = FieldConstantsRed.XPYM.LeftTapeMid.getY() - (Constants.TapeConstants.tapeLength / 2);
+                ActiveMotionValues.setStrafeDistance(0);
 
 
-                ActiveMotionValues.xFirstPoint = FieldConstantsRed.XPYM.LeftTapeMid.getX();
+                ActiveMotionValues.setStartPose(FieldConstantsRed.XPYM.StartPos);//start pose
+
+                ActiveMotionValues.setyFirstPoint(FieldConstantsRed.XPYM.LeftTapeMid.getY() - (Constants.TapeConstants.tapeLength / 2));
 
 
-                ActiveMotionValues.finalPose = FieldConstantsRed.AprilTagConstants.atag4.plus(FieldConstantsRed.AprilTagConstants.tagLookAheadPose);
+                ActiveMotionValues.setxFirstPoint(FieldConstantsRed.XPYM.LeftTapeMid.getX());
+
+
+                ActiveMotionValues.setFinalPose(FieldConstantsRed.AprilTagConstants.atag4.plus(FieldConstantsRed.AprilTagConstants.tagLookAheadPose));
 
                 ActiveMotionValues.setActTag(4);
+
                 break;
 
             case 2://center Red
 
 
-                ActiveMotionValues.yOffset = -4;
+                ActiveMotionValues.setyOffset(-4);
 
-                ActiveMotionValues.xOffset = 0;
+                ActiveMotionValues.setxOffset(0);
 
-                ActiveMotionValues.retractDistance = -6;
+                ActiveMotionValues.setRetractDistance(-6);
 
-                ActiveMotionValues.strafeDistance = 0;
+                ActiveMotionValues.setStrafeDistance( 0);
 
-                ActiveMotionValues.startPose = FieldConstantsRed.XPYM.StartPos;//start pose;
+                ActiveMotionValues.setStartPose(FieldConstantsRed.XPYM.StartPos);//start pose;
 
-                ActiveMotionValues.yFirstPoint = FieldConstantsRed.XPYM.CenterTapeMid.getY() - Constants.RobotConstants.length;
+                ActiveMotionValues.setyFirstPoint(FieldConstantsRed.XPYM.CenterTapeMid.getY() - Constants.RobotConstants.length);
 
-                ActiveMotionValues.xFirstPoint = FieldConstantsRed.XPYM.CenterTapeMid.getX();
+                ActiveMotionValues.setxFirstPoint(FieldConstantsRed.XPYM.CenterTapeMid.getX());
 
-                ActiveMotionValues.finalPose = FieldConstantsRed.AprilTagConstants.atag5.plus(FieldConstantsRed.AprilTagConstants.tagLookAheadPose);
+                ActiveMotionValues.setFinalPose(FieldConstantsRed.AprilTagConstants.atag5.plus(FieldConstantsRed.AprilTagConstants.tagLookAheadPose));
 
                 ActiveMotionValues.setActTag(5);
+
                 break;
 
 
             case 3://right tape Red
 
 
-                ActiveMotionValues.yOffset = 0;
+                ActiveMotionValues.setyOffset(0);
 
-                ActiveMotionValues.xOffset = 0;
+                ActiveMotionValues.setxOffset(0);
 
-                ActiveMotionValues.retractDistance = 0;
+                ActiveMotionValues.setRetractDistance(0);
 
-                ActiveMotionValues.strafeDistance = 0;
-
-                ActiveMotionValues.startPose = FieldConstantsRed.XPYM.StartPos;//start pose
-
-                ActiveMotionValues.yFirstPoint = FieldConstantsRed.XPYM.rightTapeMid.getY() - (Constants.TapeConstants.tapeLength / 2);
+                ActiveMotionValues.setStrafeDistance(0);
 
 
-                ActiveMotionValues.xFirstPoint = FieldConstantsRed.XPYM.rightTapeMid.getX();
 
-                ActiveMotionValues.finalPose = FieldConstantsRed.AprilTagConstants.atag6.plus(FieldConstantsRed.AprilTagConstants.tagLookAheadPose);
+                ActiveMotionValues.setStartPose(FieldConstantsRed.XPYM.StartPos);//start pose
+
+                ActiveMotionValues.setyFirstPoint(FieldConstantsRed.XPYM.rightTapeMid.getY() - (Constants.TapeConstants.tapeLength / 2));
+
+
+                ActiveMotionValues.setxFirstPoint(FieldConstantsRed.XPYM.rightTapeMid.getX());
+
+                ActiveMotionValues.setFinalPose(FieldConstantsRed.AprilTagConstants.atag6.plus(FieldConstantsRed.AprilTagConstants.tagLookAheadPose));
 
                 ActiveMotionValues.setActTag(6);
                 break;
@@ -116,23 +120,26 @@ public class SelectMotionValuesRed extends CommandBase {
             case 11://left tape Red
 
 
-                ActiveMotionValues.yOffset = 0;
+                ActiveMotionValues.setyOffset(0);
 
-                ActiveMotionValues.xOffset = 0;
+                ActiveMotionValues.setxOffset(0);
 
-                ActiveMotionValues.retractDistance = 0;
-                ActiveMotionValues.strafeDistance = 0;
+                ActiveMotionValues.setRetractDistance(0);
 
-                ActiveMotionValues.startPose = FieldConstantsRed.XMYM.StartPos;//start pose
-
-                ActiveMotionValues.yFirstPoint = FieldConstantsRed.XMYM.LeftTapeMid.getY() - (Constants.TapeConstants.tapeLength / 2);
+                ActiveMotionValues.setStrafeDistance(0);
 
 
-                ActiveMotionValues.xFirstPoint = FieldConstantsRed.XMYM.LeftTapeMid.getX();
+
+                ActiveMotionValues.setStartPose(FieldConstantsRed.XMYM.StartPos);//start pose
+
+                ActiveMotionValues.setyFirstPoint(FieldConstantsRed.XMYM.LeftTapeMid.getY() - (Constants.TapeConstants.tapeLength / 2));
+
+
+                ActiveMotionValues.setxFirstPoint(FieldConstantsRed.XMYM.LeftTapeMid.getX());
 
 
 //
-                ActiveMotionValues.finalPose = FieldConstantsRed.wingPose;
+                ActiveMotionValues.setFinalPose(FieldConstantsRed.wingPose);
 //
 
 
@@ -140,43 +147,49 @@ public class SelectMotionValuesRed extends CommandBase {
 
             case 12://center Red
 
-                ;
-                ActiveMotionValues.yOffset = 12;
 
-                ActiveMotionValues.xOffset = 0;
+                ActiveMotionValues.setyOffset(12);
 
-                ActiveMotionValues.retractDistance = 1;
-                ActiveMotionValues.strafeDistance = 0;
+                ActiveMotionValues.setxOffset(0);
 
-                ActiveMotionValues.startPose = FieldConstantsRed.XMYM.StartPos;//start pose;
+                ActiveMotionValues.setRetractDistance(1);
 
-                ActiveMotionValues.yFirstPoint = FieldConstantsRed.XMYM.CenterTapeMid.getY();
-
-                ActiveMotionValues.xFirstPoint = FieldConstantsRed.XMYM.CenterTapeMid.getX();
+                ActiveMotionValues.setStrafeDistance(0);
 
 
-                ActiveMotionValues.finalPose = FieldConstantsRed.wingPose;
+
+                ActiveMotionValues.setStartPose(FieldConstantsRed.XMYM.StartPos);//start pose;
+
+                ActiveMotionValues.setyFirstPoint(FieldConstantsRed.XMYM.CenterTapeMid.getY());
+
+                ActiveMotionValues.setxFirstPoint(FieldConstantsRed.XMYM.CenterTapeMid.getX());
+
+
+                ActiveMotionValues.setFinalPose(FieldConstantsRed.wingPose);
 
                 break;
 
 
             case 13://right tape Red
 
-                ActiveMotionValues.yOffset = 0;
+                ActiveMotionValues.setyOffset(0);
 
-                ActiveMotionValues.xOffset = 0;
+                ActiveMotionValues.setxOffset(0);
 
-                ActiveMotionValues.retractDistance = 0;
-                ActiveMotionValues.strafeDistance = 0;
+                ActiveMotionValues.setRetractDistance(0);
 
-                ActiveMotionValues.startPose = FieldConstantsRed.XMYM.StartPos;//start pose
-
-                ActiveMotionValues.yFirstPoint = FieldConstantsRed.XMYM.RightTapeMid.getY() + (Constants.TapeConstants.tapeLength / 2);
+                ActiveMotionValues.setStrafeDistance(0);
 
 
-                ActiveMotionValues.xFirstPoint = FieldConstantsRed.XMYM.RightTapeMid.getX();
 
-                ActiveMotionValues.finalPose = FieldConstantsRed.wingPose;
+                ActiveMotionValues.setStartPose(FieldConstantsRed.XMYM.StartPos);//start pose
+
+                ActiveMotionValues.setyFirstPoint(FieldConstantsRed.XMYM.RightTapeMid.getY() + (Constants.TapeConstants.tapeLength / 2));
+
+
+                ActiveMotionValues.setxFirstPoint(FieldConstantsRed.XMYM.RightTapeMid.getX());
+
+                ActiveMotionValues.setFinalPose(FieldConstantsRed.wingPose);
 
                 break;
 

@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.IO_Subsystem;
 @Config
 @Autonomous(name = "Auto Main CheckSwitches", group = "Test")
 
-public class CheckStarrtupSwitches extends CommandOpMode {
+public class CheckStartupSwitches extends CommandOpMode {
     private IO_Subsystem ioss;
     boolean redAlliance;
 

@@ -73,7 +73,7 @@ public class LookForTeamProp extends CommandBase {
     @Override
     public void execute() {
         List<Rect> r = new ArrayList<>(10);
-        if (ActiveMotionValues.redAlliance) {
+        if (ActiveMotionValues.getRedAlliance()) {
             r = sptopR.getRects();
 
         } else {
