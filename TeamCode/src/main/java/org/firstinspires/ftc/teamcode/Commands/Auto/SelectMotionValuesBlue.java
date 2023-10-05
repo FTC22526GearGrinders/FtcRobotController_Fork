@@ -47,7 +47,7 @@ public class SelectMotionValuesBlue extends CommandBase {
 
                 ActiveMotionValues.setRetractDistance(1);
 
-                ActiveMotionValues.setStrafeDistance(0);
+                ActiveMotionValues.setStrafeDistance(1);
 
                 ActiveMotionValues.setStartPose(FieldConstantsBlue.XPYP.StartPos);//start pose
 
@@ -72,7 +72,7 @@ public class SelectMotionValuesBlue extends CommandBase {
 
                 ActiveMotionValues.setRetractDistance(1);
 
-                ActiveMotionValues.setStrafeDistance(0);
+                ActiveMotionValues.setStrafeDistance(1);
 
                 ActiveMotionValues.setStartPose(FieldConstantsBlue.XPYP.StartPos);//start pose;
 
@@ -95,7 +95,7 @@ public class SelectMotionValuesBlue extends CommandBase {
 
                 ActiveMotionValues.setRetractDistance(1);
 
-                ActiveMotionValues.setStrafeDistance(0);
+                ActiveMotionValues.setStrafeDistance(1);
 
                 ActiveMotionValues.setStartPose(FieldConstantsBlue.XPYP.StartPos);//start pose
 
@@ -119,7 +119,7 @@ public class SelectMotionValuesBlue extends CommandBase {
 
                 ActiveMotionValues.setRetractDistance(1);
 
-                ActiveMotionValues.setStrafeDistance(0);
+                ActiveMotionValues.setStrafeDistance(1);
 
                 ActiveMotionValues.setStartPose(FieldConstantsBlue.XMYP.StartPos);//start pose
 
@@ -164,7 +164,7 @@ public class SelectMotionValuesBlue extends CommandBase {
                 ;
                 ActiveMotionValues.setRetractDistance(1);
 
-                ActiveMotionValues.setStrafeDistance(0);
+                ActiveMotionValues.setStrafeDistance(1);
 
                 ActiveMotionValues.setStartPose(FieldConstantsBlue.XMYP.StartPos);//start pose
 
