@@ -119,11 +119,10 @@ public class SampleMecanumDrive extends MecanumDrive {
 
         leftFront = hardwareMap.get(DcMotorEx.class, "left front");
         leftRear = hardwareMap.get(DcMotorEx.class, "left back");
-        rightRear = hardwareMap.get(DcMotorEx.class, "right back");
         rightFront = hardwareMap.get(DcMotorEx.class, "right front");
+        rightRear = hardwareMap.get(DcMotorEx.class, "right back");
 
         leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
-
         leftRear.setDirection(DcMotorSimple.Direction.REVERSE);
 
         motors = Arrays.asList(leftFront, leftRear, rightRear, rightFront);
@@ -318,8 +317,8 @@ public class SampleMecanumDrive extends MecanumDrive {
     public void jog(double y, double x, double rx) {
         double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
         leftFront.setPower((y + x + rx) / denominator);
-        leftRear.setPower((y - x + rx) / denominator);
         rightFront.setPower((y - x - rx) / denominator);
+        leftRear.setPower((y - x + rx) / denominator);
         rightRear.setPower((y + x - rx) / denominator);
     }
 
@@ -350,24 +349,26 @@ public class SampleMecanumDrive extends MecanumDrive {
         else fieldCentric = true;
     }
 
-    public boolean getTrajectoryRunning(){
-       return follower.isFollowing();
+    public boolean getTrajectoryRunning() {
+        return follower.isFollowing();
     }
 
-    public boolean getDriveStopped(){
-        double stoppedVel= .05;
-        return Math.abs(leftFront.getVelocity())<stoppedVel &&
-                Math.abs(rightFront.getVelocity())<stoppedVel &&
-                Math.abs(leftRear.getVelocity())<stoppedVel  &&
-                Math.abs(rightRear.getVelocity())<stoppedVel;
+    public boolean getDriveStopped() {
+        double stoppedVel = .05;
+        return Math.abs(leftFront.getVelocity()) < stoppedVel &&
+                Math.abs(rightFront.getVelocity()) < stoppedVel &&
+                Math.abs(leftRear.getVelocity()) < stoppedVel &&
+                Math.abs(rightRear.getVelocity()) < stoppedVel;
     }
 
     public void showTelemetry(Telemetry telemetry) {
 
-        telemetry.addData("FrontLeftPosn", leftFront.getCurrentPosition());
-        telemetry.addData("FrontRightPosn", rightFront.getCurrentPosition());
-        telemetry.addData("BackLeftPosn", leftRear.getCurrentPosition());
-        telemetry.addData("BackRightPosn", rightRear.getCurrentPosition());
+        telemetry.addData("FrontLeftPosn", encoderTicksToInches(leftFront.getCurrentPosition()));
+        telemetry.addData("FrontRightPosn", encoderTicksToInches(rightFront.getCurrentPosition()));
+        telemetry.addData("BackLeftPosn", encoderTicksToInches(leftRear.getCurrentPosition()));
+        telemetry.addData("BackRightPosn", encoderTicksToInches(rightRear.getCurrentPosition()));
+        telemetry.addData("FrontLeftVel", leftFront.getVelocity());
+
         telemetry.addData("Gyro Heading", Math.toDegrees(getExternalHeading()));
         telemetry.addData("BayyeryVolts", getBatteryVolts());
         telemetry.update();
