@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.OpCodes_Auto;
 
+import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
+import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.ConditionalCommand;
@@ -23,6 +25,14 @@ public class TestTrajMode extends CommandOpMode {
 
     private Drive_Subsystem drive;
 
+    FtcDashboard dashboard;
+
+    public static int lcr = 1;
+
+    public static boolean redAlliance;
+
+    public static boolean bbStart;
+
     @Override
     public void initialize() {
 
@@ -31,25 +41,25 @@ public class TestTrajMode extends CommandOpMode {
 
         ioss = new IO_Subsystem(this);
 
-        boolean redAlliance = !ioss.dc0.getState();
+        telemetry = new MultipleTelemetry(telemetry, dashboard.getTelemetry());
 
-        boolean bbStart = !ioss.dc1.getState();
+
+//        boolean redAlliance = !ioss.dc0.getState();
+//
+//        boolean bbStart = !ioss.dc1.getState();
 
 
         ActiveMotionValues.setRedAlliance(redAlliance);
 
         ActiveMotionValues.setBBStart(bbStart);
 
-        ActiveMotionValues.setLcrpos(2);
+        ActiveMotionValues.setLcrpos(lcr);
 
         new SequentialCommandGroup(
 
                 new ConditionalCommand(new SelectMotionValuesRed(),
 
                         new SelectMotionValuesBlue(), () -> redAlliance),//takes alliance and LCR and sets up data
-
-
-               // new CenterTapePlacePixel(drive)).schedule();
 
                 new PickAndRunTrajectories(drive)).schedule();
 
