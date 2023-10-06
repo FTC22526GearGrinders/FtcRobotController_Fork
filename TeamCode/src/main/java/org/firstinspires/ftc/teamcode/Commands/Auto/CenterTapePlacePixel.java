@@ -12,11 +12,11 @@ public class CenterTapePlacePixel extends CommandBase {
 
     private Drive_Subsystem drive;
 
-   TrajectorySequence traj1;
+    TrajectorySequence traj1;
 
-    boolean trajend;
 
     long dropOffTime = 1L;
+    private boolean trajectoryStarted;
 
     public CenterTapePlacePixel(Drive_Subsystem drive) {
         this.drive = drive;
@@ -28,7 +28,7 @@ public class CenterTapePlacePixel extends CommandBase {
 
         traj1 = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
 
-              .lineTo(new Vector2d(ActiveMotionValues.getxFirstPoint(), ActiveMotionValues.getStartPose().getY() + ActiveMotionValues.getyOffset()))
+                .lineTo(new Vector2d(ActiveMotionValues.getxFirstPoint(), ActiveMotionValues.getStartPose().getY() + ActiveMotionValues.getyOffset()))
 
                 .addTemporalMarker(() -> new DeliverPixelSpikeTapeCommand())
 
@@ -41,17 +41,15 @@ public class CenterTapePlacePixel extends CommandBase {
                 .build();
 
 
-        trajend = false;
-
     }
 
     @Override
     public void execute() {
-
         drive.drive.followTrajectorySequence(traj1);
 
-        trajend = true;
-
+        if (!trajectoryStarted && drive.drive.getTrajectoryRunning()) {
+            trajectoryStarted = true;
+        }
     }
 
     @Override
@@ -61,6 +59,6 @@ public class CenterTapePlacePixel extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return false;
+        return trajectoryStarted && !drive.drive.getTrajectoryRunning() && drive.drive.getDriveStopped();
     }
 }

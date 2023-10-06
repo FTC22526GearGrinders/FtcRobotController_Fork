@@ -14,8 +14,7 @@ public class LRTapePlacePixel extends CommandBase {
 
     TrajectorySequence traj1;
 
-    boolean trajend;
-
+    private boolean trajectoryStarted;
 
     public LRTapePlacePixel(Drive_Subsystem drive) {
         this.drive = drive;
@@ -44,8 +43,6 @@ public class LRTapePlacePixel extends CommandBase {
                         .build();
 
 
-        trajend = false;
-
     }
 
     @Override
@@ -53,7 +50,9 @@ public class LRTapePlacePixel extends CommandBase {
 
         drive.drive.followTrajectorySequence(traj1);
 
-        trajend = true;
+        if (!trajectoryStarted && drive.drive.getTrajectoryRunning()) {
+            trajectoryStarted = true;
+        }
 
     }
 
@@ -64,6 +63,6 @@ public class LRTapePlacePixel extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return trajend;
+        return trajectoryStarted && !drive.drive.getTrajectoryRunning() && drive.drive.getDriveStopped();
     }
 }

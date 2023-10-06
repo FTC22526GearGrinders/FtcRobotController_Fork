@@ -102,6 +102,7 @@ public class SampleMecanumDrive extends MecanumDrive {
         follower = new HolonomicPIDVAFollower(TRANSLATIONAL_PID, TRANSLATIONAL_PID, HEADING_PID,
                 new Pose2d(0.5, 0.5, Math.toRadians(5.0)), 0.5);
 
+
         LynxModuleUtil.ensureMinimumFirmwareVersion(hardwareMap);
 
         batteryVoltageSensor = hardwareMap.voltageSensor.iterator().next();
@@ -255,7 +256,7 @@ public class SampleMecanumDrive extends MecanumDrive {
         }
     }
 
-    public double getBatterVolts() {
+    public double getBatteryVolts() {
         return batteryVoltageSensor.getVoltage();
     }
 
@@ -349,6 +350,18 @@ public class SampleMecanumDrive extends MecanumDrive {
         else fieldCentric = true;
     }
 
+    public boolean getTrajectoryRunning(){
+       return follower.isFollowing();
+    }
+
+    public boolean getDriveStopped(){
+        double stoppedVel= .05;
+        return Math.abs(leftFront.getVelocity())<stoppedVel &&
+                Math.abs(rightFront.getVelocity())<stoppedVel &&
+                Math.abs(leftRear.getVelocity())<stoppedVel  &&
+                Math.abs(rightRear.getVelocity())<stoppedVel;
+    }
+
     public void showTelemetry(Telemetry telemetry) {
 
         telemetry.addData("FrontLeftPosn", leftFront.getCurrentPosition());
@@ -356,7 +369,7 @@ public class SampleMecanumDrive extends MecanumDrive {
         telemetry.addData("BackLeftPosn", leftRear.getCurrentPosition());
         telemetry.addData("BackRightPosn", rightRear.getCurrentPosition());
         telemetry.addData("Gyro Heading", Math.toDegrees(getExternalHeading()));
-        telemetry.addData("BayyeryVolts", getBatterVolts());
+        telemetry.addData("BayyeryVolts", getBatteryVolts());
         telemetry.update();
 
 
