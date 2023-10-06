@@ -6,11 +6,7 @@ import static org.firstinspires.ftc.teamcode.drive.DriveConstants.MAX_ANG_VEL;
 import static org.firstinspires.ftc.teamcode.drive.DriveConstants.MAX_VEL;
 import static org.firstinspires.ftc.teamcode.drive.DriveConstants.MOTOR_VELO_PID;
 import static org.firstinspires.ftc.teamcode.drive.DriveConstants.RUN_USING_ENCODER;
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants.TRACK_WIDTH;
 import static org.firstinspires.ftc.teamcode.drive.DriveConstants.encoderTicksToInches;
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants.kA;
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants.kStatic;
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants.kV;
 
 import androidx.annotation.NonNull;
 
@@ -29,7 +25,6 @@ import com.acmerobotics.roadrunner.trajectory.constraints.MinVelocityConstraint;
 import com.acmerobotics.roadrunner.trajectory.constraints.ProfileAccelerationConstraint;
 import com.acmerobotics.roadrunner.trajectory.constraints.TrajectoryAccelerationConstraint;
 import com.acmerobotics.roadrunner.trajectory.constraints.TrajectoryVelocityConstraint;
-import com.arcrobotics.ftclib.hardware.RevIMU;
 import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -41,6 +36,7 @@ import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
@@ -69,12 +65,10 @@ public class SampleMecanumDrive extends MecanumDrive {
     private static double kStatic = DriveConstants.kStatic;
 
 
-  private static double WHEEL_BASE = Constants.DriveConstants.WHEELBASE;
+    private static double WHEEL_BASE = Constants.DriveConstants.WHEELBASE;
     private static double TRACK_WIDTH = Constants.DriveConstants.TRACKWIDTH;
 
     double lateralMultiplier = Constants.DriveConstants.LATERAL_MULTIPLIER;
-
-
 
 
     public static double VX_WEIGHT = 1;
@@ -119,7 +113,7 @@ public class SampleMecanumDrive extends MecanumDrive {
         // TODO: adjust the names of the following hardware devices to match your configuration
         imu = hardwareMap.get(IMU.class, "imu");
         IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
-               DriveConstants.LOGO_FACING_DIR, DriveConstants.USB_FACING_DIR));
+                DriveConstants.LOGO_FACING_DIR, DriveConstants.USB_FACING_DIR));
         imu.initialize(parameters);
 
         leftFront = hardwareMap.get(DcMotorEx.class, "left front");
@@ -128,6 +122,7 @@ public class SampleMecanumDrive extends MecanumDrive {
         rightFront = hardwareMap.get(DcMotorEx.class, "right front");
 
         leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
+
         leftRear.setDirection(DcMotorSimple.Direction.REVERSE);
 
         motors = Arrays.asList(leftFront, leftRear, rightRear, rightFront);
@@ -260,6 +255,10 @@ public class SampleMecanumDrive extends MecanumDrive {
         }
     }
 
+    public double getBatterVolts() {
+        return batteryVoltageSensor.getVoltage();
+    }
+
     public void setWeightedDrivePower(Pose2d drivePower) {
         Pose2d vel = drivePower;
 
@@ -314,6 +313,7 @@ public class SampleMecanumDrive extends MecanumDrive {
         rightRear.setPower(v2);
         rightFront.setPower(v3);
     }
+
     public void jog(double y, double x, double rx) {
         double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
         leftFront.setPower((y + x + rx) / denominator);
@@ -347,6 +347,19 @@ public class SampleMecanumDrive extends MecanumDrive {
         if (fieldCentric) fieldCentric = false;
 
         else fieldCentric = true;
+    }
+
+    public void showTelemetry(Telemetry telemetry) {
+
+        telemetry.addData("FrontLeftPosn", leftFront.getCurrentPosition());
+        telemetry.addData("FrontRightPosn", rightFront.getCurrentPosition());
+        telemetry.addData("BackLeftPosn", leftRear.getCurrentPosition());
+        telemetry.addData("BackRightPosn", rightRear.getCurrentPosition());
+        telemetry.addData("Gyro Heading", Math.toDegrees(getExternalHeading()));
+        telemetry.addData("BayyeryVolts", getBatterVolts());
+        telemetry.update();
+
+
     }
 
 }

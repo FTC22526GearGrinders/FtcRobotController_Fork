@@ -8,6 +8,7 @@ import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.Commands.Auto.CenterTapePlacePixel;
+import org.firstinspires.ftc.teamcode.Commands.Auto.PickAndRunTrajectories;
 import org.firstinspires.ftc.teamcode.Commands.Auto.SelectMotionValuesBlue;
 import org.firstinspires.ftc.teamcode.Commands.Auto.SelectMotionValuesRed;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
@@ -41,20 +42,37 @@ public class TestTrajMode extends CommandOpMode {
 
         ActiveMotionValues.setLcrpos(2);
 
-//        new SequentialCommandGroup(
-//
-//                new ConditionalCommand(new SelectMotionValuesRed(),
-//
-//                        new SelectMotionValuesBlue(), () -> redAlliance),//takes alliance and LCR and sets up data
+        new SequentialCommandGroup(
+
+                new ConditionalCommand(new SelectMotionValuesRed(),
+
+                        new SelectMotionValuesBlue(), () -> redAlliance),//takes alliance and LCR and sets up data
 
 
-                new CenterTapePlacePixel(drive).schedule();
+               // new CenterTapePlacePixel(drive)).schedule();
+
+                new PickAndRunTrajectories(drive)).schedule();
 
 
     }
 
     // Put run blocks here.
     public void run() {
+
+
+        telemetry.addData("RedAlliance", ActiveMotionValues.getRedAlliance());
+        telemetry.addData("BackboardStart",ActiveMotionValues.getBBStart());
+
+        telemetry.addData("AprilTag",ActiveMotionValues.getActTag());
+        telemetry.addData("Yfirst",ActiveMotionValues.getyFirstPoint());
+
+        telemetry.addData("DRTEST", drive.test);
+
+
+
+        telemetry.update();
+
+      //  drive.drive.showTelemetry(telemetry);
 
         CommandScheduler.getInstance().run();
 

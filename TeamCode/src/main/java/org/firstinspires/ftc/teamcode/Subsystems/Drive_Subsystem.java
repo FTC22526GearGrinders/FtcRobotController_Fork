@@ -4,6 +4,7 @@ import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 
 
@@ -11,7 +12,7 @@ public class Drive_Subsystem extends SubsystemBase {
     public boolean fieldCentric;
 
 
-    private int test;
+    public int test;
 
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -21,24 +22,6 @@ public class Drive_Subsystem extends SubsystemBase {
     CommandOpMode myOpmode;
 
 
-    // This is the built-in IMU in the REV hub.
-    // We're initializing it by its default parameters
-    // and name in the config ('imu'). The orientation
-    // of the hub is important. Below is a model
-    // of the REV Hub and the orientation axes for the IMU.
-    //
-    //                           | Z axis
-    //                           |
-    //     (Motor Port Side)     |   / X axis
-    //                       ____|__/____
-    //          Y axis     / *   | /    /|   (IO Side)
-    //          _________ /______|/    //      I2C
-    //                   /___________ //     Digital
-    //                  |____________|/      Analog
-    //
-    //                 (Servo Port Side)
-    //
-    // (unapologetically stolen from the road-runner-quickstart)
 
     public Drive_Subsystem(CommandOpMode opMode) {
         myOpmode = opMode;
@@ -54,9 +37,10 @@ public class Drive_Subsystem extends SubsystemBase {
     }
 
     public void periodic() {
-        test++;
-        ;
+
+
     }
+
 
 
 }

@@ -50,6 +50,7 @@ public class LRTapePlacePixel extends CommandBase {
 
     @Override
     public void execute() {
+
         drive.drive.followTrajectorySequence(traj1);
 
         trajend = true;

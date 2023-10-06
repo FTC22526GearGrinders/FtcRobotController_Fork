@@ -52,5 +52,14 @@ public class IO_Subsystem extends SubsystemBase {
 
     }
 
+    public void showTelemetry(Telemetry telemetry) {
+        telemetry.addData("RedAlliance", dc0.getState());
+        telemetry.addData("BackBoardStart", dc1.getState());
+        telemetry.update();
+
+
+
+    }
+
 
 }

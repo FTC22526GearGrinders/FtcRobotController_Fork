@@ -22,6 +22,8 @@ public class PickAndRunTrajectories extends CommandBase {
     @Override
     public void initialize() {
 
+        drive.test=1;
+
 
         int lcr = ActiveMotionValues.getLcrpos();
 
@@ -29,10 +31,10 @@ public class PickAndRunTrajectories extends CommandBase {
 
         switch (lcr) {
 
-            case 0:
-            case 2:
-            case 10:
-            case 12:
+            case 1:
+            case 3:
+            case 11:
+            case 13:
                 new LRTapePlacePixel(drive).schedule();//
                 break;
             default:
@@ -43,8 +45,8 @@ public class PickAndRunTrajectories extends CommandBase {
 
         switch (lcr) {
 
-            case 1:
-            case 11:
+            case 2:
+            case 12:
                 new CenterTapePlacePixel(drive).schedule();//
                 break;
             default:

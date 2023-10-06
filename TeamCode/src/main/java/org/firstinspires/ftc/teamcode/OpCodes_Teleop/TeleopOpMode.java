@@ -30,7 +30,7 @@ public class TeleopOpMode extends CommandOpMode {
         CommandScheduler.getInstance().run();
 
         //elevator.showTelemetry();
-        // drive.showTelemetry();
+         drive.drive.showTelemetry(telemetry);
     }
 
 
