@@ -1,17 +1,14 @@
-package org.firstinspires.ftc.teamcode.OpCodes_Auto;
+package org.firstinspires.ftc.teamcode.OpModes_Auto;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
-import com.arcrobotics.ftclib.command.ConditionalCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-import org.firstinspires.ftc.teamcode.Commands.Auto.SelectMotionValuesBlue;
-import org.firstinspires.ftc.teamcode.Commands.Auto.SelectMotionValuesRed;
 import org.firstinspires.ftc.teamcode.Commands.Auto.SelectValues;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Subsystems.IO_Subsystem;
@@ -24,10 +21,13 @@ public class TestMotionData extends CommandOpMode {
     FtcDashboard dashboard;
     private IO_Subsystem ioss;
 
-    public static int lcr = 2;
-    public  boolean redAlliance;
+    private int lcr = 0;
 
-    public  boolean bbStart;
+    private boolean lcr_one_bit;
+    private boolean lcr_two_bit;
+    private boolean redAlliance;
+
+    private boolean bbStart;
 
 
     public void initialize() {
@@ -49,6 +49,16 @@ public class TestMotionData extends CommandOpMode {
 
         bbStart = !ioss.dc1.getState();
 
+        lcr_one_bit = !ioss.dc3.getState();
+
+        lcr_two_bit = !ioss.dc2.getState();
+
+        if (!lcr_one_bit && !lcr_two_bit) lcr = 0;
+        if (lcr_one_bit && !lcr_two_bit) lcr = 1;
+        if (!lcr_one_bit && lcr_two_bit) lcr = 2;
+        if (lcr_one_bit && lcr_two_bit) lcr = 3;
+
+        if (lcr == 0) lcr = 2;
 
         ActiveMotionValues.setRedAlliance(redAlliance);
 
@@ -60,9 +70,7 @@ public class TestMotionData extends CommandOpMode {
 
         new SequentialCommandGroup(
 
-
-               new SelectValues(),
-
+                new SelectValues(),
 
                 new WaitCommand(60000)).schedule();
 
@@ -75,7 +83,7 @@ public class TestMotionData extends CommandOpMode {
 
         telemetry.addData("RedAlliance", redAlliance);
         telemetry.addData("BBstary", bbStart);
-        telemetry.addData("LCR", ActiveMotionValues.getLcrpos());
+        telemetry.addData("LCR", lcr);
 
         telemetry.addData("StartPoseX", ActiveMotionValues.getStartPose().getX());
         telemetry.addData("StartPoseY", ActiveMotionValues.getStartPose().getY());
@@ -89,7 +97,7 @@ public class TestMotionData extends CommandOpMode {
 
         telemetry.addData("TagLAPoseX", ActiveMotionValues.getFinalPose().getX());
         telemetry.addData("TagLAPoseY", ActiveMotionValues.getFinalPose().getY());
-       telemetry.addData("TagLAPoseAng", ActiveMotionValues.getFinalPose().getHeading());
+        telemetry.addData("TagLAPoseAng", ActiveMotionValues.getFinalPose().getHeading());
 
         telemetry.addData("RetctDist", ActiveMotionValues.getRetractDistance());
 

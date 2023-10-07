@@ -27,16 +27,21 @@ public class IO_Subsystem extends SubsystemBase {
 
         dc0 = myOpMode.hardwareMap.get(DigitalChannel.class, "red alliance");
         dc1 = myOpMode.hardwareMap.get(DigitalChannel.class, "backboard start");
-//        dc3 = myOpMode.hardwareMap.get(DigitalChannel.class, "input_3");
-//        dc4 = myOpMode.hardwareMap.get(DigitalChannel.class, "input_4");
-//        dc5 = myOpMode.hardwareMap.get(DigitalChannel.class, "input_5");
+        dc3 = myOpMode.hardwareMap.get(DigitalChannel.class, ("lcr one bit"));
+        dc2 = myOpMode.hardwareMap.get(DigitalChannel.class, "lcr two bit");
+
+
+        //        dc4 = myOpMode.hardwareMap.get(DigitalChannel.class, "input_5");
+        //        dc5 = myOpMode.hardwareMap.get(DigitalChannel.class, "input_5");
 //        dc6 = myOpMode.hardwareMap.get(DigitalChannel.class, "input_6");
 //        dc7 = myOpMode.hardwareMap.get(DigitalChannel.class, "input_7");
 //        dc8 = myOpMode.hardwareMap.get(DigitalChannel.class, "input_8");
 
         dc0.setMode(DigitalChannel.Mode.INPUT);
         dc1.setMode(DigitalChannel.Mode.INPUT);
-//        dc3.setMode(DigitalChannel.Mode.INPUT);
+        dc2.setMode(DigitalChannel.Mode.INPUT);
+        dc3.setMode(DigitalChannel.Mode.INPUT);
+
 //        dc4.setMode(DigitalChannel.Mode.INPUT);
 //        dc5.setMode(DigitalChannel.Mode.INPUT);
 //        dc6.setMode(DigitalChannel.Mode.INPUT);
@@ -56,7 +61,6 @@ public class IO_Subsystem extends SubsystemBase {
         telemetry.addData("RedAlliance", dc0.getState());
         telemetry.addData("BackBoardStart", dc1.getState());
         telemetry.update();
-
 
 
     }

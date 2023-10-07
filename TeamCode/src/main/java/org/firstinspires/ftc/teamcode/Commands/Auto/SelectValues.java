@@ -9,10 +9,11 @@ public class SelectValues extends SequentialCommandGroup {
     public SelectValues() {
 
         int lcr = ActiveMotionValues.getLcrpos();
-        boolean redAlliance= ActiveMotionValues.getRedAlliance();
-        boolean bbStart= ActiveMotionValues.getBBStart();
+        if (lcr > 3 || lcr <= 0) lcr = 2;
+        boolean redAlliance = ActiveMotionValues.getRedAlliance();
+        boolean bbStart = ActiveMotionValues.getBBStart();
 
-     addCommands(   new SequentialCommandGroup(
+        addCommands(new SequentialCommandGroup(
 
 
                 new ConditionalCommand(

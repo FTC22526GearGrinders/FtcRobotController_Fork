@@ -1,50 +1,50 @@
-package org.firstinspires.ftc.teamcode.OpCodes_Auto;
+package org.firstinspires.ftc.teamcode.OpModes_Auto;
 
+import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
+import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.teamcode.Commands.Auto.RunAuto;
-import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
-import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
-import org.firstinspires.ftc.teamcode.Subsystems.IO_Subsystem;
+import org.firstinspires.ftc.teamcode.Commands.Auto.LookForTeamProp;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvWebcam;
 
+/**
+ * Created by Tom on 9/26/17.  Updated 9/24/2021 for PIDF.
+ * This assumes that you are using a REV Robotics Expansion Hub
+ * as your DC motor controller.  This OpMode uses the extended/enhanced
+ * PIDF-related functions of the DcMotorEx class.  The REV Robotics Expansion Hub
+ * supports the extended motor functions, but other controllers (such as the
+ * deprecated Modern Robotics and Hitechnic DC Motor Controllers) do not.
+ */
 @Config
-@Autonomous(name = "Auto Main AutoStart", group = "Auto")
+@Autonomous(name = "Vision: Team Element", group = "Auto")
 
-public class AutoModeSwitchable extends CommandOpMode {
-    private IO_Subsystem ioss;
+public class LookForTeamElement extends CommandOpMode {
 
-    private Drive_Subsystem drive;
+    // our DC motor
 
-    private OpenCvWebcam webcam;//
 
-    @Override
+    FtcDashboard dashboard;
+
+    public static int DISPSWITCH=0;
+
+
+    public OpenCvWebcam webcam;//
+
     public void initialize() {
+
 
         webcam = OpenCvCameraFactory.getInstance().createWebcam(this.hardwareMap.get(WebcamName.class, "Webcam 1"));
 
-        drive = new Drive_Subsystem(this);
+        dashboard = FtcDashboard.getInstance();
 
-        ioss= new IO_Subsystem(this);
-
-        boolean redAlliance = !ioss.dc0.getState();
-
-        boolean bbStart = !ioss.dc1.getState();
-
-
-        ActiveMotionValues.setRedAlliance(redAlliance);
-
-        ActiveMotionValues.setBBStart(bbStart);
-
-
-
+        telemetry = new MultipleTelemetry(telemetry, dashboard.getTelemetry());
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
             public void onOpened() {
@@ -70,6 +70,7 @@ public class AutoModeSwitchable extends CommandOpMode {
                 //start streaming the camera
                 webcam.startStreaming(640, 480, OpenCvCameraRotation.UPRIGHT);
                 //if you are using dashboard, update dashboard camera view
+                FtcDashboard.getInstance().startCameraStream(webcam, 5);
 
             }
 
@@ -82,9 +83,8 @@ public class AutoModeSwitchable extends CommandOpMode {
         });
 
 
-        new RunAuto(this,drive,webcam).schedule();
-
-
+        // new WaitCommand(10000000).schedule();
+        new LookForTeamProp(this, webcam).schedule();
     }
 
     // Put run blocks here.
@@ -93,4 +93,7 @@ public class AutoModeSwitchable extends CommandOpMode {
         CommandScheduler.getInstance().run();
 
     }
+
+
 }
+
