@@ -314,6 +314,11 @@ public class SampleMecanumDrive extends MecanumDrive {
         rightFront.setPower(v3);
     }
 
+    public void stop() {
+        setMotorPowers(0, 0, 0, 0);
+    }
+
+
     public void jog(double y, double x, double rx) {
         double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
         leftFront.setPower((y + x + rx) / denominator);
@@ -354,7 +359,7 @@ public class SampleMecanumDrive extends MecanumDrive {
     }
 
     public boolean getDriveStopped() {
-        double stoppedVel = .05;
+        double stoppedVel = .1;
         return Math.abs(leftFront.getVelocity()) < stoppedVel &&
                 Math.abs(rightFront.getVelocity()) < stoppedVel &&
                 Math.abs(leftRear.getVelocity()) < stoppedVel &&
@@ -364,15 +369,18 @@ public class SampleMecanumDrive extends MecanumDrive {
     public void showTelemetry(Telemetry telemetry) {
 
         telemetry.addData("FrontLeftPosn", encoderTicksToInches(leftFront.getCurrentPosition()));
+        telemetry.addData("FrontLeftTicks", leftFront.getCurrentPosition());
+
         telemetry.addData("FrontRightPosn", encoderTicksToInches(rightFront.getCurrentPosition()));
         telemetry.addData("BackLeftPosn", encoderTicksToInches(leftRear.getCurrentPosition()));
         telemetry.addData("BackRightPosn", encoderTicksToInches(rightRear.getCurrentPosition()));
+
+
         telemetry.addData("FrontLeftVel", leftFront.getVelocity());
 
         telemetry.addData("Gyro Heading", Math.toDegrees(getExternalHeading()));
-        telemetry.addData("BayyeryVolts", getBatteryVolts());
+        telemetry.addData("BatteryVolts", getBatteryVolts());
         telemetry.update();
-
 
     }
 

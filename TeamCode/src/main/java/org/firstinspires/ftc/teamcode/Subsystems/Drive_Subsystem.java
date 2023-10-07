@@ -21,6 +21,12 @@ public class Drive_Subsystem extends SubsystemBase {
 
     CommandOpMode myOpmode;
 
+    public boolean running=false;
+
+    public boolean started=false;
+
+    public boolean stopped=false;
+
 
 
     public Drive_Subsystem(CommandOpMode opMode) {
@@ -41,7 +47,15 @@ public class Drive_Subsystem extends SubsystemBase {
 
     }
 
+public void showtelemetry(Telemetry telemetry){
+    telemetry.addData("Started",started);
+    telemetry.addData("Running",running);
+    telemetry.addData("Stoped",stopped);
 
+    telemetry.update();
+
+
+}
 
 }
 

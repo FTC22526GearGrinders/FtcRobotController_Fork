@@ -12,6 +12,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.Commands.Auto.SelectMotionValuesBlue;
 import org.firstinspires.ftc.teamcode.Commands.Auto.SelectMotionValuesRed;
+import org.firstinspires.ftc.teamcode.Commands.Auto.SelectValues;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Subsystems.IO_Subsystem;
 
@@ -23,13 +24,15 @@ public class TestMotionData extends CommandOpMode {
     FtcDashboard dashboard;
     private IO_Subsystem ioss;
 
-    public static int lcr = 1;
-    private boolean redAlliance;
+    public static int lcr = 2;
+    public  boolean redAlliance;
 
-    private boolean bbStart;
+    public  boolean bbStart;
 
 
     public void initialize() {
+
+        CommandScheduler.getInstance().cancelAll();
 
         ioss = new IO_Subsystem(this);
 
@@ -58,9 +61,7 @@ public class TestMotionData extends CommandOpMode {
         new SequentialCommandGroup(
 
 
-                new ConditionalCommand(
-
-                        new SelectMotionValuesRed(), new SelectMotionValuesBlue(), () -> ActiveMotionValues.getRedAlliance()),
+               new SelectValues(),
 
 
                 new WaitCommand(60000)).schedule();
@@ -79,6 +80,7 @@ public class TestMotionData extends CommandOpMode {
         telemetry.addData("StartPoseX", ActiveMotionValues.getStartPose().getX());
         telemetry.addData("StartPoseY", ActiveMotionValues.getStartPose().getY());
         telemetry.addData("StartPoseAng", ActiveMotionValues.getStartPose().getHeading());
+        telemetry.addData("StartPose", ActiveMotionValues.getStartPose().toString());
 
         telemetry.addData("XFirst", ActiveMotionValues.getxFirstPoint());
         telemetry.addData("Y First", ActiveMotionValues.getyFirstPoint());

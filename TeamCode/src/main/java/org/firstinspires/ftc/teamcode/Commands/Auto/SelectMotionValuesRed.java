@@ -70,7 +70,7 @@ public class SelectMotionValuesRed extends CommandBase {
             case 2://center Red
 
 
-                ActiveMotionValues.setyOffset(-4);
+                ActiveMotionValues.setyOffset(0);
 
                 ActiveMotionValues.setxOffset(0);
 
@@ -148,7 +148,7 @@ public class SelectMotionValuesRed extends CommandBase {
             case 12://center Red
 
 
-                ActiveMotionValues.setyOffset(12);
+                ActiveMotionValues.setyOffset(0);
 
                 ActiveMotionValues.setxOffset(0);
 

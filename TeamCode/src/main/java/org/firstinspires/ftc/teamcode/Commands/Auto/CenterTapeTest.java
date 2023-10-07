@@ -1,15 +1,15 @@
 package org.firstinspires.ftc.teamcode.Commands.Auto;
 
+import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.arcrobotics.ftclib.util.Timing;
 
-import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
 
-public class CenterTapePlacePixel extends CommandBase {
+public class CenterTapeTest extends CommandBase {
 
     private Drive_Subsystem drive;
 
@@ -18,20 +18,27 @@ public class CenterTapePlacePixel extends CommandBase {
     Timing.Timer trajTimer = new Timing.Timer(10);
 
     long dropOffTime = 1L;
+    private boolean trajectoryStarted;
 
-    public CenterTapePlacePixel(Drive_Subsystem drive) {
+    public CenterTapeTest(Drive_Subsystem drive) {
         this.drive = drive;
-
+        trajTimer.start();
+        ;
     }
 
     @Override
     public void initialize() {
 
-        drive.drive.setPoseEstimate(ActiveMotionValues.getStartPose());
 
-        traj1 = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
+        trajectoryStarted = false;
 
-                .lineTo(new Vector2d(ActiveMotionValues.getxFirstPoint(), ActiveMotionValues.getyFirstPoint() + ActiveMotionValues.getyOffset()))
+        drive.started = false;
+
+        drive.drive.setPoseEstimate(new Pose2d());
+
+        traj1 = drive.drive.trajectorySequenceBuilder(new Pose2d())
+
+                .lineTo(new Vector2d(50, -10))
 
                 //  .addTemporalMarker(() -> new DeliverPixelSpikeTapeCommand())
 
@@ -43,20 +50,19 @@ public class CenterTapePlacePixel extends CommandBase {
 
                 .build();
 
-
     }
 
     @Override
     public void execute() {
-        drive.drive.followTrajectorySequence(traj1);
 
+        drive.drive.followTrajectorySequence(traj1);
 
     }
 
 
     @Override
     public void end(boolean interrupted) {
-
+        drive.drive.stop();
     }
 
     @Override

@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Commands.Auto;
 
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.arcrobotics.ftclib.command.CommandBase;
+import com.arcrobotics.ftclib.util.Timing;
 
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
@@ -14,7 +15,8 @@ public class LRTapePlacePixel extends CommandBase {
 
     TrajectorySequence traj1;
 
-    private boolean trajectoryStarted;
+    Timing.Timer trajTimer = new Timing.Timer(10);
+
 
     public LRTapePlacePixel(Drive_Subsystem drive) {
         this.drive = drive;
@@ -23,7 +25,7 @@ public class LRTapePlacePixel extends CommandBase {
 
     @Override
     public void initialize() {
-
+        drive.drive.setPoseEstimate(ActiveMotionValues.getStartPose());
 
         traj1 =
                 drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
@@ -50,10 +52,6 @@ public class LRTapePlacePixel extends CommandBase {
 
         drive.drive.followTrajectorySequence(traj1);
 
-        if (!trajectoryStarted && drive.drive.getTrajectoryRunning()) {
-            trajectoryStarted = true;
-        }
-
     }
 
     @Override
@@ -63,6 +61,6 @@ public class LRTapePlacePixel extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return trajectoryStarted && !drive.drive.getTrajectoryRunning() && drive.drive.getDriveStopped();
+        return trajTimer.elapsedTime() > traj1.duration() && drive.drive.getDriveStopped() || trajTimer.done();
     }
 }

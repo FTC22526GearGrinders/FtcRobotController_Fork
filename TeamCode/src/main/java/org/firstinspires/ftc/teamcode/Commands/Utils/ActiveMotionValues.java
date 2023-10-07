@@ -27,7 +27,7 @@ public class ActiveMotionValues {
     }
 
     public static void setFinalPose(Pose2d pose) {
-        startPose = pose;
+        finalPose = pose;
     }
 
     public static double getxFirstPoint() {
