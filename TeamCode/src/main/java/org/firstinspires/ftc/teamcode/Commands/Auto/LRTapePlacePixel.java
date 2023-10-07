@@ -30,13 +30,17 @@ public class LRTapePlacePixel extends CommandBase {
         traj1 =
                 drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
 
-                        .lineTo(new Vector2d((ActiveMotionValues.getxFirstPoint() + ActiveMotionValues.getxOffset()), ActiveMotionValues.getyFirstPoint() + ActiveMotionValues.getyOffset()))
+                        .lineTo(new Vector2d((ActiveMotionValues.getxFirstPoint() + ActiveMotionValues.getxOffset()),
+
+                                ActiveMotionValues.getyFirstPoint() + ActiveMotionValues.getyOffset()))
 
                         .addTemporalMarker(() -> new DeliverPixelSpikeTapeCommand().schedule())
 
                         .waitSeconds(3)
 
-                        .lineTo(new Vector2d((ActiveMotionValues.getxFirstPoint() + ActiveMotionValues.getxOffset()), ActiveMotionValues.getyFirstPoint() + ActiveMotionValues.getyOffset()))
+                        .lineTo(new Vector2d((ActiveMotionValues.getxFirstPoint() + ActiveMotionValues.getxOffset()),
+
+                                ActiveMotionValues.getyFirstPoint() + ActiveMotionValues.getyOffset()))
 
                         .back(ActiveMotionValues.getRetractDistance())
 
