@@ -37,8 +37,9 @@ import org.firstinspires.ftc.teamcode.FieldConstantsBlue;
  *
  *The robot will be retracted after placing the pixel on the tape; The robot will move back the value in retractDistance in the Y axis
  * only for the center tape. Retract distance must have a value other that 0 or the code will crash;
- * The robot will retract along the same line it came in on for the left and right tapes. The retract distance will be along that line;
  *
+ *For left and right tapes, the robot heading does not change. I will reach the tape parallel to it.
+ * Retract will then take if back along the Y axis.
  *
  *
  *

@@ -359,7 +359,7 @@ public class SampleMecanumDrive extends MecanumDrive {
     }
 
     public boolean getDriveStopped() {
-        double stoppedVel = .1;
+        double stoppedVel = .01;
         return Math.abs(leftFront.getVelocity()) < stoppedVel &&
                 Math.abs(rightFront.getVelocity()) < stoppedVel &&
                 Math.abs(leftRear.getVelocity()) < stoppedVel &&

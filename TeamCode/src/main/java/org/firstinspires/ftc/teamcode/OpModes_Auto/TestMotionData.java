@@ -80,9 +80,9 @@ public class TestMotionData extends CommandOpMode {
     // Put run blocks here.
     public void run() {
 
-        telemetry.addData("RedAlliance", redAlliance);
-        telemetry.addData("BBstary", bbStart);
-        telemetry.addData("LCR", lcr);
+        telemetry.addData("RedAlliance", ActiveMotionValues.getRedAlliance());
+        telemetry.addData("BB Start", ActiveMotionValues.getBBStart());
+        telemetry.addData("LCR", ActiveMotionValues.getLcrpos());
 
         telemetry.addData("StartPoseX", ActiveMotionValues.getStartPose().getX());
         telemetry.addData("StartPoseY", ActiveMotionValues.getStartPose().getY());
@@ -90,6 +90,8 @@ public class TestMotionData extends CommandOpMode {
         telemetry.addData("StartPose", ActiveMotionValues.getStartPose().toString());
 
         telemetry.addData("XFirst", ActiveMotionValues.getxFirstPoint());
+        telemetry.addData("XSecond", ActiveMotionValues.getxSecondPoint());
+
         telemetry.addData("Y First", ActiveMotionValues.getyFirstPoint());
 
         telemetry.addData("Y Secnd", ActiveMotionValues.getySecondPoint());
