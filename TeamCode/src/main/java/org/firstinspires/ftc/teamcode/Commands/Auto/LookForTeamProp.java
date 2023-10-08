@@ -6,8 +6,7 @@ import com.arcrobotics.ftclib.command.CommandOpMode;
 
 import org.firstinspires.ftc.teamcode.CV.SpikeTapePipelineBlue;
 import org.firstinspires.ftc.teamcode.CV.SpikeTapePipelineRed;
-import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
-import org.firstinspires.ftc.teamcode.Subsystems.IO_Subsystem;
+import org.firstinspires.ftc.teamcode.CV.SpikeTapePipelineRed2;
 import org.opencv.core.Rect;
 import org.openftc.easyopencv.OpenCvWebcam;
 
@@ -45,6 +44,8 @@ public class LookForTeamProp extends CommandBase {
 
     private int yTop;
 
+
+
     // List<Rect> lr;
 
 
@@ -58,41 +59,46 @@ public class LookForTeamProp extends CommandBase {
     public void initialize() {
 
 
-        sptopB = new SpikeTapePipelineBlue();
+        //sptopB = new SpikeTapePipelineBlue();
 
         sptopR = new SpikeTapePipelineRed();
 
-        if (ActiveMotionValues.getRedAlliance())
+        //if (ActiveMotionValues.getRedAlliance())
             webcam.setPipeline(sptopR);
-        else
-            webcam.setPipeline(sptopB);
+
+//        else
+//            webcam.setPipeline(sptopB);
 
 
     }
 
     @Override
     public void execute() {
-        List<Rect> r = new ArrayList<>(10);
-        if (ActiveMotionValues.getRedAlliance()) {
-            r = sptopR.getRects();
+//        List<Rect> r = new ArrayList<>(10);
+//     //   if (ActiveMotionValues.getRedAlliance()) {
+//            r = sptopR.getRects();
 
-        } else {
-            r = sptopB.getRects();
-        }
+//        } else {
+//            r = sptopB.getRects();
+//        }
 //
 //        lcr = calcLCR(r);
 //
 //        ActiveMotionValues.setLcrpos(lcr);
 
 
-        myOpMode.telemetry.addData("NumContours", sptopR.getNumberContours());
-
-        myOpMode.telemetry.addData("ValidContours", sptopR.getValidContours());
-        myOpMode.telemetry.addData("area 0", r.get(0).area());
-        myOpMode.telemetry.addData("x 0", r.get(0).x);
+//        myOpMode.telemetry.addData("NumContours", sptopR.getNumberContours());
+//
+//        myOpMode.telemetry.addData("ValidContours", sptopR.getValidContours());
 
 
-        myOpMode.telemetry.addData("LCR", lcr);
+        myOpMode.telemetry.addData("W1", sptopR.getW1());
+        myOpMode.telemetry.addData("W2", sptopR.getW2());
+        myOpMode.telemetry.addData("W3", sptopR.getW3());
+        myOpMode.telemetry.addData("Height", sptopR.getImgHeight());
+        myOpMode.telemetry.addData("Width", sptopR.getImgWidth());
+
+
 
 
         myOpMode.telemetry.update();

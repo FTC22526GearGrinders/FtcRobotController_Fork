@@ -2,67 +2,59 @@ package org.firstinspires.ftc.teamcode.CV;
 
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
-import org.opencv.core.MatOfPoint;
-import org.opencv.core.Rect;
+import org.opencv.core.Point;
 import org.opencv.core.Scalar;
-import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 import org.openftc.easyopencv.OpenCvPipeline;
-
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
 
 //for dashboard
 /*@Config*/
 public class SpikeTapePipelineRed extends OpenCvPipeline {
 
-    //backlog of frames to average out to reduce noise
-    ArrayList<double[]> frameList;
+    // private String location = "nothing"; // output
+    public Scalar lower = new Scalar(0, 0, 0); // HSV threshold bounds
+    public Scalar upper = new Scalar(140, 255, 255);
 
-    public int blur = 0;
+    private Mat mat = new Mat();
+    private Mat hsvMat = new Mat(); // converted image
+    private Mat binaryMat = new Mat(); // imamge analyzed after thresholding
+    private Mat maskedInputMat = new Mat();
+
+    int imgHeight = 480;
+    int imgWidth = 640;
+
+    int sideBorder = 40;
+    int sideWidth = 100;
+
+    int sideYHeight = 150;
+
+    int sideTopY = 300;
+
+    int centerTopBorder= 250;
+    int centerTopHeight = 100;
+
+    int centerLeftX=250;
+
+    int centerTopWidth= 200;
 
 
-    public int lo = 0;
+    // Rectangle regions to be scanned
+    private Point left = new Point(sideBorder, sideTopY), bottomRight1 = new Point(sideBorder + sideWidth, sideTopY + sideYHeight);
+    private Point center = new Point(centerLeftX, centerTopBorder), bottomRight2 = new Point(centerLeftX+centerTopWidth, centerTopBorder+centerTopHeight);
 
-    public int hi = 120;
+    private Point right = new Point(imgWidth - sideBorder - sideWidth, sideTopY), bottomRight3 = new Point(imgWidth - sideBorder, sideTopY + sideYHeight);
+
+    public double w1 = 0;
+    public double w2 = 0;
+    public double w3 = 0;
 
 
-    public ArrayList<Rect> r = new ArrayList<>(10);
-
-
-    private int lcr;
-    private int numContours;
-    private int validContours;
-
-    private Mat hsvMat = new Mat();
-
-    Mat filtered = new Mat();
-
-    Mat masked = new Mat();
-
-    public Scalar lower = new Scalar(lo, 0, 0);
-    public Scalar upper = new Scalar(hi, 255, 255);
-
-    Mat blurred = new Mat();
-
-    boolean altImage;
-
-    Mat mat = new Mat();
-
-    int lx = 320;//x start point of crop pixels left edge screen
-
-    int lw = 319;//width of crop say 8"
-    int ly = 240;//y start point of crop 6" down
-
-    int lh = 239;//height of crop say 14"
-    Rect spikeCrop = new Rect(lx, ly, lw, lh);
-
-    private boolean holdPipeline;
-
+    Scalar white = new Scalar(255, 255, 255);
 
     public SpikeTapePipelineRed() {
 
+
+        //   this.telemetry = telemetry;
     }
 
     @Override
@@ -71,87 +63,83 @@ public class SpikeTapePipelineRed extends OpenCvPipeline {
         if (mat.empty()) {
             return input;
         }
+        imgWidth = mat.width();
+        imgHeight = mat.height();
+        // Convert from BGR to HSV
+        Imgproc.cvtColor(input, hsvMat, Imgproc.COLOR_RGB2HSV);
+
+        Core.inRange(hsvMat, lower, upper, binaryMat);
+
+        Imgproc.rectangle(input, left, bottomRight1, white, 1);
+
+        Imgproc.rectangle(input, center, bottomRight2, white, 1);
+
+        Imgproc.rectangle(input, right, bottomRight3, white, 1);
 
 
-        // Mat cropped = input.submat(spikeCrop);
+        // Scan both rectangle regions, keeping track of how many
+        // pixels meet the threshold value, indicated by the color
+        // in the binary image
 
-        // Mat src = cropped;
-
-        Mat src = input;
-
-
-        // Imgproc.GaussianBlur(cropped, src, new Size(15, 15), 0);
-         Imgproc.blur(mat, blurred, new Size(7, 7));
-
-        // Core.bitwise_and(mat, mat, tgt, mask);
-        Imgproc.cvtColor(blurred, hsvMat, Imgproc.COLOR_BGR2HSV);
-
-        Scalar greeb = new Scalar(0, 255, 0);
-        Scalar blue = new Scalar(255, 0, 0);
-        Scalar red = new Scalar(0, 0, 255);
-
-
-        Core.inRange(hsvMat, lower, upper, filtered);
-
-
-        List<MatOfPoint> contours = new ArrayList<>();
-//
-        Mat hierarchy = new Mat();
-
-
-//        //find contours, input scaledThresh because it has hard edges
-        Imgproc.findContours(filtered, contours, hierarchy, Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE);
-
-        numContours = contours.size();
-
-        validContours = 0;
-
-        if (numContours > 10)
-            numContours = 10;
-
-        if (r.size() < 12) {
-            for (int i = 0; i < 12; i++) {
-                r.add(new Rect());
+        // process the pixel value for each rectangle  (255 = W, 0 = B)
+        for (int i = (int) left.x; i <= bottomRight1.x; i++) {
+            for (int j = (int) left.y; j <= bottomRight1.y; j++) {
+                if (binaryMat.get(i, j)[0] == 255) {
+                    w1++;
+                }
             }
         }
 
 
-        for (int i = 0; i < numContours; i++) {
-
-            Rect tempR = Imgproc.boundingRect(contours.get(i));
-
-            if (tempR.area() > 500) {
-                r.set(validContours, tempR);
-                validContours++;
+        for (int p = (int) center.x; p <= bottomRight2.x; p++) {
+            for (int q = (int) center.y; q <= bottomRight2.y; q++) {
+                if (binaryMat.get(p, q)[0] == 255) {
+                    w2++;
+                }
             }
         }
-
-//       // contours.clear();
 //
+//        for (int i = (int) right.x; i <= bottomRight3.x; i++) {
+//            for (int j = (int) right.y; j <= bottomRight3.y; j++) {
+//                if (binaryMat.get(i, j)[0] == 255) {
+//                    w3++;
+//                }
+//            }
+//        }
+
+//        // Determine object location
+//        if (w1 > w2 && w1 > w3) {
+//            location = "1";
+//        } else if (w2 > w1 && w2 > w3) {
+//            location = "2";
+//        } else if (w3 > w1 && w3 > w2) {
+//            location = "3";
+//        }
+
+
 //
-        if (validContours >= 3) {
-            r.sort(Comparator.comparing(Rect::area).reversed());
-        }
 
-
-        return filtered;
-
-
+        return input;
     }
 
-
-    public int getNumberContours() {
-        holdPipeline = true;
-
-        return numContours;
+    public double getW1() {
+        return w1;
     }
 
-    public int getValidContours() {
-        return validContours;
+    public double getW2() {
+        return w2;
     }
 
-    public List<Rect> getRects() {
-        return r;
+    public double getW3() {
+        return w3;
+    }
+
+    public int getImgHeight() {
+        return imgHeight;
+    }
+
+    public int getImgWidth() {
+        return imgWidth;
     }
 
 
