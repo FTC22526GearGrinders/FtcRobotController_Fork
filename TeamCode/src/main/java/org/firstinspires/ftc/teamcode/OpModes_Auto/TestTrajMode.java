@@ -5,10 +5,12 @@ import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
+import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Commands.Auto.PickAndRunTrajectories;
+import org.firstinspires.ftc.teamcode.Commands.Auto.SelectValues;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.IO_Subsystem;
@@ -41,18 +43,26 @@ public class TestTrajMode extends CommandOpMode {
         Telemetry telemetry = new MultipleTelemetry(this.telemetry, FtcDashboard.getInstance().getTelemetry());
 
 
-//        boolean redAlliance = !ioss.dc0.getState();
-//
-//        boolean bbStart = !ioss.dc1.getState();
+        redAlliance = !ioss.dc0.getState();
 
+        bbStart = !ioss.dc1.getState();
 
+        boolean lcr_one_bit = !ioss.dc3.getState();
 
+        boolean lcr_two_bit = !ioss.dc2.getState();
 
-        //   new SequentialCommandGroup(
+        if (!lcr_one_bit && !lcr_two_bit) lcr = 0;
+        if (lcr_one_bit && !lcr_two_bit) lcr = 1;
+        if (!lcr_one_bit && lcr_two_bit) lcr = 2;
+        if (lcr_one_bit && lcr_two_bit) lcr = 3;
 
+        if (lcr == 0) lcr = 2;
 
+        new SequentialCommandGroup(
 
-                new PickAndRunTrajectories(drive).schedule();
+                new SelectValues(),
+
+                new PickAndRunTrajectories(drive)).schedule();
 
 
     }
@@ -61,18 +71,34 @@ public class TestTrajMode extends CommandOpMode {
     public void run() {
 
 
-        telemetry.addData("RedAlliance", ActiveMotionValues.getRedAlliance());
-        telemetry.addData("BackboardStart", ActiveMotionValues.getBBStart());
+        telemetry.addData("RedAlliance", redAlliance);
+        telemetry.addData("BBstary", bbStart);
+        telemetry.addData("LCR", lcr);
 
-        telemetry.addData("AprilTag", ActiveMotionValues.getActTag());
-        telemetry.addData("Yfirst", ActiveMotionValues.getyFirstPoint());
+        telemetry.addData("StartPoseX", ActiveMotionValues.getStartPose().getX());
+        telemetry.addData("StartPoseY", ActiveMotionValues.getStartPose().getY());
+        telemetry.addData("StartPoseAng", ActiveMotionValues.getStartPose().getHeading());
+        telemetry.addData("StartPose", ActiveMotionValues.getStartPose().toString());
 
-        telemetry.addData("DRTEST", drive.test);
+        telemetry.addData("XFirst", ActiveMotionValues.getxFirstPoint());
+        telemetry.addData("Y First", ActiveMotionValues.getyFirstPoint());
+
+        telemetry.addData("Y Secnd", ActiveMotionValues.getySecondPoint());
+
+        telemetry.addData("TagLAPoseX", ActiveMotionValues.getFinalPose().getX());
+        telemetry.addData("TagLAPoseY", ActiveMotionValues.getFinalPose().getY());
+        telemetry.addData("TagLAPoseAng", ActiveMotionValues.getFinalPose().getHeading());
+
+        telemetry.addData("RetctDist", ActiveMotionValues.getRetractDistance());
+
+        telemetry.addData("XOffset", ActiveMotionValues.getxOffset());
+        telemetry.addData("YOffset", ActiveMotionValues.getyOffset());
+        telemetry.addData("Atag", ActiveMotionValues.getActTag());
 
 
         telemetry.update();
 
-        //  drive.drive.showTelemetry(telemetry);
+
 
         CommandScheduler.getInstance().run();
 

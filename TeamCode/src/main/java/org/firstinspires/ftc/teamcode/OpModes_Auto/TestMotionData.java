@@ -64,7 +64,6 @@ public class TestMotionData extends CommandOpMode {
 
         ActiveMotionValues.setBBStart(bbStart);
 
-
         ActiveMotionValues.setLcrpos(lcr);
 
 

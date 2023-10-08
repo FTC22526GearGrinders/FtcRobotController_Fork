@@ -18,7 +18,7 @@ public class SelectValues extends SequentialCommandGroup {
 
                 new ConditionalCommand(
 
-                        new SelectMotionValuesRed(bbStart, lcr), new SelectMotionValuesBlue(bbStart, lcr), () -> redAlliance)));
+                        new SelectMotionValuesRed(), new SelectMotionValuesBlue(), () -> redAlliance)));
 
     }
 

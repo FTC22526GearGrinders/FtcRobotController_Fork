@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Commands.Auto;
 
+import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.arcrobotics.ftclib.util.Timing;
@@ -30,19 +31,19 @@ public class LRTapePlacePixel extends CommandBase {
         traj1 =
                 drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
 
-                        .lineTo(new Vector2d((ActiveMotionValues.getxFirstPoint() + ActiveMotionValues.getxOffset()),
+                        .lineTo(new Vector2d((ActiveMotionValues.getxFirstPoint()),
 
-                                ActiveMotionValues.getyFirstPoint() + ActiveMotionValues.getyOffset()))
+                                ActiveMotionValues.getyFirstPoint()))
+
 
                         .addTemporalMarker(() -> new DeliverPixelSpikeTapeCommand().schedule())
 
                         .waitSeconds(3)
 
-                        .lineTo(new Vector2d((ActiveMotionValues.getxFirstPoint() + ActiveMotionValues.getxOffset()),
+                        .lineTo(new Vector2d((ActiveMotionValues.getxSecondPoint()),
 
-                                ActiveMotionValues.getyFirstPoint() + ActiveMotionValues.getyOffset()))
+                                ActiveMotionValues.getySecondPoint()))
 
-                        .back(ActiveMotionValues.getRetractDistance())
 
                         .lineToLinearHeading(ActiveMotionValues.getTagLookAheadPose())
 

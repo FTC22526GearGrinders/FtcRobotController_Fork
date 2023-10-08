@@ -4,6 +4,12 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 
 public final class FieldConstantsBlue {
 
+    /*
+    *
+    *
+    * */
+
+
     public static Pose2d wingPose = new Pose2d(-60,-60, Math.toRadians(0));
 
     public static final class AprilTagConstants {

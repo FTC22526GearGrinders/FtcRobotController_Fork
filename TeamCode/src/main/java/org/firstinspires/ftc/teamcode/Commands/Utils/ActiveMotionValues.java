@@ -34,48 +34,59 @@ public class ActiveMotionValues {
         return xFirstPoint;
     }
 
-    public static void setxFirstPoint(double xFirstPoint) {
-        ActiveMotionValues.xFirstPoint = xFirstPoint;
+    public static void setxFirstPoint(double x1stPoint) {
+        xFirstPoint = x1stPoint;
     }
+
+    public static double getxSecondPoint() {
+        return xSecondPoint;
+    }
+
+    public static void setxSecondPoint(double x2ndPoint) {
+        xSecondPoint = x2ndPoint;
+    }
+
+
 
     public static double getyFirstPoint() {
         return yFirstPoint;
     }
 
-    public static void setyFirstPoint(double yFirstPoint) {
-        ActiveMotionValues.yFirstPoint = yFirstPoint;
+    public static void setyFirstPoint(double y1stPoint) {
+        yFirstPoint = y1stPoint;
     }
+
 
     public static double getySecondPoint() {
         return ySecondPoint;
     }
 
-    public static void setySecondPoint(double ySecondPoint) {
-        ActiveMotionValues.ySecondPoint = ySecondPoint;
+    public static void setySecondPoint(double y2ndPoint) {
+        ySecondPoint = y2ndPoint;
     }
 
     public static Pose2d getTagLookAheadPose() {
         return tagLookAheadPose;
     }
 
-    public static void setTagLookAheadPose(Pose2d tagLookAheadPose) {
-        ActiveMotionValues.tagLookAheadPose = tagLookAheadPose;
+    public static void setTagLookAheadPose(Pose2d tagLAPose) {
+        tagLookAheadPose = tagLAPose;
     }
 
     public static double getyOffset() {
         return yOffset;
     }
 
-    public static void setyOffset(double yOffset) {
-        ActiveMotionValues.yOffset = yOffset;
+    public static void setyOffset(double yOff){
+        yOffset=yOff;
     }
 
     public static double getxOffset() {
         return xOffset;
     }
 
-    public static void setxOffset(double offset) {
-        xOffset = xOffset;
+    public static void setxOffset(double xOff) {
+        xOffset = xOff;
     }
 
     public static double getRetractDistance() {
@@ -98,35 +109,39 @@ public class ActiveMotionValues {
         return redAlliance;
     }
 
-    public static void setRedAlliance(boolean redAlliance) {
-        ActiveMotionValues.redAlliance = redAlliance;
+    public static void setRedAlliance(boolean redA) {
+        redAlliance = redA;
     }
 
     public static boolean getBBStart() {
         return bbStart;
     }
 
-    public static void setBBStart(boolean bbStart) {
-        ActiveMotionValues.bbStart = bbStart;
+    public static void setBBStart(boolean bbSt) {
+        bbStart = bbSt;
     }
 
     public static int getLcrpos() {
         return lcrpos;
     }
 
-    public static void setLcrpos(int lcrpos) {
-        ActiveMotionValues.lcrpos = lcrpos;
+    public static void setLcrpos(int lcr) {
+        lcrpos = lcr;
     }
 
     public static int getActTag() {
         return actTag;
     }
 
-    public static void setActTag(int actTag) {
-        ActiveMotionValues.actTag = actTag;
+    public static void setActTag(int act) {
+        actTag = act;
     }
 
     private static double xFirstPoint;
+
+    private static double xSecondPoint;
+
+
     private static double ySecondPoint;
 
     private static Pose2d tagLookAheadPose = new Pose2d();
