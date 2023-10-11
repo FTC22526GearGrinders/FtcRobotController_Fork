@@ -7,6 +7,8 @@ import com.arcrobotics.ftclib.command.CommandOpMode;
 import org.firstinspires.ftc.teamcode.CV.SpikeTapePipelineBlue;
 import org.firstinspires.ftc.teamcode.CV.SpikeTapePipelineRed;
 import org.firstinspires.ftc.teamcode.CV.SpikeTapePipelineRed2;
+import org.firstinspires.ftc.teamcode.CV.SpikeTapePipelineTuneRed;
+import org.firstinspires.ftc.teamcode.VisionTest.SpikeTapePipelineTune2;
 import org.opencv.core.Rect;
 import org.openftc.easyopencv.OpenCvWebcam;
 
@@ -27,7 +29,7 @@ import java.util.List;
  * */
 public class LookForTeamProp extends CommandBase {
 
-    SpikeTapePipelineRed sptopR = null;
+    SpikeTapePipelineTune2 sptopR = null;
 
     SpikeTapePipelineBlue sptopB = null;
 
@@ -61,7 +63,7 @@ public class LookForTeamProp extends CommandBase {
 
         //sptopB = new SpikeTapePipelineBlue();
 
-        sptopR = new SpikeTapePipelineRed();
+        //sptopR = new SpikeTapePipelineTune2();
 
         //if (ActiveMotionValues.getRedAlliance())
             webcam.setPipeline(sptopR);
@@ -92,16 +94,19 @@ public class LookForTeamProp extends CommandBase {
 //        myOpMode.telemetry.addData("ValidContours", sptopR.getValidContours());
 
 
-        myOpMode.telemetry.addData("W1", sptopR.getW1());
-        myOpMode.telemetry.addData("W2", sptopR.getW2());
-        myOpMode.telemetry.addData("W3", sptopR.getW3());
-        myOpMode.telemetry.addData("Height", sptopR.getImgHeight());
-        myOpMode.telemetry.addData("Width", sptopR.getImgWidth());
-
-
-
-
-        myOpMode.telemetry.update();
+//        myOpMode.telemetry.addData("W1", sptopR.getW1());
+//        myOpMode.telemetry.addData("W2", sptopR.getW2());
+//        myOpMode.telemetry.addData("W3", sptopR.getW3());
+//        myOpMode.telemetry.addData("LCR", sptopR.getLCR());
+//
+//
+//        myOpMode.telemetry.addData("Cols", sptopR.getImgCols());
+//        myOpMode.telemetry.addData("Rows", sptopR.getImgRows());
+//
+//
+//
+//
+//        myOpMode.telemetry.update();
 
 
     }

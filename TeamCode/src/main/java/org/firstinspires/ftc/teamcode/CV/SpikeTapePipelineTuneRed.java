@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.VisionTest;
+package org.firstinspires.ftc.teamcode.CV;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.opencv.core.Core;
@@ -16,7 +16,7 @@ import java.util.List;
 
 //for dashboard
 /*@Config*/
-public class SpikeTapePipelineTune extends OpenCvPipeline {
+public class SpikeTapePipelineTuneRed extends OpenCvPipeline {
 
     //backlog of frames to average out to reduce noise
     ArrayList<double[]> frameList;
@@ -36,16 +36,16 @@ public class SpikeTapePipelineTune extends OpenCvPipeline {
 
     Mat filtered = new Mat();
 
-    Telemetry telemetry;
+
 
     int numContoursFound;
-    public Scalar lower = new Scalar(50, 0, 0);
-    public Scalar upper = new Scalar(110, 255, 255);
+     Scalar lower = new Scalar(0, 0, 0);
+     Scalar upper = new Scalar(50, 255, 255);
 
     List<Rect> r = new ArrayList<>();
-    public SpikeTapePipelineTune(Telemetry telemetry)
+    public SpikeTapePipelineTuneRed()
     {
-        this.telemetry=telemetry;
+
         frameList = new ArrayList<>();
     }
 
@@ -105,13 +105,6 @@ public class SpikeTapePipelineTune extends OpenCvPipeline {
             r.sort(Comparator.comparing(Rect::area).reversed());
         }
 
-        telemetry.addData("NumCont",numContours);
-        telemetry.addData("Valont",validContours);
-        telemetry.addData("Area0",r.get(0).area());
-        telemetry.addData("Area1",r.get(1).area());
-
-
-        telemetry.update();
 
         return filtered;
 

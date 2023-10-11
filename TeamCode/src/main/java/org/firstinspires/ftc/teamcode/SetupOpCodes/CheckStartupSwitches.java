@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.OpModes_Auto;
+package org.firstinspires.ftc.teamcode.SetupOpCodes;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.arcrobotics.ftclib.command.CommandOpMode;

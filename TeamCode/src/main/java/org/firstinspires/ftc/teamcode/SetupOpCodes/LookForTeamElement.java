@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.OpModes_Auto;
+package org.firstinspires.ftc.teamcode.SetupOpCodes;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
@@ -6,6 +6,7 @@ import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.controls.ExposureControl;
@@ -14,6 +15,8 @@ import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvWebcam;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Tom on 9/26/17.  Updated 9/24/2021 for PIDF.
@@ -33,10 +36,30 @@ public class LookForTeamElement extends CommandOpMode {
 
     FtcDashboard dashboard;
 
-    public static int DISPSWITCH=0;
+    public static int DISPSWITCH = 0;
 
 
     public OpenCvWebcam webcam;//
+
+    private int myExposure;
+    private int minExposure;
+    private int maxExposure;
+    private int myGain;
+    private int minGain;
+    private int maxGain;
+
+    boolean thisExpUp = false;
+    boolean thisExpDn = false;
+    boolean thisGainUp = false;
+    boolean thisGainDn = false;
+
+    boolean lastExpUp = false;
+    boolean lastExpDn = false;
+    boolean lastGainUp = false;
+    boolean lastGainDn = false;
+    private boolean exposureSupported;
+    private boolean cameraOpened;
+
 
     public void initialize() {
 
@@ -47,8 +70,9 @@ public class LookForTeamElement extends CommandOpMode {
 
         telemetry = new MultipleTelemetry(telemetry, dashboard.getTelemetry());
 
-        webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
 
+        cameraOpened = false;
+        webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
 
 
             @Override
@@ -75,8 +99,12 @@ public class LookForTeamElement extends CommandOpMode {
                 // webcam.setPipeline(stpb);
                 //start streaming the camera
                 webcam.startStreaming(640, 480, OpenCvCameraRotation.UPRIGHT);
+
+
                 //if you are using dashboard, update dashboard camera view
                 FtcDashboard.getInstance().startCameraStream(webcam, 5);
+
+                cameraOpened = true;
 
             }
 
@@ -96,6 +124,42 @@ public class LookForTeamElement extends CommandOpMode {
     // Put run blocks here.
     public void run() {
 
+        if (!exposureSupported) {
+
+            exposureSupported = webcam.getExposureControl().isExposureSupported();
+
+            webcam.getExposureControl().setMode(ExposureControl.Mode.Auto);
+
+        }
+
+
+//        webcam.getExposureControl().setMode(ExposureControl.Mode.Auto);
+//
+//        thisExpUp = gamepad1.left_bumper;
+//        thisExpDn = gamepad1.left_trigger > 0.25;
+//        thisGainUp = gamepad1.right_bumper;
+//        thisGainDn = gamepad1.right_trigger > 0.25;
+//
+//        // look for clicks to change exposure
+//        if (thisExpUp && !lastExpUp) {
+//
+//            myExposure = Range.clip(myExposure + 1, minExposure, maxExposure);
+//            webcam.getExposureControl().setExposure(myExposure, TimeUnit.MILLISECONDS);
+//        } else if (thisExpDn && !lastExpDn) {
+//            minExposure = (int) webcam.getExposureControl().getMinExposure(TimeUnit.MILLISECONDS);
+//            maxExposure = (int) webcam.getExposureControl().getMaxExposure(TimeUnit.MILLISECONDS);
+//
+//
+//            myExposure = Range.clip(myExposure - 1, minExposure, maxExposure);
+//            webcam.getExposureControl().setExposure(myExposure, TimeUnit.MILLISECONDS);
+//        }
+//
+//        long eposure = webcam.getExposureControl().getExposure(TimeUnit.MILLISECONDS);
+
+
+//      telemetry.addData("ExpSupp",exposureSupported);
+//      telemetry.addData("Exp millis",eposure);
+//      telemetry.update();
         CommandScheduler.getInstance().run();
 
     }
