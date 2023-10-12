@@ -186,12 +186,12 @@ public class SelectMotionValuesBlue {
                 ActiveMotionValues.setyFirstPoint(FieldConstantsBlue.XMYP.LeftTapeMid.getY() + Constants.RobotConstants.length / 2 +
                         Constants.TapeConstants.tapeLength / 2 + ActiveMotionValues.getyOffset());
 
-                ActiveMotionValues.setxSecondPoint(FieldConstantsBlue.XMYP.StartPos.getX());
+                ActiveMotionValues.setxSecondPoint(FieldConstantsBlue.stageDoorLineUpPose1.getX());
 
-                ActiveMotionValues.setySecondPoint(FieldConstantsBlue.XMYP.StartPos.getY());
+                ActiveMotionValues.setySecondPoint(FieldConstantsBlue.stageDoorLineUpPose1.getY());
+
 
                 ActiveMotionValues.setFinalPose(FieldConstantsBlue.stageDoorLineUpPose);
-
 
                 ActiveMotionValues.setParkPose(FieldConstantsBlue.farBackstagePark);
 
@@ -220,9 +220,10 @@ public class SelectMotionValuesBlue {
                 ActiveMotionValues.setyFirstPoint(FieldConstantsBlue.XMYP.CenterTapeMid.getY() +
                         Constants.RobotConstants.length / 2 + ActiveMotionValues.getyOffset());
 
-                ActiveMotionValues.setxSecondPoint(ActiveMotionValues.getxFirstPoint());
+                ActiveMotionValues.setxSecondPoint(FieldConstantsBlue.stageDoorLineUpPose.getX());
 
-                ActiveMotionValues.setySecondPoint(ActiveMotionValues.getyFirstPoint() + ActiveMotionValues.getRetractDistance());
+                ActiveMotionValues.setySecondPoint(FieldConstantsBlue.stageDoorLineUpPose.getY());
+
 
                 ActiveMotionValues.setFinalPose(FieldConstantsBlue.stageDoorLineUpPose);
 
@@ -252,9 +253,9 @@ public class SelectMotionValuesBlue {
                 ActiveMotionValues.setyFirstPoint(FieldConstantsBlue.XMYP.RightTapeMid.getY() + Constants.TapeConstants.tapeLength / 2 +
                         Constants.RobotConstants.length / 2 + ActiveMotionValues.getyOffset());
 
-                ActiveMotionValues.setxSecondPoint(FieldConstantsBlue.XMYP.StartPos.getX());
+                ActiveMotionValues.setxSecondPoint(FieldConstantsBlue.stageDoorLineUpPose2.getX());
 
-                ActiveMotionValues.setySecondPoint(FieldConstantsBlue.XMYP.StartPos.getY());
+                ActiveMotionValues.setySecondPoint(FieldConstantsBlue.stageDoorLineUpPose2.getY());
 
 
                 ActiveMotionValues.setFinalPose(FieldConstantsBlue.stageDoorLineUpPose);

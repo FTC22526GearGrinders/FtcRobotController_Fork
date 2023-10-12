@@ -187,9 +187,10 @@ public class SelectMotionValuesRed {
                 ActiveMotionValues.setyFirstPoint(FieldConstantsRed.XMYM.LeftTapeMid.getY() -Constants.RobotConstants.length / 2 -
                         Constants.TapeConstants.tapeLength / 2 -ActiveMotionValues.getyOffset());
 
-                ActiveMotionValues.setxSecondPoint(FieldConstantsRed.XMYM.StartPos.getX());
+                ActiveMotionValues.setxSecondPoint(FieldConstantsRed.stageDoorLineUpPose2.getX());
 
-                ActiveMotionValues.setySecondPoint(FieldConstantsRed.XMYM.StartPos.getY());
+                ActiveMotionValues.setySecondPoint(FieldConstantsRed.stageDoorLineUpPose2.getY());
+
 
                 ActiveMotionValues.setFinalPose(FieldConstantsRed.stageDoorLineUpPose);
 
@@ -218,9 +219,10 @@ public class SelectMotionValuesRed {
                 ActiveMotionValues.setyFirstPoint(FieldConstantsRed.XMYM.CenterTapeMid.getY() -
                         Constants.RobotConstants.length / 2 - ActiveMotionValues.getyOffset());
 
-                ActiveMotionValues.setxSecondPoint(ActiveMotionValues.getxFirstPoint());
+                ActiveMotionValues.setxSecondPoint(FieldConstantsRed.stageDoorLineUpPose.getX());
 
-                ActiveMotionValues.setySecondPoint(ActiveMotionValues.getyFirstPoint() + ActiveMotionValues.getRetractDistance());
+                ActiveMotionValues.setySecondPoint(FieldConstantsRed.stageDoorLineUpPose.getY());
+
 
                 ActiveMotionValues.setFinalPose(FieldConstantsRed.stageDoorLineUpPose);
 
@@ -251,9 +253,10 @@ public class SelectMotionValuesRed {
                         Constants.RobotConstants.length / 2 - ActiveMotionValues.getyOffset());
 
 
-                ActiveMotionValues.setxSecondPoint(FieldConstantsRed.XMYM.StartPos.getX());
+                ActiveMotionValues.setxSecondPoint(FieldConstantsRed.stageDoorLineUpPose1.getX());
 
-                ActiveMotionValues.setySecondPoint(FieldConstantsRed.XMYM.StartPos.getY());
+                ActiveMotionValues.setySecondPoint(FieldConstantsRed.stageDoorLineUpPose1.getY());
+
 
                 ActiveMotionValues.setFinalPose(FieldConstantsRed.stageDoorLineUpPose);
 

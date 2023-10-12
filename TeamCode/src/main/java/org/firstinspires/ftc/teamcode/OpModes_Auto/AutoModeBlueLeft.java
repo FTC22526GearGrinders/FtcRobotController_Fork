@@ -9,17 +9,16 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.Commands.Auto.RunAuto;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
-import org.firstinspires.ftc.teamcode.Subsystems.IO_Subsystem;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvWebcam;
 
 @Config
-@Autonomous(name = "Auto Main AutoStart", group = "Auto")
+@Autonomous(name = "Auto BLUE LEFT", group = "Auto")
 
-public class AutoMode extends CommandOpMode {
-    private IO_Subsystem ioss;
+public class AutoModeBlueLeft extends CommandOpMode {
+
 
     private Drive_Subsystem drive;
 
@@ -32,18 +31,10 @@ public class AutoMode extends CommandOpMode {
 
         drive = new Drive_Subsystem(this);
 
-        ioss= new IO_Subsystem(this);
 
-        boolean redAlliance = !ioss.dc0.getState();
+        ActiveMotionValues.setRedAlliance(false);
 
-        boolean bbStart = !ioss.dc1.getState();
-
-
-
-
-        ActiveMotionValues.setRedAlliance(redAlliance);
-
-        ActiveMotionValues.setBBStart(bbStart);
+        ActiveMotionValues.setBBStart(true);
 
 
 
