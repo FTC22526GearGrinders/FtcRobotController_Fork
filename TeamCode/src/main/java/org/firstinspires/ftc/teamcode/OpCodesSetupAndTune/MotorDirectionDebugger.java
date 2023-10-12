@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.SetupOpCodes;
+package org.firstinspires.ftc.teamcode.OpCodesSetupAndTune;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
@@ -38,9 +38,11 @@ import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
  *
  * Uncomment the @Disabled tag below to use this opmode.
  */
-@Disabled
+
 @Config
-@TeleOp(group = "drive")
+
+//@Disabled
+@TeleOp(name="Motor Direction", group = "Test")
 public class MotorDirectionDebugger extends LinearOpMode {
     public static double MOTOR_POWER = 0.7;
 

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.SetupOpCodes;
+package org.firstinspires.ftc.teamcode.OpCodesTest;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
@@ -8,6 +8,7 @@ import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
+import org.checkerframework.checker.units.qual.A;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Commands.Auto.PickAndRunTrajectories;
 import org.firstinspires.ftc.teamcode.Commands.Auto.SelectValues;
@@ -58,6 +59,9 @@ public class TestTrajMode extends CommandOpMode {
 
         if (lcr == 0) lcr = 2;
 
+        ActiveMotionValues.setRedAlliance(redAlliance);
+        ActiveMotionValues.setBBStart(bbStart);
+        ActiveMotionValues.setLcrpos(lcr);
         new SequentialCommandGroup(
 
                 new SelectValues(),
@@ -75,6 +79,7 @@ public class TestTrajMode extends CommandOpMode {
         telemetry.addData("BBstary", bbStart);
         telemetry.addData("LCR", lcr);
 
+telemetry.addData("LFPos", drive.drive.getLeftFrontPosn());
         telemetry.addData("StartPoseX", ActiveMotionValues.getStartPose().getX());
         telemetry.addData("StartPoseY", ActiveMotionValues.getStartPose().getY());
         telemetry.addData("StartPoseAng", ActiveMotionValues.getStartPose().getHeading());

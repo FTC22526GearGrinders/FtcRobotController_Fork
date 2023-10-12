@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.SetupOpCodes;
+package org.firstinspires.ftc.teamcode.OpCodesSetupAndTune;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
@@ -23,6 +23,7 @@ import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
  */
 @Config
 @Autonomous(group = "drive")
+//ed@Disabl
 public class FollowerPIDTuner extends LinearOpMode {
     public static double DISTANCE = 48; // in
 

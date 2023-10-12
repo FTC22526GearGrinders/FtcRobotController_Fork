@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.SetupOpCodes;
+package org.firstinspires.ftc.teamcode.OpCodesSetupAndTune;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
@@ -26,6 +26,7 @@ import java.util.Objects;
  */
 @Config
 @Autonomous(group = "drive")
+//@Disabled
 public class MaxVelocityTuner extends LinearOpMode {
     public static double RUNTIME = 2.0;
 

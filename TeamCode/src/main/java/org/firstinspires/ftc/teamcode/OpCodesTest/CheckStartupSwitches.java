@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.SetupOpCodes;
+package org.firstinspires.ftc.teamcode.OpCodesTest;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.arcrobotics.ftclib.command.CommandOpMode;

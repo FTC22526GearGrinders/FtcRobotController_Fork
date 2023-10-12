@@ -6,13 +6,10 @@ import com.arcrobotics.ftclib.command.CommandOpMode;
 
 import org.firstinspires.ftc.teamcode.CV.SpikeTapePipelineBlue;
 import org.firstinspires.ftc.teamcode.CV.SpikeTapePipelineRed;
-import org.firstinspires.ftc.teamcode.CV.SpikeTapePipelineRed2;
-import org.firstinspires.ftc.teamcode.CV.SpikeTapePipelineTuneRed;
-import org.firstinspires.ftc.teamcode.VisionTest.SpikeTapePipelineTune2;
+import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.opencv.core.Rect;
 import org.openftc.easyopencv.OpenCvWebcam;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /*Camera needs to see all 3 spike tapes with enough space to the left, top and right for
@@ -29,7 +26,7 @@ import java.util.List;
  * */
 public class LookForTeamProp extends CommandBase {
 
-    SpikeTapePipelineTune2 sptopR = null;
+    SpikeTapePipelineRed sptopR = null;
 
     SpikeTapePipelineBlue sptopB = null;
 
@@ -47,7 +44,6 @@ public class LookForTeamProp extends CommandBase {
     private int yTop;
 
 
-
     // List<Rect> lr;
 
 
@@ -60,33 +56,21 @@ public class LookForTeamProp extends CommandBase {
     @Override
     public void initialize() {
 
+        sptopB = new SpikeTapePipelineBlue();
 
-        //sptopB = new SpikeTapePipelineBlue();
+        sptopR = new SpikeTapePipelineRed();
 
-        //sptopR = new SpikeTapePipelineTune2();
-
-        //if (ActiveMotionValues.getRedAlliance())
+        if (ActiveMotionValues.getRedAlliance())
             webcam.setPipeline(sptopR);
 
-//        else
-//            webcam.setPipeline(sptopB);
-
+        else
+            webcam.setPipeline(sptopB);
 
     }
 
     @Override
     public void execute() {
-//        List<Rect> r = new ArrayList<>(10);
-//     //   if (ActiveMotionValues.getRedAlliance()) {
-//            r = sptopR.getRects();
 
-//        } else {
-//            r = sptopB.getRects();
-//        }
-//
-//        lcr = calcLCR(r);
-//
-//        ActiveMotionValues.setLcrpos(lcr);
 
 
 //        myOpMode.telemetry.addData("NumContours", sptopR.getNumberContours());

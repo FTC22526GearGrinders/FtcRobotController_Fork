@@ -94,7 +94,7 @@ public class SampleMecanumDrive extends MecanumDrive {
 
     private List<Integer> lastEncPositions = new ArrayList<>();
     private List<Integer> lastEncVels = new ArrayList<>();
-    public boolean fieldCentric;
+    public boolean fieldCentric=false;
 
     public SampleMecanumDrive(HardwareMap hardwareMap) {
         super(kV, kA, kStatic, TRACK_WIDTH, WHEEL_BASE, LATERAL_MULTIPLIER);
@@ -151,6 +151,8 @@ public class SampleMecanumDrive extends MecanumDrive {
         // TODO: if desired, use setLocalizer() to change the localization method
         // setLocalizer(new StandardTrackingWheelLocalizer(hardwareMap, lastTrackingEncPositions, lastTrackingEncVels));
 
+        resetEncoderss();
+        setPoseEstimate(new Pose2d());
         trajectorySequenceRunner = new TrajectorySequenceRunner(
                 follower, HEADING_PID, batteryVoltageSensor,
                 lastEncPositions, lastEncVels, lastTrackingEncPositions, lastTrackingEncVels
@@ -314,6 +316,22 @@ public class SampleMecanumDrive extends MecanumDrive {
         rightFront.setPower(v3);
     }
 
+    public void resetEncoderss(){
+        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        leftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+
+
+
+    }
+
     public void stop() {
         setMotorPowers(0, 0, 0, 0);
     }
@@ -364,6 +382,10 @@ public class SampleMecanumDrive extends MecanumDrive {
                 Math.abs(rightFront.getVelocity()) < stoppedVel &&
                 Math.abs(leftRear.getVelocity()) < stoppedVel &&
                 Math.abs(rightRear.getVelocity()) < stoppedVel;
+    }
+
+    public double getLeftFrontPosn() {
+        return encoderTicksToInches(leftFront.getCurrentPosition());
     }
 
     public void showTelemetry(Telemetry telemetry) {

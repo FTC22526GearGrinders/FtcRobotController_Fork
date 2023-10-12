@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.SetupOpCodes;
+package org.firstinspires.ftc.teamcode.OpCodesSetupAndTune;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
@@ -16,8 +16,10 @@ import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
  */
 @Config
 @Autonomous(group = "drive")
-public class StraightTest extends LinearOpMode {
-    public static double DISTANCE = 60; // in
+//@Disabled
+public class StrafeTest extends LinearOpMode {
+    public static double DISTANCE = 60;// in
+    public static double LATERAL_MULTI = .8;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -26,7 +28,7 @@ public class StraightTest extends LinearOpMode {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
         Trajectory trajectory = drive.trajectoryBuilder(new Pose2d())
-                .forward(DISTANCE)
+                .strafeRight(DISTANCE * LATERAL_MULTI)
                 .build();
 
         waitForStart();

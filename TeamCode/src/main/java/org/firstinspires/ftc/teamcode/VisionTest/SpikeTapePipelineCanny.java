@@ -5,7 +5,6 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
-import org.opencv.core.MatOfInt;
 import org.opencv.core.MatOfPoint;
 import org.opencv.core.MatOfPoint2f;
 import org.opencv.core.Point;
@@ -82,7 +81,7 @@ public class SpikeTapePipelineCanny extends OpenCvPipeline {
         double[] angle = new double[10];
         double[] width = new double[10];
         double[] height = new double[10];
-        Point[]vertices = new Point[4];
+        Point[] vertices = new Point[4];
 
         Mat hierarchy = new Mat();
         int usableContours = 0;
@@ -111,7 +110,6 @@ public class SpikeTapePipelineCanny extends OpenCvPipeline {
         }
 
 
-
         for (int i = 0; i < xval.length - 1; i++) {
             xval[i] = 0;
             yval[i] = 0;
@@ -134,7 +132,7 @@ public class SpikeTapePipelineCanny extends OpenCvPipeline {
             rr.points((vertices));
             boxContours.add(new MatOfPoint(vertices));
 
-            Imgproc.drawContours(dst,boxContours,i,new Scalar(128,128,128),-1);
+            Imgproc.drawContours(dst, boxContours, i, new Scalar(128, 128, 128), -1);
 
 
             Imgproc.putText(dst, String.valueOf(i), rr.center, 7, Imgproc.FONT_HERSHEY_PLAIN,
@@ -143,7 +141,7 @@ public class SpikeTapePipelineCanny extends OpenCvPipeline {
 
         }
 
-        reverseSortArraysByX(xval, yval, angle, width, height, usableContours);
+        sortArraysByX(xval, yval, angle, width, height, usableContours);
 
 
         telemetry.addData("NumCont", contours.size());
@@ -162,11 +160,11 @@ public class SpikeTapePipelineCanny extends OpenCvPipeline {
 
         telemetry.update();
 
-        return dst;
+        return inverted;
 
     }
 
-    void reverseSortArraysByX(double[] xval, double[] yval, double[] angle, double[] width, double[] height, int valCont) {
+    void sortArraysByX(double[] xval, double[] yval, double[] angle, double[] width, double[] height, int valCont) {
         //void sortArraysByX(){
 
 
@@ -178,7 +176,7 @@ public class SpikeTapePipelineCanny extends OpenCvPipeline {
             // Move elements of arrays[0..i-1], that are
             // less than key, to one position ahead
             // of their current position
-            while (j >= 0 && xval[j] < key) {
+            while (j >= 0 && xval[j] > key) {
                 xval[j + 1] = xval[j];
                 yval[j + 1] = yval[j];
                 angle[j + 1] = angle[j];

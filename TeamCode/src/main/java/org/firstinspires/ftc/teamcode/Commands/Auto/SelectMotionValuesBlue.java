@@ -65,7 +65,7 @@ public class SelectMotionValuesBlue extends CommandBase {
     @Override
     public void initialize() {
 
-        if (lcr < 1 || lcr > 3) lcr = 1;
+        if (lcr < 1 || lcr > 3) lcr = 2;
 
         int motionSelected = lcr;
 
@@ -88,12 +88,10 @@ public class SelectMotionValuesBlue extends CommandBase {
                 ActiveMotionValues.setStartPose(FieldConstantsBlue.XPYP.StartPos);//start pose
 
 
-                ActiveMotionValues.setyFirstPoint(FieldConstantsBlue.XPYP.LeftTapeMid.getY() + (Constants.TapeConstants.tapeLength / 2)
-
-                        + Constants.RobotConstants.length / 2 + ActiveMotionValues.getyOffset());
+                ActiveMotionValues.setyFirstPoint(FieldConstantsBlue.XPYP.StartPos.getY());
 
 
-                ActiveMotionValues.setxFirstPoint(FieldConstantsBlue.XPYP.LeftTapeMid.getX());
+                ActiveMotionValues.setxFirstPoint(FieldConstantsBlue.XPYP.LeftTapeMid.getX() - Constants.RobotConstants.length / 2);
 
                 ActiveMotionValues.setySecondPoint(ActiveMotionValues.getyFirstPoint() - ActiveMotionValues.getRetractDistance());
 
@@ -119,13 +117,15 @@ public class SelectMotionValuesBlue extends CommandBase {
 
                 ActiveMotionValues.setStartPose(FieldConstantsBlue.XPYP.StartPos);//start pose;
 
-                ActiveMotionValues.setyFirstPoint(FieldConstantsBlue.XPYP.CenterTapeMid.getY() - Constants.RobotConstants.length / 2 + ActiveMotionValues.getyOffset());
+                //robot moves in Y
 
-                ActiveMotionValues.setxFirstPoint(FieldConstantsBlue.XPYP.StartPos.getX());
+                ActiveMotionValues.setyFirstPoint(FieldConstantsBlue.XPYP.StartPos.getY() - Constants.RobotConstants.length / 2);
 
-                ActiveMotionValues.setySecondPoint(ActiveMotionValues.getyFirstPoint() - ActiveMotionValues.getRetractDistance());
+                ActiveMotionValues.setxFirstPoint(ActiveMotionValues.getStartPose().getX());
 
-                ActiveMotionValues.setxSecondPoint(FieldConstantsBlue.XPYP.StartPos.getX());
+                ActiveMotionValues.setySecondPoint(ActiveMotionValues.getyFirstPoint() + ActiveMotionValues.getRetractDistance());
+
+                ActiveMotionValues.setxSecondPoint(ActiveMotionValues.getxFirstPoint());
 
                 ActiveMotionValues.setFinalPose(FieldConstantsBlue.AprilTagConstants.atag2.plus(FieldConstantsBlue.AprilTagConstants.tagLookAheadPose));
 

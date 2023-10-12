@@ -38,9 +38,9 @@ public final class Constants {
 
         static final double height = 13;
 
-        static final double width = 13;
+        static final double width = 16;
 
-        public static final double length = 13;
+        public static final double length = 13.25;
 
 
         static final double camToCenterX = 6;
@@ -72,9 +72,9 @@ public final class Constants {
         public static final double GEARBOX_RATIO = 1;
         public static final double WHEEL_DIAMETER_INCH = 4;
 
-        public static final double WHEELBASE = 13;
+        public static final double WHEELBASE = 10.5;//front yo back
 
-        public static final double TRACKWIDTH = 16.25;
+        public static final double TRACKWIDTH = 14.5;//acress width
         public static final double WHEEL_CIRCUMFERENCE_INCH = Math.PI * WHEEL_DIAMETER_INCH;//12.57
         public static final double ENCODER_COUNTS_PER_MOTOR_REV = 537.7;
         public static final double ENCODER_COUNTS_PER_WHEEL_REV = 537.7;//1:1 RATIO

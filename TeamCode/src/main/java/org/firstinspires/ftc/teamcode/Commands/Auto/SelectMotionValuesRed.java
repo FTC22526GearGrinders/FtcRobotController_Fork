@@ -56,15 +56,11 @@ public class SelectMotionValuesRed extends CommandBase {
 
                 ActiveMotionValues.setStartPose(FieldConstantsRed.XPYM.StartPos);//start pose
 
+                ActiveMotionValues.setxFirstPoint(FieldConstantsRed.XPYM.LeftTapeMid.getX()- Constants.RobotConstants.length/2);
 
-                ActiveMotionValues.setyFirstPoint(FieldConstantsRed.XPYM.LeftTapeMid.getY() + (Constants.TapeConstants.tapeLength / 2)
+                ActiveMotionValues.setyFirstPoint(FieldConstantsRed.XPYM.LeftTapeMid.getY()+ Constants.TapeConstants.tapeLength/2);
 
-                        + Constants.RobotConstants.length / 2 + ActiveMotionValues.getyOffset());
-
-
-                ActiveMotionValues.setxFirstPoint(FieldConstantsRed.XPYM.LeftTapeMid.getX());
-
-                ActiveMotionValues.setySecondPoint(ActiveMotionValues.getyFirstPoint() - ActiveMotionValues.getRetractDistance());
+                ActiveMotionValues.setySecondPoint(ActiveMotionValues.getyFirstPoint() );
 
                 ActiveMotionValues.setxSecondPoint(ActiveMotionValues.getxFirstPoint());
 
