@@ -43,11 +43,7 @@ public class CenterTapePlacePixel extends CommandBase {
 
                 .lineTo(new Vector2d(ActiveMotionValues.getxSecondPoint(), ActiveMotionValues.getySecondPoint()))//retract on y avis
 
-
-
-
-//
-               // .lineToLinearHeading(ActiveMotionValues.getTagLookAheadPose())
+                .lineToLinearHeading(ActiveMotionValues.getTagLookAheadPose())
 
                 .build();
 

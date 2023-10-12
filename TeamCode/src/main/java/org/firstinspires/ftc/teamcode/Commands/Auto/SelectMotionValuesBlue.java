@@ -83,49 +83,46 @@ public class SelectMotionValuesBlue extends CommandBase {
 
                 ActiveMotionValues.setRetractDistance(1);
 
-                ActiveMotionValues.setStrafeDistance(1);
-
                 ActiveMotionValues.setStartPose(FieldConstantsBlue.XPYP.StartPos);//start pose
 
+                //robot moves in Y
 
-                ActiveMotionValues.setyFirstPoint(FieldConstantsBlue.XPYP.StartPos.getY());
+                ActiveMotionValues.setxFirstPoint(ActiveMotionValues.getStartPose().getX() +
+                        FieldConstantsBlue.XPYP.LeftTapeMid.getX() + ActiveMotionValues.getxOffset());
 
-
-                ActiveMotionValues.setxFirstPoint(FieldConstantsBlue.XPYP.LeftTapeMid.getX() - Constants.RobotConstants.length / 2);
-
-                ActiveMotionValues.setySecondPoint(ActiveMotionValues.getyFirstPoint() - ActiveMotionValues.getRetractDistance());
+                ActiveMotionValues.setyFirstPoint(FieldConstantsBlue.XPYP.LeftTapeMid.getY() -
+                        Constants.RobotConstants.length / 2 + ActiveMotionValues.getyOffset());
 
                 ActiveMotionValues.setxSecondPoint(ActiveMotionValues.getxFirstPoint());
 
+                ActiveMotionValues.setySecondPoint(ActiveMotionValues.getyFirstPoint() + ActiveMotionValues.getRetractDistance());
 
-                ActiveMotionValues.setFinalPose(FieldConstantsBlue.AprilTagConstants.atag1.plus(FieldConstantsBlue.AprilTagConstants.tagLookAheadPose));
+                ActiveMotionValues.setFinalPose(FieldConstantsBlue.AprilTagConstants.atag2.plus(FieldConstantsBlue.AprilTagConstants.tagLookAheadPose));
 
-                ActiveMotionValues.setActTag(1);
+                ActiveMotionValues.setActTag(2);
 
                 break;
 
-            case 2://center
+            case 2://center straight motion to midddle of center tape
 
 
-                ActiveMotionValues.setyOffset(0);
+                ActiveMotionValues.setyOffset(0);// adds to forward motion to control position where pixel is  dropped
 
-                ActiveMotionValues.setxOffset(0);
+                ActiveMotionValues.setxOffset(0);//can be used to offset x motion so pixel is place off the x center
 
                 ActiveMotionValues.setRetractDistance(1);//MUST MUST MUST MOT BE ZERO!!!!!!!!!!!!!!! + value makes retract move more negative
-
-                ActiveMotionValues.setStrafeDistance(1);
 
                 ActiveMotionValues.setStartPose(FieldConstantsBlue.XPYP.StartPos);//start pose;
 
                 //robot moves in Y
 
-                ActiveMotionValues.setyFirstPoint(FieldConstantsBlue.XPYP.StartPos.getY() - Constants.RobotConstants.length / 2);
+                ActiveMotionValues.setxFirstPoint(ActiveMotionValues.getStartPose().getX() + ActiveMotionValues.getxOffset());
 
-                ActiveMotionValues.setxFirstPoint(ActiveMotionValues.getStartPose().getX());
-
-                ActiveMotionValues.setySecondPoint(ActiveMotionValues.getyFirstPoint() + ActiveMotionValues.getRetractDistance());
+                ActiveMotionValues.setyFirstPoint(FieldConstantsBlue.XPYP.CenterTapeMid.getY() - Constants.RobotConstants.length / 2 + ActiveMotionValues.getyOffset());
 
                 ActiveMotionValues.setxSecondPoint(ActiveMotionValues.getxFirstPoint());
+
+                ActiveMotionValues.setySecondPoint(ActiveMotionValues.getyFirstPoint() + ActiveMotionValues.getRetractDistance());
 
                 ActiveMotionValues.setFinalPose(FieldConstantsBlue.AprilTagConstants.atag2.plus(FieldConstantsBlue.AprilTagConstants.tagLookAheadPose));
 
@@ -142,22 +139,20 @@ public class SelectMotionValuesBlue extends CommandBase {
 
                 ActiveMotionValues.setRetractDistance(1);
 
-                ActiveMotionValues.setStrafeDistance(1);
 
                 ActiveMotionValues.setStartPose(FieldConstantsBlue.XPYP.StartPos);//start pose
 
+                //robot moves in Y
 
-                ActiveMotionValues.setyFirstPoint(FieldConstantsBlue.XPYP.RightTapeMid.getY() + (Constants.TapeConstants.tapeLength / 2)
+                ActiveMotionValues.setxFirstPoint(ActiveMotionValues.getStartPose().getX() +
+                        FieldConstantsBlue.XPYP.RightTapeMid.getX() + ActiveMotionValues.getxOffset());
 
-                        + Constants.RobotConstants.length / 2 + ActiveMotionValues.getyOffset());
-
-
-                ActiveMotionValues.setxFirstPoint(FieldConstantsBlue.XPYP.RightTapeMid.getX());
-
-                ActiveMotionValues.setySecondPoint(ActiveMotionValues.getyFirstPoint() - ActiveMotionValues.getRetractDistance());
+                ActiveMotionValues.setyFirstPoint(FieldConstantsBlue.XPYP.RightTapeMid.getY() -
+                        Constants.RobotConstants.length / 2 + ActiveMotionValues.getyOffset());
 
                 ActiveMotionValues.setxSecondPoint(ActiveMotionValues.getxFirstPoint());
 
+                ActiveMotionValues.setySecondPoint(ActiveMotionValues.getyFirstPoint() + ActiveMotionValues.getRetractDistance());
 
                 ActiveMotionValues.setFinalPose(FieldConstantsBlue.AprilTagConstants.atag3.plus(FieldConstantsBlue.AprilTagConstants.tagLookAheadPose));
 
@@ -175,22 +170,16 @@ public class SelectMotionValuesBlue extends CommandBase {
 
                 ActiveMotionValues.setRetractDistance(1);
 
-                ActiveMotionValues.setStrafeDistance(1);
 
-                ActiveMotionValues.setStartPose(FieldConstantsBlue.XMYP.StartPos);//start pose
+                //robot moves in Y
 
+                ActiveMotionValues.setxFirstPoint(ActiveMotionValues.getStartPose().getX() + ActiveMotionValues.getxOffset());
 
-                ActiveMotionValues.setyFirstPoint(FieldConstantsBlue.XMYP.LeftTapeMid.getY() + (Constants.TapeConstants.tapeLength / 2)
-
-                        + Constants.RobotConstants.length / 2 + ActiveMotionValues.getyOffset());
-
-
-                ActiveMotionValues.setxFirstPoint(FieldConstantsBlue.XMYP.LeftTapeMid.getX());
-
-                ActiveMotionValues.setySecondPoint(ActiveMotionValues.getyFirstPoint() - ActiveMotionValues.getRetractDistance());
+                ActiveMotionValues.setyFirstPoint(FieldConstantsBlue.XMYP.CenterTapeMid.getY() - Constants.RobotConstants.length / 2 + ActiveMotionValues.getyOffset());
 
                 ActiveMotionValues.setxSecondPoint(ActiveMotionValues.getxFirstPoint());
 
+                ActiveMotionValues.setySecondPoint(ActiveMotionValues.getyFirstPoint() + ActiveMotionValues.getRetractDistance());
 
                 ActiveMotionValues.setFinalPose(FieldConstantsBlue.wingPose);
 
@@ -206,15 +195,18 @@ public class SelectMotionValuesBlue extends CommandBase {
 
                 ActiveMotionValues.setRetractDistance(1);//MUST MUST MUST MOT BE ZERO!!!!!!!!!!!!!!! + value makes retract move more negative
 
-                ActiveMotionValues.setStrafeDistance(1);
 
-                ActiveMotionValues.setStartPose(FieldConstantsBlue.XMYP.StartPos);//start pose;
+                //robot moves in Y
 
-                ActiveMotionValues.setyFirstPoint(FieldConstantsBlue.XMYP.CenterTapeMid.getY() - Constants.RobotConstants.length / 2 + ActiveMotionValues.getyOffset());
+                ActiveMotionValues.setxFirstPoint(ActiveMotionValues.getStartPose().getX() +
+                        FieldConstantsBlue.XPYP.RightTapeMid.getX() + ActiveMotionValues.getxOffset());
 
-                ActiveMotionValues.setxFirstPoint(FieldConstantsBlue.XMYP.StartPos.getX());
+                ActiveMotionValues.setyFirstPoint(FieldConstantsBlue.XMYP.RightTapeMid.getY() -
+                        Constants.RobotConstants.length / 2 + ActiveMotionValues.getyOffset());
 
-                ActiveMotionValues.setySecondPoint(ActiveMotionValues.getyFirstPoint() - ActiveMotionValues.getRetractDistance());
+                ActiveMotionValues.setxSecondPoint(ActiveMotionValues.getxFirstPoint());
+
+                ActiveMotionValues.setySecondPoint(ActiveMotionValues.getyFirstPoint() + ActiveMotionValues.getRetractDistance());
 
                 ActiveMotionValues.setFinalPose(FieldConstantsBlue.wingPose);
 
@@ -230,10 +222,7 @@ public class SelectMotionValuesBlue extends CommandBase {
 
                 ActiveMotionValues.setRetractDistance(1);
 
-                ActiveMotionValues.setStrafeDistance(1);
-
                 ActiveMotionValues.setStartPose(FieldConstantsBlue.XMYP.StartPos);//start pose
-
 
                 ActiveMotionValues.setyFirstPoint(FieldConstantsBlue.XMYP.RightTapeMid.getY() + (Constants.TapeConstants.tapeLength / 2)
 

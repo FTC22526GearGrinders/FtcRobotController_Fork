@@ -9,7 +9,6 @@ public class ActiveMotionValues {
 
     private static Pose2d startPose = new Pose2d();
     private static AprilTagPoseFtc currentTagPose;
-    private static double strafeDistance = 0;
     private static double yFirstPoint = 0;
     private static Pose2d finalPose = new Pose2d();
     private static int atag = 1;
@@ -95,14 +94,6 @@ public class ActiveMotionValues {
 
     public static void setRetractDistance(double distance) {
         retractDistance = distance;
-    }
-
-    public static double getStrafeDistance() {
-        return strafeDistance;
-    }
-
-    public static void setStrafeDistance(double distance) {
-        strafeDistance = distance;
     }
 
     public static boolean getRedAlliance() {
