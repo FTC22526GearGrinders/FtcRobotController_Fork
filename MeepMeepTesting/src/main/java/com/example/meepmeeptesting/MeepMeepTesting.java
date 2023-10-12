@@ -9,26 +9,15 @@ import com.noahbres.meepmeep.roadrunner.entity.RoadRunnerBotEntity;
 public class MeepMeepTesting {
     public static Pose2d startPose = new Pose2d();
 
-    public static double dropOffDely = .75;
-    public static double xFirstPoint;
-    public static double xSecondPoint;
-    public static double yFirstPoint;
-
-
-    public static double firstTurnangle;
-    public static double ySecondPoint;
-    public static Pose2d finalPose;
-
-
 
     public static void main(String[] args) {
 
 
         boolean redAlliance = true;
 
-        boolean bbstart = false;//t to false for start on stack side of truss
+        boolean bbstart = true;//set to false for start on stack side of truss
 
-        int lcr = 2;//eft tape ==1, center tape = 2, right tape = 3 from robot view
+        int lcr = 3;//left tape ==1, center tape = 2, right tape = 3 from robot view
 
         if (lcr < 1 || lcr > 3) lcr = 2;
 
@@ -53,39 +42,80 @@ public class MeepMeepTesting {
 
         MeepMeep meepMeep = new MeepMeep(800);
 
-        RoadRunnerBotEntity myBot = new DefaultBotBuilder(meepMeep)
+        if (bbstart) {
 
-                .setDimensions(Constants.RobotConstants.width, Constants.RobotConstants.length)
+            RoadRunnerBotEntity myBot = new DefaultBotBuilder(meepMeep)
 
-
-                // .setDimensions(FieldConstantsRed.ROBOT.width, FieldConstantsRed.ROBOT.height)
-                // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
-                .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
-
-                .followTrajectorySequence(drive ->
-
-                        drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
-
-                                .lineTo(new Vector2d(ActiveMotionValues.getxFirstPoint(), ActiveMotionValues.getyFirstPoint()))
-
-                                .waitSeconds(1)
-
-                                .lineTo(new Vector2d((ActiveMotionValues.getxSecondPoint()), (ActiveMotionValues.getySecondPoint())))
+                    .setDimensions(Constants.RobotConstants.width, Constants.RobotConstants.length)
 
 
+                    // .setDimensions(FieldConstantsRed.ROBOT.width, FieldConstantsRed.ROBOT.height)
+                    // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
+                    .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
+
+                    .followTrajectorySequence(drive ->
+
+                            drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
+
+                                    .lineTo(new Vector2d(ActiveMotionValues.getxFirstPoint(), ActiveMotionValues.getyFirstPoint()))
+
+
+                                    .waitSeconds(1)
+
+                                    .lineTo(new Vector2d((ActiveMotionValues.getxSecondPoint()), (ActiveMotionValues.getySecondPoint())))
+
+                                    .lineToLinearHeading(ActiveMotionValues.getFinalPose())
+
+                                    .lineToLinearHeading(ActiveMotionValues.getActiveTagPose())
+
+                                    .waitSeconds(1)
+
+                                    .lineToLinearHeading(ActiveMotionValues.getFinalPose())
+
+                                    .lineToLinearHeading(ActiveMotionValues.getParkPose())
+
+
+                                    .build());
+
+
+            myBot.getDrive().setPoseEstimate(startPose);
+
+            ShowField.showIt(meepMeep, myBot);
+
+
+        } else {
+
+            RoadRunnerBotEntity myBot = new DefaultBotBuilder(meepMeep)
+
+                    .setDimensions(Constants.RobotConstants.width, Constants.RobotConstants.length)
+
+                    // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
+                    .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
+
+                    .followTrajectorySequence(drive ->
+
+                            drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
+
+                                    .lineTo(new Vector2d(ActiveMotionValues.getxFirstPoint(), ActiveMotionValues.getyFirstPoint()))
+
+                                    .waitSeconds(1)
+
+                                    .lineTo(new Vector2d((ActiveMotionValues.getxSecondPoint()), (ActiveMotionValues.getySecondPoint())))
+
+                                    .lineToLinearHeading(ActiveMotionValues.getFinalPose())
+
+                                    .waitSeconds(1)
+
+                                    .lineToLinearHeading(ActiveMotionValues.getParkPose())
 //
-                               // .lineToLinearHeading(ActiveMotionValues.getFinalPose())
-
-                                .lineToLinearHeading(ActiveMotionValues.getParkPose())
-//
 
 
-                                .build());
+                                    .build());
 
 
-        myBot.getDrive().setPoseEstimate(startPose);
-        ShowField.showIt(meepMeep, myBot);
-
+            myBot.getDrive().setPoseEstimate(startPose);
+            ShowField.showIt(meepMeep, myBot);
+        }
 
     }
 }

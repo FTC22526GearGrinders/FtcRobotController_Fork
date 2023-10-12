@@ -14,14 +14,16 @@ public final class FieldConstantsBlue {
 
     public static Pose2d farBackstagePark = new Pose2d(60,12,Math.toRadians(-90));// 'near' to drivers
 
-    public static Pose2d nearBackstagePark = new Pose2d(60,60);
-
-
+    public static Pose2d nearBackstagePark = new Pose2d(55,60);
 
     public static Pose2d stageDoorLineUpPose = new Pose2d(-36,12, Math.toRadians(-90));
 
     public static Pose2d stageDoorLineUpPose1 = new Pose2d(-24,12, Math.toRadians(-90));
     public static Pose2d stageDoorLineUpPose2 = new Pose2d(-48,12, Math.toRadians(-90));
+
+    public static Pose2d slowToStageDoorPose = new Pose2d(-12,12, Math.toRadians(-90));
+
+    public static Pose2d clearStageDoorPose = new Pose2d(12,12, Math.toRadians(-90));
 
 
     public static final class AprilTagConstants {
@@ -39,6 +41,29 @@ public final class FieldConstantsBlue {
 
 
 
+
+        }
+
+    public static Pose2d setActiveTagPose(int num){
+        int sel = num;
+        switch (sel) {
+            case 0:
+                return AprilTagConstants.atag1;
+
+            case 1:
+                return AprilTagConstants.atag1;
+
+            case 2:
+                return AprilTagConstants.atag2;
+
+            case 3:
+                return AprilTagConstants.atag3;
+
+
+            default:
+                return AprilTagConstants.atag1;
+
+        }
     }
 
 

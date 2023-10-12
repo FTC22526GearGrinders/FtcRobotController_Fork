@@ -84,21 +84,24 @@ public class TestMotionData extends CommandOpMode {
         telemetry.addData("BB Start", ActiveMotionValues.getBBStart());
         telemetry.addData("LCR", ActiveMotionValues.getLcrpos());
 
-        telemetry.addData("StartPoseX", ActiveMotionValues.getStartPose().getX());
-        telemetry.addData("StartPoseY", ActiveMotionValues.getStartPose().getY());
-        telemetry.addData("StartPoseAng", ActiveMotionValues.getStartPose().getHeading());
+//        telemetry.addData("StartPoseX", ActiveMotionValues.getStartPose().getX());
+//        telemetry.addData("StartPoseY", ActiveMotionValues.getStartPose().getY());
+//        telemetry.addData("StartPoseAng", ActiveMotionValues.getStartPose().getHeading());
         telemetry.addData("StartPose", ActiveMotionValues.getStartPose().toString());
 
         telemetry.addData("XFirst", ActiveMotionValues.getxFirstPoint());
         telemetry.addData("XSecond", ActiveMotionValues.getxSecondPoint());
 
         telemetry.addData("Y First", ActiveMotionValues.getyFirstPoint());
-
         telemetry.addData("Y Secnd", ActiveMotionValues.getySecondPoint());
 
         telemetry.addData("TagLAPoseX", ActiveMotionValues.getFinalPose().getX());
         telemetry.addData("TagLAPoseY", ActiveMotionValues.getFinalPose().getY());
         telemetry.addData("TagLAPoseAng", ActiveMotionValues.getFinalPose().getHeading());
+
+        telemetry.addData("TagLAPose", ActiveMotionValues.getFinalPose().toString());
+
+     //   telemetry.addData("ParkPose", ActiveMotionValues.getParkPose().toString());
 
         telemetry.addData("RetctDist", ActiveMotionValues.getRetractDistance());
 

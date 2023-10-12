@@ -26,6 +26,7 @@ public class LRTapePlacePixel extends CommandBase {
 
     @Override
     public void initialize() {
+
         drive.drive.setPoseEstimate(ActiveMotionValues.getStartPose());
 
         traj1 =

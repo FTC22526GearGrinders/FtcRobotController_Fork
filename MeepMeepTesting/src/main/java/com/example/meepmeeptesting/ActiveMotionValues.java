@@ -12,18 +12,9 @@ public class ActiveMotionValues {
     private static double yFirstPoint = 0;
     private static Pose2d finalPose = new Pose2d();
 
+    private static Pose2d activeAprilTagPose = new Pose2d();
+
     private static Pose2d parkPose = new Pose2d();
-
-    private static Pose2d stageDoorLineUoPose = new Pose2d();
-
-
-    public static void setStageDoorlineUoPose(Pose2d pose) {
-        stageDoorLineUoPose = pose;
-    }
-
-    public static Pose2d getStageDoorlineUoPose() {
-        return stageDoorLineUoPose;
-    }
 
 
     private static int atag = 1;
@@ -39,6 +30,7 @@ public class ActiveMotionValues {
     public static Pose2d getFinalPose() {
         return finalPose;
     }
+
     public static void setParkPose(Pose2d pose) {
         parkPose = pose;
     }
@@ -46,6 +38,7 @@ public class ActiveMotionValues {
     public static Pose2d getParkPose() {
         return parkPose;
     }
+
     public static void setFinalPose(Pose2d pose) {
         finalPose = pose;
     }
@@ -148,6 +141,16 @@ public class ActiveMotionValues {
     public static void setActTag(int act) {
         actTag = act;
     }
+
+
+    public static void setActiveTagPose(Pose2d pose) {
+        activeAprilTagPose = pose;
+    }
+
+    public static Pose2d getActiveTagPose() {
+        return activeAprilTagPose;
+    }
+
 
     private static double xFirstPoint;
 

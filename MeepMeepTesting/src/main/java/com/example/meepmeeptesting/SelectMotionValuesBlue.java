@@ -45,6 +45,8 @@ package com.example.meepmeeptesting;
  * */
 
 
+import com.acmerobotics.roadrunner.geometry.Pose2d;
+
 public class SelectMotionValuesBlue {
 
     private final boolean bbstart;
@@ -73,7 +75,7 @@ public class SelectMotionValuesBlue {
 
                 ActiveMotionValues.setyOffset(0);
 
-                ActiveMotionValues.setxOffset(-2);
+                ActiveMotionValues.setxOffset(0);
 
                 ActiveMotionValues.setRetractDistance(6);
 
@@ -91,9 +93,17 @@ public class SelectMotionValuesBlue {
 
                 ActiveMotionValues.setySecondPoint(ActiveMotionValues.getyFirstPoint() + ActiveMotionValues.getRetractDistance());
 
-                ActiveMotionValues.setFinalPose(FieldConstantsBlue.AprilTagConstants.atag1.plus(FieldConstantsBlue.AprilTagConstants.tagLookAheadPose));
-
                 ActiveMotionValues.setActTag(1);
+
+                ActiveMotionValues.setFinalPose(FieldConstantsBlue.setActiveTagPose(ActiveMotionValues.getActTag()).
+
+                        plus(FieldConstantsBlue.AprilTagConstants.tagLookAheadPose));
+
+
+                ActiveMotionValues.setActiveTagPose(FieldConstantsBlue.setActiveTagPose(ActiveMotionValues.getActTag())
+                        .minus(new Pose2d(Constants.RobotConstants.length / 2 + 3, 0, 0)));
+
+                ActiveMotionValues.setParkPose(FieldConstantsBlue.nearBackstagePark);
 
                 break;
 
@@ -102,7 +112,7 @@ public class SelectMotionValuesBlue {
 
                 ActiveMotionValues.setyOffset(0);// adds to forward motion to control position where pixel is  dropped
 
-                ActiveMotionValues.setxOffset(4);//can be used to offset x motion so pixel is place off the x center
+                ActiveMotionValues.setxOffset(0);//can be used to offset x motion so pixel is place off the x center
 
                 ActiveMotionValues.setRetractDistance(6);//MUST MUST MUST MOT BE ZERO!!!!!!!!!!!!!!! + value makes retract move more negative
 
@@ -118,9 +128,18 @@ public class SelectMotionValuesBlue {
 
                 ActiveMotionValues.setySecondPoint(ActiveMotionValues.getyFirstPoint() + ActiveMotionValues.getRetractDistance());
 
-                ActiveMotionValues.setFinalPose(FieldConstantsBlue.AprilTagConstants.atag2.plus(FieldConstantsBlue.AprilTagConstants.tagLookAheadPose));
-
                 ActiveMotionValues.setActTag(2);
+
+                ActiveMotionValues.setFinalPose(FieldConstantsBlue.setActiveTagPose(ActiveMotionValues.getActTag()).
+
+                        plus(FieldConstantsBlue.AprilTagConstants.tagLookAheadPose));
+
+
+                ActiveMotionValues.setActiveTagPose(FieldConstantsBlue.setActiveTagPose(ActiveMotionValues.getActTag())
+                        .minus(new Pose2d(Constants.RobotConstants.length / 2 + 3, 0, 0)));
+
+                ActiveMotionValues.setParkPose(FieldConstantsBlue.nearBackstagePark);
+
 
                 break;
 
@@ -158,10 +177,17 @@ public class SelectMotionValuesBlue {
 
                 ActiveMotionValues.setySecondPoint(ActiveMotionValues.getyFirstPoint() + ActiveMotionValues.getRetractDistance());
 
-
-                ActiveMotionValues.setFinalPose(FieldConstantsBlue.AprilTagConstants.atag3.plus(FieldConstantsBlue.AprilTagConstants.tagLookAheadPose));
-
                 ActiveMotionValues.setActTag(3);
+
+                ActiveMotionValues.setFinalPose(FieldConstantsBlue.setActiveTagPose(ActiveMotionValues.getActTag()).
+
+                        plus(FieldConstantsBlue.AprilTagConstants.tagLookAheadPose));
+
+
+                ActiveMotionValues.setActiveTagPose(FieldConstantsBlue.setActiveTagPose(ActiveMotionValues.getActTag())
+                        .minus(new Pose2d(Constants.RobotConstants.length / 2 + 3, 0, 0)));
+
+                ActiveMotionValues.setParkPose(FieldConstantsBlue.nearBackstagePark);
 
                 break;
 
@@ -191,11 +217,9 @@ public class SelectMotionValuesBlue {
                 ActiveMotionValues.setySecondPoint(FieldConstantsBlue.stageDoorLineUpPose1.getY());
 
 
-                ActiveMotionValues.setFinalPose(FieldConstantsBlue.stageDoorLineUpPose);
+                ActiveMotionValues.setFinalPose(FieldConstantsBlue.clearStageDoorPose);
 
                 ActiveMotionValues.setParkPose(FieldConstantsBlue.farBackstagePark);
-
-
 
 
                 break;
