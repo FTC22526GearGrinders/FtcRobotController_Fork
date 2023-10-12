@@ -52,7 +52,6 @@ public class SelectMotionValuesRed extends CommandBase {
 
                 ActiveMotionValues.setRetractDistance(1);
 
-                ActiveMotionValues.setStrafeDistance(1);
 
                 ActiveMotionValues.setStartPose(FieldConstantsRed.XPYM.StartPos);//start pose
 
@@ -80,7 +79,6 @@ public class SelectMotionValuesRed extends CommandBase {
 
                 ActiveMotionValues.setRetractDistance(1);//MUST MUST MUST MOT BE ZERO!!!!!!!!!!!!!!! + value makes retract move more negative
 
-                ActiveMotionValues.setStrafeDistance(1);
 
                 ActiveMotionValues.setStartPose(FieldConstantsRed.XPYM.StartPos);//start pose;
 
@@ -106,8 +104,6 @@ public class SelectMotionValuesRed extends CommandBase {
                 ActiveMotionValues.setxOffset(0);
 
                 ActiveMotionValues.setRetractDistance(1);
-
-                ActiveMotionValues.setStrafeDistance(1);
 
                 ActiveMotionValues.setStartPose(FieldConstantsRed.XPYM.StartPos);//start pose
 
@@ -140,8 +136,6 @@ public class SelectMotionValuesRed extends CommandBase {
 
                 ActiveMotionValues.setRetractDistance(1);
 
-                ActiveMotionValues.setStrafeDistance(1);
-
                 ActiveMotionValues.setStartPose(FieldConstantsRed.XMYM.StartPos);//start pose
 
 
@@ -171,7 +165,6 @@ public class SelectMotionValuesRed extends CommandBase {
 
                 ActiveMotionValues.setRetractDistance(1);//MUST MUST MUST MOT BE ZERO!!!!!!!!!!!!!!! + value makes retract move more negative
 
-                ActiveMotionValues.setStrafeDistance(1);
 
                 ActiveMotionValues.setStartPose(FieldConstantsRed.XMYM.StartPos);//start pose;
 
@@ -195,7 +188,6 @@ public class SelectMotionValuesRed extends CommandBase {
 
                 ActiveMotionValues.setRetractDistance(1);
 
-                ActiveMotionValues.setStrafeDistance(1);
 
                 ActiveMotionValues.setStartPose(FieldConstantsRed.XMYM.StartPos);//start pose
 
