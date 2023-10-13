@@ -285,6 +285,10 @@ public class SelectMotionValuesBlue {
 
                 ActiveMotionValues.setFinalPose(FieldConstantsBlue.slowToStageDoorPose);
 
+
+                ActiveMotionValues.setClearStageDoorPose(FieldConstantsBlue.clearStageDoorPose);
+
+
                 ActiveMotionValues.setParkPose(FieldConstantsBlue.farBackstagePark);
 
                 break;

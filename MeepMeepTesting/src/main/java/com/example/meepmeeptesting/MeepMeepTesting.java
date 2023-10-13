@@ -13,11 +13,11 @@ public class MeepMeepTesting {
     public static void main(String[] args) {
 
 
-        boolean redAlliance = false;
+        boolean redAlliance = true;
 
         boolean bbstart = false;//set to false for start on stack side of truss
 
-        int lcr = 3;//left tape ==1, center tape = 2, right tape = 3 from robot view
+        int lcr = 1;//left tape ==1, center tape = 2, right tape = 3 from robot view
 
         if (lcr < 1 || lcr > 3) lcr = 2;
 
@@ -103,6 +103,10 @@ public class MeepMeepTesting {
                                     .lineTo(new Vector2d((ActiveMotionValues.getxSecondPoint()), (ActiveMotionValues.getySecondPoint())))
 
                                     .lineToLinearHeading(ActiveMotionValues.getFinalPose())
+
+                                    .waitSeconds(1)
+
+                                    .lineToLinearHeading(ActiveMotionValues.getClearStageDoorPose())
 
                                     .waitSeconds(1)
 

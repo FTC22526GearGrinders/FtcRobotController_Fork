@@ -26,7 +26,9 @@ public class RunAuto extends SequentialCommandGroup {
 
                 new DriveToAprilTagAuto(drive, visionSubsystem),
 
-                new InstantCommand(clawSubsystem::open, clawSubsystem)
+                new InstantCommand(clawSubsystem::open, clawSubsystem),
+
+                new TrajToPark(drive)
 
 
 

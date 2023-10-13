@@ -4,6 +4,7 @@ import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.arcrobotics.ftclib.util.Timing;
 
+import org.checkerframework.checker.units.qual.A;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Subsystems.Claw_Subsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
@@ -65,6 +66,7 @@ public class LRTapePlacePixel extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
+        drive.drive.setPoseEstimate(ActiveMotionValues.getActiveTagPose());
 
     }
 

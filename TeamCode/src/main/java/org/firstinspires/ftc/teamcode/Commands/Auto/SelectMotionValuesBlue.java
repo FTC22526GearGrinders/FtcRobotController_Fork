@@ -224,6 +224,8 @@ public class SelectMotionValuesBlue extends CommandBase {
 
                 ActiveMotionValues.setFinalPose(FieldConstantsBlue.slowToStageDoorPose);
 
+                ActiveMotionValues.setClearStageDoorPose(FieldConstantsBlue.clearStageDoorPose);
+
                 ActiveMotionValues.setParkPose(FieldConstantsBlue.farBackstagePark);
 
 
@@ -257,6 +259,8 @@ public class SelectMotionValuesBlue extends CommandBase {
 
                 ActiveMotionValues.setFinalPose(FieldConstantsBlue.slowToStageDoorPose);
 
+                ActiveMotionValues.setClearStageDoorPose(FieldConstantsBlue.clearStageDoorPose);
+
                 ActiveMotionValues.setParkPose(FieldConstantsBlue.farBackstagePark);
 
                 break;
@@ -289,6 +293,8 @@ public class SelectMotionValuesBlue extends CommandBase {
 
 
                 ActiveMotionValues.setFinalPose(FieldConstantsBlue.slowToStageDoorPose);
+
+                ActiveMotionValues.setClearStageDoorPose(FieldConstantsBlue.clearStageDoorPose);
 
                 ActiveMotionValues.setParkPose(FieldConstantsBlue.farBackstagePark);
 

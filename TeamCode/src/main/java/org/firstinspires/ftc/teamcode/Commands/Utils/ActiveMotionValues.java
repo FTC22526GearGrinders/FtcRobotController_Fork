@@ -16,6 +16,8 @@ public class ActiveMotionValues {
     private static Pose2d parkPose = new Pose2d();
 
     private static Pose2d activeAprilTagPose = new Pose2d();
+    private static Pose2d clearStageDoorPose;
+
     public static Pose2d getStartPose() {
         return startPose;
     }
@@ -203,5 +205,13 @@ public class ActiveMotionValues {
 
     public static Pose2d getAprilTagPos2d() {
         return aprilTagPos2d;
+    }
+
+    public static void setClearStageDoorPose(Pose2d pose) {
+        clearStageDoorPose =pose;
+    }
+
+    public static Pose2d getClearStageDoorPose() {
+       return clearStageDoorPose;
     }
 }
