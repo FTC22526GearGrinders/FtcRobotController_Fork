@@ -1,9 +1,11 @@
 package org.firstinspires.ftc.teamcode.Commands.Auto;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
+import com.arcrobotics.ftclib.command.ConditionalCommand;
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 
+import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Subsystems.Claw_Subsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.Vision_Subsystem;
@@ -28,7 +30,10 @@ public class RunAuto extends SequentialCommandGroup {
 
                 new InstantCommand(clawSubsystem::open, clawSubsystem),
 
-                new TrajToPark(drive)
+
+                new ConditionalCommand(  new TrajToPark(drive), new TrajToParkUnderStageDoor(drive),()-> ActiveMotionValues.getBBStart())
+
+
 
 
 

@@ -1,8 +1,16 @@
 package org.firstinspires.ftc.teamcode.drive;
 
 import com.acmerobotics.dashboard.config.Config;
+import com.acmerobotics.roadrunner.trajectory.constraints.AngularVelocityConstraint;
+import com.acmerobotics.roadrunner.trajectory.constraints.MecanumVelocityConstraint;
+import com.acmerobotics.roadrunner.trajectory.constraints.MinVelocityConstraint;
+import com.acmerobotics.roadrunner.trajectory.constraints.ProfileAccelerationConstraint;
+import com.acmerobotics.roadrunner.trajectory.constraints.TrajectoryAccelerationConstraint;
+import com.acmerobotics.roadrunner.trajectory.constraints.TrajectoryVelocityConstraint;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
+
+import java.util.Arrays;
 
 /*
  * Constants shared between multiple drive types.
@@ -54,7 +62,7 @@ public class DriveConstants {
      * motor encoders or have elected not to use them for velocity control, these values should be
      * empirically tuned.
      */
-    public static double kV = .01 ;
+    public static double kV = .01;
     public static double kA = 0.0005;
     public static double kStatic = 0.08;
 
@@ -69,7 +77,18 @@ public class DriveConstants {
     public static double MAX_ACCEL = 30;
     public static double MAX_ANG_VEL = Math.toRadians(60);
     public static double MAX_ANG_ACCEL = Math.toRadians(60);
+    public static double TRAJ_VEL = 20;
+    public static double TRAJ_ACCEL = 20;
+    public static double TRAJ_ANG_VEL = Math.toRadians(40);
+    public static double TRAJ_ANG_ACCEL = Math.toRadians(40);
 
+
+
+
+
+
+    public static double LIFT_DOOR_VEL = 10;
+    public static double LIFT_DOOR_ACCEL = 20;
     /*
      * Adjust the orientations here to match your robot. See the FTC SDK documentation for details.
      */
@@ -91,4 +110,18 @@ public class DriveConstants {
         // see https://docs.google.com/document/d/1tyWrXDfMidwYyP_5H4mZyVgaEswhOC35gvdmP-V-5hA/edit#heading=h.61g9ixenznbx
         return 32767 / ticksPerSecond;
     }
+
+
+    public static TrajectoryVelocityConstraint liftDoorVel = new MinVelocityConstraint(Arrays.asList(
+            new AngularVelocityConstraint(LIFT_DOOR_VEL),
+            new MecanumVelocityConstraint(LIFT_DOOR_ACCEL, TRACK_WIDTH)));
+
+    public static TrajectoryAccelerationConstraint liftDoorAccel = new ProfileAccelerationConstraint(LIFT_DOOR_ACCEL);
+
+    public static TrajectoryVelocityConstraint trajVel = new MinVelocityConstraint(Arrays.asList(
+            new AngularVelocityConstraint(TRAJ_ANG_VEL),
+            new MecanumVelocityConstraint(TRAJ_VEL, TRACK_WIDTH)));
+
+    public static TrajectoryAccelerationConstraint trajAccel = new ProfileAccelerationConstraint(TRAJ_ACCEL);
+
 }
