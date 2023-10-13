@@ -69,7 +69,7 @@ private OpenCvWebcam webcam;
     @Override
     public void initialize() {
 
-        dashboard = FtcDashboard.getInstance();
+dashboard=FtcDashboard.getInstance();
 
         telemetry = new MultipleTelemetry(telemetry, dashboard.getTelemetry());
 

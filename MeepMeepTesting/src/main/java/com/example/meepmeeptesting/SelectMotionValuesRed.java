@@ -222,7 +222,7 @@ public class SelectMotionValuesRed {
                 ActiveMotionValues.setySecondPoint(FieldConstantsRed.stageDoorLineUpPose2.getY());
 
 
-                ActiveMotionValues.setFinalPose(FieldConstantsRed.stageDoorLineUpPose);
+                ActiveMotionValues.setFinalPose(FieldConstantsRed.slowToStageDoorPose);
 
                 ActiveMotionValues.setParkPose(FieldConstantsRed.farBackstagePark);
 
@@ -254,7 +254,7 @@ public class SelectMotionValuesRed {
                 ActiveMotionValues.setySecondPoint(FieldConstantsRed.stageDoorLineUpPose.getY());
 
 
-                ActiveMotionValues.setFinalPose(FieldConstantsRed.stageDoorLineUpPose);
+                ActiveMotionValues.setFinalPose(FieldConstantsRed.slowToStageDoorPose);
 
                 ActiveMotionValues.setParkPose(FieldConstantsRed.farBackstagePark);
 
@@ -288,7 +288,7 @@ public class SelectMotionValuesRed {
                 ActiveMotionValues.setySecondPoint(FieldConstantsRed.stageDoorLineUpPose1.getY());
 
 
-                ActiveMotionValues.setFinalPose(FieldConstantsRed.stageDoorLineUpPose);
+                ActiveMotionValues.setFinalPose(FieldConstantsRed.slowToStageDoorPose);
 
                 ActiveMotionValues.setParkPose(FieldConstantsRed.farBackstagePark);
 

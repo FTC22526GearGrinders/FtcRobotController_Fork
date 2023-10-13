@@ -107,10 +107,9 @@ public final class Constants {
     }
 
     public static final class ClawConstants {
-        public static final double RIGHT_CLAW_CLOSE_POSITION = .74;
-        public static final double RIGHT_CLAW_OPEN_POSITION = .20;
-        public static final double LEFT_CLAW_CLOSE_POSITION = .15;
-        public static final double LEFT_CLAW_OPEN_POSITION = .70;
+        public static final double CLAW_CLOSE_POSITION = .74;
+        public static final double CLAW_OPEN_POSITION = .20;
+
 
     }
 

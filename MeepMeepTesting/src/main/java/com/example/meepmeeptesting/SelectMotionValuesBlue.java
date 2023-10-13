@@ -217,7 +217,7 @@ public class SelectMotionValuesBlue {
                 ActiveMotionValues.setySecondPoint(FieldConstantsBlue.stageDoorLineUpPose1.getY());
 
 
-                ActiveMotionValues.setFinalPose(FieldConstantsBlue.clearStageDoorPose);
+                ActiveMotionValues.setFinalPose(FieldConstantsBlue.slowToStageDoorPose);
 
                 ActiveMotionValues.setParkPose(FieldConstantsBlue.farBackstagePark);
 
@@ -244,12 +244,13 @@ public class SelectMotionValuesBlue {
                 ActiveMotionValues.setyFirstPoint(FieldConstantsBlue.XMYP.CenterTapeMid.getY() +
                         Constants.RobotConstants.length / 2 + ActiveMotionValues.getyOffset());
 
+
                 ActiveMotionValues.setxSecondPoint(FieldConstantsBlue.stageDoorLineUpPose.getX());
 
                 ActiveMotionValues.setySecondPoint(FieldConstantsBlue.stageDoorLineUpPose.getY());
 
 
-                ActiveMotionValues.setFinalPose(FieldConstantsBlue.stageDoorLineUpPose);
+                ActiveMotionValues.setFinalPose(FieldConstantsBlue.slowToStageDoorPose);
 
                 ActiveMotionValues.setParkPose(FieldConstantsBlue.farBackstagePark);
 
@@ -282,7 +283,7 @@ public class SelectMotionValuesBlue {
                 ActiveMotionValues.setySecondPoint(FieldConstantsBlue.stageDoorLineUpPose2.getY());
 
 
-                ActiveMotionValues.setFinalPose(FieldConstantsBlue.stageDoorLineUpPose);
+                ActiveMotionValues.setFinalPose(FieldConstantsBlue.slowToStageDoorPose);
 
                 ActiveMotionValues.setParkPose(FieldConstantsBlue.farBackstagePark);
 

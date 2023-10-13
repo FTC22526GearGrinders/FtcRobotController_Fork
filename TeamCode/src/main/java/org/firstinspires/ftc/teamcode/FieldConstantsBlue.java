@@ -43,6 +43,27 @@ public final class FieldConstantsBlue {
 
     }
 
+    public static Pose2d setActiveTagPose(int num){
+        int sel = num;
+        switch (sel) {
+            case 0:
+                return AprilTagConstants.atag1;
+
+            case 1:
+                return AprilTagConstants.atag1;
+
+            case 2:
+                return AprilTagConstants.atag2;
+
+            case 3:
+                return AprilTagConstants.atag3;
+
+
+            default:
+                return AprilTagConstants.atag1;
+
+        }
+    }
 
     public static final class XPYP {
         //left and right are from the view of the robot

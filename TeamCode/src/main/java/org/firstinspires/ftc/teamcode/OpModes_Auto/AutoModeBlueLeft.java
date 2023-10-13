@@ -5,10 +5,13 @@ import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
+import org.checkerframework.checker.units.qual.C;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.Commands.Auto.RunAuto;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
+import org.firstinspires.ftc.teamcode.Subsystems.Claw_Subsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
+import org.firstinspires.ftc.teamcode.Subsystems.Vision_Subsystem;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
@@ -24,18 +27,26 @@ public class AutoModeBlueLeft extends CommandOpMode {
 
     private OpenCvWebcam webcam;//
 
+    private Vision_Subsystem visionSubsystem;
+
+    private Claw_Subsystem clawSubsystem;
+
     @Override
     public void initialize() {
 
         webcam = OpenCvCameraFactory.getInstance().createWebcam(this.hardwareMap.get(WebcamName.class, "Webcam 1"));
 
+
         drive = new Drive_Subsystem(this);
+
+        clawSubsystem=new Claw_Subsystem(this);
+
+        visionSubsystem = new Vision_Subsystem(this);
 
 
         ActiveMotionValues.setRedAlliance(false);
 
         ActiveMotionValues.setBBStart(true);
-
 
 
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
@@ -75,7 +86,7 @@ public class AutoModeBlueLeft extends CommandOpMode {
         });
 
 
-        new RunAuto(this,drive,webcam).schedule();
+        new RunAuto(this, drive,clawSubsystem, webcam, this.visionSubsystem).schedule();
 
 
     }

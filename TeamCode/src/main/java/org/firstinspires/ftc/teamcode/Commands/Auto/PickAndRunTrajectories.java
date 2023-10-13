@@ -1,32 +1,32 @@
 package org.firstinspires.ftc.teamcode.Commands.Auto;
 
-import com.acmerobotics.dashboard.FtcDashboard;
-import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.command.CommandBase;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
+import org.firstinspires.ftc.teamcode.Subsystems.Claw_Subsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
 
 
 public class PickAndRunTrajectories extends CommandBase {
 
     private Drive_Subsystem drive;
+
+    private Claw_Subsystem clawSubsystem;
     boolean runLR;
     boolean runC;
 
-    public PickAndRunTrajectories(Drive_Subsystem drive) {
+    public PickAndRunTrajectories(Drive_Subsystem drive, Claw_Subsystem clawSubsystem) {
         this.drive = drive;
+        this.clawSubsystem = clawSubsystem;
     }
 
     @Override
     public void initialize() {
 
-        drive.test=1;
+        drive.test = 1;
 
 
         int lcr = ActiveMotionValues.getLcrpos();
-
 
 
         switch (lcr) {
@@ -35,8 +35,8 @@ public class PickAndRunTrajectories extends CommandBase {
             case 3:
             case 11:
             case 13:
-             //   new LRTapePlacePixel(drive).schedule();//
-                new CenterTapePlacePixel(drive).schedule();//
+                  new LRTapePlacePixel(drive,clawSubsystem).schedule();//
+
                 break;
             default:
                 break;
@@ -48,7 +48,7 @@ public class PickAndRunTrajectories extends CommandBase {
 
             case 2:
             case 12:
-                new CenterTapePlacePixel(drive).schedule();//
+                new CenterTapePlacePixel(drive, clawSubsystem).schedule();//
                 break;
             default:
                 break;

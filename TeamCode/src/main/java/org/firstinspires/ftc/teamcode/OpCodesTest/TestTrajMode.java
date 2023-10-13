@@ -13,6 +13,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Commands.Auto.PickAndRunTrajectories;
 import org.firstinspires.ftc.teamcode.Commands.Auto.SelectValues;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
+import org.firstinspires.ftc.teamcode.Subsystems.Claw_Subsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.IO_Subsystem;
 
@@ -23,6 +24,8 @@ public class TestTrajMode extends CommandOpMode {
     private IO_Subsystem ioss;
 
     private Drive_Subsystem drive;
+
+    private Claw_Subsystem clawSubsystem;
 
     FtcDashboard dashboard;
 
@@ -66,7 +69,7 @@ public class TestTrajMode extends CommandOpMode {
 
                 new SelectValues(),
 
-                new PickAndRunTrajectories(drive)).schedule();
+                new PickAndRunTrajectories(drive,clawSubsystem)).schedule();
 
 
     }

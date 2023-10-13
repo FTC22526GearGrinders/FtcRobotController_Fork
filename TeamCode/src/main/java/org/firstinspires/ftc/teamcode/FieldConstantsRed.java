@@ -14,12 +14,12 @@ public final class FieldConstantsRed {
     public static Pose2d nearBackstagePark = new Pose2d(60,-60,Math.toRadians(0));
 
     public static Pose2d stageDoorLineUpPose = new Pose2d(-36,-12, Math.toRadians(90));
-    public static Pose2d stageDoorLineUpPose1 = new Pose2d(-24,-12, Math.toRadians(-90));
-    public static Pose2d stageDoorLineUpPose2 = new Pose2d(-48,-12, Math.toRadians(-90));
+    public static Pose2d stageDoorLineUpPose1 = new Pose2d(-24,-12, Math.toRadians(90));
+    public static Pose2d stageDoorLineUpPose2 = new Pose2d(-48,-12, Math.toRadians(90));
 
-    public static Pose2d slowToStageDoorPose = new Pose2d(-12,-12, Math.toRadians(-90));
+    public static Pose2d slowToStageDoorPose = new Pose2d(-12,-12, Math.toRadians(90));
 
-    public static Pose2d clearStageDoorPose = new Pose2d(12,-12, Math.toRadians(-90));
+    public static Pose2d clearStageDoorPose = new Pose2d(12,-12, Math.toRadians(90));
 
 
 
@@ -42,6 +42,28 @@ public final class FieldConstantsRed {
         public static final Pose2d atag6 = new Pose2d(60.25, -41.41, Math.toRadians(atagAngle));
 
 
+    }
+
+    public static Pose2d setActiveTagPose(int num) {
+        int sel = num;
+        switch (sel) {
+            case 0:
+            case 1:
+            case 2:
+                return FieldConstantsRed.AprilTagConstants.atag4;
+
+            case 4:
+                return FieldConstantsRed.AprilTagConstants.atag4;
+            case 5:
+                return FieldConstantsRed.AprilTagConstants.atag5;
+            case 6:
+                return FieldConstantsRed.AprilTagConstants.atag6;
+
+
+            default:
+                return FieldConstantsRed.AprilTagConstants.atag4;
+
+        }
     }
 
     public static final class XPYM {

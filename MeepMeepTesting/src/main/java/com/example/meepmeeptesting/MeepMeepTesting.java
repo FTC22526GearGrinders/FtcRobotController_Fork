@@ -13,9 +13,9 @@ public class MeepMeepTesting {
     public static void main(String[] args) {
 
 
-        boolean redAlliance = true;
+        boolean redAlliance = false;
 
-        boolean bbstart = true;//set to false for start on stack side of truss
+        boolean bbstart = false;//set to false for start on stack side of truss
 
         int lcr = 3;//left tape ==1, center tape = 2, right tape = 3 from robot view
 

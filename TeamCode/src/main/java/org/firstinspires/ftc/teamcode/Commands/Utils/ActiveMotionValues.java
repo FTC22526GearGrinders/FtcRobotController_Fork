@@ -13,6 +13,9 @@ public class ActiveMotionValues {
     private static Pose2d finalPose = new Pose2d();
     private static int atag = 1;
 
+    private static Pose2d parkPose = new Pose2d();
+
+    private static Pose2d activeAprilTagPose = new Pose2d();
     public static Pose2d getStartPose() {
         return startPose;
     }
@@ -64,6 +67,7 @@ public class ActiveMotionValues {
         ySecondPoint = y2ndPoint;
     }
 
+
     public static Pose2d getTagLookAheadPose() {
         return tagLookAheadPose;
     }
@@ -71,6 +75,16 @@ public class ActiveMotionValues {
     public static void setTagLookAheadPose(Pose2d tagLAPose) {
         tagLookAheadPose = tagLAPose;
     }
+
+    public static void setActiveTagPose(Pose2d pose) {
+        activeAprilTagPose = pose;
+    }
+
+    public static Pose2d getActiveTagPose() {
+        return activeAprilTagPose;
+    }
+
+
 
     public static double getyOffset() {
         return yOffset;
@@ -127,6 +141,15 @@ public class ActiveMotionValues {
     public static void setActTag(int act) {
         actTag = act;
     }
+
+    public static void setParkPose(Pose2d pose) {
+        parkPose = pose;
+    }
+
+    public static Pose2d getParkPose() {
+        return parkPose;
+    }
+
 
     private static double xFirstPoint;
 
