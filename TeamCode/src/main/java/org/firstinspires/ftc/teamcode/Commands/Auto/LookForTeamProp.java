@@ -6,8 +6,8 @@ import com.arcrobotics.ftclib.command.CommandOpMode;
 
 import org.firstinspires.ftc.teamcode.CV.SpikeTapePipelineBlue;
 import org.firstinspires.ftc.teamcode.CV.SpikeTapePipelineRed;
-import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.opencv.core.Rect;
+import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvWebcam;
 
 import java.util.List;
@@ -43,8 +43,7 @@ public class LookForTeamProp extends CommandBase {
 
     private int yTop;
 
-
-    // List<Rect> lr;
+    double lpctr;
 
 
     public LookForTeamProp(CommandOpMode opMode, OpenCvWebcam webcam) {
@@ -56,26 +55,76 @@ public class LookForTeamProp extends CommandBase {
     @Override
     public void initialize() {
 
-        sptopB = new SpikeTapePipelineBlue();
 
-        sptopR = new SpikeTapePipelineRed();
+//        webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
+//
+//
+//            @Override
+//
+//            public void onOpened() {
+//                /*
+//                 * Tell the webcam to start streaming images to us! Note that you must make sure
+//                 * the resolution you specify is supported by the camera. If it is not, an exception
+//                 * will be thrown.
+//                 *
+//                 * Keep in mind that the SDK's UVC driver (what OpenCvWebcam uses under the hood) only
+//                 * supports streaming from the webcam in the uncompressed YUV image format. This means
+//                 * that the maximum resolution you can stream at and still get up to 30FPS is 480p (640x480).
+//                 * Streaming at e.g. 720p will limit you to up to 10FPS and so on and so forth.
+//                 *
+//                 * Also, we specify the rotation that the webcam is used in. This is so that the image
+//                 * from the camera sensor can be rotated such that it is always displayed with the image upright.
+//                 * For a front facing camera, rotation is defined assuming the user is looking at the screen.
+//                 * For a rear facing camera or a webcam, rotation is defined assuming the camera is facing
+//                 * away from the user.
+//                 */
+//
+//                //    webcam.setPipeline(stpb);
+//                // webcam.setPipeline(stpb);
+//                //start streaming the camera
+//                webcam.startStreaming(640, 480, OpenCvCameraRotation.UPRIGHT);
+//
+//
+//                //if you are using dashboard, update dashboard camera view
+//           //     FtcDashboard.getInstance().startCameraStream(webcam, 5);
+//
+//
+//            }
+//
+//            @Override
+//            public void onError(int errorCode) {
+//                /*
+//                 * This will be called if the camera could not be opened
+//                 */
+//            }
+//        });
 
-        if (ActiveMotionValues.getRedAlliance())
-            webcam.setPipeline(sptopR);
 
-        else
-            webcam.setPipeline(sptopB);
-
+//        lpctr = 0;
+//
+//        sptopB = new SpikeTapePipelineBlue();
+//
+//        sptopR = new SpikeTapePipelineRed();
+//
+//        if (ActiveMotionValues.getRedAlliance())
+//            webcam.setPipeline(sptopR);
+//
+//        else
+//            webcam.setPipeline(sptopB);
+//
     }
 
     @Override
     public void execute() {
+        lpctr++;
 
-
-
-//        myOpMode.telemetry.addData("NumContours", sptopR.getNumberContours());
 //
-//        myOpMode.telemetry.addData("ValidContours", sptopR.getValidContours());
+//        myOpMode.telemetry.addData("NumContours", sptopB.getNumberContours());
+//
+//        myOpMode.telemetry.addData("ValidContours", sptopB.getValidContours());
+//
+//        myOpMode.telemetry.addData("Streaming", webcam.getFps());
+//
 
 
 //        myOpMode.telemetry.addData("W1", sptopR.getW1());
@@ -90,14 +139,21 @@ public class LookForTeamProp extends CommandBase {
 //
 //
 //
-//        myOpMode.telemetry.update();
+        myOpMode.telemetry.update();
 
 
     }
 
     @Override
     public void end(boolean interrupted) {
-        webcam.closeCameraDevice();
+        webcam.closeCameraDeviceAsync(new OpenCvCamera.AsyncCameraCloseListener() {
+            @Override
+            public void onClose() {
+                myOpMode.telemetry.addData("Closing ", "");
+                myOpMode.telemetry.update();
+            }
+        });
+
     }
 
 

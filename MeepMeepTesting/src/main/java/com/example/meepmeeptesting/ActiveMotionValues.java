@@ -10,6 +10,50 @@ public class ActiveMotionValues {
     private static Pose2d startPose = new Pose2d();
     //  private static AprilTagPoseFtc currentTagPose;
     private static double yFirstPoint = 0;
+    private static double ySecondPoint;
+
+    public static double getyThirdPoint() {
+        return yThirdPoint;
+    }
+
+    public static void setyThirdPoint(double yThird) {
+        ActiveMotionValues.yThirdPoint = yThird;
+    }
+
+    public static double getxThirdPoint() {
+        return xThirdPoint;
+    }
+
+    public static void setxThirdPoint(double xThird) {
+        ActiveMotionValues.xThirdPoint = xThird;
+    }
+
+    private static double yThirdPoint;
+
+
+    public static double getyFirstPoint() {
+        return yFirstPoint;
+    }
+    public static void setyFirstPoint(double y1stPoint) {
+        yFirstPoint = y1stPoint;
+    }
+
+    public static double getySecondPoint() {
+        return ySecondPoint;
+    }
+    public static void setySecondPoint(double y2ndPoint) {
+        ySecondPoint = y2ndPoint;
+    }
+
+
+
+    private static double xFirstPoint;
+    private static double xSecondPoint;
+    private static double xThirdPoint;
+
+
+
+
     private static Pose2d finalPose = new Pose2d();
 
     private static Pose2d activeAprilTagPose = new Pose2d();
@@ -63,22 +107,6 @@ public class ActiveMotionValues {
     }
 
 
-    public static double getyFirstPoint() {
-        return yFirstPoint;
-    }
-
-    public static void setyFirstPoint(double y1stPoint) {
-        yFirstPoint = y1stPoint;
-    }
-
-
-    public static double getySecondPoint() {
-        return ySecondPoint;
-    }
-
-    public static void setySecondPoint(double y2ndPoint) {
-        ySecondPoint = y2ndPoint;
-    }
 
     public static Pose2d getTagLookAheadPose() {
         return tagLookAheadPose;
@@ -160,12 +188,8 @@ public class ActiveMotionValues {
     public static Pose2d getClearStageDoorPose() {
         return clearStageDoorPose;
     }
-    private static double xFirstPoint;
-
-    private static double xSecondPoint;
 
 
-    private static double ySecondPoint;
 
     private static Pose2d tagLookAheadPose = new Pose2d();
     private static double yOffset;

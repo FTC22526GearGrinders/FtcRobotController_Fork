@@ -61,11 +61,16 @@ public class LookForTeamElement extends CommandOpMode {
     public void initialize() {
 
 
-        webcam = OpenCvCameraFactory.getInstance().createWebcam(this.hardwareMap.get(WebcamName.class, "Webcam 2"));
+        webcam = OpenCvCameraFactory.getInstance().createWebcam(this.hardwareMap.get(WebcamName.class, "Webcam 1"));
 
         dashboard = FtcDashboard.getInstance();
 
         telemetry = new MultipleTelemetry(telemetry, dashboard.getTelemetry());
+
+
+        //if you are using dashboard, update dashboard camera view
+        FtcDashboard.getInstance().startCameraStream(webcam, 5);
+
 
 
         cameraOpened = false;
@@ -97,9 +102,9 @@ public class LookForTeamElement extends CommandOpMode {
                 //start streaming the camera
                 webcam.startStreaming(640, 480, OpenCvCameraRotation.UPRIGHT);
 
-
                 //if you are using dashboard, update dashboard camera view
-                FtcDashboard.getInstance().startCameraStream(webcam, 5);
+
+
 
                 cameraOpened = true;
 

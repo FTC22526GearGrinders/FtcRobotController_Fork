@@ -5,10 +5,13 @@ import android.provider.ContactsContract;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
+import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 import org.openftc.easyopencv.OpenCvPipeline;
+
+import java.util.List;
 
 //for dashboard
 /*@Config*/
@@ -17,6 +20,9 @@ public class SpikeTapePipelineRed extends OpenCvPipeline {
     // private String location = "nothing"; // output
     public Scalar lower = new Scalar(0, 0, 0); // HSV threshold bounds
     public Scalar upper = new Scalar(34, 255, 255);
+
+    private int numContours;
+    private int validContours;
 
     private Mat mat = new Mat();
     private Mat hsvMat = new Mat(); // converted image
@@ -181,7 +187,18 @@ public class SpikeTapePipelineRed extends OpenCvPipeline {
     }
 
 
+    public int getNumberContours() {
+        return numContours;
+    }
+
+    public int getValidContours() {
+        return validContours;
+    }
+
+
 }
+
+
 
 
 

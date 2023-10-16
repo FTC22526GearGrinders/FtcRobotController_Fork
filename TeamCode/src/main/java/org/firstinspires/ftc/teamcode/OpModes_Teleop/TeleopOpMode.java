@@ -51,6 +51,7 @@ public class TeleopOpMode extends CommandOpMode {
 
         gamepad.getGamepadButton(GamepadKeys.Button.B).whenPressed(claw::close);
 
+       // waitForStart();
     }
 
 

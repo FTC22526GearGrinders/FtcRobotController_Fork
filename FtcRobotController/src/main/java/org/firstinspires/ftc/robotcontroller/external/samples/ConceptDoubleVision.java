@@ -73,6 +73,7 @@ public class ConceptDoubleVision extends LinearOpMode {
     public void runOpMode() {
         initDoubleVision();
 
+
         // This OpMode loops continuously, allowing the user to switch between
         // AprilTag and TensorFlow Object Detection (TFOD) image processors.
         while (!isStopRequested())  {
@@ -155,6 +156,7 @@ public class ConceptDoubleVision extends LinearOpMode {
                 .addProcessors(tfod, aprilTag)
                 .build();
         }
+
     }   // end initDoubleVision()
 
     /**

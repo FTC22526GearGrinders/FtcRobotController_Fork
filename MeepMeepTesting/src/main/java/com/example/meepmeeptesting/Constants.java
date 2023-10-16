@@ -61,7 +61,7 @@ public final class Constants {
         public static final double POSITION_Kd = 0;
         public static final double POSITION_TOLERANCE = 1;
 
-        public static final double ROTATE_Kp = .022;
+        public static final double ROTATE_Kp = .002;
         public static final double ROTATE_Ki = 0;
         public static final double ROTATE_Kd = 0;
 

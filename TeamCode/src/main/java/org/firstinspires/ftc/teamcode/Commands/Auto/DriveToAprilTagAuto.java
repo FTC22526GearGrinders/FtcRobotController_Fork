@@ -30,6 +30,7 @@
 package org.firstinspires.ftc.teamcode.Commands.Auto;
 
 import com.arcrobotics.ftclib.command.CommandBase;
+import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
@@ -71,9 +72,12 @@ public class DriveToAprilTagAuto extends CommandBase {
     double turn = 0;        // Desired turning power/speed (-1 to +1)
     private AprilTagDetection desiredTag;
 
-    public DriveToAprilTagAuto(Drive_Subsystem drive, Vision_Subsystem visionSubsystem) {
-        this.drive = drive;
-        this.visionSubsystem = visionSubsystem;
+    private CommandOpMode myOpMode;
+
+    public DriveToAprilTagAuto(CommandOpMode opMode,Drive_Subsystem drive) {
+        this.drive = drive;   myOpMode=opMode;
+        visionSubsystem = new Vision_Subsystem(myOpMode);
+
         addRequirements(this.drive);
     }
 

@@ -17,7 +17,7 @@ public class MeepMeepTesting {
 
         boolean bbstart = false;//set to false for start on stack side of truss
 
-        int lcr = 1;//left tape ==1, center tape = 2, right tape = 3 from robot view
+        int lcr = 3;//left tape ==1, center tape = 2, right tape = 3 from robot view
 
         if (lcr < 1 || lcr > 3) lcr = 2;
 
@@ -51,7 +51,7 @@ public class MeepMeepTesting {
 
                     // .setDimensions(FieldConstantsRed.ROBOT.width, FieldConstantsRed.ROBOT.height)
                     // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
-                    .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
+                    .setConstraints(20, 20, Math.toRadians(600), Math.toRadians(50), Constants.DriveConstants.TRACKWIDTH)
 
                     .followTrajectorySequence(drive ->
 
@@ -96,25 +96,28 @@ public class MeepMeepTesting {
 
                             drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
 
-                                    .lineTo(new Vector2d(ActiveMotionValues.getxFirstPoint(), ActiveMotionValues.getyFirstPoint()))
+                                    .lineTo(new Vector2d(ActiveMotionValues.getStartPose().getX(), ActiveMotionValues.getStartPose().getY() + 26))
 
+                                   // .splineTo(new Vector2d(ActiveMotionValues.getxFirstPoint(), ActiveMotionValues.getyFirstPoint()),Math.toRadians(90))
+
+                                    .strafeRight(12)
                                     .waitSeconds(1)
+                                    .strafeLeft(24)
+                    .lineTo(new Vector2d((ActiveMotionValues.getxSecondPoint()), (ActiveMotionValues.getySecondPoint())))
 
-                                    .lineTo(new Vector2d((ActiveMotionValues.getxSecondPoint()), (ActiveMotionValues.getySecondPoint())))
+                    .lineToLinearHeading(ActiveMotionValues.getFinalPose())
 
-                                    .lineToLinearHeading(ActiveMotionValues.getFinalPose())
+                    .waitSeconds(1)
 
-                                    .waitSeconds(1)
+                    .lineToLinearHeading(ActiveMotionValues.getClearStageDoorPose())
 
-                                    .lineToLinearHeading(ActiveMotionValues.getClearStageDoorPose())
+                    .waitSeconds(1)
 
-                                    .waitSeconds(1)
-
-                                    .lineToLinearHeading(ActiveMotionValues.getParkPose())
+                    .lineToLinearHeading(ActiveMotionValues.getParkPose())
 //
 
 
-                                    .build());
+                    .build());
 
 
             myBot.getDrive().setPoseEstimate(startPose);
