@@ -15,16 +15,18 @@ public class MeepMeepTesting {
 
         boolean redAlliance = true;
 
-        boolean bbstart = false;//set to false for start on stack side of truss
+        boolean bbstart = true;//set to false for start on stack side of truss
 
-        int lcr = 3;//left tape ==1, center tape = 2, right tape = 3 from robot view
+        int lcr = 2;//left tape ==1, center tape = 2, right tape = 3 from robot view
 
         if (lcr < 1 || lcr > 3) lcr = 2;
 
+        boolean leftPark = false;
 
         ActiveMotionValues.setRedAlliance(redAlliance);
         ActiveMotionValues.setBBStart(bbstart);
         ActiveMotionValues.setLcrpos(lcr);
+        ActiveMotionValues.setLeftPark(leftPark);
 
         if (ActiveMotionValues.getRedAlliance()) {
 //
@@ -48,29 +50,32 @@ public class MeepMeepTesting {
 
                     .setDimensions(Constants.RobotConstants.width, Constants.RobotConstants.length)
 
-
-                    // .setDimensions(FieldConstantsRed.ROBOT.width, FieldConstantsRed.ROBOT.height)
                     // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
-                    .setConstraints(20, 20, Math.toRadians(600), Math.toRadians(50), Constants.DriveConstants.TRACKWIDTH)
+                    .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
 
                     .followTrajectorySequence(drive ->
 
                             drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
 
-                                    .lineTo(new Vector2d(ActiveMotionValues.getxFirstPoint(), ActiveMotionValues.getyFirstPoint()))
 
+                                    .lineTo(new Vector2d(ActiveMotionValues.getxPoint(1), ActiveMotionValues.getyPoint(1)))
+
+                                    .lineTo(new Vector2d(ActiveMotionValues.getxPoint (2),ActiveMotionValues.getyPoint(2)))
 
                                     .waitSeconds(1)
 
-                                    .lineTo(new Vector2d((ActiveMotionValues.getxSecondPoint()), (ActiveMotionValues.getySecondPoint())))
+                                    .lineTo(new Vector2d(ActiveMotionValues.getxPoint(3), ActiveMotionValues.getyPoint(3)))
 
-                                    .lineToLinearHeading(ActiveMotionValues.getFinalPose())
+                                    .lineTo(new Vector2d(ActiveMotionValues.getxPoint(4), ActiveMotionValues.getyPoint(4)))
+
+
+
 
                                     .lineToLinearHeading(ActiveMotionValues.getActiveTagPose())
 
                                     .waitSeconds(1)
 
-                                    .lineToLinearHeading(ActiveMotionValues.getFinalPose())
+
 
                                     .lineToLinearHeading(ActiveMotionValues.getParkPose())
 
@@ -96,28 +101,35 @@ public class MeepMeepTesting {
 
                             drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
 
-                                    .lineTo(new Vector2d(ActiveMotionValues.getStartPose().getX(), ActiveMotionValues.getStartPose().getY() + 26))
+                                    .lineTo(new Vector2d(ActiveMotionValues.getxPoint(1), ActiveMotionValues.getyPoint(1)))
 
-                                   // .splineTo(new Vector2d(ActiveMotionValues.getxFirstPoint(), ActiveMotionValues.getyFirstPoint()),Math.toRadians(90))
 
-                                    .strafeRight(12)
+                                    .lineTo(new Vector2d((ActiveMotionValues.getxPoint(2)), (ActiveMotionValues.getyPoint(2))))
+
+                                    .waitSeconds(2)
+
+                                    .lineTo(new Vector2d((ActiveMotionValues.getxPoint(3)), (ActiveMotionValues.getyPoint(3))))
+
+                                    .lineTo(new Vector2d((ActiveMotionValues.getxPoint(4)), (ActiveMotionValues.getyPoint(4))))
+
+                                    .lineTo(new Vector2d((ActiveMotionValues.getxPoint(5)), (ActiveMotionValues.getyPoint(5))))
+
+
                                     .waitSeconds(1)
-                                    .strafeLeft(24)
-                    .lineTo(new Vector2d((ActiveMotionValues.getxSecondPoint()), (ActiveMotionValues.getySecondPoint())))
 
-                    .lineToLinearHeading(ActiveMotionValues.getFinalPose())
+                                    .lineToLinearHeading(ActiveMotionValues.getActiveTagPose())
 
-                    .waitSeconds(1)
+                                    .waitSeconds(1)
 
-                    .lineToLinearHeading(ActiveMotionValues.getClearStageDoorPose())
 
-                    .waitSeconds(1)
 
-                    .lineToLinearHeading(ActiveMotionValues.getParkPose())
+                                    .lineToLinearHeading(ActiveMotionValues.getParkPose())
+
+
 //
 
 
-                    .build());
+                                    .build());
 
 
             myBot.getDrive().setPoseEstimate(startPose);

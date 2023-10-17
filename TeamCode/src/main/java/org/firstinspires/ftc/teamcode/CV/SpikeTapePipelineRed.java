@@ -1,207 +1,182 @@
 package org.firstinspires.ftc.teamcode.CV;
 
-import android.provider.ContactsContract;
 
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
+import org.opencv.core.MatOfPoint;
+import org.opencv.core.MatOfPoint2f;
 import org.opencv.core.Point;
-import org.opencv.core.Rect;
+import org.opencv.core.RotatedRect;
 import org.opencv.core.Scalar;
 import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 import org.openftc.easyopencv.OpenCvPipeline;
 
+import java.util.ArrayList;
 import java.util.List;
 
 //for dashboard
 /*@Config*/
 public class SpikeTapePipelineRed extends OpenCvPipeline {
 
-    // private String location = "nothing"; // output
-    public Scalar lower = new Scalar(0, 0, 0); // HSV threshold bounds
-    public Scalar upper = new Scalar(34, 255, 255);
-
-    private int numContours;
-    private int validContours;
-
-    private Mat mat = new Mat();
-    private Mat hsvMat = new Mat(); // converted image
-    private Mat binaryMat = new Mat(); // imamge analyzed after thresholding
-    private Mat maskedInputMat = new Mat();
-
-    int imgHeight = 480;
-    int imgWidth = 640;
-
-    int sideBorder = 20;
-    int sideWidth = 100;
-
-    int sideYHeight = 200;
-
-    int sideTopY = 200;
-
-    int centerTopBorder = 250;
-    int centerTopHeight = 100;
-
-    int centerLeftX = 250;
-
-    int centerTopWidth = 200;
+    //backlog of frames to average out to reduce noise
+    ArrayList<double[]> frameList;
 
 
-    // Rectangle regions to be scanned
-    private Point left = new Point(sideBorder, sideTopY), bottomRight1 = new Point(sideBorder + sideWidth, sideTopY + sideYHeight);
-    private Point center = new Point(centerLeftX, centerTopBorder), bottomRight2 = new Point(centerLeftX + centerTopWidth, centerTopBorder + centerTopHeight);
-
-    private Point right = new Point(imgWidth - sideBorder - sideWidth, sideTopY), bottomRight3 = new Point(imgWidth - sideBorder, sideTopY + sideYHeight);
-    public double w1 = 0;
-
-    public double w2 = 0;
-    public double w3 = 0;
-
-
-
-
-    Scalar white = new Scalar(255, 255, 255);
-    Scalar red = new Scalar(0, 0, 255);
     private int lcr;
+    private int numContours;
+    private int usableContours;
+
+
+    public Scalar lower = new Scalar(0, 52.4, 0);
+    public Scalar upper = new Scalar(150, 255, 255);
 
 
     public SpikeTapePipelineRed() {
-
-
-        //   this.telemetry = telemetry;
+        frameList = new ArrayList<>();
     }
 
     @Override
     public Mat processFrame(Mat input) {
-        mat = input;
-        if (mat.empty()) {
+        Mat src = input;
+        if (src.empty()) {
             return input;
         }
-        Imgproc.blur(input, mat, new Size(15, 15));
-
-        // Convert from BGR to HSV
-        Imgproc.cvtColor(mat, hsvMat, Imgproc.COLOR_RGB2HSV);
-
-        Core.inRange(hsvMat, lower, upper, binaryMat);
-
-        imgWidth = binaryMat.width();
-
-        imgHeight = binaryMat.height();
-
-        Imgproc.rectangle(input, left, bottomRight1, white, 1);
-
-        Imgproc.rectangle(input, center, bottomRight2, white, 1);
-
-        Imgproc.rectangle(input, right, bottomRight3, white, 1);
+        Mat dst = new Mat(src.rows(), src.cols(), src.type(), new Scalar(0));
+        Mat blur = new Mat(src.rows(), src.cols(), src.type(), new Scalar(0));
+        Mat hsvMat = new Mat(src.rows(), src.cols(), src.type(), new Scalar(0));
+        Mat filtered = new Mat();
 
 
-        Imgproc.rectangle(binaryMat, left, bottomRight1, red, 1);
+        Imgproc.blur(src, blur, new Size(1, 1));
 
-        Imgproc.rectangle(binaryMat, center, bottomRight2, red, 1);
+        Imgproc.cvtColor(blur, hsvMat, Imgproc.COLOR_BGR2HSV);
 
-        Imgproc.rectangle(binaryMat, right, bottomRight3, red, 1);
-
-
+        Core.inRange(hsvMat, lower, upper, filtered);
 
 
-
-        int rows = binaryMat.rows();
-        int cols = binaryMat.cols();
-
-        w1=0;
-        w2=0;
-        w3=0;
+        Mat inverted = new Mat();
+        Core.bitwise_not(filtered, inverted);
+        inverted.copyTo(dst);
 
 
-        // Scan both rectangle regions, keeping track of how many
-        // pixels meet the threshold value, indicated by the color
-        // in the binary image
-
-        // process the pixel value for each rectangle  (255 = W, 0 = B)
-
-        for (int j = (int) left.y; j <= bottomRight1.y; j++) {
-            for (int i = (int) left.x; i <= bottomRight1.x; i++) {
-                if (binaryMat.get(j, i)[0] == 255) {
-                    w1++;
-                }
-            }
-        }
+        List<MatOfPoint> contours = new ArrayList<>();
 
 
-        for (int j = (int) center.y; j <= bottomRight2.y; j++) {
-            for (int i = (int) center.x; i <= bottomRight2.x; i++) {
-                if (binaryMat.get(j, i)[0] == 255) {
-                    w2++;
-                }
-            }
-        }
+//
+        Mat hierarchy = new Mat();
+//
+//
+//        //find contours, input scaledThresh because it has hard edges
+        Imgproc.findContours(filtered, contours, hierarchy, Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE);
+//
+        numContours = contours.size();
+        usableContours = 0;
 
 
-        for (int j = (int) right.y; j <= bottomRight3.y; j++) {
-            for (int i = (int) right.x; i <= bottomRight3.x; i++) {
-                if (binaryMat.get(j, i)[0] == 255) {
-                    w3++;
-                }
+        List<RotatedRect> rr = new ArrayList<>();
 
+        List<Double> rrxval = new ArrayList<>();
+
+        List<Double> rrAreas = new ArrayList<>();
+
+        MatOfPoint2f approxCurve = new MatOfPoint2f();
+        //For each contour found
+        for (int i = 0; i < numContours; i++) {
+            //Convert contours(i) from MatOfPoint to MatOfPoint2f
+            MatOfPoint2f contour2f = new MatOfPoint2f(contours.get(i).toArray());
+            //Processing on mMOP2f1 which is in type MatOfPoint2f
+            double approxDistance = Imgproc.arcLength(contour2f, true) * 0.02;
+
+            Imgproc.approxPolyDP(contour2f, approxCurve, approxDistance, true);
+
+            //Convert back to MatOfPoint
+            MatOfPoint mp2f = new MatOfPoint(approxCurve.toArray());
+
+            RotatedRect temp = Imgproc.minAreaRect(contour2f);
+
+            if (temp.size.area() > 500) {
+
+                rr.add(temp);
+
+                rrAreas.add(temp.size.area());
+
+                rrxval.add(temp.center.x);
+
+                usableContours++;
 
             }
+
+
+            Point points[] = new Point[4];
+
+            temp.points(points);
+
+            for (int p = 0; p < 4; ++p) {
+                Imgproc.line(filtered, points[p], points[(p + 1) % 4], new Scalar(128, 128, 128));
+            }
+            Scalar color = new Scalar(128, 128, 128);
+
+//            Imgproc.putText(filtered, String.valueOf(i), new Point(temp.center.x + 20, temp.center.y), 7, Imgproc.FONT_HERSHEY_PLAIN,
+//                    color, 1);
+
+            new Scalar(255, 0, 0);
         }
 
-//        // Determine object location
 
-         lcr = 0;
-        if (w1 > w2 && w1 > w3) {
-            lcr = 1;
-        } else if (w2 > w1 && w2 > w3) {
-            lcr = 2;
-        } else if (w3 > w1 && w3 > w2) {
-            lcr = 3;
+        //sort rr by area ann save x values
+
+
+        sort(rrAreas, rrxval);
+
+        if (rr.size() >= 3) {
+
+            if (rrxval.get(0) > rrxval.get(1) && rrxval.get(0) > rrxval.get(2))
+                lcr = 3;
+
+            if (rrxval.get(0) < rrxval.get(1) && rrxval.get(0) < rrxval.get(2))
+                lcr = 1;
+
+            if (rrxval.get(0) > rrxval.get(1) && rrxval.get(0) < rrxval.get(2)
+                    || rrxval.get(0) > rrxval.get(2) && rrxval.get(0) < rrxval.get(1))
+                lcr = 2;
+
+
         }
 
-        return binaryMat;
-    }
+        if (frameList.size() > 5) {
+            frameList.remove(0);
+        }
 
-    public double getW1() {
-        return w1;
-    }
-
-    public double getW2() {
-        return w2;
-    }
-
-    public double getW3() {
-        return w3;
-    }
-
-    public double getImgCols() {
-        return binaryMat.cols();
-    }
-
-    public int getImgRows() {
-        return binaryMat.rows();
-    }
-
-    public int getImgWidth() {
-        return imgWidth;
-    }
-    public int getLCR() {
-        return lcr;
-    }
+        return filtered;
 
 
-    public int getNumberContours() {
-        return numContours;
     }
 
-    public int getValidContours() {
-        return validContours;
+    void sort(List<Double> rrAreas, List<Double> rrxval) {
+        int n = rrAreas.size();
+        for (int i = 1; i < n; ++i) {
+            double key = rrAreas.get(i);
+            double temp = rrxval.get(i);
+            int j = i - 1;
+
+            // Move elements of arr[0..i-1], that are
+            // greater than key, to one position ahead
+            // of their current position
+            while (j >= 0 && rrAreas.get(j) < key) {
+                // arr[j + 1] = arr[j];
+                rrAreas.set(j + 1, rrAreas.get(j));
+                rrxval.set(j + 1, rrxval.get(j));
+
+                j = j - 1;
+            }
+            rrAreas.set(j + 1, key);
+            rrxval.set(j + 1, temp);
+        }
     }
 
 
 }
-
-
-
 
 
 

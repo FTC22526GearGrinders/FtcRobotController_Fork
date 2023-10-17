@@ -89,15 +89,15 @@ public class SelectMotionValuesBlue {
                 ActiveMotionValues.setyFirstPoint(FieldConstantsBlue.XPYP.LeftTapeMid.getY() + Constants.TapeConstants.tapeLength / 2 +
                         Constants.RobotConstants.length / 2 + ActiveMotionValues.getyOffset());
 
-                ActiveMotionValues.setxSecondPoint(ActiveMotionValues.getxFirstPoint());
+                ActiveMotionValues.setxSecondPoint(ActiveMotionValues.getxPoint(1));
 
                 ActiveMotionValues.setySecondPoint(ActiveMotionValues.getyFirstPoint() + ActiveMotionValues.getRetractDistance());
 
                 ActiveMotionValues.setActTag(1);
 
-                ActiveMotionValues.setFinalPose(FieldConstantsBlue.setActiveTagPose(ActiveMotionValues.getActTag()).
-
-                        plus(FieldConstantsBlue.AprilTagConstants.tagLookAheadPose));
+//                ActiveMotionValues.setFinalPose(FieldConstantsBlue.setActiveTagPose(ActiveMotionValues.getActTag()).
+//
+//                        plus(FieldConstantsBlue.AprilTagConstants.tagLookAheadPose));
 
 
                 ActiveMotionValues.setActiveTagPose(FieldConstantsBlue.setActiveTagPose(ActiveMotionValues.getActTag())
@@ -130,9 +130,9 @@ public class SelectMotionValuesBlue {
 
                 ActiveMotionValues.setActTag(2);
 
-                ActiveMotionValues.setFinalPose(FieldConstantsBlue.setActiveTagPose(ActiveMotionValues.getActTag()).
-
-                        plus(FieldConstantsBlue.AprilTagConstants.tagLookAheadPose));
+//                ActiveMotionValues.setFinalPose(FieldConstantsBlue.setActiveTagPose(ActiveMotionValues.getActTag()).
+//
+//                        plus(FieldConstantsBlue.AprilTagConstants.tagLookAheadPose));
 
 
                 ActiveMotionValues.setActiveTagPose(FieldConstantsBlue.setActiveTagPose(ActiveMotionValues.getActTag())
@@ -179,9 +179,9 @@ public class SelectMotionValuesBlue {
 
                 ActiveMotionValues.setActTag(3);
 
-                ActiveMotionValues.setFinalPose(FieldConstantsBlue.setActiveTagPose(ActiveMotionValues.getActTag()).
-
-                        plus(FieldConstantsBlue.AprilTagConstants.tagLookAheadPose));
+//                ActiveMotionValues.setFinalPose(FieldConstantsBlue.setActiveTagPose(ActiveMotionValues.getActTag()).
+//
+//                        plus(FieldConstantsBlue.AprilTagConstants.tagLookAheadPose));
 
 
                 ActiveMotionValues.setActiveTagPose(FieldConstantsBlue.setActiveTagPose(ActiveMotionValues.getActTag())
@@ -217,7 +217,7 @@ public class SelectMotionValuesBlue {
                 ActiveMotionValues.setySecondPoint(FieldConstantsBlue.stageDoorLineUpPose1.getY());
 
 
-                ActiveMotionValues.setFinalPose(FieldConstantsBlue.slowToStageDoorPose);
+               // ActiveMotionValues.setFinalPose(FieldConstantsBlue.slowToStageDoorPose);
 
                 ActiveMotionValues.setParkPose(FieldConstantsBlue.farBackstagePark);
 
@@ -250,7 +250,7 @@ public class SelectMotionValuesBlue {
                 ActiveMotionValues.setySecondPoint(FieldConstantsBlue.stageDoorLineUpPose.getY());
 
 
-                ActiveMotionValues.setFinalPose(FieldConstantsBlue.slowToStageDoorPose);
+           //     ActiveMotionValues.setFinalPose(FieldConstantsBlue.slowToStageDoorPose);
 
                 ActiveMotionValues.setParkPose(FieldConstantsBlue.farBackstagePark);
 
@@ -283,10 +283,10 @@ public class SelectMotionValuesBlue {
                 ActiveMotionValues.setySecondPoint(FieldConstantsBlue.stageDoorLineUpPose2.getY());
 
 
-                ActiveMotionValues.setFinalPose(FieldConstantsBlue.slowToStageDoorPose);
-
-
-                ActiveMotionValues.setClearStageDoorPose(FieldConstantsBlue.clearStageDoorPose);
+//                ActiveMotionValues.setFinalPose(FieldConstantsBlue.slowToStageDoorPose);
+//
+//
+//                ActiveMotionValues.setClearStageDoorPose(FieldConstantsBlue.clearStageDoorPose);
 
 
                 ActiveMotionValues.setParkPose(FieldConstantsBlue.farBackstagePark);

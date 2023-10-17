@@ -8,32 +8,41 @@ public class ActiveMotionValues {
 
 
     private static Pose2d startPose = new Pose2d();
+
+
+    private static double[] yPoints = new double[10];
+
+    private static double[] xPoints = new double[10];
+
+
+    public static void setyPoint(int n, double val) {
+        yPoints[n] = val;
+    }
+    public static double getyPoint(int n) {
+        return yPoints[n];
+    }
+    public static void setxPoint(int n, double val) {
+        xPoints[n] = val;
+    }
+    public static double getxPoint(int n) {
+        return xPoints[n];
+    }
+
     //  private static AprilTagPoseFtc currentTagPose;
     private static double yFirstPoint = 0;
     private static double ySecondPoint;
 
-    public static double getyThirdPoint() {
-        return yThirdPoint;
-    }
-
-    public static void setyThirdPoint(double yThird) {
-        ActiveMotionValues.yThirdPoint = yThird;
-    }
-
-    public static double getxThirdPoint() {
-        return xThirdPoint;
-    }
-
-    public static void setxThirdPoint(double xThird) {
-        ActiveMotionValues.xThirdPoint = xThird;
-    }
-
     private static double yThirdPoint;
+
+    private static double yFourthPoint;
+
+    private static double yFifthPoint;
 
 
     public static double getyFirstPoint() {
         return yFirstPoint;
     }
+
     public static void setyFirstPoint(double y1stPoint) {
         yFirstPoint = y1stPoint;
     }
@@ -41,53 +50,43 @@ public class ActiveMotionValues {
     public static double getySecondPoint() {
         return ySecondPoint;
     }
+
     public static void setySecondPoint(double y2ndPoint) {
         ySecondPoint = y2ndPoint;
     }
 
+    public static double getyThirdPoint() {
+        return yThirdPoint;
+    }
 
+
+    public static void setyThirdPoint(double yThird) {
+        ActiveMotionValues.yThirdPoint = yThird;
+    }
+
+    public static double getyFourthPoint() {
+        return yFourthPoint;
+    }
+
+    public static void setyFourthPoint(double y4thPoint) {
+        ActiveMotionValues.yFourthPoint = y4thPoint;
+    }
+
+    public static double getyFifthPoint() {
+        return yFifthPoint;
+    }
+
+    public static void setyFifthPoint(double y5thPoint) {
+        ActiveMotionValues.yFifthPoint = y5thPoint;
+    }
 
     private static double xFirstPoint;
     private static double xSecondPoint;
     private static double xThirdPoint;
 
+    private static double xFourthPoint;
 
-
-
-    private static Pose2d finalPose = new Pose2d();
-
-    private static Pose2d activeAprilTagPose = new Pose2d();
-
-    private static Pose2d clearStageDoorPose;
-
-    private static Pose2d parkPose = new Pose2d();
-
-
-    private static int atag = 1;
-
-    public static Pose2d getStartPose() {
-        return startPose;
-    }
-
-    public static void setStartPose(Pose2d pose) {
-        startPose = pose;
-    }
-
-    public static Pose2d getFinalPose() {
-        return finalPose;
-    }
-
-    public static void setParkPose(Pose2d pose) {
-        parkPose = pose;
-    }
-
-    public static Pose2d getParkPose() {
-        return parkPose;
-    }
-
-    public static void setFinalPose(Pose2d pose) {
-        finalPose = pose;
-    }
+    private static double xFifthPoint;
 
 
     public static double getxFirstPoint() {
@@ -106,7 +105,65 @@ public class ActiveMotionValues {
         xSecondPoint = x2ndPoint;
     }
 
+    public static double getxThirdPoint() {
+        return xThirdPoint;
+    }
 
+    public static void setxThirdPoint(double xThird) {
+        ActiveMotionValues.xThirdPoint = xThird;
+    }
+
+    public static double getxFourthPoint() {
+        return xFourthPoint;
+    }
+
+    public static void setxFifthPoint(double xFifth) {
+        ActiveMotionValues.xFifthPoint = xFifth;
+    }
+
+    public static double getxFifthPoint() {
+        return xFifthPoint;
+    }
+
+    public static void setxFourthPoint(double xFourth) {
+        ActiveMotionValues.xFourthPoint = xFourth;
+    }
+
+    private static Pose2d activeAprilTagPose = new Pose2d();
+
+    private static Pose2d clearStageDoorPose;
+
+    private static Pose2d parkPose = new Pose2d();
+
+    public static boolean getLeftPark() {
+        return leftPark;
+    }
+
+    public static void setLeftPark(boolean lPark) {
+        leftPark = lPark;
+    }
+
+    private static boolean leftPark;
+
+
+    private static int atag = 1;
+
+    public static Pose2d getStartPose() {
+        return startPose;
+    }
+
+    public static void setStartPose(Pose2d pose) {
+        startPose = pose;
+    }
+
+
+    public static void setParkPose(Pose2d pose) {
+        parkPose = pose;
+    }
+
+    public static Pose2d getParkPose() {
+        return parkPose;
+    }
 
     public static Pose2d getTagLookAheadPose() {
         return tagLookAheadPose;
@@ -180,15 +237,6 @@ public class ActiveMotionValues {
     public static Pose2d getActiveTagPose() {
         return activeAprilTagPose;
     }
-
-    public static void setClearStageDoorPose(Pose2d pose) {
-        clearStageDoorPose =pose;
-    }
-
-    public static Pose2d getClearStageDoorPose() {
-        return clearStageDoorPose;
-    }
-
 
 
     private static Pose2d tagLookAheadPose = new Pose2d();

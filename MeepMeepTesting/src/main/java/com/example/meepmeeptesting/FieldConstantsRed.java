@@ -5,19 +5,23 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 public final class FieldConstantsRed {
 
 
-    public static Pose2d wingPose = new Pose2d(-60, 60, Math.toRadians(0));
+    public static Pose2d farBackstagePark = new Pose2d(-12, 60, Math.toRadians(90));// 'near' to drivers
 
-    public static Pose2d farBackstagePark = new Pose2d(60, -12, Math.toRadians(90));// 'near' to drivers
 
-    public static Pose2d nearBackstagePark = new Pose2d(60, -60, Math.toRadians(0));
+    public static Pose2d nearBackstageTrussLineUp = new Pose2d(-36, -60, Math.toRadians(0));
 
     public static Pose2d stageDoorLineUpPose = new Pose2d(-36, -12, Math.toRadians(90));
     public static Pose2d stageDoorLineUpPose1 = new Pose2d(-24, -12, Math.toRadians(90));
     public static Pose2d stageDoorLineUpPose2 = new Pose2d(-48, -12, Math.toRadians(90));
+    public static Pose2d nearTrussLineUpPose = new Pose2d(-60, -36, Math.toRadians(90));
 
-    public static Pose2d slowToStageDoorPose = new Pose2d(-12, -12, Math.toRadians(90));
+    public static Pose2d nearBBSideParkPose = new Pose2d(60, -60, Math.toRadians(90));
 
-    public static Pose2d clearStageDoorPose = new Pose2d(12, -12, Math.toRadians(90));
+    public static Pose2d slideToearBBSideParkPose = new Pose2d(50, -60, Math.toRadians(0));
+
+
+
+    public static Pose2d nearLookForAprilTagPose = new Pose2d(12, -60, Math.toRadians(90));
 
 
     public static final class AprilTagConstants {
