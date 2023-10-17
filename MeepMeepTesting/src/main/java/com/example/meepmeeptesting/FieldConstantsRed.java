@@ -5,9 +5,6 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 public final class FieldConstantsRed {
 
 
-    public static Pose2d farBackstagePark = new Pose2d(-12, 60, Math.toRadians(90));// 'near' to drivers
-
-
     public static Pose2d nearBackstageTrussLineUp = new Pose2d(-36, -60, Math.toRadians(0));
 
     public static Pose2d stageDoorLineUpPose = new Pose2d(-36, -12, Math.toRadians(90));
