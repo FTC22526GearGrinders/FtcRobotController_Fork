@@ -23,12 +23,6 @@ public class SpikeTapePipelineRotate extends OpenCvPipeline {
     //backlog of frames to average out to reduce noise
     ArrayList<double[]> frameList;
 
-    int blur = 0;
-
-
-    int lo = 0;
-
-    int hi = 255;
 
     private int lcr;
     private int numContours;
@@ -139,20 +133,20 @@ public class SpikeTapePipelineRotate extends OpenCvPipeline {
 
         sort(rrAreas, rrxval);
 
-if(rr.size()>=3) {
+        if (rr.size() >= 3) {
 
-    if (rrxval.get(0) > rrxval.get(1) && rrxval.get(0) > rrxval.get(2))
-        lcr = 3;
+            if (rrxval.get(0) > rrxval.get(1) && rrxval.get(0) > rrxval.get(2))
+                lcr = 3;
 
-    if (rrxval.get(0) < rrxval.get(1) && rrxval.get(0) < rrxval.get(2))
-        lcr = 1;
+            if (rrxval.get(0) < rrxval.get(1) && rrxval.get(0) < rrxval.get(2))
+                lcr = 1;
 
-    if (rrxval.get(0) > rrxval.get(1) && rrxval.get(0) < rrxval.get(2)
-        ||rrxval.get(0) > rrxval.get(2) && rrxval.get(0) < rrxval.get(1))
-        lcr = 2;
+            if (rrxval.get(0) > rrxval.get(1) && rrxval.get(0) < rrxval.get(2)
+                    || rrxval.get(0) > rrxval.get(2) && rrxval.get(0) < rrxval.get(1))
+                lcr = 2;
 
 
-}
+        }
 
         for (int i = 0; i < rr.size(); i++) {
             telemetry.addData("Area " + String.valueOf(i), rrAreas.get(i));
