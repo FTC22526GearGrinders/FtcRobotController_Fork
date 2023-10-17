@@ -58,6 +58,8 @@ public class SpikeTapePipelineRed extends OpenCvPipeline {
     public double w3 = 0;
 
 
+
+
     Scalar white = new Scalar(255, 255, 255);
     Scalar red = new Scalar(0, 0, 255);
     private int lcr;

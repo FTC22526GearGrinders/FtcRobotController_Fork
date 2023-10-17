@@ -23,8 +23,8 @@ import java.util.List;
 public class SpikeTapePipelineColor extends OpenCvPipeline {
 
 
-    Scalar lower = new Scalar(0, 63, 0);
-    Scalar upper = new Scalar(163, 255, 255);
+   public  Scalar lower = new Scalar(0, 63, 0);
+  public   Scalar upper = new Scalar(163, 255, 255);
 
 
     Telemetry telemetry;
