@@ -13,7 +13,7 @@ public class MeepMeepTesting {
     public static void main(String[] args) {
 
 
-        boolean redAlliance = true;
+        boolean redAlliance = false;
 
         boolean bbstart = false;//set to false for start on stack side of truss
 
@@ -116,7 +116,8 @@ public class MeepMeepTesting {
 
                                     .lineTo(new Vector2d((ActiveMotionValues.getxPoint(5)), (ActiveMotionValues.getyPoint(5))))
 
-                                   .lineTo(new Vector2d((ActiveMotionValues.getxPoint(6)), (ActiveMotionValues.getyPoint(6))))
+
+                                  .lineTo(new Vector2d((ActiveMotionValues.getxPoint(6)), (ActiveMotionValues.getyPoint(6))))
 
                              //    .lineTo(new Vector2d((ActiveMotionValues.getxPoint(7)), (ActiveMotionValues.getyPoint(7))))
 

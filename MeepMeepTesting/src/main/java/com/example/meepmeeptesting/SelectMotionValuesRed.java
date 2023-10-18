@@ -107,7 +107,14 @@ public class SelectMotionValuesRed {
                 ActiveMotionValues.setActiveTagPose(FieldConstantsRed.setActiveTagPose(ActiveMotionValues.getActTag())
                         .minus(new Pose2d(Constants.RobotConstants.length / 2, 0, 0)));
 
-                ActiveMotionValues.setParkPose(FieldConstantsRed.slideToNearBBSideParkPose);
+                if (ActiveMotionValues.getCenterPark())
+
+                    ActiveMotionValues.setParkPose(FieldConstantsRed.slideToCenterBBSideParkPose);
+
+                else
+
+                    ActiveMotionValues.setParkPose(FieldConstantsRed.slideToNearBBSideParkPose);
+
 
 
                 break;
@@ -157,7 +164,14 @@ public class SelectMotionValuesRed {
                         .minus(new Pose2d(Constants.RobotConstants.length / 2 + 3, 0, 0)));
 
 
-                ActiveMotionValues.setParkPose(FieldConstantsRed.slideToNearBBSideParkPose);
+                if (ActiveMotionValues.getCenterPark())
+
+                    ActiveMotionValues.setParkPose(FieldConstantsRed.slideToCenterBBSideParkPose);
+
+                else
+
+                    ActiveMotionValues.setParkPose(FieldConstantsRed.slideToNearBBSideParkPose);
+
 
 
                 break;
@@ -200,7 +214,14 @@ public class SelectMotionValuesRed {
                 ActiveMotionValues.setActiveTagPose(FieldConstantsRed.setActiveTagPose(ActiveMotionValues.getActTag())
                         .minus(new Pose2d(Constants.RobotConstants.length / 2 + 3, 0, 0)));
 
-                ActiveMotionValues.setParkPose(FieldConstantsRed.slideToNearBBSideParkPose);
+                if (ActiveMotionValues.getCenterPark())
+
+                    ActiveMotionValues.setParkPose(FieldConstantsRed.slideToCenterBBSideParkPose);
+
+                else
+
+                    ActiveMotionValues.setParkPose(FieldConstantsRed.slideToNearBBSideParkPose);
+
 
 
                 break;
