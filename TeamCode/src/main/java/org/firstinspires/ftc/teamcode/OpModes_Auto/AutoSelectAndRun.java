@@ -73,7 +73,7 @@ public class AutoSelectAndRun extends CommandOpMode {
 
     boolean leftStart = false;
 
-    boolean leftPark = false;
+    boolean centerPark = false;
 
     SpikeTapePipelineRed sptopR = null;
 
@@ -112,7 +112,7 @@ public class AutoSelectAndRun extends CommandOpMode {
                 }
 
                 if (currentA) {
-                    leftPark = !leftPark;
+                    centerPark = !centerPark;
                 }
 
             }
@@ -131,7 +131,7 @@ public class AutoSelectAndRun extends CommandOpMode {
 
             telemetry.addData("Red Alliance Selected X to Change", redAlliance);
             telemetry.addData("Left Start Selected Y to Change", leftStart);
-            telemetry.addData("Left Park Selected A to Change", leftPark);
+            telemetry.addData("Left Park Selected A to Change", centerPark);
             telemetry.addData("Press Left Bumper To Continue", "");
 
 
@@ -151,11 +151,11 @@ public class AutoSelectAndRun extends CommandOpMode {
         else
             telemetry.addData("You Have Chosen Right Start", "");
 
-        if (leftPark)
+        if (centerPark)
 
-            telemetry.addData("You Have Chosen Left Park", "");
+            telemetry.addData("You Have Chosen Center Park", "");
         else
-            telemetry.addData("You Have Chosen Right Park", "");
+            telemetry.addData("You Have Chosen Near Park", "");
 
         telemetry.addData("Reselect Opmode to Change", "");
 
@@ -167,6 +167,8 @@ public class AutoSelectAndRun extends CommandOpMode {
         ActiveMotionValues.setRedAlliance(redAlliance);
         boolean bbStart = redAlliance && !leftStart || !redAlliance && leftStart;
         ActiveMotionValues.setBBStart(bbStart);
+        ActiveMotionValues.setCenterPark(centerPark);
+
 
 
         drive = new Drive_Subsystem(this);

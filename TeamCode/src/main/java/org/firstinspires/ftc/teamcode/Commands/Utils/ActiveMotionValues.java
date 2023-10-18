@@ -214,4 +214,7 @@ public class ActiveMotionValues {
     public static Pose2d getClearStageDoorPose() {
        return clearStageDoorPose;
     }
+
+    public static void setCenterPark(boolean centerPark) {
+    }
 }

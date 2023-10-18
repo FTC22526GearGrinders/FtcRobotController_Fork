@@ -7,18 +7,25 @@ public final class FieldConstantsRed {
 
     public static Pose2d nearBackstageTrussLineUp = new Pose2d(-36, -60, Math.toRadians(0));
 
-    public static Pose2d stageDoorLineUpPose = new Pose2d(-36, -12, Math.toRadians(90));
-    public static Pose2d stageDoorLineUpPose1 = new Pose2d(-24, -12, Math.toRadians(90));
+    public static Pose2d stageDoorLineUpPose13 = new Pose2d(-36, -12, Math.toRadians(90));
+
     public static Pose2d stageDoorLineUpPose2 = new Pose2d(-48, -12, Math.toRadians(90));
-    public static Pose2d nearTrussLineUpPose = new Pose2d(-60, -36, Math.toRadians(90));
+
+
+    public static Pose2d bbsideFromStageDoor = new Pose2d(12, -12, Math.toRadians(90));
+
+
 
     public static Pose2d nearBBSideParkPose = new Pose2d(60, -60, Math.toRadians(90));
 
-    public static Pose2d slideToearBBSideParkPose = new Pose2d(50, -60, Math.toRadians(0));
+    public static Pose2d slideToNearBBSideParkPose = new Pose2d(50, -60, Math.toRadians(0));
+
+    public static Pose2d slideToCenterBBSideParkPose = new Pose2d(50, -14, Math.toRadians(0));
 
 
 
     public static Pose2d nearLookForAprilTagPose = new Pose2d(12, -60, Math.toRadians(90));
+    public static Pose2d centerLookForAprilTagPose = new Pose2d(12, -12, Math.toRadians(90));
 
 
     public static final class AprilTagConstants {

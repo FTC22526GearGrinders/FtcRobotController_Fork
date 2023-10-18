@@ -13,22 +13,24 @@ public class ActiveMotionValues {
     private static double[] yPoints = new double[10];
 
     private static double[] xPoints = new double[10];
+    private static boolean centerPark;
 
 
     public static void setyPoint(int n, double val) {
         yPoints[n] = val;
     }
+
     public static double getyPoint(int n) {
         return yPoints[n];
     }
+
     public static void setxPoint(int n, double val) {
         xPoints[n] = val;
     }
+
     public static double getxPoint(int n) {
         return xPoints[n];
     }
-
-
 
 
     private static Pose2d activeAprilTagPose = new Pose2d();
@@ -37,15 +39,15 @@ public class ActiveMotionValues {
 
     private static Pose2d parkPose = new Pose2d();
 
-    public static boolean getLeftPark() {
-        return leftPark;
+    public static boolean getUseStageDoor() {
+        return useStageDoor;
     }
 
-    public static void setLeftPark(boolean lPark) {
-        leftPark = lPark;
+    public static void setUseStageDoor(boolean stDr) {
+        useStageDoor = stDr;
     }
 
-    private static boolean leftPark;
+    private static boolean useStageDoor;
 
 
     private static int atag = 1;
@@ -186,5 +188,13 @@ public class ActiveMotionValues {
 
     public static Pose2d getAprilTagPos2d() {
         return aprilTagPos2d;
+    }
+
+    public static boolean getCenterPark() {
+        return centerPark;
+    }
+
+    public static void setCenterPark(boolean cPark) {
+        centerPark = cPark;
     }
 }

@@ -13,7 +13,7 @@ public class MeepMeepTesting {
     public static void main(String[] args) {
 
 
-        boolean redAlliance = false;
+        boolean redAlliance = true;
 
         boolean bbstart = false;//set to false for start on stack side of truss
 
@@ -21,12 +21,15 @@ public class MeepMeepTesting {
 
         if (lcr < 1 || lcr > 3) lcr = 2;
 
-        boolean leftPark = false;
+        boolean useStageDoor = true;
+
+        boolean centerPark = true;
 
         ActiveMotionValues.setRedAlliance(redAlliance);
         ActiveMotionValues.setBBStart(bbstart);
         ActiveMotionValues.setLcrpos(lcr);
-        ActiveMotionValues.setLeftPark(leftPark);
+        ActiveMotionValues.setUseStageDoor(useStageDoor);
+        ActiveMotionValues.setCenterPark(centerPark);
 
         if (ActiveMotionValues.getRedAlliance()) {
 //
@@ -103,7 +106,6 @@ public class MeepMeepTesting {
 
                                     .lineTo(new Vector2d(ActiveMotionValues.getxPoint(1), ActiveMotionValues.getyPoint(1)))
 
-
                                     .lineTo(new Vector2d((ActiveMotionValues.getxPoint(2)), (ActiveMotionValues.getyPoint(2))))
 
                                     .waitSeconds(2)
@@ -114,10 +116,19 @@ public class MeepMeepTesting {
 
                                     .lineTo(new Vector2d((ActiveMotionValues.getxPoint(5)), (ActiveMotionValues.getyPoint(5))))
 
+                                   .lineTo(new Vector2d((ActiveMotionValues.getxPoint(6)), (ActiveMotionValues.getyPoint(6))))
+
+                             //    .lineTo(new Vector2d((ActiveMotionValues.getxPoint(7)), (ActiveMotionValues.getyPoint(7))))
+
+                                   // .lineTo(new Vector2d((ActiveMotionValues.getxPoint(8)), (ActiveMotionValues.getyPoint(8))))
+
+
 
                                     .waitSeconds(1)
 
-                                    .lineToLinearHeading(ActiveMotionValues.getActiveTagPose())
+                                   // .turn(-10)
+
+                                  .lineToLinearHeading(ActiveMotionValues.getActiveTagPose())
 
                                     .waitSeconds(1)
 

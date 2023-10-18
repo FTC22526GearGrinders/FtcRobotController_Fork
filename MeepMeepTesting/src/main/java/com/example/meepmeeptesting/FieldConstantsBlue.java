@@ -139,7 +139,7 @@ public final class FieldConstantsBlue {
                     ActiveMotionValues.setActiveTagPose(FieldConstantsRed.setActiveTagPose(ActiveMotionValues.getActTag())
                             .minus(new Pose2d(Constants.RobotConstants.length / 2, 0, 0)));
 
-                    ActiveMotionValues.setParkPose(FieldConstantsRed.slideToearBBSideParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsRed.slideToNearBBSideParkPose);
 
 
                     break;
@@ -189,7 +189,7 @@ public final class FieldConstantsBlue {
                             .minus(new Pose2d(Constants.RobotConstants.length / 2 + 3, 0, 0)));
 
 
-                    ActiveMotionValues.setParkPose(FieldConstantsRed.slideToearBBSideParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsRed.slideToNearBBSideParkPose);
 
 
                     break;
@@ -232,7 +232,7 @@ public final class FieldConstantsBlue {
                     ActiveMotionValues.setActiveTagPose(FieldConstantsRed.setActiveTagPose(ActiveMotionValues.getActTag())
                             .minus(new Pose2d(Constants.RobotConstants.length / 2 + 3, 0, 0)));
 
-                    ActiveMotionValues.setParkPose(FieldConstantsRed.slideToearBBSideParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsRed.slideToNearBBSideParkPose);
 
 
                     break;
@@ -365,7 +365,7 @@ public final class FieldConstantsBlue {
                     .minus(new Pose2d(Constants.RobotConstants.length / 2, 0, 0)));
 
 
-            ActiveMotionValues.setParkPose(FieldConstantsRed.slideToearBBSideParkPose);
+            ActiveMotionValues.setParkPose(FieldConstantsRed.slideToNearBBSideParkPose);
 
             return true;
 

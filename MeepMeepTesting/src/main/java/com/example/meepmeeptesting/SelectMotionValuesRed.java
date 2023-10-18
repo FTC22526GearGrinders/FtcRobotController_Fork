@@ -102,13 +102,12 @@ public class SelectMotionValuesRed {
                 ActiveMotionValues.setyPoint(4, ActiveMotionValues.getyPoint(2) + ActiveMotionValues.getRetractDistance());
 
 
-
                 ActiveMotionValues.setActTag(4);
 
                 ActiveMotionValues.setActiveTagPose(FieldConstantsRed.setActiveTagPose(ActiveMotionValues.getActTag())
                         .minus(new Pose2d(Constants.RobotConstants.length / 2, 0, 0)));
 
-                ActiveMotionValues.setParkPose(FieldConstantsRed.slideToearBBSideParkPose);
+                ActiveMotionValues.setParkPose(FieldConstantsRed.slideToNearBBSideParkPose);
 
 
                 break;
@@ -158,7 +157,7 @@ public class SelectMotionValuesRed {
                         .minus(new Pose2d(Constants.RobotConstants.length / 2 + 3, 0, 0)));
 
 
-                ActiveMotionValues.setParkPose(FieldConstantsRed.slideToearBBSideParkPose);
+                ActiveMotionValues.setParkPose(FieldConstantsRed.slideToNearBBSideParkPose);
 
 
                 break;
@@ -201,7 +200,7 @@ public class SelectMotionValuesRed {
                 ActiveMotionValues.setActiveTagPose(FieldConstantsRed.setActiveTagPose(ActiveMotionValues.getActTag())
                         .minus(new Pose2d(Constants.RobotConstants.length / 2 + 3, 0, 0)));
 
-                ActiveMotionValues.setParkPose(FieldConstantsRed.slideToearBBSideParkPose);
+                ActiveMotionValues.setParkPose(FieldConstantsRed.slideToNearBBSideParkPose);
 
 
                 break;
@@ -236,7 +235,7 @@ public class SelectMotionValuesRed {
 
                 ActiveMotionValues.setyPoint(3, ActiveMotionValues.getyPoint(1));
 
-                setCommonMotion(4);
+                setCommonMotion(4, ActiveMotionValues.getUseStageDoor(), ActiveMotionValues.getLcrpos() == 2, ActiveMotionValues.getCenterPark(), 3);
 
                 break;
 
@@ -272,7 +271,7 @@ public class SelectMotionValuesRed {
 
                 ActiveMotionValues.setyPoint(3, ActiveMotionValues.getyPoint(1));
 
-                setCommonMotion(5);
+                setCommonMotion(5, ActiveMotionValues.getUseStageDoor(), ActiveMotionValues.getLcrpos() == 2, ActiveMotionValues.getCenterPark(), 3);
 
 
                 break;
@@ -308,7 +307,7 @@ public class SelectMotionValuesRed {
 
                 ActiveMotionValues.setyPoint(3, ActiveMotionValues.getyPoint(2));
 
-                setCommonMotion(6);
+                setCommonMotion(6, ActiveMotionValues.getUseStageDoor(), ActiveMotionValues.getLcrpos() == 2, ActiveMotionValues.getCenterPark(), 3);
 
 
                 break;
@@ -316,25 +315,69 @@ public class SelectMotionValuesRed {
         }
     }
 
-    public boolean setCommonMotion(int tagNum) {
+    public boolean setCommonMotion(int tagNum, boolean useStageDoor, boolean centerTape, boolean centerPark, int lastMoveNum) {
 
-        ActiveMotionValues.setxPoint(4, FieldConstantsRed.nearBackstageTrussLineUp.getX());
+        int moveNum = lastMoveNum;
 
-        ActiveMotionValues.setyPoint(4, FieldConstantsRed.nearBackstageTrussLineUp.getY());
-
-        ActiveMotionValues.setxPoint(5, FieldConstantsRed.nearLookForAprilTagPose.getX());
-
-        ActiveMotionValues.setyPoint(5, FieldConstantsRed.nearLookForAprilTagPose.getY());
+        if (useStageDoor) {
 
 
-        ActiveMotionValues.setActTag(tagNum);
+            if (centerTape) {
+
+                moveNum++;
+
+                ActiveMotionValues.setxPoint(moveNum, FieldConstantsRed.XMYM.LeftTapeMid.getX() + ActiveMotionValues.getxOffset());
+
+                ActiveMotionValues.setyPoint(moveNum, ActiveMotionValues.getyPoint(1));
+
+                moveNum++;
+
+                ActiveMotionValues.setxPoint(moveNum, FieldConstantsRed.stageDoorLineUpPose2.getX());
+
+                ActiveMotionValues.setyPoint(moveNum, FieldConstantsRed.stageDoorLineUpPose2.getY());
+
+            } else {
+                moveNum++;
+                ActiveMotionValues.setxPoint(moveNum, FieldConstantsRed.stageDoorLineUpPose13.getX());
+
+                ActiveMotionValues.setyPoint(moveNum, FieldConstantsRed.stageDoorLineUpPose13.getY());
+
+            }
+//            moveNum++;
+//            ActiveMotionValues.setxPoint(moveNum, FieldConstantsRed.bbsideFromStageDoor.getX());
+//            ActiveMotionValues.setyPoint(moveNum, FieldConstantsRed.bbsideFromStageDoor.getY());
+
+            moveNum++;
+            ActiveMotionValues.setxPoint(moveNum, FieldConstantsRed.centerLookForAprilTagPose.getX());
+            ActiveMotionValues.setyPoint(moveNum, FieldConstantsRed.centerLookForAprilTagPose.getY());
+
+        }
+
+        if (!useStageDoor) {
+            moveNum++;
+            ActiveMotionValues.setxPoint(moveNum, FieldConstantsRed.nearBackstageTrussLineUp.getX());
+
+            ActiveMotionValues.setyPoint(moveNum, FieldConstantsRed.nearBackstageTrussLineUp.getY());
+            moveNum++;
+            ActiveMotionValues.setxPoint(moveNum, FieldConstantsRed.nearLookForAprilTagPose.getX());
+
+            ActiveMotionValues.setyPoint(moveNum, FieldConstantsRed.nearLookForAprilTagPose.getY());
+        }
+
+            ActiveMotionValues.setActTag(tagNum);
 
 
-        ActiveMotionValues.setActiveTagPose(FieldConstantsRed.setActiveTagPose(ActiveMotionValues.getActTag())
-                .minus(new Pose2d(Constants.RobotConstants.length / 2, 0, 0)));
+            ActiveMotionValues.setActiveTagPose(FieldConstantsRed.setActiveTagPose(ActiveMotionValues.getActTag())
+                    .minus(new Pose2d(Constants.RobotConstants.length / 2, 0, 0)));
+
+        if (centerPark) {
 
 
-        ActiveMotionValues.setParkPose(FieldConstantsRed.slideToearBBSideParkPose);
+            ActiveMotionValues.setParkPose(FieldConstantsRed.slideToCenterBBSideParkPose);
+        } else {
+
+            ActiveMotionValues.setParkPose(FieldConstantsRed.slideToNearBBSideParkPose);
+        }
 
         return true;
 

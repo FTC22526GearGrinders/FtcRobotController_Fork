@@ -236,7 +236,7 @@ public class SelectMotionValuesBlue {
 
 
 
-                setCommonMotion(1);
+                setCommonMotion(1, ActiveMotionValues.getCenterPark(), ActiveMotionValues.getLcrpos()==1);
 
                 break;
 
@@ -272,7 +272,7 @@ public class SelectMotionValuesBlue {
 
                 ActiveMotionValues.setyPoint(3, ActiveMotionValues.getyPoint(1));
 
-                setCommonMotion(5);
+                setCommonMotion(5,ActiveMotionValues.getCenterPark(), ActiveMotionValues.getLcrpos()==1);
 
 
                 break;
@@ -308,7 +308,7 @@ public class SelectMotionValuesBlue {
 
                 ActiveMotionValues.setyPoint(3, ActiveMotionValues.getyPoint(2));
 
-                setCommonMotion(6);
+                setCommonMotion(6,ActiveMotionValues.getCenterPark(), ActiveMotionValues.getLcrpos()==3);
 
 
                 break;
@@ -316,15 +316,24 @@ public class SelectMotionValuesBlue {
         }
     }
 
-    public boolean setCommonMotion(int tagNum) {
+    public boolean setCommonMotion(int tagNum, boolean centerPark, boolean rightTape) {
 
-        ActiveMotionValues.setxPoint(4, FieldConstantsBlue.nearBackstageTrussLineUp.getX());
+        if(!centerPark) {
 
-        ActiveMotionValues.setyPoint(4, FieldConstantsBlue.nearBackstageTrussLineUp.getY());
+            ActiveMotionValues.setxPoint(4, FieldConstantsBlue.nearBackstageTrussLineUp.getX());
 
-        ActiveMotionValues.setxPoint(5, FieldConstantsBlue.nearLookForAprilTagPose.getX());
+            ActiveMotionValues.setyPoint(4, FieldConstantsBlue.nearBackstageTrussLineUp.getY());
 
-        ActiveMotionValues.setyPoint(5, FieldConstantsBlue.nearLookForAprilTagPose.getY());
+            ActiveMotionValues.setxPoint(5, FieldConstantsBlue.nearLookForAprilTagPose.getX());
+
+            ActiveMotionValues.setyPoint(5, FieldConstantsBlue.nearLookForAprilTagPose.getY());
+
+        }
+
+        else
+        {
+
+        }
 
 
         ActiveMotionValues.setActTag(tagNum);
