@@ -6,11 +6,10 @@ import com.arcrobotics.ftclib.command.CommandOpMode;
 
 import org.firstinspires.ftc.teamcode.CV.SpikeTapePipelineBlue;
 import org.firstinspires.ftc.teamcode.CV.SpikeTapePipelineRed;
-import org.opencv.core.Rect;
+import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.openftc.easyopencv.OpenCvCamera;
+import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvWebcam;
-
-import java.util.List;
 
 /*Camera needs to see all 3 spike tapes with enough space to the left, top and right for
  *the area of the prop
@@ -37,11 +36,6 @@ public class LookForTeamProp extends CommandBase {
 
     private OpenCvWebcam webcam;
 
-    private int lcr;
-    private int xLeft;
-    private int xRight;
-
-    private int yTop;
 
     double lpctr;
 
@@ -56,89 +50,77 @@ public class LookForTeamProp extends CommandBase {
     public void initialize() {
 
 
-//        webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
-//
-//
-//            @Override
-//
-//            public void onOpened() {
-//                /*
-//                 * Tell the webcam to start streaming images to us! Note that you must make sure
-//                 * the resolution you specify is supported by the camera. If it is not, an exception
-//                 * will be thrown.
-//                 *
-//                 * Keep in mind that the SDK's UVC driver (what OpenCvWebcam uses under the hood) only
-//                 * supports streaming from the webcam in the uncompressed YUV image format. This means
-//                 * that the maximum resolution you can stream at and still get up to 30FPS is 480p (640x480).
-//                 * Streaming at e.g. 720p will limit you to up to 10FPS and so on and so forth.
-//                 *
-//                 * Also, we specify the rotation that the webcam is used in. This is so that the image
-//                 * from the camera sensor can be rotated such that it is always displayed with the image upright.
-//                 * For a front facing camera, rotation is defined assuming the user is looking at the screen.
-//                 * For a rear facing camera or a webcam, rotation is defined assuming the camera is facing
-//                 * away from the user.
-//                 */
-//
-//                //    webcam.setPipeline(stpb);
-//                // webcam.setPipeline(stpb);
-//                //start streaming the camera
-//                webcam.startStreaming(640, 480, OpenCvCameraRotation.UPRIGHT);
-//
-//
-//                //if you are using dashboard, update dashboard camera view
-//           //     FtcDashboard.getInstance().startCameraStream(webcam, 5);
-//
-//
-//            }
-//
-//            @Override
-//            public void onError(int errorCode) {
-//                /*
-//                 * This will be called if the camera could not be opened
-//                 */
-//            }
-//        });
+        webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
 
 
-//        lpctr = 0;
-//
-//        sptopB = new SpikeTapePipelineBlue();
-//
-//        sptopR = new SpikeTapePipelineRed();
-//
-//        if (ActiveMotionValues.getRedAlliance())
-//            webcam.setPipeline(sptopR);
-//
-//        else
-//            webcam.setPipeline(sptopB);
-//
+            @Override
+
+            public void onOpened() {
+                /*
+                 * Tell the webcam to start streaming images to us! Note that you must make sure
+                 * the resolution you specify is supported by the camera. If it is not, an exception
+                 * will be thrown.
+                 *
+                 * Keep in mind that the SDK's UVC driver (what OpenCvWebcam uses under the hood) only
+                 * supports streaming from the webcam in the uncompressed YUV image format. This means
+                 * that the maximum resolution you can stream at and still get up to 30FPS is 480p (640x480).
+                 * Streaming at e.g. 720p will limit you to up to 10FPS and so on and so forth.
+                 *
+                 * Also, we specify the rotation that the webcam is used in. This is so that the image
+                 * from the camera sensor can be rotated such that it is always displayed with the image upright.
+                 * For a front facing camera, rotation is defined assuming the user is looking at the screen.
+                 * For a rear facing camera or a webcam, rotation is defined assuming the camera is facing
+                 * away from the user.
+                 */
+                if (ActiveMotionValues.getRedAlliance())
+                    webcam.setPipeline(sptopR);
+                else
+                    webcam.setPipeline(sptopB);
+                //start streaming the camera
+                webcam.startStreaming(640, 480, OpenCvCameraRotation.UPRIGHT);
+
+
+                //if you are using dashboard, update dashboard camera view
+                FtcDashboard.getInstance().startCameraStream(webcam, 5);
+
+
+            }
+
+            @Override
+            public void onError(int errorCode) {
+                /*
+                 * This will be called if the camera could not be opened
+                 */
+            }
+        });
+
+
+        lpctr = 0;
+
+        sptopB = new SpikeTapePipelineBlue();
+
+        sptopR = new SpikeTapePipelineRed();
+
+        if (ActiveMotionValues.getRedAlliance())
+            webcam.setPipeline(sptopR);
+
+        else
+            webcam.setPipeline(sptopB);
+
     }
 
     @Override
     public void execute() {
         lpctr++;
 
-//
-//        myOpMode.telemetry.addData("NumContours", sptopB.getNumberContours());
-//
-//        myOpMode.telemetry.addData("ValidContours", sptopB.getValidContours());
-//
-//        myOpMode.telemetry.addData("Streaming", webcam.getFps());
-//
+
+        myOpMode.telemetry.addData("NumContours", sptopB.getNumberContours());
+
+        myOpMode.telemetry.addData("ValidContours", sptopB.getValidContours());
+
+        myOpMode.telemetry.addData("Streaming", webcam.getFps());
 
 
-//        myOpMode.telemetry.addData("W1", sptopR.getW1());
-//        myOpMode.telemetry.addData("W2", sptopR.getW2());
-//        myOpMode.telemetry.addData("W3", sptopR.getW3());
-//        myOpMode.telemetry.addData("LCR", sptopR.getLCR());
-//
-//
-//        myOpMode.telemetry.addData("Cols", sptopR.getImgCols());
-//        myOpMode.telemetry.addData("Rows", sptopR.getImgRows());
-//
-//
-//
-//
         myOpMode.telemetry.update();
 
 
@@ -162,33 +144,5 @@ public class LookForTeamProp extends CommandBase {
         return false;
     }
 
-
-    private int calcLCR(List<Rect> r) {
-
-
-        xLeft = 0;
-        xRight = 0;
-        yTop = 0;
-
-
-        int lcr = 0;
-
-        xLeft = Math.min(r.get(0).x, Math.min(r.get(0).x, r.get(2).x));
-
-        xRight = Math.max(r.get(0).x, Math.max(r.get(1).x, r.get(2).x));
-
-        yTop = Math.min(r.get(0).y, Math.min(r.get(1).y, r.get(2).y));
-
-        if (r.get(0).x == xLeft)
-            lcr = 1;
-
-        if (r.get(0).y == yTop) lcr = 2;
-
-
-        if (r.get(0).x == xRight)
-            lcr = 3;
-
-        return lcr;
-    }
 
 }

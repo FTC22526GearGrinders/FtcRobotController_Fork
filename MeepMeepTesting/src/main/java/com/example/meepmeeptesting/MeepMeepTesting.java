@@ -13,11 +13,11 @@ public class MeepMeepTesting {
     public static void main(String[] args) {
 
 
-        boolean redAlliance = false;
+        boolean redAlliance = true;
 
         boolean bbstart = false;//set to false for start on stack side of truss
 
-        int lcr = 2;//left tape ==1, center tape = 2, right tape = 3 from robot view
+        int lcr = 3;//left tape ==1, center tape = 2, right tape = 3 from robot view
 
         if (lcr < 1 || lcr > 3) lcr = 2;
 
@@ -25,11 +25,15 @@ public class MeepMeepTesting {
 
         boolean centerPark = true;
 
+        boolean secondPixel =true;
+
         ActiveMotionValues.setRedAlliance(redAlliance);
         ActiveMotionValues.setBBStart(bbstart);
         ActiveMotionValues.setLcrpos(lcr);
         ActiveMotionValues.setUseStageDoor(useStageDoor);
         ActiveMotionValues.setCenterPark(centerPark);
+        ActiveMotionValues.setSecondPixel(secondPixel);
+
 
         if (ActiveMotionValues.getRedAlliance()) {
 //
@@ -106,18 +110,18 @@ public class MeepMeepTesting {
 
                                     .lineTo(new Vector2d(ActiveMotionValues.getxPoint(1), ActiveMotionValues.getyPoint(1)))
 
-                                    .lineTo(new Vector2d((ActiveMotionValues.getxPoint(2)), (ActiveMotionValues.getyPoint(2))))
-
-                                    .waitSeconds(2)
-
+                                  .lineTo(new Vector2d((ActiveMotionValues.getxPoint(2)), (ActiveMotionValues.getyPoint(2))))
+//
+//                                    .waitSeconds(2)
+//
                                     .lineTo(new Vector2d((ActiveMotionValues.getxPoint(3)), (ActiveMotionValues.getyPoint(3))))
-
+//
                                     .lineTo(new Vector2d((ActiveMotionValues.getxPoint(4)), (ActiveMotionValues.getyPoint(4))))
 
-                                    .lineTo(new Vector2d((ActiveMotionValues.getxPoint(5)), (ActiveMotionValues.getyPoint(5))))
-
-
-                                  .lineTo(new Vector2d((ActiveMotionValues.getxPoint(6)), (ActiveMotionValues.getyPoint(6))))
+                                 .lineTo(new Vector2d((ActiveMotionValues.getxPoint(5)), (ActiveMotionValues.getyPoint(5))))
+//
+//
+//                                  .lineTo(new Vector2d((ActiveMotionValues.getxPoint(6)), (ActiveMotionValues.getyPoint(6))))
 
                              //    .lineTo(new Vector2d((ActiveMotionValues.getxPoint(7)), (ActiveMotionValues.getyPoint(7))))
 
@@ -129,13 +133,13 @@ public class MeepMeepTesting {
 
                                    // .turn(-10)
 
-                                  .lineToLinearHeading(ActiveMotionValues.getActiveTagPose())
+                                //  .lineToLinearHeading(ActiveMotionValues.getActiveTagPose())
 
                                     .waitSeconds(1)
 
 
 
-                                    .lineToLinearHeading(ActiveMotionValues.getParkPose())
+                               //     .lineToLinearHeading(ActiveMotionValues.getParkPose())
 
 
 //

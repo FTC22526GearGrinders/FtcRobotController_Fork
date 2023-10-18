@@ -47,7 +47,6 @@ import org.firstinspires.ftc.teamcode.Commands.Auto.SelectValues;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Subsystems.Claw_Subsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
-import org.firstinspires.ftc.teamcode.Subsystems.Vision_Subsystem;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
@@ -72,6 +71,8 @@ public class AutoSelectAndRun extends CommandOpMode {
     boolean redAlliance = false;
 
     boolean leftStart = false;
+
+    boolean useStageDoor = false;
 
     boolean centerPark = false;
 
@@ -112,6 +113,11 @@ public class AutoSelectAndRun extends CommandOpMode {
                 }
 
                 if (currentA) {
+                    useStageDoor = !useStageDoor;
+                }
+
+
+                if (currentB) {
                     centerPark = !centerPark;
                 }
 
@@ -130,8 +136,13 @@ public class AutoSelectAndRun extends CommandOpMode {
             buttonLocked = xReleased && yReleased && aReleased && bReleased && lbReleased && rbReleased;
 
             telemetry.addData("Red Alliance Selected X to Change", redAlliance);
-            telemetry.addData("Left Start Selected Y to Change", leftStart);
-            telemetry.addData("Left Park Selected A to Change", centerPark);
+            telemetry.addLine();
+            telemetry.addData("Left Start Selected Y to Change", useStageDoor);
+            telemetry.addLine();
+            telemetry.addData("Left Start Selected A to Change", leftStart);
+            telemetry.addLine();
+            telemetry.addData("Left Park Selected B to Change", centerPark);
+            telemetry.addLine();
             telemetry.addData("Press Left Bumper To Continue", "");
 
 
@@ -144,20 +155,29 @@ public class AutoSelectAndRun extends CommandOpMode {
             telemetry.addData("You Have Chosen Red Alliance", "");
         else
             telemetry.addData("You Have Chosen Blue Alliance", "");
-
+        telemetry.addLine();
         if (leftStart)
 
             telemetry.addData("You Have Chosen Left Start", "");
         else
             telemetry.addData("You Have Chosen Right Start", "");
+        telemetry.addLine();
+        if (useStageDoor)
 
+            telemetry.addData("You Have Chosen Stage Door", "");
+        else
+            telemetry.addData("You Have Chosen Near Truss", "");
+
+        telemetry.addLine();
         if (centerPark)
 
             telemetry.addData("You Have Chosen Center Park", "");
         else
             telemetry.addData("You Have Chosen Near Park", "");
+        telemetry.addLine();
 
         telemetry.addData("Reselect Opmode to Change", "");
+        telemetry.addLine();
 
         telemetry.addData(" Press Play When Told to Start Match", "");
 
@@ -167,8 +187,8 @@ public class AutoSelectAndRun extends CommandOpMode {
         ActiveMotionValues.setRedAlliance(redAlliance);
         boolean bbStart = redAlliance && !leftStart || !redAlliance && leftStart;
         ActiveMotionValues.setBBStart(bbStart);
+        ActiveMotionValues.setUseStageDoor(useStageDoor);
         ActiveMotionValues.setCenterPark(centerPark);
-
 
 
         drive = new Drive_Subsystem(this);
@@ -237,7 +257,7 @@ public class AutoSelectAndRun extends CommandOpMode {
 
                 new PickAndRunTrajectories(drive, clawSubsystem).withTimeout(5000),
 
-                new DriveToAprilTagAuto(this,drive).withTimeout(5000)
+                new DriveToAprilTagAuto(this, drive).withTimeout(5000)
 
 
         ).schedule();

@@ -29,6 +29,8 @@ public class PickAndRunTrajectories extends CommandBase {
         int lcr = ActiveMotionValues.getLcrpos();
 
 
+
+
         switch (lcr) {
 
             case 1:

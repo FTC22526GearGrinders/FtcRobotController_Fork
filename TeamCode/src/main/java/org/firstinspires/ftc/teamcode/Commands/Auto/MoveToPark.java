@@ -10,45 +10,52 @@ import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
 
-public class CenterTapePlacePixel extends CommandBase {
+public class MoveToPark extends CommandBase {
 
     private Drive_Subsystem drive;
-
-    private Claw_Subsystem clawSubsystem;
 
     TrajectorySequence traj1;
 
     Timing.Timer trajTimer = new Timing.Timer(10);
 
-    long dropOffTime = 1L;
 
-    public CenterTapePlacePixel(Drive_Subsystem drive, Claw_Subsystem clawSubsystem) {
+
+    public MoveToPark(Drive_Subsystem drive) {
         this.drive = drive;
-        this.clawSubsystem = clawSubsystem;
+
     }
 
     @Override
     public void initialize() {
+
+
+
+        /**
+         * This is only used for non backboard starts
+         * The trajectory may use the stage door route in which case center park will be used
+         * If the "newr" truss path is ussed the parking will be in the near locations
+         * Near means near the drivers in each alliance
+         *
+         * *
+         * */
+
+
+
+
 
         drive.drive.setPoseEstimate(ActiveMotionValues.getStartPose());
 
         traj1 = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
 
 
+                .lineTo(new Vector2d((ActiveMotionValues.getxPoint(4)),//drive to drop off poinr
+
+                        ActiveMotionValues.getyPoint(4)))
 
 
-                .lineTo(new Vector2d((ActiveMotionValues.getxPoint(1)),//drive to drop off poinr
+                .lineTo(new Vector2d((ActiveMotionValues.getxPoint(5)),//move left or right on to middle of tape
 
-                        ActiveMotionValues.getyPoint(1)))
-
-                .addTemporalMarker(() -> new DeliverPixelSpikeTapeCommand(clawSubsystem).schedule())
-
-                .waitSeconds(3)//pixel drop off time
-
-
-                .lineTo(new Vector2d((ActiveMotionValues.getxPoint(2)),//move left or right on to middle of tape
-
-                        ActiveMotionValues.getyPoint(2)))
+                        ActiveMotionValues.getyPoint(5)))
 
 
                 .build();

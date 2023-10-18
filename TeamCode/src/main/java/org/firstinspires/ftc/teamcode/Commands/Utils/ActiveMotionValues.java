@@ -10,7 +10,7 @@ public class ActiveMotionValues {
     private static Pose2d startPose = new Pose2d();
     private static AprilTagPoseFtc currentTagPose;
     private static double yFirstPoint = 0;
-    private static Pose2d finalPose = new Pose2d();
+   // private static Pose2d finalPose = new Pose2d();
     private static int atag = 1;
 
     private static Pose2d parkPose = new Pose2d();
@@ -26,48 +26,32 @@ public class ActiveMotionValues {
         startPose = pose;
     }
 
-    public static Pose2d getFinalPose() {
-        return finalPose;
+//    public static Pose2d getFinalPose() {
+//        return finalPose;
+//    }
+
+    private static double[] yPoints = new double[10];
+
+    private static double[] xPoints = new double[10];
+
+    public static void setyPoint(int n, double val) {
+        yPoints[n] = val;
     }
 
-    public static void setFinalPose(Pose2d pose) {
-        finalPose = pose;
+    public static double getyPoint(int n) {
+        return yPoints[n];
     }
 
-    public static double getxFirstPoint() {
-        return xFirstPoint;
+    public static void setxPoint(int n, double val) {
+        xPoints[n] = val;
     }
 
-    public static void setxFirstPoint(double x1stPoint) {
-        xFirstPoint = x1stPoint;
-    }
-
-    public static double getxSecondPoint() {
-        return xSecondPoint;
-    }
-
-    public static void setxSecondPoint(double x2ndPoint) {
-        xSecondPoint = x2ndPoint;
-    }
-
-
-
-    public static double getyFirstPoint() {
-        return yFirstPoint;
-    }
-
-    public static void setyFirstPoint(double y1stPoint) {
-        yFirstPoint = y1stPoint;
+    public static double getxPoint(int n) {
+        return xPoints[n];
     }
 
 
-    public static double getySecondPoint() {
-        return ySecondPoint;
-    }
 
-    public static void setySecondPoint(double y2ndPoint) {
-        ySecondPoint = y2ndPoint;
-    }
 
 
     public static Pose2d getTagLookAheadPose() {
@@ -153,7 +137,7 @@ public class ActiveMotionValues {
     }
 
 
-    private static double xFirstPoint;
+    //private static double xFirstPoint;
 
     private static double xSecondPoint;
 
@@ -215,6 +199,24 @@ public class ActiveMotionValues {
        return clearStageDoorPose;
     }
 
-    public static void setCenterPark(boolean centerPark) {
+
+    private static boolean useStageDoor=false;
+
+    private static  boolean centerPark=false;
+
+    public static void setCenterPark(boolean cPark) {
+        centerPark =cPark;
+    }
+
+    public static boolean getCenterPark(){
+        return centerPark;
+    }
+
+    public static void setUseStageDoor(boolean useStDoor) {
+        useStageDoor=useStDoor;
+    }
+
+    public static boolean getUseStageDoor(){
+        return useStageDoor;
     }
 }

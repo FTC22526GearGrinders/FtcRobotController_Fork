@@ -2,6 +2,8 @@ package com.example.meepmeeptesting;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 
+import java.awt.Component;
+
 public final class FieldConstantsRed {
 
 
@@ -26,6 +28,7 @@ public final class FieldConstantsRed {
 
     public static Pose2d nearLookForAprilTagPose = new Pose2d(12, -60, Math.toRadians(90));
     public static Pose2d centerLookForAprilTagPose = new Pose2d(12, -12, Math.toRadians(90));
+    public static Pose2d centerBBSideParkPose=new Pose2d(50, -12, Math.toRadians(0));
 
 
     public static final class AprilTagConstants {

@@ -10,11 +10,13 @@ public class ActiveMotionValues {
     private static Pose2d startPose = new Pose2d();
 
 
+
+    private static boolean centerPark;
+
     private static double[] yPoints = new double[10];
 
     private static double[] xPoints = new double[10];
-    private static boolean centerPark;
-
+    private static boolean secondPixel;
 
     public static void setyPoint(int n, double val) {
         yPoints[n] = val;
@@ -196,5 +198,9 @@ public class ActiveMotionValues {
 
     public static void setCenterPark(boolean cPark) {
         centerPark = cPark;
+    }
+
+    public static void setSecondPixel(boolean secPixel) {
+        secondPixel = secPixel;
     }
 }
