@@ -36,7 +36,7 @@ public final class FieldConstantsBlue {
     public static Pose2d nearBackstageTrussLineUp = new Pose2d(-36, 60, Math.toRadians(0));
 
 
-
+    public static Pose2d centerBBSideParkPose = new Pose2d(50, 12, Math.toRadians(0));
 
     public static final class AprilTagConstants {
 
