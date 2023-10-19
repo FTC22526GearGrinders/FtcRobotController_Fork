@@ -54,12 +54,12 @@ public class JogDrive extends CommandBase {
 //            /* At this point, Joystick X/Y (strafe/forwrd) vectors have been */
 //            /* rotated by the gyro angle, and can be sent to drive system */
 //        } else {
-            double y = -this.gamepad.left_stick_y;
-            double x = this.gamepad.left_stick_x;
-            double rx = this.gamepad.right_stick_x;
+        double y = -this.gamepad.left_stick_y;
+        double x = this.gamepad.left_stick_x;
+        double rx = this.gamepad.right_stick_x;
 
-            drive.drive.jog(y, x, rx);
-drive.test++;
+        drive.drive.jog(y, x, rx);
+
     }
 
     @Override

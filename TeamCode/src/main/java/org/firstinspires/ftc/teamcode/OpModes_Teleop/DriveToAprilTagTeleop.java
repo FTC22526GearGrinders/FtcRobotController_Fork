@@ -86,7 +86,6 @@ public class DriveToAprilTagTeleop extends CommandBase {
         myOpMode = opMode;
         this.gamepad = gamepad;
         addRequirements(this.drive);
-        drive.register();
 
     }
 

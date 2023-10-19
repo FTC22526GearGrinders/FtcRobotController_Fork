@@ -345,10 +345,7 @@ public class SelectMotionValuesBlue extends CommandBase {
 
         if (useStageDoor) {
 
-
-//
             if (centerTape) {
-
 
                 ActiveMotionValues.setxPoint(4, FieldConstantsBlue.stageDoorLineUpPose2.getX());
 

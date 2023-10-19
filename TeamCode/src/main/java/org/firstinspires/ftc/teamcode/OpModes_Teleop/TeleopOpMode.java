@@ -5,11 +5,8 @@ import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-
-import org.firstinspires.ftc.teamcode.Commands.Auto.CenterStageTrajectories;
-import org.firstinspires.ftc.teamcode.Commands.Auto.RunTrajectorySequence;
 import org.firstinspires.ftc.teamcode.Commands.Drive.JogDrive;
-import org.firstinspires.ftc.teamcode.Subsystems.Claw_Subsystem;
+import org.firstinspires.ftc.teamcode.Subsystems.PixelHandlerSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.Vision_Subsystem;
 
@@ -20,7 +17,7 @@ public class TeleopOpMode extends CommandOpMode {
 
     protected Vision_Subsystem visionSubsystem;
 
-    protected Claw_Subsystem claw;
+    protected PixelHandlerSubsystem phss;
 
 
     GamepadEx gamepad;
@@ -37,10 +34,10 @@ public class TeleopOpMode extends CommandOpMode {
 
         visionSubsystem = new Vision_Subsystem(this);
 
-        claw = new Claw_Subsystem(this);
+        phss = new PixelHandlerSubsystem(this);
 
 
-        register(drive, claw, visionSubsystem);
+        ///register(drive, phss, visionSubsystem);
 
         drive.setDefaultCommand(new JogDrive(this.drive, gamepad1, false));
 
@@ -49,13 +46,15 @@ public class TeleopOpMode extends CommandOpMode {
 //                new DriveToAprilTagTeleop(drive, visionSubsystem, this, gamepad1));
 
 
-        gamepad.getGamepadButton(GamepadKeys.Button.A).whenPressed(claw::open);
+        gamepad.getGamepadButton(GamepadKeys.Button.A).whenPressed(phss::openClaw);
 
-        gamepad.getGamepadButton(GamepadKeys.Button.B).whenPressed(claw::close);
+        gamepad.getGamepadButton(GamepadKeys.Button.B).whenPressed(phss::closeClaw);
+
+      //  gamepad.getGamepadButton(GamepadKeys.Button.X).whenPressed(
+
+        gamepad.getGamepadButton(GamepadKeys.Button.B).whenPressed(phss::closeClaw);
 
 
-
-        gamepad.getGamepadButton(GamepadKeys.Button.X).whenPressed(new RunTrajectorySequence(drive));
 
 
     }

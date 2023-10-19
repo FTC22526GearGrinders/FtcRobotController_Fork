@@ -76,6 +76,7 @@ public class DriveToAprilTagAuto extends CommandBase {
 
     public DriveToAprilTagAuto(CommandOpMode opMode,Drive_Subsystem drive) {
         this.drive = drive;   myOpMode=opMode;
+
         visionSubsystem = new Vision_Subsystem(myOpMode);
 
         addRequirements(this.drive);

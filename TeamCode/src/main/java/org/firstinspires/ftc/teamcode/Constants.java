@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.PIDFCoefficients;
+
 public final class Constants {
 
     public static final class ElevatorConstants {
@@ -106,9 +109,47 @@ public final class Constants {
       //  public static final double LATERAL_MULTIPLIER = .7;
     }
 
-    public static final class ClawConstants {
+    public static final class PixelHandlerConstants {
         public static final double CLAW_CLOSE_POSITION = .74;
         public static final double CLAW_OPEN_POSITION = .20;
+        public static final double DROP_OPEN_POSITION = .74;
+        public static final double DROP_CLOSED_POSITION = .20;
+
+        public static final double TICKS_PER_REV = 537.7;
+        public static final double MAX_RPM = 312;
+
+
+        public void setPIDFCoefficients(DcMotor.RunMode runMode, PIDFCoefficients coefficients) {
+            PIDFCoefficients compensatedCoefficients = new PIDFCoefficients(
+                    coefficients.p, coefficients.i, coefficients.d,
+                    coefficients.f * 1
+            );
+        }
+
+        public static double encoderTicksToInches(double ticks) {
+            return 100*ticks;
+        }
+
+
+        public static enum armhaights{
+
+            HOME (0.),
+            LOW (5),
+            MID (12),
+            HIGH (19);
+
+public final double  height;
+
+
+private armhaights(double height){
+    this.height = height;
+}
+
+
+
+
+        }
+
 
 
     }

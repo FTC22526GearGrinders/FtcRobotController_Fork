@@ -34,6 +34,8 @@ package org.firstinspires.ftc.teamcode.OpModes_Auto;
 import com.acmerobotics.dashboard.config.Config;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
+import com.arcrobotics.ftclib.command.ConditionalCommand;
+import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
@@ -42,11 +44,16 @@ import org.firstinspires.ftc.teamcode.CV.SpikeTapePipelineBlue;
 import org.firstinspires.ftc.teamcode.CV.SpikeTapePipelineRed;
 import org.firstinspires.ftc.teamcode.Commands.Auto.DriveToAprilTagAuto;
 import org.firstinspires.ftc.teamcode.Commands.Auto.LookForTeamProp;
-import org.firstinspires.ftc.teamcode.Commands.Auto.PickAndRunTrajectories;
+import org.firstinspires.ftc.teamcode.Commands.Auto.MoveToPark;
+import org.firstinspires.ftc.teamcode.Commands.Auto.SelectAndRunTrajectory;
 import org.firstinspires.ftc.teamcode.Commands.Auto.SelectValues;
+import org.firstinspires.ftc.teamcode.Commands.PixelHandler.PlacePixelOnBB;
+import org.firstinspires.ftc.teamcode.Commands.PixelHandler.PositionPHArm;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
-import org.firstinspires.ftc.teamcode.Subsystems.Claw_Subsystem;
+import org.firstinspires.ftc.teamcode.Commands.Utils.DoNothing;
+import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
+import org.firstinspires.ftc.teamcode.Subsystems.PixelHandlerSubsystem;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
@@ -62,7 +69,7 @@ public class AutoSelectAndRun extends CommandOpMode {
 
     private OpenCvWebcam webcam;//
 
-    private Claw_Subsystem clawSubsystem;
+    private PixelHandlerSubsystem phss;
 
 
     boolean buttonLocked = false;
@@ -193,7 +200,7 @@ public class AutoSelectAndRun extends CommandOpMode {
 
         drive = new Drive_Subsystem(this);
 
-        clawSubsystem = new Claw_Subsystem(this);
+        phss = new PixelHandlerSubsystem(this);
 
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
 
@@ -251,16 +258,29 @@ public class AutoSelectAndRun extends CommandOpMode {
 
         new SequentialCommandGroup(
 
-                new LookForTeamProp(this, webcam).withTimeout(5000),
+                new LookForTeamProp(this, webcam).withTimeout(8),
 
                 new SelectValues(),
 
-                new PickAndRunTrajectories(drive, clawSubsystem).withTimeout(5000),
+                new SelectAndRunTrajectory(drive, phss).withTimeout(10),
 
-                new DriveToAprilTagAuto(this, drive).withTimeout(5000)
+                new ConditionalCommand(
 
+                        new SequentialCommandGroup(
 
-        ).schedule();
+                                new ParallelCommandGroup(
+
+                                        new DriveToAprilTagAuto(this, drive),
+                                        new PositionPHArm(phss, Constants.PixelHandlerConstants.armhaights.LOW.height)),
+
+                                new PlacePixelOnBB(phss),
+
+                                new ParallelCommandGroup(
+                                        new PositionPHArm(phss, Constants.PixelHandlerConstants.armhaights.HOME.height),
+                                        new MoveToPark())),
+
+                        new DoNothing(), () -> ActiveMotionValues.getBBStart())).schedule();
+
 
     }
 

@@ -12,8 +12,6 @@ public class Drive_Subsystem extends SubsystemBase {
     public boolean fieldCentric;
 
 
-    public int test;
-
     private ElapsedTime runtime = new ElapsedTime();
 
 
@@ -21,12 +19,11 @@ public class Drive_Subsystem extends SubsystemBase {
 
     CommandOpMode myOpmode;
 
-    public boolean running=false;
+    public boolean running = false;
 
-    public boolean started=false;
+    public boolean started = false;
 
-    public boolean stopped=false;
-
+    public boolean stopped = false;
 
 
     public Drive_Subsystem(CommandOpMode opMode) {
@@ -47,13 +44,9 @@ public class Drive_Subsystem extends SubsystemBase {
 
     }
 
-public void showtelemetry(Telemetry telemetry){
+    public void showtelemetry(Telemetry telemetry) {
 
-telemetry.addData("Test",test);
-    telemetry.update();
-
-
-}
+    }
 
 }
 

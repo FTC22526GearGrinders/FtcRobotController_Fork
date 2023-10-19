@@ -1,0 +1,41 @@
+package org.firstinspires.ftc.teamcode.Commands.PixelHandler;
+
+import com.arcrobotics.ftclib.command.CommandBase;
+
+import org.firstinspires.ftc.teamcode.Subsystems.PixelHandlerSubsystem;
+
+
+public class DropPixelCommand extends CommandBase {
+
+    private PixelHandlerSubsystem phsss;
+
+    int cnt;
+
+    public DropPixelCommand(PixelHandlerSubsystem phss) {
+        this.phsss = phss;
+    }
+
+    @Override
+    public void initialize() {
+
+        phsss.drop();
+        cnt = 0;
+
+    }
+
+    @Override
+    public void execute() {
+        phsss.drop();
+        cnt++;
+    }
+
+    @Override
+    public void end(boolean interrupted) {
+
+    }
+
+    @Override
+    public boolean isFinished() {
+        return cnt > 100;
+    }
+}

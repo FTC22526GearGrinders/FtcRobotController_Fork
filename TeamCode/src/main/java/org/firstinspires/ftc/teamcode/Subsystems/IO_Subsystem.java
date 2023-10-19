@@ -29,6 +29,8 @@ public class IO_Subsystem extends SubsystemBase {
         dc1 = myOpMode.hardwareMap.get(DigitalChannel.class, "backboard start");
         dc3 = myOpMode.hardwareMap.get(DigitalChannel.class, ("lcr one bit"));
         dc2 = myOpMode.hardwareMap.get(DigitalChannel.class, "lcr two bit");
+        dc4 = myOpMode.hardwareMap.get(DigitalChannel.class, "use stage door");
+        dc5 = myOpMode.hardwareMap.get(DigitalChannel.class, "center park");
 
 
         //        dc4 = myOpMode.hardwareMap.get(DigitalChannel.class, "input_5");
@@ -41,6 +43,8 @@ public class IO_Subsystem extends SubsystemBase {
         dc1.setMode(DigitalChannel.Mode.INPUT);
         dc2.setMode(DigitalChannel.Mode.INPUT);
         dc3.setMode(DigitalChannel.Mode.INPUT);
+        dc4.setMode(DigitalChannel.Mode.INPUT);
+        dc5.setMode(DigitalChannel.Mode.INPUT);
 
 //        dc4.setMode(DigitalChannel.Mode.INPUT);
 //        dc5.setMode(DigitalChannel.Mode.INPUT);
@@ -60,6 +64,14 @@ public class IO_Subsystem extends SubsystemBase {
     public void showTelemetry(Telemetry telemetry) {
         telemetry.addData("RedAlliance", dc0.getState());
         telemetry.addData("BackBoardStart", dc1.getState());
+        telemetry.addData("One Bit", dc3.getState());
+        telemetry.addData("Two Bit", dc2.getState());
+        telemetry.addData("Use Stage Door", dc4.getState());
+        telemetry.addData("Center Park", dc5.getState());
+
+
+
+
         telemetry.update();
 
 
