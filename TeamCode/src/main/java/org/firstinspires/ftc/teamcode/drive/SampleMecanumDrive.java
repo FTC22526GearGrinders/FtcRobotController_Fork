@@ -56,7 +56,7 @@ public class SampleMecanumDrive extends MecanumDrive {
     public static PIDCoefficients TRANSLATIONAL_PID = new PIDCoefficients(6.9, 0, 0);
     public static PIDCoefficients HEADING_PID = new PIDCoefficients(7.5, 0, 0);
 
-    public static double LATERAL_MULTIPLIER = 1.3953488 * 1.11111;
+    public static double LATERAL_MULTIPLIER = 1.3953488 * .92;
 
     private static double kV = DriveConstants.kV;
 
@@ -68,7 +68,7 @@ public class SampleMecanumDrive extends MecanumDrive {
     private static double WHEEL_BASE = Constants.DriveConstants.WHEELBASE;
     private static double TRACK_WIDTH = Constants.DriveConstants.TRACKWIDTH;
 
-    double lateralMultiplier = Constants.DriveConstants.LATERAL_MULTIPLIER;
+
 
 
     public static double VX_WEIGHT = 1;
@@ -95,6 +95,8 @@ public class SampleMecanumDrive extends MecanumDrive {
     private List<Integer> lastEncPositions = new ArrayList<>();
     private List<Integer> lastEncVels = new ArrayList<>();
     public boolean fieldCentric=false;
+
+    double testX;
 
     public SampleMecanumDrive(HardwareMap hardwareMap) {
         super(kV, kA, kStatic, TRACK_WIDTH, WHEEL_BASE, LATERAL_MULTIPLIER);
@@ -343,6 +345,8 @@ public class SampleMecanumDrive extends MecanumDrive {
         rightFront.setPower((y - x - rx) / denominator);
         leftRear.setPower((y - x + rx) / denominator);
         rightRear.setPower((y + x - rx) / denominator);
+        testX=y;
+
     }
 
     @Override
@@ -402,6 +406,7 @@ public class SampleMecanumDrive extends MecanumDrive {
 
         telemetry.addData("Gyro Heading", Math.toDegrees(getExternalHeading()));
         telemetry.addData("BatteryVolts", getBatteryVolts());
+        telemetry.addData("TX",testX);
         telemetry.update();
 
     }

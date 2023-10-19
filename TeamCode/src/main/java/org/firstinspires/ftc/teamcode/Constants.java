@@ -103,7 +103,7 @@ public final class Constants {
 
         public static final double POSITION_POWER = .5;
         public static final double ROTATE_SPEED = .75;
-        public static final double LATERAL_MULTIPLIER = .8;
+      //  public static final double LATERAL_MULTIPLIER = .7;
     }
 
     public static final class ClawConstants {

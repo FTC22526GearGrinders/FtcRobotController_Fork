@@ -37,7 +37,7 @@ public class PickAndRunTrajectories extends CommandBase {
             case 3:
             case 11:
             case 13:
-                  new LRTapePlacePixel(drive,clawSubsystem).schedule();//
+
 
                 break;
             default:
@@ -50,7 +50,7 @@ public class PickAndRunTrajectories extends CommandBase {
 
             case 2:
             case 12:
-                new CenterTapePlacePixel(drive, clawSubsystem).schedule();//
+
                 break;
             default:
                 break;

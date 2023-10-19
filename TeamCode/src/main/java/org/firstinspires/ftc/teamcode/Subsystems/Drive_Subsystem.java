@@ -48,10 +48,8 @@ public class Drive_Subsystem extends SubsystemBase {
     }
 
 public void showtelemetry(Telemetry telemetry){
-    telemetry.addData("Started",started);
-    telemetry.addData("Running",running);
-    telemetry.addData("Stoped",stopped);
 
+telemetry.addData("Test",test);
     telemetry.update();
 
 

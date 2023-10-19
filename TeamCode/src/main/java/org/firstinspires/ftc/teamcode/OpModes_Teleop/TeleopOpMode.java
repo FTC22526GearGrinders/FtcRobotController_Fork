@@ -6,6 +6,8 @@ import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.Commands.Auto.CenterStageTrajectories;
+import org.firstinspires.ftc.teamcode.Commands.Auto.RunTrajectorySequence;
 import org.firstinspires.ftc.teamcode.Commands.Drive.JogDrive;
 import org.firstinspires.ftc.teamcode.Subsystems.Claw_Subsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
@@ -42,26 +44,33 @@ public class TeleopOpMode extends CommandOpMode {
 
         drive.setDefaultCommand(new JogDrive(this.drive, gamepad1, false));
 
-        gamepad.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenHeld(
-
-                new DriveToAprilTagTeleop(drive, visionSubsystem, this, gamepad1));
+//        gamepad.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenHeld(
+//
+//                new DriveToAprilTagTeleop(drive, visionSubsystem, this, gamepad1));
 
 
         gamepad.getGamepadButton(GamepadKeys.Button.A).whenPressed(claw::open);
 
         gamepad.getGamepadButton(GamepadKeys.Button.B).whenPressed(claw::close);
 
-       // waitForStart();
+
+
+        gamepad.getGamepadButton(GamepadKeys.Button.X).whenPressed(new RunTrajectorySequence(drive));
+
+
     }
 
 
     public void run() {
 
-
+telemetry.addData("GP!Y",gamepad1.left_stick_y);
+telemetry.update();
         CommandScheduler.getInstance().run();
 
-        //elevator.showTelemetry();
-        //  drive.drive.showTelemetry(telemetry);
+
+       //  drive.drive.showTelemetry(telemetry);
+
+        drive.showtelemetry(telemetry);
     }
 
 

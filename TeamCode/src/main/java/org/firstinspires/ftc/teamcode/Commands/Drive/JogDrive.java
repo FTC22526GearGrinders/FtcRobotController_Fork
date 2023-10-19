@@ -59,7 +59,7 @@ public class JogDrive extends CommandBase {
             double rx = this.gamepad.right_stick_x;
 
             drive.drive.jog(y, x, rx);
-
+drive.test++;
     }
 
     @Override
