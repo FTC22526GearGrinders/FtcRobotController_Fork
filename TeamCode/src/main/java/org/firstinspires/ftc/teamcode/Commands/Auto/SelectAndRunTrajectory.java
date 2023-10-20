@@ -3,14 +3,15 @@ package org.firstinspires.ftc.teamcode.Commands.Auto;
 import com.arcrobotics.ftclib.command.CommandBase;
 
 import org.firstinspires.ftc.teamcode.Commands.Trajectories.RunBBCenterTraj;
+import org.firstinspires.ftc.teamcode.Commands.Trajectories.RunBBLRShortTraj;
 import org.firstinspires.ftc.teamcode.Commands.Trajectories.RunBBLRTraj;
 import org.firstinspires.ftc.teamcode.Commands.Trajectories.RunSDCenterTraj;
 import org.firstinspires.ftc.teamcode.Commands.Trajectories.RunSDLRTraj;
 import org.firstinspires.ftc.teamcode.Commands.Trajectories.RunTrussCenterTraj;
 import org.firstinspires.ftc.teamcode.Commands.Trajectories.RunTrussLRTraj;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
-import org.firstinspires.ftc.teamcode.Subsystems.PixelHandlerSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
+import org.firstinspires.ftc.teamcode.Subsystems.PixelHandlerSubsystem;
 
 
 public class SelectAndRunTrajectory extends CommandBase {
@@ -38,7 +39,16 @@ public class SelectAndRunTrajectory extends CommandBase {
 
         if (bbstart) {
             if (lcr == 2) new RunBBCenterTraj(drive, claw).schedule();
-            if (lcr == 1 || lcr == 3) new RunBBLRTraj(drive, claw).schedule();
+
+            if (lcr == 3 && !ActiveMotionValues.getRedAlliance() || lcr == 1 && ActiveMotionValues.getRedAlliance())
+                new RunBBLRShortTraj(drive, claw).schedule();
+            else
+                new RunBBLRTraj(drive, claw).schedule();
+
+            if (lcr == 1 && !ActiveMotionValues.getRedAlliance() || lcr == 3 && ActiveMotionValues.getRedAlliance())
+                new RunBBLRShortTraj(drive, claw).schedule();
+            else
+                new RunBBLRTraj(drive, claw).schedule();
         }
 
         if (!bbstart && !useSD) {

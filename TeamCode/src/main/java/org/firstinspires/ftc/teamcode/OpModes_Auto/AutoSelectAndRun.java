@@ -271,12 +271,12 @@ public class AutoSelectAndRun extends CommandOpMode {
                                 new ParallelCommandGroup(
 
                                         new DriveToAprilTagAuto(this, drive),
-                                        new PositionPHArm(phss, Constants.PixelHandlerConstants.armhaights.LOW.height)),
+                                        new PositionPHArm(phss, .5, Constants.PixelHandlerConstants.armhaights.LOW.height)),
 
                                 new PlacePixelOnBB(phss),
 
                                 new ParallelCommandGroup(
-                                        new PositionPHArm(phss, Constants.PixelHandlerConstants.armhaights.HOME.height),
+                                        new PositionPHArm(phss, .5, Constants.PixelHandlerConstants.armhaights.HOME.height),
                                         new MoveToPark())),
 
                         new DoNothing(), () -> ActiveMotionValues.getBBStart())).schedule();

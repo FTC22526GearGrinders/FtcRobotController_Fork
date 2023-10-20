@@ -53,7 +53,7 @@ public class RunBBLRTraj extends CommandBase {
 
                         ActiveMotionValues.getyPoint(4)))
 
-                .lineToLinearHeading(ActiveMotionValues.getActiveTagPose())
+                .lineToLinearHeading(ActiveMotionValues.getTagLookAheadPose())
 
 
                 .build();

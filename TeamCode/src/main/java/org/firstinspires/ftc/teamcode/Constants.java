@@ -116,24 +116,26 @@ public final class Constants {
         public static final double DROP_CLOSED_POSITION = .20;
 
         public static final double TICKS_PER_REV = 537.7;
+
+        public static final double ENCODER_COUNTS_PER_INCH = 84.75;
         public static final double MAX_RPM = 312;
+        public static final int POSITION_TOLERANCE = 1;
 
+        public static final double UPPER_POSITION_LIMIT = 35.00;
 
-        public void setPIDFCoefficients(DcMotor.RunMode runMode, PIDFCoefficients coefficients) {
-            PIDFCoefficients compensatedCoefficients = new PIDFCoefficients(
-                    coefficients.p, coefficients.i, coefficients.d,
-                    coefficients.f * 1
-            );
-        }
+        public static final int LOWER_POSITION_LIMIT = 1;
 
-        public static double encoderTicksToInches(double ticks) {
-            return 100*ticks;
-        }
+        public static final double JOG_UP_POWER = +.5;
+
+        public static final double JOG_DOWN_POWER = -.3;
+
 
 
         public static enum armhaights{
 
             HOME (0.),
+
+            FLOOR_PICKUP(1),
             LOW (5),
             MID (12),
             HIGH (19);

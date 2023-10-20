@@ -52,7 +52,7 @@ public class RunBBCenterTraj extends CommandBase {
 
                         ActiveMotionValues.getyPoint(4)))
 
-                .lineToLinearHeading(ActiveMotionValues.getActiveTagPose())
+                .lineToLinearHeading(ActiveMotionValues.getTagLookAheadPose())
 
 
                 .build();

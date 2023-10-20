@@ -5,18 +5,18 @@ import com.arcrobotics.ftclib.command.CommandBase;
 
 import org.firstinspires.ftc.teamcode.Commands.PixelHandler.DropPixelCommand;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
-import org.firstinspires.ftc.teamcode.Subsystems.PixelHandlerSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
+import org.firstinspires.ftc.teamcode.Subsystems.PixelHandlerSubsystem;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
 
-public class RunSDLRTraj extends CommandBase {
+public class RunBBLRShortTraj extends CommandBase {
     private Drive_Subsystem drive;
     private PixelHandlerSubsystem phss;
 
-    private TrajectorySequence stageDoorLeftRight;
+    private TrajectorySequence backboardLeftRight;
 
-    public RunSDLRTraj(Drive_Subsystem drive, PixelHandlerSubsystem phss) {
+    public RunBBLRShortTraj(Drive_Subsystem drive, PixelHandlerSubsystem phss) {
         this.drive = drive;
         this.phss = phss;
     }
@@ -30,7 +30,7 @@ public class RunSDLRTraj extends CommandBase {
          * <p>
          * It has the pixel delivery after the first step
          */
-        stageDoorLeftRight = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
+        backboardLeftRight = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
 
                 .lineTo(new Vector2d((ActiveMotionValues.getxPoint(1)),//drive to drop off poinr
 
@@ -45,13 +45,15 @@ public class RunSDLRTraj extends CommandBase {
 
                 .waitSeconds(3)//pixel drop off time
 
-                .lineTo(new Vector2d((ActiveMotionValues.getxPoint(3)),//move left or right on to middle of tape
-
-                        ActiveMotionValues.getyPoint(3)))
+//                .lineTo(new Vector2d((ActiveMotionValues.getxPoint(3)),//move left or right on to middle of tape
+//
+//                        ActiveMotionValues.getyPoint(3)))
 
                 .lineTo(new Vector2d((ActiveMotionValues.getxPoint(4)),//move left or right on to middle of tape
 
                         ActiveMotionValues.getyPoint(4)))
+
+                .lineToLinearHeading(ActiveMotionValues.getTagLookAheadPose())
 
 
                 .build();
@@ -59,7 +61,7 @@ public class RunSDLRTraj extends CommandBase {
 
         drive.drive.setPoseEstimate(ActiveMotionValues.getStartPose());
 
-        drive.drive.followTrajectorySequence(stageDoorLeftRight);
+        drive.drive.followTrajectorySequence(backboardLeftRight);
     }
 
     @Override

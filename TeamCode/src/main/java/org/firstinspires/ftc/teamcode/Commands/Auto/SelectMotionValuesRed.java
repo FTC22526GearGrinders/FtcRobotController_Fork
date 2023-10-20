@@ -78,7 +78,8 @@ public class SelectMotionValuesRed extends CommandBase {
                 ActiveMotionValues.setActTag(4);
 
                 ActiveMotionValues.setActiveTagPose(FieldConstantsRed.setActiveTagPose(ActiveMotionValues.getActTag())
-                        .minus(new Pose2d(Constants.RobotConstants.length / 2, 0, 0)));
+                        .minus(FieldConstantsRed.AprilTagConstants.tagLookAheadPose));
+
 
                 if (ActiveMotionValues.getCenterPark())
 
@@ -134,8 +135,7 @@ public class SelectMotionValuesRed extends CommandBase {
 
 
                 ActiveMotionValues.setActiveTagPose(FieldConstantsRed.setActiveTagPose(ActiveMotionValues.getActTag())
-                        .minus(new Pose2d(Constants.RobotConstants.length / 2 + 3, 0, 0)));
-
+                        .minus(FieldConstantsRed.AprilTagConstants.tagLookAheadPose));
 
                 if (ActiveMotionValues.getCenterPark())
 
@@ -183,9 +183,9 @@ public class SelectMotionValuesRed extends CommandBase {
 
                 ActiveMotionValues.setActTag(6);
 
-
                 ActiveMotionValues.setActiveTagPose(FieldConstantsRed.setActiveTagPose(ActiveMotionValues.getActTag())
-                        .minus(new Pose2d(Constants.RobotConstants.length / 2 + 3, 0, 0)));
+                        .minus(FieldConstantsRed.AprilTagConstants.tagLookAheadPose));
+
 
                 if (ActiveMotionValues.getCenterPark())
 

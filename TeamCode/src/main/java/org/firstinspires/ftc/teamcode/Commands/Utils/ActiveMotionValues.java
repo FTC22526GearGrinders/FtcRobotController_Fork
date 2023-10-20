@@ -10,12 +10,16 @@ public class ActiveMotionValues {
     private static Pose2d startPose = new Pose2d();
     private static AprilTagPoseFtc currentTagPose;
     private static double yFirstPoint = 0;
-   // private static Pose2d finalPose = new Pose2d();
+    // private static Pose2d finalPose = new Pose2d();
     private static int atag = 1;
 
     private static Pose2d parkPose = new Pose2d();
 
     private static Pose2d activeAprilTagPose = new Pose2d();
+
+    private static Pose2d neqrAprilTagPose = new Pose2d();
+
+
     private static Pose2d clearStageDoorPose;
 
     public static Pose2d getStartPose() {
@@ -51,9 +55,6 @@ public class ActiveMotionValues {
     }
 
 
-
-
-
     public static Pose2d getTagLookAheadPose() {
         return tagLookAheadPose;
     }
@@ -66,18 +67,18 @@ public class ActiveMotionValues {
         activeAprilTagPose = pose;
     }
 
+
     public static Pose2d getActiveTagPose() {
         return activeAprilTagPose;
     }
-
 
 
     public static double getyOffset() {
         return yOffset;
     }
 
-    public static void setyOffset(double yOff){
-        yOffset=yOff;
+    public static void setyOffset(double yOff) {
+        yOffset = yOff;
     }
 
     public static double getxOffset() {
@@ -192,31 +193,31 @@ public class ActiveMotionValues {
     }
 
     public static void setClearStageDoorPose(Pose2d pose) {
-        clearStageDoorPose =pose;
+        clearStageDoorPose = pose;
     }
 
     public static Pose2d getClearStageDoorPose() {
-       return clearStageDoorPose;
+        return clearStageDoorPose;
     }
 
 
-    private static boolean useStageDoor=false;
+    private static boolean useStageDoor = false;
 
-    private static  boolean centerPark=false;
+    private static boolean centerPark = false;
 
     public static void setCenterPark(boolean cPark) {
-        centerPark =cPark;
+        centerPark = cPark;
     }
 
-    public static boolean getCenterPark(){
+    public static boolean getCenterPark() {
         return centerPark;
     }
 
     public static void setUseStageDoor(boolean useStDoor) {
-        useStageDoor=useStDoor;
+        useStageDoor = useStDoor;
     }
 
-    public static boolean getUseStageDoor(){
+    public static boolean getUseStageDoor() {
         return useStageDoor;
     }
 }

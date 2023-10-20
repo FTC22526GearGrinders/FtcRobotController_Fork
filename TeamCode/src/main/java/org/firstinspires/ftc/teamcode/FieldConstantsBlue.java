@@ -43,7 +43,7 @@ public final class FieldConstantsBlue {
         static final double atagAngle = 0;
 
 
-        public static final Pose2d tagLookAheadPose = new Pose2d(-24, 0);
+        public static final Pose2d tagLookAheadPose = new Pose2d(14, 0);
 
 
 

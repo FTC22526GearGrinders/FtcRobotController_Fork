@@ -52,7 +52,6 @@ public class RunTrussLRTraj extends CommandBase {
 
                         ActiveMotionValues.getyPoint(4)))
 
-                .lineToLinearHeading(ActiveMotionValues.getActiveTagPose())
 
 
                 .build();

@@ -18,14 +18,14 @@ public class DropPixelCommand extends CommandBase {
     @Override
     public void initialize() {
 
-        phsss.drop();
+        phsss.holdPixel();
         cnt = 0;
 
     }
 
     @Override
     public void execute() {
-        phsss.drop();
+        phsss.dropPixel();
         cnt++;
     }
 
