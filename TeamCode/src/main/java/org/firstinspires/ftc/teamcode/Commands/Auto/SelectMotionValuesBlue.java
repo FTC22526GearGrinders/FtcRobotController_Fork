@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.Commands.Auto;
 
 
-import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.arcrobotics.ftclib.command.CommandBase;
 
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
@@ -163,7 +162,6 @@ public class SelectMotionValuesBlue extends CommandBase {
                 ActiveMotionValues.setActTag(2);
 
 
-
                 ActiveMotionValues.setTagLookAheadPose(FieldConstantsBlue.setActiveTagPose(ActiveMotionValues.getActTag())
                         .minus(FieldConstantsBlue.AprilTagConstants.tagLookAheadPose));
 
@@ -259,6 +257,7 @@ public class SelectMotionValuesBlue extends CommandBase {
                 ActiveMotionValues.setyPoint(3, ActiveMotionValues.getyPoint(1));
 
 
+
                 setCommonMotion(4, ActiveMotionValues.getUseStageDoor(), ActiveMotionValues.getLcrpos() == 2, ActiveMotionValues.getCenterPark());
 
 
@@ -287,13 +286,15 @@ public class SelectMotionValuesBlue extends CommandBase {
 
                 ActiveMotionValues.setxPoint(2, FieldConstantsBlue.XMYP.CenterTapeMid.getX() + ActiveMotionValues.getxOffset());
 
-                ActiveMotionValues.setyPoint(2, FieldConstantsBlue.XMYP.CenterTapeMid.getY() + Constants.RobotConstants.length+ +
+                ActiveMotionValues.setyPoint(2, FieldConstantsBlue.XMYP.CenterTapeMid.getY() + Constants.RobotConstants.length + +
                         Constants.TapeConstants.tapeLength / 2);
 
 
                 ActiveMotionValues.setxPoint(3, FieldConstantsBlue.XMYP.RightTapeMid.getX());
 
                 ActiveMotionValues.setyPoint(3, ActiveMotionValues.getyPoint(2));
+
+
 
 
                 setCommonMotion(4, ActiveMotionValues.getUseStageDoor(), ActiveMotionValues.getLcrpos() == 2, ActiveMotionValues.getCenterPark());
@@ -346,19 +347,9 @@ public class SelectMotionValuesBlue extends CommandBase {
 
         if (useStageDoor) {
 
-            if (centerTape) {
+            ActiveMotionValues.setxPoint(4, FieldConstantsBlue.stageDoorLineUpPose2.getX());
 
-                ActiveMotionValues.setxPoint(4, FieldConstantsBlue.stageDoorLineUpPose2.getX());
-
-                ActiveMotionValues.setyPoint(4, FieldConstantsBlue.stageDoorLineUpPose2.getY());
-
-            } else {
-
-                ActiveMotionValues.setxPoint(4, FieldConstantsBlue.stageDoorLineUpPose13.getX());
-
-                ActiveMotionValues.setyPoint(4, FieldConstantsBlue.stageDoorLineUpPose13.getY());
-            }
-
+            ActiveMotionValues.setyPoint(4, FieldConstantsBlue.stageDoorLineUpPose2.getY());
 
             ActiveMotionValues.setxPoint(5, FieldConstantsBlue.centerBBSideParkPose.getX());
 
@@ -367,7 +358,7 @@ public class SelectMotionValuesBlue extends CommandBase {
         }
         if (!useStageDoor) {
 
-            if(centerTape) {
+            if (centerTape) {
 
                 ActiveMotionValues.setxPoint(3, FieldConstantsBlue.nearBackstageTrussLineUp.getX());
 
@@ -376,8 +367,8 @@ public class SelectMotionValuesBlue extends CommandBase {
                 ActiveMotionValues.setxPoint(4, FieldConstantsBlue.slideToCenterBBSideParkPose.getX());
 
                 ActiveMotionValues.setyPoint(4, FieldConstantsBlue.slideToNearBBSideParkPose.getY());
-            }
-            else {
+
+            } else {
 
                 ActiveMotionValues.setxPoint(4, FieldConstantsBlue.nearBackstageTrussLineUp.getX());
 
@@ -386,8 +377,6 @@ public class SelectMotionValuesBlue extends CommandBase {
                 ActiveMotionValues.setxPoint(5, FieldConstantsBlue.slideToCenterBBSideParkPose.getX());
 
                 ActiveMotionValues.setyPoint(5, FieldConstantsBlue.slideToNearBBSideParkPose.getY());
-
-
 
 
             }
@@ -399,7 +388,6 @@ public class SelectMotionValuesBlue extends CommandBase {
 
 
     }
-
 
 
     @Override

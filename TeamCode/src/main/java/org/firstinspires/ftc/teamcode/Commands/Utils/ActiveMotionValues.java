@@ -8,10 +8,8 @@ public class ActiveMotionValues {
 
 
     private static Pose2d startPose = new Pose2d();
-    private static AprilTagPoseFtc currentTagPose;
-    private static double yFirstPoint = 0;
-    // private static Pose2d finalPose = new Pose2d();
-    private static int atag = 1;
+    private static AprilTagPoseFtc currentTagPose =
+            new AprilTagPoseFtc(0, 0, 0, 0, 0, 0, 0, 0, 0);
 
     private static Pose2d parkPose = new Pose2d();
 
@@ -34,9 +32,9 @@ public class ActiveMotionValues {
 //        return finalPose;
 //    }
 
-    private static double[] yPoints = new double[10];
+    private static double[] yPoints = new double[6];
 
-    private static double[] xPoints = new double[10];
+    private static double[] xPoints = new double[6];
 
     public static void setyPoint(int n, double val) {
         yPoints[n] = val;

@@ -52,8 +52,6 @@ public class RunSDCenterTraj extends CommandBase {
 
                         ActiveMotionValues.getyPoint(4)))
 
-
-
                 .build();
 
 

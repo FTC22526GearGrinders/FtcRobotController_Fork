@@ -41,11 +41,7 @@ public class SelectAndRunTrajectory extends CommandBase {
             if (lcr == 2) new RunBBCenterTraj(drive, claw).schedule();
 
             if (lcr == 3 && !ActiveMotionValues.getRedAlliance() || lcr == 1 && ActiveMotionValues.getRedAlliance())
-                new RunBBLRShortTraj(drive, claw).schedule();
-            else
-                new RunBBLRTraj(drive, claw).schedule();
 
-            if (lcr == 1 && !ActiveMotionValues.getRedAlliance() || lcr == 3 && ActiveMotionValues.getRedAlliance())
                 new RunBBLRShortTraj(drive, claw).schedule();
             else
                 new RunBBLRTraj(drive, claw).schedule();

@@ -342,10 +342,7 @@ public class SelectMotionValuesBlue {
 
         if (useStageDoor) {
 
-
-//
             if (centerTape) {
-
 
                 ActiveMotionValues.setxPoint(4, FieldConstantsBlue.stageDoorLineUpPose2.getX());
 

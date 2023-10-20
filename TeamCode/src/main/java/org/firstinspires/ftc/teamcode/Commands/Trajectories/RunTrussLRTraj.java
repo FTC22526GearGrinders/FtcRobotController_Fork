@@ -52,7 +52,9 @@ public class RunTrussLRTraj extends CommandBase {
 
                         ActiveMotionValues.getyPoint(4)))
 
+                .lineTo(new Vector2d(ActiveMotionValues.getParkPose().getX(),//move left or right on to middle of tape
 
+                        ActiveMotionValues.getParkPose().getY()))
 
                 .build();
 

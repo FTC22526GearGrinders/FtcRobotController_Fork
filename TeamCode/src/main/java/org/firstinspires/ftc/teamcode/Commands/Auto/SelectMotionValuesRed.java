@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.Commands.Auto;
 
 
-import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.arcrobotics.ftclib.command.CommandBase;
 
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
@@ -90,7 +89,6 @@ public class SelectMotionValuesRed extends CommandBase {
                     ActiveMotionValues.setParkPose(FieldConstantsRed.slideToNearBBSideParkPose);
 
 
-
                 break;
 
             case 2://center straight motion to midddle of center tape
@@ -146,7 +144,6 @@ public class SelectMotionValuesRed extends CommandBase {
                     ActiveMotionValues.setParkPose(FieldConstantsRed.slideToNearBBSideParkPose);
 
 
-
                 break;
 
 
@@ -196,7 +193,6 @@ public class SelectMotionValuesRed extends CommandBase {
                     ActiveMotionValues.setParkPose(FieldConstantsRed.slideToNearBBSideParkPose);
 
 
-
                 break;
 
             //RED
@@ -229,6 +225,7 @@ public class SelectMotionValuesRed extends CommandBase {
 
                 ActiveMotionValues.setyPoint(3, ActiveMotionValues.getyPoint(1));
 
+
                 setCommonMotion(4, ActiveMotionValues.getUseStageDoor(), ActiveMotionValues.getLcrpos() == 2, ActiveMotionValues.getCenterPark());
 
                 break;
@@ -255,17 +252,15 @@ public class SelectMotionValuesRed extends CommandBase {
                         ActiveMotionValues.getyOffset());
 
 
-
                 ActiveMotionValues.setxPoint(2, FieldConstantsRed.XMYM.CenterTapeMid.getX() + ActiveMotionValues.getxOffset());
 
-                ActiveMotionValues.setyPoint(2, FieldConstantsRed.XMYM.CenterTapeMid.getY() + Constants.RobotConstants.length+ +
+                ActiveMotionValues.setyPoint(2, FieldConstantsRed.XMYM.CenterTapeMid.getY() + Constants.RobotConstants.length + +
                         Constants.TapeConstants.tapeLength / 2);
 
 
                 ActiveMotionValues.setxPoint(3, FieldConstantsRed.XMYM.RightTapeMid.getX());
 
                 ActiveMotionValues.setyPoint(3, ActiveMotionValues.getyPoint(2));
-
 
 
                 setCommonMotion(5, ActiveMotionValues.getUseStageDoor(), ActiveMotionValues.getLcrpos() == 2, ActiveMotionValues.getCenterPark());
@@ -317,22 +312,9 @@ public class SelectMotionValuesRed extends CommandBase {
 
         if (useStageDoor) {
 
+            ActiveMotionValues.setxPoint(4, FieldConstantsRed.stageDoorLineUpPose13.getX());
 
-//
-            if (centerTape) {
-
-
-                ActiveMotionValues.setxPoint(4, FieldConstantsRed.stageDoorLineUpPose2.getX());
-
-                ActiveMotionValues.setyPoint(4, FieldConstantsRed.stageDoorLineUpPose2.getY());
-
-            } else {
-
-                ActiveMotionValues.setxPoint(4, FieldConstantsRed.stageDoorLineUpPose13.getX());
-
-                ActiveMotionValues.setyPoint(4, FieldConstantsRed.stageDoorLineUpPose13.getY());
-            }
-
+            ActiveMotionValues.setyPoint(4, FieldConstantsRed.stageDoorLineUpPose13.getY());
 
             ActiveMotionValues.setxPoint(5, FieldConstantsRed.centerBBSideParkPose.getX());
 
@@ -341,7 +323,7 @@ public class SelectMotionValuesRed extends CommandBase {
         }
         if (!useStageDoor) {
 
-            if(centerTape) {
+            if (centerTape) {
 
                 ActiveMotionValues.setxPoint(3, FieldConstantsRed.nearBackstageTrussLineUp.getX());
 
@@ -350,8 +332,8 @@ public class SelectMotionValuesRed extends CommandBase {
                 ActiveMotionValues.setxPoint(4, FieldConstantsRed.slideToCenterBBSideParkPose.getX());
 
                 ActiveMotionValues.setyPoint(4, FieldConstantsRed.slideToNearBBSideParkPose.getY());
-            }
-            else {
+
+            } else {
 
                 ActiveMotionValues.setxPoint(4, FieldConstantsRed.nearBackstageTrussLineUp.getX());
 
@@ -360,9 +342,6 @@ public class SelectMotionValuesRed extends CommandBase {
                 ActiveMotionValues.setxPoint(5, FieldConstantsRed.slideToCenterBBSideParkPose.getX());
 
                 ActiveMotionValues.setyPoint(5, FieldConstantsRed.slideToNearBBSideParkPose.getY());
-
-
-
 
             }
 
