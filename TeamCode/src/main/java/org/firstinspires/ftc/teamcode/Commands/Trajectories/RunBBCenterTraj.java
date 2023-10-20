@@ -16,6 +16,8 @@ public class RunBBCenterTraj extends CommandBase {
 
     private TrajectorySequence backboardCenter;
 
+    private  int numberPoints;
+
     public RunBBCenterTraj(Drive_Subsystem drive, PixelHandlerSubsystem phss) {
         this.drive = drive;
         this.phss = phss;
@@ -23,6 +25,8 @@ public class RunBBCenterTraj extends CommandBase {
 
     @Override
     public void initialize() {
+
+        numberPoints=ActiveMotionValues.getPointsUsed();
 
 
         /**
@@ -43,14 +47,6 @@ public class RunBBCenterTraj extends CommandBase {
                 .lineTo(new Vector2d((ActiveMotionValues.getxPoint(2)),//move left or right on to middle of tape
 
                         ActiveMotionValues.getyPoint(2)))
-
-                .lineTo(new Vector2d((ActiveMotionValues.getxPoint(3)),//move left or right on to middle of tape
-
-                        ActiveMotionValues.getyPoint(3)))
-
-                .lineTo(new Vector2d((ActiveMotionValues.getxPoint(4)),//move left or right on to middle of tape
-
-                        ActiveMotionValues.getyPoint(4)))
 
                 .lineToLinearHeading(ActiveMotionValues.getTagLookAheadPose())
 

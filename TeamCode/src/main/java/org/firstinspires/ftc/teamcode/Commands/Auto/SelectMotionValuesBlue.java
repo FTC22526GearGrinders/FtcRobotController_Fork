@@ -6,6 +6,7 @@ import com.arcrobotics.ftclib.command.CommandBase;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.FieldConstantsBlue;
+import org.firstinspires.ftc.teamcode.FieldConstantsBlue;
 
 /*
  *Values are taken fron the FieldConstantsColor files to build values for the auto trajectories to use.
@@ -265,8 +266,7 @@ public class SelectMotionValuesBlue extends CommandBase {
                 ActiveMotionValues.setyPoint(3, ActiveMotionValues.getyPoint(1));
 
 
-                setCommonMotion(11, ActiveMotionValues.getUseStageDoor(), ActiveMotionValues.getLcrpos() == 2,
-                        ActiveMotionValues.getCenterPark(), ActiveMotionValues.getSecondpixel());
+                setCommonMotion();
 
 
                 break;
@@ -304,9 +304,7 @@ public class SelectMotionValuesBlue extends CommandBase {
                 ActiveMotionValues.setyPoint(3, ActiveMotionValues.getyPoint(2));
 
 
-                setCommonMotion(12, ActiveMotionValues.getUseStageDoor(),
-                        ActiveMotionValues.getLcrpos() == 2,
-                        ActiveMotionValues.getCenterPark(), ActiveMotionValues.getSecondpixel());
+                setCommonMotion();
 
 
                 break;
@@ -346,8 +344,7 @@ public class SelectMotionValuesBlue extends CommandBase {
                 ActiveMotionValues.setyPoint(3, ActiveMotionValues.getyPoint(2));
 
 
-                setCommonMotion(13, ActiveMotionValues.getUseStageDoor(), ActiveMotionValues.getLcrpos() == 2,
-                        ActiveMotionValues.getCenterPark(), ActiveMotionValues.getSecondpixel());
+                setCommonMotion();
 
 
                 break;
@@ -355,48 +352,81 @@ public class SelectMotionValuesBlue extends CommandBase {
         }
     }
 
-    public boolean setCommonMotion(int lcr, boolean useStageDoor, boolean centerTape, boolean centerPark, boolean secondPixel) {
+    public boolean setCommonMotion() {
+        int lcr = ActiveMotionValues.getLcrpos() + 10;
+        boolean centerTape = lcr == 12;
+        boolean useStageDoor = ActiveMotionValues.getUseStageDoor();
+        boolean secondPixel = ActiveMotionValues.getSecondpixel();
 
+        boolean useTruss = !useStageDoor;
 
-        if (useStageDoor) {
-
-            ActiveMotionValues.setxPoint(4, FieldConstantsBlue.stageDoorLineUpPose2.getX());
-
-            ActiveMotionValues.setyPoint(4, FieldConstantsBlue.stageDoorLineUpPose2.getY());
-
-            ActiveMotionValues.setPointsUsed(4);
-
-        }
-        if (!useStageDoor) {
+        //if using the truss center tape has one less move than left or right
+        if (useTruss && !secondPixel) {
 
             if (lcr == 12) {
+//write over earlier retract value point 3 so robot retracts in one motion
+
+                ActiveMotionValues.setxPoint(2, FieldConstantsBlue.nearTrussLineUp.getX());
+
+                ActiveMotionValues.setyPoint(2, FieldConstantsBlue.nearTrussLineUp.getY());
+
+                ActiveMotionValues.setParkPose(FieldConstantsBlue.nearBBSideParkPose);
+
+                ActiveMotionValues.setPointsUsed(2);
+
+                //write over earlier retract value point 4
+            } else {
 
                 ActiveMotionValues.setxPoint(3, FieldConstantsBlue.nearTrussLineUp.getX());
 
                 ActiveMotionValues.setyPoint(3, FieldConstantsBlue.nearTrussLineUp.getY());
 
-                ActiveMotionValues.setParkPose(FieldConstantsBlue.slideToNearBBSideParkPose);
+                ActiveMotionValues.setParkPose(FieldConstantsBlue.nearBBSideParkPose);
 
                 ActiveMotionValues.setPointsUsed(3);
+            }
+        }
 
+
+        if (useStageDoor && !secondPixel) {
+
+            if (lcr == 12) {
+//center tape moves across to right tape x center
+                ActiveMotionValues.setxPoint(4, FieldConstantsBlue.XMYP.LeftTapeMid.getX());
+
+                ActiveMotionValues.setyPoint(4, ActiveMotionValues.getyPoint(3));
+
+                ActiveMotionValues.setxPoint(5, FieldConstantsBlue.stageDoorLineUpPose2.getX());
+
+                ActiveMotionValues.setyPoint(5, FieldConstantsBlue.stageDoorLineUpPose2.getY());
+
+                ActiveMotionValues.setxPoint(6, FieldConstantsBlue.nearBBSDLineUp.getX());
+
+                ActiveMotionValues.setyPoint(6, FieldConstantsBlue.nearBBSDLineUp.getY());
+
+                ActiveMotionValues.setParkPose(FieldConstantsBlue.centerBBSideParkPose);
+
+                ActiveMotionValues.setPointsUsed(6);
 
             } else {
 
-                ActiveMotionValues.setxPoint(3, FieldConstantsBlue.nearTrussLineUp.getX());
+                ActiveMotionValues.setxPoint(4, FieldConstantsBlue.XMYP.CenterTapeMid.getX());
 
-                ActiveMotionValues.setyPoint(2, FieldConstantsBlue.nearTrussLineUp.getY());
+                ActiveMotionValues.setyPoint(4, ActiveMotionValues.getyPoint(3));
 
+                ActiveMotionValues.setxPoint(5, FieldConstantsBlue.stageDoorLineUpPose13.getX());
 
+                ActiveMotionValues.setyPoint(5, FieldConstantsBlue.stageDoorLineUpPose13.getY());
 
-                ActiveMotionValues.setParkPose(FieldConstantsBlue.slideToNearBBSideParkPose);
+                ActiveMotionValues.setxPoint(6, FieldConstantsBlue.nearBBSDLineUp.getX());
 
-                ActiveMotionValues.setPointsUsed(3);
+                ActiveMotionValues.setyPoint(6, FieldConstantsBlue.nearBBSDLineUp.getY());
 
+                ActiveMotionValues.setParkPose(FieldConstantsBlue.centerBBSideParkPose);
 
+                ActiveMotionValues.setPointsUsed(6);
             }
-
         }
-
 
         return true;
 

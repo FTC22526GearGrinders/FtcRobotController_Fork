@@ -77,7 +77,7 @@ public class AutoSelectAndRun extends CommandOpMode {
 
     boolean redAlliance = false;
 
-    boolean leftStart = false;
+    boolean bbStart = false;
 
     boolean useStageDoor = false;
 
@@ -117,8 +117,8 @@ public class AutoSelectAndRun extends CommandOpMode {
                 if (currentX) {
                     redAlliance = !redAlliance;
                 }
-                if (currentY) {
-                    leftStart = !leftStart;
+                if (currentA) {
+                    bbStart = !bbStart;
                 }
 
                 if (currentA) {
@@ -150,9 +150,9 @@ public class AutoSelectAndRun extends CommandOpMode {
 
             telemetry.addData("Red Alliance Selected X to Change", redAlliance);
             telemetry.addLine();
-            telemetry.addData("Left Start Selected Y to Change", useStageDoor);
+            telemetry.addData("BB Start Selected A to Change", bbStart);
             telemetry.addLine();
-            telemetry.addData("Left Start Selected A to Change", leftStart);
+            telemetry.addData("Stage Door Selected Y to Change", useStageDoor);
             telemetry.addLine();
             telemetry.addData("Center Park Selected B to Change", centerPark);
             telemetry.addLine();
@@ -173,11 +173,11 @@ public class AutoSelectAndRun extends CommandOpMode {
 
         telemetry.addLine();
 
-        if (leftStart)
+        if (bbStart)
 
-            telemetry.addData("You Have Chosen Left Start", "");
+            telemetry.addData("You Have Chosen BB Start", "");
         else
-            telemetry.addData("You Have Chosen Right Start", "");
+            telemetry.addData("You Have Chosen Non BB Start", "");
 
         telemetry.addLine();
 
@@ -214,10 +214,10 @@ public class AutoSelectAndRun extends CommandOpMode {
 
 
         ActiveMotionValues.setRedAlliance(redAlliance);
-        boolean bbStart = redAlliance && !leftStart || !redAlliance && leftStart;
         ActiveMotionValues.setBBStart(bbStart);
         ActiveMotionValues.setUseStageDoor(useStageDoor);
         ActiveMotionValues.setCenterPark(centerPark);
+        ActiveMotionValues.setSecondPixel(secondPixel);
 
 
         drive = new Drive_Subsystem(this);

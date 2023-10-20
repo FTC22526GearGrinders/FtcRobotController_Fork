@@ -52,6 +52,15 @@ public class RunSDCenterTraj extends CommandBase {
 
                         ActiveMotionValues.getyPoint(4)))
 
+                .lineTo(new Vector2d((ActiveMotionValues.getxPoint(5)),//move left or right on to middle of tape
+
+                        ActiveMotionValues.getyPoint(5)))
+
+                .lineTo(new Vector2d((ActiveMotionValues.getxPoint(6)),//move left or right on to middle of tape
+
+                        ActiveMotionValues.getyPoint(6)))
+
+
                 .lineTo(new Vector2d(ActiveMotionValues.getParkPose().getX(),//move left or right on to middle of tape
 
                         ActiveMotionValues.getParkPose().getY()))

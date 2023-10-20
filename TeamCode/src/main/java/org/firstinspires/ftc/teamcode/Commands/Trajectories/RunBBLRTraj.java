@@ -16,6 +16,8 @@ public class RunBBLRTraj extends CommandBase {
 
     private TrajectorySequence backboardLeftRight;
 
+    private  int numberPoints;
+
     public RunBBLRTraj(Drive_Subsystem drive, PixelHandlerSubsystem phss) {
         this.drive = drive;
         this.phss = phss;
@@ -24,7 +26,7 @@ public class RunBBLRTraj extends CommandBase {
     @Override
     public void initialize() {
 
-
+        numberPoints=ActiveMotionValues.getPointsUsed();
         /**
          * Use th 5 step center for stage door selection
          * <p>
@@ -49,9 +51,6 @@ public class RunBBLRTraj extends CommandBase {
 
                         ActiveMotionValues.getyPoint(3)))
 
-                .lineTo(new Vector2d((ActiveMotionValues.getxPoint(4)),//move left or right on to middle of tape
-
-                        ActiveMotionValues.getyPoint(4)))
 
                 .lineToLinearHeading(ActiveMotionValues.getTagLookAheadPose())
 
