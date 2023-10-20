@@ -246,7 +246,7 @@ public class SelectMotionValuesRed extends CommandBase {
 
                 ActiveMotionValues.setxOffset(0);
 
-                ActiveMotionValues.setRetractDistance(12);// MUST MUST MOT BE ZERO!!!!!!!!!!!!!!! + value makes retract move more negative
+                ActiveMotionValues.setRetractDistance(-12);// MUST MUST MOT BE ZERO!!!!!!!!!!!!!!! + value makes retract move more negative
 
 
                 //robot moves in Y
@@ -349,13 +349,13 @@ public class SelectMotionValuesRed extends CommandBase {
                 //write over earlier retract value point 4
             } else {
 
-                ActiveMotionValues.setxPoint(3, FieldConstantsRed.nearTrussLineUp.getX());
+                ActiveMotionValues.setxPoint(4, FieldConstantsRed.nearTrussLineUp.getX());
 
-                ActiveMotionValues.setyPoint(3, FieldConstantsRed.nearTrussLineUp.getY());
+                ActiveMotionValues.setyPoint(4, FieldConstantsRed.nearTrussLineUp.getY());
 
                 ActiveMotionValues.setParkPose(FieldConstantsRed.nearBBSideParkPose);
 
-                ActiveMotionValues.setPointsUsed(3);
+                ActiveMotionValues.setPointsUsed(4);
 
 
             }

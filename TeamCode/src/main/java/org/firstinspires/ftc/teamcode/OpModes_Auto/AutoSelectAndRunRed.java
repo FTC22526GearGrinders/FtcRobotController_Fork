@@ -61,9 +61,9 @@ import org.openftc.easyopencv.OpenCvWebcam;
 
 
 @Config
-@Autonomous(name = "Auto: Select-Run Auto", group = "Auto")
+@Autonomous(name = "Auto: Select-RED", group = "Auto")
 //@Disabled
-public class AutoSelectAndRun extends CommandOpMode {
+public class AutoSelectAndRunRed extends CommandOpMode {
 
     private Drive_Subsystem drive;
 
@@ -75,9 +75,9 @@ public class AutoSelectAndRun extends CommandOpMode {
     boolean buttonLocked = false;
 
 
-    boolean redAlliance = false;
+    boolean redAlliance = true;
 
-    boolean bbStart = false;
+    boolean bbStart = true;
 
     boolean useStageDoor = false;
 
@@ -114,9 +114,6 @@ public class AutoSelectAndRun extends CommandOpMode {
 
             if (buttonLocked) {
 
-                if (currentX) {
-                    redAlliance = !redAlliance;
-                }
                 if (currentA) {
                     bbStart = !bbStart;
                 }
@@ -148,8 +145,6 @@ public class AutoSelectAndRun extends CommandOpMode {
 
             buttonLocked = xReleased && yReleased && aReleased && bReleased && lbReleased && rbReleased;
 
-            telemetry.addData("Red Alliance Selected X to Change", redAlliance);
-            telemetry.addLine();
             telemetry.addData("BB Start Selected A to Change", bbStart);
             telemetry.addLine();
             telemetry.addData("Stage Door Selected Y to Change", useStageDoor);
@@ -165,11 +160,8 @@ public class AutoSelectAndRun extends CommandOpMode {
 
         }
 
-        if (redAlliance)
 
-            telemetry.addData("You Have Chosen Red Alliance", "");
-        else
-            telemetry.addData("You Have Chosen Blue Alliance", "");
+        telemetry.addData("You Have Chosen Red Alliance", "");
 
         telemetry.addLine();
 

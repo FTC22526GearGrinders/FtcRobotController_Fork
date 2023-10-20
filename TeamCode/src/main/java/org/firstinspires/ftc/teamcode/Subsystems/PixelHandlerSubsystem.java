@@ -36,6 +36,9 @@ public class PixelHandlerSubsystem extends SubsystemBase {
 
         claw = myOpMode.hardwareMap.get(Servo.class, "claw");
 
+        pixelDrop= myOpMode.hardwareMap.get(Servo.class, "pixel drop");
+
+
         armMotor = myOpMode.hardwareMap.get(DcMotorEx.class, "arm motor");
         armMotor.setDirection(DcMotor.Direction.REVERSE);
         armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);

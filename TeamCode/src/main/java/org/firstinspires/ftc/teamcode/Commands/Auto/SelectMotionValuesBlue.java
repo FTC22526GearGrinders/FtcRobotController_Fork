@@ -186,7 +186,7 @@ public class SelectMotionValuesBlue extends CommandBase {
 
                 ActiveMotionValues.setxOffset(0);
 
-                ActiveMotionValues.setRetractDistance(1);
+                ActiveMotionValues.setRetractDistance(12);
 
 
                 ActiveMotionValues.setStartPose(FieldConstantsBlue.XPYP.StartPos);//start pose
@@ -319,7 +319,7 @@ public class SelectMotionValuesBlue extends CommandBase {
 
                 ActiveMotionValues.setxOffset(0);
 
-                ActiveMotionValues.setRetractDistance(-6);
+                ActiveMotionValues.setRetractDistance(12);
 
                 //robot moves in Y
 
@@ -377,13 +377,13 @@ public class SelectMotionValuesBlue extends CommandBase {
                 //write over earlier retract value point 4
             } else {
 
-                ActiveMotionValues.setxPoint(3, FieldConstantsBlue.nearTrussLineUp.getX());
+                ActiveMotionValues.setxPoint(4, FieldConstantsBlue.nearTrussLineUp.getX());
 
-                ActiveMotionValues.setyPoint(3, FieldConstantsBlue.nearTrussLineUp.getY());
+                ActiveMotionValues.setyPoint(4, FieldConstantsBlue.nearTrussLineUp.getY());
 
                 ActiveMotionValues.setParkPose(FieldConstantsBlue.nearBBSideParkPose);
 
-                ActiveMotionValues.setPointsUsed(3);
+                ActiveMotionValues.setPointsUsed(4);
             }
         }
 
