@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.OpCodesTest;
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
+import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
@@ -11,61 +12,129 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.Commands.Auto.SelectValues;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
-import org.firstinspires.ftc.teamcode.Subsystems.IO_Subsystem;
 
 @Config
-@Autonomous(name = "Drive: Values", group = "Test")
+@Autonomous(name = "Auto: Values", group = "Test")
 
 public class TestMotionData extends CommandOpMode {
 
     FtcDashboard dashboard;
-    private IO_Subsystem ioss;
 
-    private int lcr = 0;
 
-    private boolean lcr_one_bit;
-    private boolean lcr_two_bit;
-    private boolean redAlliance;
+    boolean buttonLocked = false;
 
-    private boolean bbStart;
 
+    boolean redAlliance = false;
+
+    boolean bbStart = false;
+
+    boolean useStageDoor = false;
+
+    boolean centerPark = false;
+
+    boolean secondPixel = false;
+
+    int lcr = 1;
 
     public void initialize() {
 
         CommandScheduler.getInstance().cancelAll();
 
-        ioss = new IO_Subsystem(this);
-
         dashboard = FtcDashboard.getInstance();
 
         telemetry = new MultipleTelemetry(telemetry, dashboard.getTelemetry());
 
-        telemetry.addData("Initted", true);
+        boolean currentX = false;
+        boolean currentY = false;
+        boolean currentA = false;
+        boolean currentB = false;
+        boolean currentLB = false;
+        boolean currentRB = false;
 
 
-        telemetry.update();
+        while (opModeInInit() && !isStopRequested()) {
 
-        redAlliance = !ioss.dc0.getState();
+            currentX = gamepad1.x;
+            currentY = gamepad1.y;
+            currentA = gamepad1.a;
+            currentB = gamepad1.b;
+            currentLB = gamepad1.left_bumper;
+            currentRB = gamepad1.right_bumper;
 
-        bbStart = !ioss.dc1.getState();
 
-        lcr_one_bit = !ioss.dc3.getState();
+            if (buttonLocked) {
 
-        lcr_two_bit = !ioss.dc2.getState();
+                if (currentX) {
+                    redAlliance = !redAlliance;
+                }
 
-        if (!lcr_one_bit && !lcr_two_bit) lcr = 0;
-        if (lcr_one_bit && !lcr_two_bit) lcr = 1;
-        if (!lcr_one_bit && lcr_two_bit) lcr = 2;
-        if (lcr_one_bit && lcr_two_bit) lcr = 3;
 
-        if (lcr == 0) lcr = 2;
+                if (currentA) {
+                    bbStart = !bbStart;
+                }
+
+                if (currentY) {
+                    useStageDoor = !useStageDoor;
+                }
+
+
+                if (currentB) {
+                    centerPark = !centerPark;
+                }
+
+                if (currentRB) {
+                    secondPixel = !secondPixel;
+                }
+
+                if (currentLB) {
+                    lcr++;
+                    if (lcr > 3) lcr = 1;
+                }
+
+
+            }
+
+            boolean xReleased = !currentX;
+            boolean yReleased = !currentY;
+
+            boolean aReleased = !currentA;
+            boolean bReleased = !currentB;
+
+            boolean lbReleased = !currentLB;
+            boolean rbReleased = !currentRB;
+
+
+            buttonLocked = xReleased && yReleased && aReleased && bReleased && lbReleased && rbReleased;
+
+
+            telemetry.addData("Red Alliance Selected- X to Change", redAlliance);
+            telemetry.addLine();
+            telemetry.addData("Backboard Start Selected - A to Change", bbStart);
+            telemetry.addLine();
+            telemetry.addData("LCR Value - Left Bumper Increments", lcr);
+            telemetry.addLine();
+            telemetry.addData("Center Park Selected - B to Change", centerPark);
+            telemetry.addLine();
+            telemetry.addData("Stage Door Selected - Y to Change", useStageDoor);
+            telemetry.addLine();
+
+            telemetry.addData("Second Pixel Selected - RB to Change", secondPixel);
+            telemetry.addLine();
+            telemetry.addData("Press Play To Continue", "");
+
+
+            telemetry.update();
+
+        }
 
         ActiveMotionValues.setRedAlliance(redAlliance);
-
+        ActiveMotionValues.setLcrpos(lcr);
         ActiveMotionValues.setBBStart(bbStart);
 
-        ActiveMotionValues.setLcrpos(lcr);
+        ActiveMotionValues.setUseStageDoor(useStageDoor);
+        ActiveMotionValues.setCenterPark(centerPark);
 
+        waitForStart();
 
         new SequentialCommandGroup(
 
@@ -80,25 +149,37 @@ public class TestMotionData extends CommandOpMode {
     // Put run blocks here.
     public void run() {
 
+        waitForStart();
         telemetry.addData("RedAlliance", ActiveMotionValues.getRedAlliance());
         telemetry.addData("BB Start", ActiveMotionValues.getBBStart());
         telemetry.addData("LCR", ActiveMotionValues.getLcrpos());
+        telemetry.addData("CenterPark", ActiveMotionValues.getCenterPark());
+        if (!ActiveMotionValues.getBBStart()) {
+            telemetry.addData("Use SD", ActiveMotionValues.getUseStageDoor());
+            telemetry.addData("SecondPixel", ActiveMotionValues.getSecondpixel());
+        }
 
-//        telemetry.addData("StartPoseX", ActiveMotionValues.getStartPose().getX());
-//        telemetry.addData("StartPoseY", ActiveMotionValues.getStartPose().getY());
-//        telemetry.addData("StartPoseAng", ActiveMotionValues.getStartPose().getHeading());
         telemetry.addData("StartPose", ActiveMotionValues.getStartPose().toString());
 
-
-
-
-     //   telemetry.addData("ParkPose", ActiveMotionValues.getParkPose().toString());
+        if (ActiveMotionValues.getBBStart() || ActiveMotionValues.getSecondpixel()) {
+            telemetry.addData("TagLAPose", ActiveMotionValues.getTagLookAheadPose().toString());
+            telemetry.addData("Atag", ActiveMotionValues.getActTag());
+        }
 
         telemetry.addData("RetctDist", ActiveMotionValues.getRetractDistance());
-
         telemetry.addData("XOffset", ActiveMotionValues.getxOffset());
         telemetry.addData("YOffset", ActiveMotionValues.getyOffset());
-        telemetry.addData("Atag", ActiveMotionValues.getActTag());
+
+        telemetry.addData("ParkPose", ActiveMotionValues.getParkPose().toString());
+
+        telemetry.addData("XYPointsUsed", ActiveMotionValues.getPointsUsed());
+
+        for (int n = 1; n <= ActiveMotionValues.getPointsUsed(); n++) {
+            Pose2d pose = new Pose2d(ActiveMotionValues.getxPoint(n), ActiveMotionValues.getyPoint(n));
+            telemetry.addData("Pose " + String.valueOf(n), pose.toString());
+        }
+
+
 //
 //
         telemetry.update();

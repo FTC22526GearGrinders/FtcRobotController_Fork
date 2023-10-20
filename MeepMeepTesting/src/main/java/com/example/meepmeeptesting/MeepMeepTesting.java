@@ -21,7 +21,7 @@ public class MeepMeepTesting {
 
         if (lcr < 1 || lcr > 3) lcr = 2;
 
-        boolean useStageDoor =false;
+        boolean useStageDoor =true;
 
         boolean centerPark =false;
 

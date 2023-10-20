@@ -32,9 +32,25 @@ public class ActiveMotionValues {
 //        return finalPose;
 //    }
 
-    private static double[] yPoints = new double[6];
 
-    private static double[] xPoints = new double[6];
+    private static double[] yPoints = new double[10];
+
+    private static double[] xPoints = new double[10];
+
+    private static int xyPointsUsed = 0;
+
+    public static int getPointsUsed() {
+        return xyPointsUsed;
+    }
+
+    public static void setPointsUsed(int n) {
+        xyPointsUsed = n;
+    }
+
+
+    public static int getPointsLength() {
+        return xPoints.length;
+    }
 
     public static void setyPoint(int n, double val) {
         yPoints[n] = val;
@@ -50,6 +66,17 @@ public class ActiveMotionValues {
 
     public static double getxPoint(int n) {
         return xPoints[n];
+    }
+
+
+    private static boolean secondPixel = false;
+
+    public static void setSecondPixel(boolean secPixel) {
+        secondPixel = secPixel;
+    }
+
+    public static boolean getSecondpixel() {
+        return secondPixel;
     }
 
 

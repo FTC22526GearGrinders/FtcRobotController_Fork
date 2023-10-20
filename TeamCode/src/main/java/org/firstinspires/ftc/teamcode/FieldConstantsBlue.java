@@ -28,12 +28,15 @@ public final class FieldConstantsBlue {
 
     public static Pose2d centerTurnForAprilTagPose = new Pose2d(18, 12, Math.toRadians(0));
 
+    public static Pose2d clearForSecondPixel= new Pose2d(12.,60);
+
+    public static Pose2d nearBBSDLineUp = new Pose2d(12, -12, Math.toRadians(0));
 
     public static Pose2d slideToNearBBSideParkPose = new Pose2d(50, 60, Math.toRadians(0));
 
     public static Pose2d slideToCenterBBSideParkPose = new Pose2d(50, 14, Math.toRadians(0));
 
-    public static Pose2d nearBackstageTrussLineUp = new Pose2d(-36, 60, Math.toRadians(0));
+    public static Pose2d nearTrussLineUp = new Pose2d(-36, 60, Math.toRadians(0));
 
 
     public static Pose2d centerBBSideParkPose = new Pose2d(50, 12, Math.toRadians(0));

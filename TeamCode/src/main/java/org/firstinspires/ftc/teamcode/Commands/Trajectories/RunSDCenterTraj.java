@@ -5,8 +5,8 @@ import com.arcrobotics.ftclib.command.CommandBase;
 
 import org.firstinspires.ftc.teamcode.Commands.PixelHandler.DropPixelCommand;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
-import org.firstinspires.ftc.teamcode.Subsystems.PixelHandlerSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
+import org.firstinspires.ftc.teamcode.Subsystems.PixelHandlerSubsystem;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
 
@@ -18,7 +18,7 @@ public class RunSDCenterTraj extends CommandBase {
 
     public RunSDCenterTraj(Drive_Subsystem drive, PixelHandlerSubsystem phss) {
         this.drive = drive;
-        this.phss=phss;
+        this.phss = phss;
     }
 
     @Override
@@ -51,6 +51,11 @@ public class RunSDCenterTraj extends CommandBase {
                 .lineTo(new Vector2d((ActiveMotionValues.getxPoint(4)),//move left or right on to middle of tape
 
                         ActiveMotionValues.getyPoint(4)))
+
+                .lineTo(new Vector2d(ActiveMotionValues.getParkPose().getX(),//move left or right on to middle of tape
+
+                        ActiveMotionValues.getParkPose().getY()))
+
 
                 .build();
 

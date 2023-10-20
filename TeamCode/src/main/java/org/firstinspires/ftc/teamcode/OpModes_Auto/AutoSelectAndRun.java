@@ -83,6 +83,8 @@ public class AutoSelectAndRun extends CommandOpMode {
 
     boolean centerPark = false;
 
+    boolean secondPixel = false;
+
     SpikeTapePipelineRed sptopR = null;
 
     SpikeTapePipelineBlue sptopB = null;
@@ -127,6 +129,10 @@ public class AutoSelectAndRun extends CommandOpMode {
                 if (currentB) {
                     centerPark = !centerPark;
                 }
+                if (currentRB) {
+                    secondPixel = !secondPixel;
+                }
+
 
             }
 
@@ -148,7 +154,9 @@ public class AutoSelectAndRun extends CommandOpMode {
             telemetry.addLine();
             telemetry.addData("Left Start Selected A to Change", leftStart);
             telemetry.addLine();
-            telemetry.addData("Left Park Selected B to Change", centerPark);
+            telemetry.addData("Center Park Selected B to Change", centerPark);
+            telemetry.addLine();
+            telemetry.addData("Second Pixel Selected RB to Change", secondPixel);
             telemetry.addLine();
             telemetry.addData("Press Left Bumper To Continue", "");
 
@@ -162,13 +170,17 @@ public class AutoSelectAndRun extends CommandOpMode {
             telemetry.addData("You Have Chosen Red Alliance", "");
         else
             telemetry.addData("You Have Chosen Blue Alliance", "");
+
         telemetry.addLine();
+
         if (leftStart)
 
             telemetry.addData("You Have Chosen Left Start", "");
         else
             telemetry.addData("You Have Chosen Right Start", "");
+
         telemetry.addLine();
+
         if (useStageDoor)
 
             telemetry.addData("You Have Chosen Stage Door", "");
@@ -176,11 +188,21 @@ public class AutoSelectAndRun extends CommandOpMode {
             telemetry.addData("You Have Chosen Near Truss", "");
 
         telemetry.addLine();
+
         if (centerPark)
 
             telemetry.addData("You Have Chosen Center Park", "");
         else
             telemetry.addData("You Have Chosen Near Park", "");
+
+        telemetry.addLine();
+
+        if (secondPixel)
+
+            telemetry.addData("You Have Chosen Second Pixel", "");
+        else
+            telemetry.addData("You Have Chosen One Pixel Only", "");
+
         telemetry.addLine();
 
         telemetry.addData("Reselect Opmode to Change", "");

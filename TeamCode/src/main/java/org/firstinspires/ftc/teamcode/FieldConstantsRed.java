@@ -14,10 +14,9 @@ public final class FieldConstantsRed {
 
     public static Pose2d nearBackstagePark = new Pose2d(60,-60,Math.toRadians(0));
 
+    public static Pose2d clearForSecondPixel= new Pose2d(12.-60);
+    public static Pose2d clearForSecondPixelMid= new Pose2d(12.12);
 
-    public static Pose2d slowToStageDoorPose = new Pose2d(-12,-12, Math.toRadians(90));
-
-    public static Pose2d clearStageDoorPose = new Pose2d(12,-12, Math.toRadians(90));
 
     public static Pose2d slideToNearBBSideParkPose = new Pose2d(50, -60, Math.toRadians(0));
 
@@ -32,8 +31,9 @@ public final class FieldConstantsRed {
 
     public static Pose2d stageDoorLineUpPose2 = new Pose2d(-48, -12, Math.toRadians(90));
 
+    public static Pose2d nearBBSDLineUp = new Pose2d(12, -12, Math.toRadians(0));
 
-    public static Pose2d nearBackstageTrussLineUp = new Pose2d(-36, -60, Math.toRadians(0));
+    public static Pose2d nearTrussLineUp = new Pose2d(-36, -60, Math.toRadians(0));
 
     public static Pose2d centerBBSideParkPose=new Pose2d(50, -12, Math.toRadians(0));
 
@@ -48,7 +48,7 @@ public final class FieldConstantsRed {
         static final double atagAngle = 0;
 
 
-        public static final Pose2d tagLookAheadPose = new Pose2d(-24, 0);
+        public static final Pose2d tagLookAheadPose = new Pose2d(14, 0);
 
 
         // tages 4,5 6

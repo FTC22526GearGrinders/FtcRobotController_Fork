@@ -47,19 +47,21 @@ public class SelectMotionValuesRed extends CommandBase {
 
                 ActiveMotionValues.setyOffset(0);
 
-                ActiveMotionValues.setxOffset(2);
+                ActiveMotionValues.setxOffset(0);
 
                 ActiveMotionValues.setRetractDistance(-6);
 
                 ActiveMotionValues.setStartPose(FieldConstantsRed.XPYM.StartPos);//start pose
 
 
-                ActiveMotionValues.setxPoint(1, FieldConstantsRed.XPYM.CenterTapeMid.getX() + ActiveMotionValues.getxOffset());
+                ActiveMotionValues.setxPoint(1, FieldConstantsRed.XPYM.CenterTapeMid.getX());
 
-                ActiveMotionValues.setyPoint(1, FieldConstantsRed.XPYM.CenterTapeMid.getY() - Constants.RobotConstants.length / 2 -
-                        Constants.TapeConstants.tapeLength / 2 - ActiveMotionValues.getyOffset());
+                ActiveMotionValues.setyPoint(1, FieldConstantsRed.XPYM.CenterTapeMid.getY()
+                        - Constants.RobotConstants.length / 2 - Constants.TapeConstants.tapeLength / 2
+                        - ActiveMotionValues.getyOffset());
 
-                ActiveMotionValues.setxPoint(2, FieldConstantsRed.XPYM.LeftTapeMid.getX() + ActiveMotionValues.getxOffset());
+                ActiveMotionValues.setxPoint(2, FieldConstantsRed.XPYM.LeftTapeMid.getX()
+                        + ActiveMotionValues.getxOffset());
 
                 ActiveMotionValues.setyPoint(2, ActiveMotionValues.getyPoint(1));
 
@@ -71,12 +73,14 @@ public class SelectMotionValuesRed extends CommandBase {
 
                 ActiveMotionValues.setxPoint(4, ActiveMotionValues.getStartPose().getX());
 
-                ActiveMotionValues.setyPoint(4, ActiveMotionValues.getyPoint(2) + ActiveMotionValues.getRetractDistance());
+                ActiveMotionValues.setyPoint(4, ActiveMotionValues.getyPoint(2)
+                        + ActiveMotionValues.getRetractDistance());
 
+                ActiveMotionValues.setPointsUsed(4);
 
                 ActiveMotionValues.setActTag(4);
 
-                ActiveMotionValues.setActiveTagPose(FieldConstantsRed.setActiveTagPose(ActiveMotionValues.getActTag())
+                ActiveMotionValues.setTagLookAheadPose(FieldConstantsRed.setActiveTagPose(ActiveMotionValues.getActTag())
                         .minus(FieldConstantsRed.AprilTagConstants.tagLookAheadPose));
 
 
@@ -106,13 +110,14 @@ public class SelectMotionValuesRed extends CommandBase {
                 ActiveMotionValues.setStartPose(FieldConstantsRed.XPYM.StartPos);//start pose
 
 
-                ActiveMotionValues.setxPoint(1, FieldConstantsRed.XPYM.CenterTapeMid.getX() + ActiveMotionValues.getxOffset());
+                ActiveMotionValues.setxPoint(1, FieldConstantsRed.XPYM.CenterTapeMid.getX());
 
-                ActiveMotionValues.setyPoint(1, FieldConstantsRed.XPYM.CenterTapeMid.getY() - Constants.RobotConstants.length / 2 -
-                        Constants.TapeConstants.tapeLength / 2 -
+                ActiveMotionValues.setyPoint(1, FieldConstantsRed.XPYM.CenterTapeMid.getY()
+                        - Constants.RobotConstants.length / 2 - Constants.TapeConstants.tapeLength / 2 -
                         ActiveMotionValues.getyOffset());
 
-                ActiveMotionValues.setxPoint(2, FieldConstantsRed.XPYM.CenterTapeMid.getX() + ActiveMotionValues.getxOffset());
+                ActiveMotionValues.setxPoint(2, FieldConstantsRed.XPYM.CenterTapeMid.getX()
+                        + ActiveMotionValues.getxOffset());
 
                 ActiveMotionValues.setyPoint(2, FieldConstantsRed.XPYM.CenterTapeMid.getY() -
                         Constants.TapeConstants.tapeLength / 2 -
@@ -121,19 +126,17 @@ public class SelectMotionValuesRed extends CommandBase {
 
                 ActiveMotionValues.setxPoint(3, ActiveMotionValues.getStartPose().getX());
 
-                ActiveMotionValues.setyPoint(3, ActiveMotionValues.getyPoint(1));
+                ActiveMotionValues.setyPoint(3, ActiveMotionValues.getyPoint(2)
+                        + ActiveMotionValues.getRetractDistance());
 
-
-                ActiveMotionValues.setxPoint(4, ActiveMotionValues.getStartPose().getX());
-
-                ActiveMotionValues.setyPoint(4, ActiveMotionValues.getyPoint(2) + ActiveMotionValues.getRetractDistance());
-
+                ActiveMotionValues.setPointsUsed(3);
 
                 ActiveMotionValues.setActTag(5);
 
 
-                ActiveMotionValues.setActiveTagPose(FieldConstantsRed.setActiveTagPose(ActiveMotionValues.getActTag())
+                ActiveMotionValues.setTagLookAheadPose(FieldConstantsRed.setActiveTagPose(ActiveMotionValues.getActTag())
                         .minus(FieldConstantsRed.AprilTagConstants.tagLookAheadPose));
+
 
                 if (ActiveMotionValues.getCenterPark())
 
@@ -159,12 +162,14 @@ public class SelectMotionValuesRed extends CommandBase {
                 ActiveMotionValues.setStartPose(FieldConstantsRed.XPYM.StartPos);//start pose
 
 
-                ActiveMotionValues.setxPoint(1, FieldConstantsRed.XPYM.CenterTapeMid.getX() + ActiveMotionValues.getxOffset());
+                ActiveMotionValues.setxPoint(1, FieldConstantsRed.XPYM.CenterTapeMid.getX());
 
-                ActiveMotionValues.setyPoint(1, FieldConstantsRed.XPYM.RightTapeMid.getY() - Constants.RobotConstants.length / 2 -
-                        Constants.TapeConstants.tapeLength / 2 - ActiveMotionValues.getyOffset());
+                ActiveMotionValues.setyPoint(1, FieldConstantsRed.XPYM.RightTapeMid.getY()
+                        - Constants.RobotConstants.length / 2 - Constants.TapeConstants.tapeLength / 2
+                        - ActiveMotionValues.getyOffset());
 
-                ActiveMotionValues.setxPoint(2, FieldConstantsRed.XPYM.RightTapeMid.getX() + ActiveMotionValues.getxOffset());
+                ActiveMotionValues.setxPoint(2, FieldConstantsRed.XPYM.RightTapeMid.getX()
+                        + ActiveMotionValues.getxOffset());
 
                 ActiveMotionValues.setyPoint(2, ActiveMotionValues.getyPoint(1));
 
@@ -175,14 +180,15 @@ public class SelectMotionValuesRed extends CommandBase {
 
                 ActiveMotionValues.setxPoint(4, ActiveMotionValues.getStartPose().getX());
 
-                ActiveMotionValues.setyPoint(4, ActiveMotionValues.getyPoint(2) + ActiveMotionValues.getRetractDistance());
+                ActiveMotionValues.setyPoint(4, ActiveMotionValues.getyPoint(2)
+                        + ActiveMotionValues.getRetractDistance());
 
+                ActiveMotionValues.setPointsUsed(4);
 
                 ActiveMotionValues.setActTag(6);
 
-                ActiveMotionValues.setActiveTagPose(FieldConstantsRed.setActiveTagPose(ActiveMotionValues.getActTag())
+                ActiveMotionValues.setTagLookAheadPose(FieldConstantsRed.setActiveTagPose(ActiveMotionValues.getActTag())
                         .minus(FieldConstantsRed.AprilTagConstants.tagLookAheadPose));
-
 
                 if (ActiveMotionValues.getCenterPark())
 
@@ -210,23 +216,26 @@ public class SelectMotionValuesRed extends CommandBase {
 
                 ActiveMotionValues.setStartPose(FieldConstantsRed.XMYM.StartPos);//start pose
 
-
-                ActiveMotionValues.setxPoint(1, FieldConstantsRed.XMYM.CenterTapeMid.getX() + ActiveMotionValues.getxOffset());
+//move to tape in y
+                ActiveMotionValues.setxPoint(1, FieldConstantsRed.XMYM.CenterTapeMid.getX());
 
                 ActiveMotionValues.setyPoint(1, FieldConstantsRed.XMYM.CenterTapeMid.getY() - Constants.RobotConstants.length / 2 -
                         Constants.TapeConstants.tapeLength / 2 - ActiveMotionValues.getyOffset());
-
-                ActiveMotionValues.setxPoint(2, FieldConstantsRed.XMYM.LeftTapeMid.getX() + ActiveMotionValues.getxOffset());
+//move to tape in x
+                ActiveMotionValues.setxPoint(2, FieldConstantsRed.XMYM.LeftTapeMid.getX()
+                        + ActiveMotionValues.getxOffset());
 
                 ActiveMotionValues.setyPoint(2, ActiveMotionValues.getyPoint(1));
 
-
+//move back in x
                 ActiveMotionValues.setxPoint(3, ActiveMotionValues.getStartPose().getX());
 
                 ActiveMotionValues.setyPoint(3, ActiveMotionValues.getyPoint(1));
 
 
-                setCommonMotion(4, ActiveMotionValues.getUseStageDoor(), ActiveMotionValues.getLcrpos() == 2, ActiveMotionValues.getCenterPark());
+//set up options depending on selections
+
+                setCommonMotion();
 
                 break;
 
@@ -244,26 +253,31 @@ public class SelectMotionValuesRed extends CommandBase {
 
                 ActiveMotionValues.setStartPose(FieldConstantsRed.XMYM.StartPos);//start pose
 
+//move to tape
+                ActiveMotionValues.setxPoint(1, FieldConstantsRed.XMYM.CenterTapeMid.getX()
+                        + ActiveMotionValues.getxOffset());
 
-                ActiveMotionValues.setxPoint(1, FieldConstantsRed.XMYM.CenterTapeMid.getX() + ActiveMotionValues.getxOffset());
-
-                ActiveMotionValues.setyPoint(1, FieldConstantsRed.XMYM.CenterTapeMid.getY() - Constants.RobotConstants.length / 2 -
-                        Constants.TapeConstants.tapeLength / 2 -
+                ActiveMotionValues.setyPoint(1, FieldConstantsRed.XMYM.CenterTapeMid.getY()
+                        - Constants.RobotConstants.length / 2 - Constants.TapeConstants.tapeLength / 2 -
                         ActiveMotionValues.getyOffset());
 
+//move back
+                ActiveMotionValues.setxPoint(2, FieldConstantsRed.XMYM.CenterTapeMid.getX()
+                        - ActiveMotionValues.getxOffset());
 
-                ActiveMotionValues.setxPoint(2, FieldConstantsRed.XMYM.CenterTapeMid.getX() + ActiveMotionValues.getxOffset());
+                ActiveMotionValues.setyPoint(2, FieldConstantsRed.XMYM.CenterTapeMid.getY()
+                        - Constants.RobotConstants.length - Constants.TapeConstants.tapeLength / 2);
 
-                ActiveMotionValues.setyPoint(2, FieldConstantsRed.XMYM.CenterTapeMid.getY() + Constants.RobotConstants.length + +
-                        Constants.TapeConstants.tapeLength / 2);
+                ActiveMotionValues.setxPoint(3, FieldConstantsRed.XMYM.CenterTapeMid.getX()
+                        + ActiveMotionValues.getxOffset());
+
+                ActiveMotionValues.setyPoint(3, FieldConstantsRed.XMYM.CenterTapeMid.getY()
+                        + Constants.RobotConstants.length + +Constants.TapeConstants.tapeLength / 2);
 
 
-                ActiveMotionValues.setxPoint(3, FieldConstantsRed.XMYM.RightTapeMid.getX());
+//set up options depending on selections
 
-                ActiveMotionValues.setyPoint(3, ActiveMotionValues.getyPoint(2));
-
-
-                setCommonMotion(5, ActiveMotionValues.getUseStageDoor(), ActiveMotionValues.getLcrpos() == 2, ActiveMotionValues.getCenterPark());
+                setCommonMotion();
 
 
                 break;
@@ -285,74 +299,183 @@ public class SelectMotionValuesRed extends CommandBase {
                 ActiveMotionValues.setStartPose(FieldConstantsRed.XMYM.StartPos);//start pose
 
 
-                ActiveMotionValues.setxPoint(1, FieldConstantsRed.XMYM.CenterTapeMid.getX() + ActiveMotionValues.getxOffset());
+                ActiveMotionValues.setxPoint(1, FieldConstantsRed.XMYM.CenterTapeMid.getX());
 
-                ActiveMotionValues.setyPoint(1, FieldConstantsRed.XMYM.RightTapeMid.getY() - Constants.RobotConstants.length / 2 -
-                        Constants.TapeConstants.tapeLength / 2 - ActiveMotionValues.getyOffset());
+                ActiveMotionValues.setyPoint(1, FieldConstantsRed.XMYM.RightTapeMid.getY()
+                        - Constants.RobotConstants.length / 2 - Constants.TapeConstants.tapeLength / 2
+                        - ActiveMotionValues.getyOffset());
 
                 ActiveMotionValues.setxPoint(2, FieldConstantsRed.XMYM.RightTapeMid.getX() + ActiveMotionValues.getxOffset());
 
                 ActiveMotionValues.setyPoint(2, ActiveMotionValues.getyPoint(1));
 
-
                 ActiveMotionValues.setxPoint(3, ActiveMotionValues.getStartPose().getX());
 
                 ActiveMotionValues.setyPoint(3, ActiveMotionValues.getyPoint(2));
 
-                setCommonMotion(6, ActiveMotionValues.getUseStageDoor(), ActiveMotionValues.getLcrpos() == 2, ActiveMotionValues.getCenterPark());
+                //set up options depending on selections
 
+                setCommonMotion();
 
                 break;
 
         }
     }
 
-    public boolean setCommonMotion(int tagNum, boolean useStageDoor, boolean centerTape, boolean centerPark) {
+    //set up options depending on selections
+    public boolean setCommonMotion() {
+
+        int lcr = ActiveMotionValues.getLcrpos() + 10;
+        boolean centerTape = lcr == 12;
+        boolean useStageDoor = ActiveMotionValues.getUseStageDoor();
+        boolean secondPixel = ActiveMotionValues.getSecondpixel();
+
+        boolean useTruss = !useStageDoor;
+
+        //if using the truss center tape has one less move than left or right
+        if (useTruss && !secondPixel) {
+
+            if (lcr == 12) {
+//write over earlier retract value point 3 so robot retracts in one motion
+
+                ActiveMotionValues.setxPoint(2, FieldConstantsRed.nearTrussLineUp.getX());
+
+                ActiveMotionValues.setyPoint(2, FieldConstantsRed.nearTrussLineUp.getY());
+
+                ActiveMotionValues.setParkPose(FieldConstantsRed.nearBBSideParkPose);
+
+                ActiveMotionValues.setPointsUsed(2);
+
+                //write over earlier retract value point 4
+            } else {
+
+                ActiveMotionValues.setxPoint(3, FieldConstantsRed.nearTrussLineUp.getX());
+
+                ActiveMotionValues.setyPoint(3, FieldConstantsRed.nearTrussLineUp.getY());
+
+                ActiveMotionValues.setParkPose(FieldConstantsRed.nearBBSideParkPose);
+
+                ActiveMotionValues.setPointsUsed(3);
 
 
-        if (useStageDoor) {
+            }
+        }
+
+
+        if (useStageDoor && !secondPixel) {
+
+            if (lcr == 12) {
+//center tape moves across to right tape x center
+                ActiveMotionValues.setxPoint(4, FieldConstantsRed.XMYM.LeftTapeMid.getX());
+
+                ActiveMotionValues.setyPoint(4, ActiveMotionValues.getyPoint(3));
+
+                ActiveMotionValues.setxPoint(5, FieldConstantsRed.stageDoorLineUpPose2.getX());
+
+                ActiveMotionValues.setyPoint(5, FieldConstantsRed.stageDoorLineUpPose2.getY());
+
+                ActiveMotionValues.setxPoint(6, FieldConstantsRed.nearBBSDLineUp.getX());
+
+                ActiveMotionValues.setyPoint(6, FieldConstantsRed.nearBBSDLineUp.getY());
+
+                ActiveMotionValues.setParkPose(FieldConstantsRed.centerBBSideParkPose);
+
+                ActiveMotionValues.setPointsUsed(6);
+
+            } else {
+
+                ActiveMotionValues.setxPoint(4, FieldConstantsRed.XMYM.CenterTapeMid.getX());
+
+                ActiveMotionValues.setyPoint(4, ActiveMotionValues.getyPoint(3));
+
+                ActiveMotionValues.setxPoint(5, FieldConstantsRed.stageDoorLineUpPose13.getX());
+
+                ActiveMotionValues.setyPoint(5, FieldConstantsRed.stageDoorLineUpPose13.getY());
+
+                ActiveMotionValues.setxPoint(6, FieldConstantsRed.nearBBSDLineUp.getX());
+
+                ActiveMotionValues.setyPoint(6, FieldConstantsRed.nearBBSDLineUp.getY());
+
+                ActiveMotionValues.setParkPose(FieldConstantsRed.centerBBSideParkPose);
+
+                ActiveMotionValues.setPointsUsed(6);
+            }
+        }
+
+        if (useTruss && secondPixel) {
+
+            if (centerTape) {
+
+                ActiveMotionValues.setxPoint(3, FieldConstantsRed.nearTrussLineUp.getX());
+
+                ActiveMotionValues.setyPoint(3, FieldConstantsRed.nearTrussLineUp.getY());
+
+                ActiveMotionValues.setxPoint(5, FieldConstantsRed.nearBBSDLineUp.getX());
+
+                ActiveMotionValues.setyPoint(5, FieldConstantsRed.nearBBSDLineUp.getX());
+
+                if (ActiveMotionValues.getLcrpos() == 1) ActiveMotionValues.setActTag(4);
+                if (ActiveMotionValues.getLcrpos() == 2) ActiveMotionValues.setActTag(5);
+                if (ActiveMotionValues.getLcrpos() == 3) ActiveMotionValues.setActTag(6);
+
+
+                ActiveMotionValues.setActiveTagPose(FieldConstantsRed.setActiveTagPose(ActiveMotionValues.getActTag())
+                        .minus(FieldConstantsRed.AprilTagConstants.tagLookAheadPose));
+
+
+            } else {
+
+                ActiveMotionValues.setxPoint(4, FieldConstantsRed.nearTrussLineUp.getX());
+
+                ActiveMotionValues.setyPoint(4, FieldConstantsRed.nearTrussLineUp.getY());
+
+                ActiveMotionValues.setyPoint(3, FieldConstantsRed.nearTrussLineUp.getY());
+
+
+                ActiveMotionValues.setxPoint(5, FieldConstantsRed.nearBBSDLineUp.getX());
+
+                ActiveMotionValues.setyPoint(5, FieldConstantsRed.nearBBSDLineUp.getX());
+
+                if (ActiveMotionValues.getLcrpos() == 1) ActiveMotionValues.setActTag(4);
+                if (ActiveMotionValues.getLcrpos() == 2) ActiveMotionValues.setActTag(5);
+                if (ActiveMotionValues.getLcrpos() == 3) ActiveMotionValues.setActTag(6);
+
+
+                ActiveMotionValues.setActiveTagPose(FieldConstantsRed.setActiveTagPose(ActiveMotionValues.getActTag())
+                        .minus(FieldConstantsRed.AprilTagConstants.tagLookAheadPose));
+
+
+            }
+
+//if going forsecond pixel, need to move to a point in backboard area to allow move to tag look ahead pose
+        if (useStageDoor && secondPixel) {
 
             ActiveMotionValues.setxPoint(4, FieldConstantsRed.stageDoorLineUpPose13.getX());
 
             ActiveMotionValues.setyPoint(4, FieldConstantsRed.stageDoorLineUpPose13.getY());
 
-            ActiveMotionValues.setxPoint(5, FieldConstantsRed.centerBBSideParkPose.getX());
+            ActiveMotionValues.setxPoint(5, FieldConstantsRed.nearBBSDLineUp.getX());
 
-            ActiveMotionValues.setyPoint(5, FieldConstantsRed.centerBBSideParkPose.getY());
+            ActiveMotionValues.setyPoint(5, FieldConstantsRed.nearBBSDLineUp.getX());
+
+            if (ActiveMotionValues.getLcrpos() == 1) ActiveMotionValues.setActTag(4);
+            if (ActiveMotionValues.getLcrpos() == 2) ActiveMotionValues.setActTag(5);
+            if (ActiveMotionValues.getLcrpos() == 3) ActiveMotionValues.setActTag(6);
+
+
+            ActiveMotionValues.setTagLookAheadPose(FieldConstantsRed.setActiveTagPose(ActiveMotionValues.getActTag())
+                    .minus(FieldConstantsRed.AprilTagConstants.tagLookAheadPose));
+
 
         }
-        if (!useStageDoor) {
 
-            if (centerTape) {
-
-                ActiveMotionValues.setxPoint(3, FieldConstantsRed.nearBackstageTrussLineUp.getX());
-
-                ActiveMotionValues.setyPoint(3, FieldConstantsRed.nearBackstageTrussLineUp.getY());
-
-                ActiveMotionValues.setxPoint(4, FieldConstantsRed.slideToCenterBBSideParkPose.getX());
-
-                ActiveMotionValues.setyPoint(4, FieldConstantsRed.slideToNearBBSideParkPose.getY());
-
-            } else {
-
-                ActiveMotionValues.setxPoint(4, FieldConstantsRed.nearBackstageTrussLineUp.getX());
-
-                ActiveMotionValues.setyPoint(4, FieldConstantsRed.nearBackstageTrussLineUp.getY());
-
-                ActiveMotionValues.setxPoint(5, FieldConstantsRed.slideToCenterBBSideParkPose.getX());
-
-                ActiveMotionValues.setyPoint(5, FieldConstantsRed.slideToNearBBSideParkPose.getY());
-
-            }
 
         }
 
 
         return true;
 
-
     }
-
 
     @Override
     public void end(boolean interrupted) {
