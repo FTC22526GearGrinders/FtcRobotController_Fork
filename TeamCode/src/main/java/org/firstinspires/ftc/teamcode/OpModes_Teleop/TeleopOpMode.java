@@ -54,9 +54,9 @@ public class TeleopOpMode extends CommandOpMode {
 
         gamepad.getGamepadButton(GamepadKeys.Button.B).whenPressed(phss::closeClaw);
 
+        gamepad.getGamepadButton(GamepadKeys.Button.Y).whenPressed(phss::dropPixel);
 
-
-
+        gamepad.getGamepadButton(GamepadKeys.Button.X).whenPressed(phss::holdPixel);
     }
 
 

@@ -74,7 +74,7 @@ public class SpikeTapePipelineRed extends OpenCvPipeline {
         usableContours = 0;
 
 
-        List<RotatedRect> rr = new ArrayList<>();
+       // List<RotatedRect> rr = new ArrayList<>();
 
         List<Double> rrxval = new ArrayList<>();
 
@@ -97,7 +97,7 @@ public class SpikeTapePipelineRed extends OpenCvPipeline {
 
             if (temp.size.area() > 500) {
 
-                rr.add(temp);
+               // rr.add(temp);
 
                 rrAreas.add(temp.size.area());
 
@@ -129,7 +129,7 @@ public class SpikeTapePipelineRed extends OpenCvPipeline {
 
         sort(rrAreas, rrxval);
 
-        if (rr.size() >= 3) {
+        if (usableContours >= 3) {
 
             if (rrxval.get(0) > rrxval.get(1) && rrxval.get(0) > rrxval.get(2))
                 lcr = 3;

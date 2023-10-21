@@ -283,7 +283,7 @@ public class AutoSelectAndRunBlue extends CommandOpMode {
 
                                 new ParallelCommandGroup(
 
-                                        new DriveToAprilTagAuto(this, drive),
+                                        //new DriveToAprilTagAuto(this, drive),
                                         new PositionPHArm(phss, .5, Constants.PixelHandlerConstants.armhaights.LOW.height)),
 
                                 new PlacePixelOnBB(phss),

@@ -38,7 +38,7 @@ public class PositionPHArm extends CommandBase {
 
         if (output < 0 && output < power) motorOutput = -power;
 
-        phss.armMotor.setPower(motorOutput);
+     //  phss.armMotor.setPower(motorOutput);
 
     }
 

@@ -36,7 +36,6 @@ import com.qualcomm.robotcore.util.Range;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.Vision_Subsystem;
-import org.firstinspires.ftc.vision.VisionProcessor;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 
 import java.util.List;
@@ -74,10 +73,10 @@ public class DriveToAprilTagAuto extends CommandBase {
 
     private CommandOpMode myOpMode;
 
-    public DriveToAprilTagAuto(CommandOpMode opMode,Drive_Subsystem drive) {
-        this.drive = drive;   myOpMode=opMode;
-
-        visionSubsystem = new Vision_Subsystem(myOpMode);
+    public DriveToAprilTagAuto(CommandOpMode opMode, Drive_Subsystem drive,Vision_Subsystem visionSubsystem) {
+        this.drive = drive;
+        myOpMode = opMode;
+        this.visionSubsystem=visionSubsystem;
 
         addRequirements(this.drive);
     }
@@ -123,9 +122,7 @@ public class DriveToAprilTagAuto extends CommandBase {
             } else
                 drive.drive.stop();
         }
-
     }
-
 
     @Override
     public void end(boolean interrupted) {

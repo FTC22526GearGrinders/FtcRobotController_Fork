@@ -8,6 +8,7 @@ import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Subsystems.PixelHandlerSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
+import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequenceBuilder;
 
 
 public class RunBBCenterTraj extends CommandBase {
@@ -40,7 +41,7 @@ public class RunBBCenterTraj extends CommandBase {
 
                         ActiveMotionValues.getyPoint(1)))
 
-                .addTemporalMarker(() -> new DropPixelCommand(phss))
+                .addDisplacementMarker(20,()-> phss.dropPixel())
 
                 .waitSeconds(3)//pixel drop off time
 

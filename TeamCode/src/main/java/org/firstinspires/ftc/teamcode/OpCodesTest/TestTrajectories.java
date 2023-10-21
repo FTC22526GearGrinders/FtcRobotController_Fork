@@ -6,6 +6,7 @@ import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Commands.Auto.SelectAndRunTrajectory;
 import org.firstinspires.ftc.teamcode.Commands.Auto.SelectValues;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
@@ -16,17 +17,17 @@ import org.firstinspires.ftc.teamcode.Subsystems.PixelHandlerSubsystem;
 @Autonomous(name = "Auto Main Test Trajectories", group = "Test")
 
 public class TestTrajectories extends CommandOpMode {
-    boolean redAlliance;
+    boolean redAlliance = true;
 
-    boolean backBoardStart;
+    boolean backBoardStart = true;
 
     boolean useStageDoor;
 
     boolean centerPark;
 
     boolean secondPixel;
-    int lcr;
-
+    int lcr = 2;
+Telemetry telemetry;
     Drive_Subsystem drive;
     PixelHandlerSubsystem phss;
 
@@ -53,25 +54,24 @@ public class TestTrajectories extends CommandOpMode {
                 new SelectAndRunTrajectory(drive, phss)).schedule();
 
 
-
     }
 
     // Put run blocks here.
     public void run() {
 
 
-        telemetry.addData("RedAlliance", redAlliance);
-        telemetry.addData("BackboardStart", backBoardStart);
-        telemetry.addData("LCR", lcr);
-
-        telemetry.addData("Stage Door", useStageDoor);
-        telemetry.addData("Center Park", centerPark);
-        telemetry.addData("SeondPixe;", secondPixel);
-
-
-        telemetry.update();
+//        telemetry.addData("RedAlliance", redAlliance);
+//        telemetry.addData("BackboardStart", backBoardStart);
+//        telemetry.addData("LCR", lcr);
+//
+//        telemetry.addData("Stage Door", useStageDoor);
+//        telemetry.addData("Center Park", centerPark);
+//        telemetry.addData("SeondPixe;", secondPixel);
+//
+//
+//        telemetry.update();
 
         CommandScheduler.getInstance().run();
-
+        drive.showtelemetry(this.telemetry);
     }
 }

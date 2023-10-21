@@ -1,16 +1,18 @@
 package org.firstinspires.ftc.teamcode.CV;
 
+
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
-import org.opencv.core.Rect;
+import org.opencv.core.MatOfPoint2f;
+import org.opencv.core.Point;
+import org.opencv.core.RotatedRect;
 import org.opencv.core.Scalar;
 import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 import org.openftc.easyopencv.OpenCvPipeline;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 //for dashboard
@@ -20,44 +22,42 @@ public class SpikeTapePipelineBlue extends OpenCvPipeline {
     //backlog of frames to average out to reduce noise
     ArrayList<double[]> frameList;
 
-    public int blur = 0;
-
-
-    public int lo = 0;
-
-    public int hi = 255;
 
     private int lcr;
     private int numContours;
-    private int validContours;
+    private int usableContours;
 
-    private Mat hsvMat = new Mat();
 
-    Mat filtered = new Mat();
+    public Scalar lower = new Scalar(0, 20, 0);
+    public Scalar upper = new Scalar(50, 255, 255);
 
-    int numContoursFound;
-    public Scalar lower = new Scalar(50, 0, 0);
-    public Scalar upper = new Scalar(110, 255, 255);
 
-    List<Rect> r = new ArrayList<>();
     public SpikeTapePipelineBlue() {
         frameList = new ArrayList<>();
     }
 
     @Override
     public Mat processFrame(Mat input) {
-        Mat mat = input;
-        if (mat.empty()) {
+        Mat src = input;
+        if (src.empty()) {
             return input;
         }
+        Mat dst = new Mat(src.rows(), src.cols(), src.type(), new Scalar(0));
+        Mat blur = new Mat(src.rows(), src.cols(), src.type(), new Scalar(0));
+        Mat hsvMat = new Mat(src.rows(), src.cols(), src.type(), new Scalar(0));
+        Mat filtered = new Mat();
 
-        Imgproc.blur(input, mat, new Size(15, 15));
 
-        //mat turns into HSV value
-        Imgproc.cvtColor(mat, hsvMat, Imgproc.COLOR_RGB2HSV);
+        Imgproc.blur(src, blur, new Size(1, 1));
 
+        Imgproc.cvtColor(blur, hsvMat, Imgproc.COLOR_BGR2HSV);
 
         Core.inRange(hsvMat, lower, upper, filtered);
+
+
+        Mat inverted = new Mat();
+        Core.bitwise_not(filtered, inverted);
+        inverted.copyTo(dst);
 
 
         List<MatOfPoint> contours = new ArrayList<>();
@@ -68,51 +68,114 @@ public class SpikeTapePipelineBlue extends OpenCvPipeline {
 //
 //
 //        //find contours, input scaledThresh because it has hard edges
-        Imgproc.findContours(filtered, contours, hierarchy, Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE);
+        Imgproc.findContours(filtered, contours, hierarchy, Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE);
 //
-        numContoursFound = contours.size();
-////
-        if (numContoursFound != 0)
-            validContours = 0;
+        numContours = contours.size();
+        usableContours = 0;
 
-        r.clear();
 
-        for (int i = 0; i < contours.size(); i++) {
+        // List<RotatedRect> rr = new ArrayList<>();
 
-            Rect tempR = Imgproc.boundingRect(contours.get(i));
+        List<Double> rrxval = new ArrayList<>();
 
-            if (tempR.area() > 150) {
+        List<Double> rrAreas = new ArrayList<>();
 
-                r.add(validContours, tempR);
+        MatOfPoint2f approxCurve = new MatOfPoint2f();
+        //For each contour found
+        for (int i = 0; i < numContours; i++) {
+            //Convert contours(i) from MatOfPoint to MatOfPoint2f
+            MatOfPoint2f contour2f = new MatOfPoint2f(contours.get(i).toArray());
+            //Processing on mMOP2f1 which is in type MatOfPoint2f
+            double approxDistance = Imgproc.arcLength(contour2f, true) * 0.02;
 
-                validContours++;
+            Imgproc.approxPolyDP(contour2f, approxCurve, approxDistance, true);
+
+            //Convert back to MatOfPoint
+            MatOfPoint mp2f = new MatOfPoint(approxCurve.toArray());
+
+            RotatedRect temp = Imgproc.minAreaRect(contour2f);
+
+            if (temp.size.area() > 500) {
+
+                // rr.add(temp);
+
+                rrAreas.add(temp.size.area());
+
+                rrxval.add(temp.center.x);
+
+                usableContours++;
+
             }
+
+
+            Point points[] = new Point[4];
+
+            temp.points(points);
+
+            for (int p = 0; p < 4; ++p) {
+                Imgproc.line(filtered, points[p], points[(p + 1) % 4], new Scalar(128, 128, 128));
+            }
+            Scalar color = new Scalar(128, 128, 128);
+
+//            Imgproc.putText(filtered, String.valueOf(i), new Point(temp.center.x + 20, temp.center.y), 7, Imgproc.FONT_HERSHEY_PLAIN,
+//                    color, 1);
+
+            new Scalar(255, 0, 0);
         }
 
 
-          contours.clear();
+        //sort rr by area ann save x values
 
 
-        if (validContours >= 3) {
+        sort(rrAreas, rrxval);
 
-            r.sort(Comparator.comparing(Rect::area).reversed());
+        if (usableContours >= 3) {
+
+            if (rrxval.get(0) > rrxval.get(1) && rrxval.get(0) > rrxval.get(2))
+                lcr = 3;
+
+            if (rrxval.get(0) < rrxval.get(1) && rrxval.get(0) < rrxval.get(2))
+                lcr = 1;
+
+            if (rrxval.get(0) > rrxval.get(1) && rrxval.get(0) < rrxval.get(2)
+                    || rrxval.get(0) > rrxval.get(2) && rrxval.get(0) < rrxval.get(1))
+                lcr = 2;
+
+
         }
+
+        if (frameList.size() > 5) {
+            frameList.remove(0);
+        }
+
         return filtered;
 
 
     }
 
-    public int getNumberContours() {
-        return numContoursFound;
+    void sort(List<Double> rrAreas, List<Double> rrxval) {
+        int n = rrAreas.size();
+        for (int i = 1; i < n; ++i) {
+            double key = rrAreas.get(i);
+            double temp = rrxval.get(i);
+            int j = i - 1;
+
+            // Move elements of arr[0..i-1], that are
+            // greater than key, to one position ahead
+            // of their current position
+            while (j >= 0 && rrAreas.get(j) < key) {
+                // arr[j + 1] = arr[j];
+                rrAreas.set(j + 1, rrAreas.get(j));
+                rrxval.set(j + 1, rrxval.get(j));
+
+                j = j - 1;
+            }
+            rrAreas.set(j + 1, key);
+            rrxval.set(j + 1, temp);
+        }
     }
 
-    public int getValidContours() {
-        return validContours;
-    }
 
-    public List<Rect> getRects(){
-        return r;
-    }
 }
 
 

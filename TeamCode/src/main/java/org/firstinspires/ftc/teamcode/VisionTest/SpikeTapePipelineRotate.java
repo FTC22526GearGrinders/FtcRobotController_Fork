@@ -29,8 +29,14 @@ public class SpikeTapePipelineRotate extends OpenCvPipeline {
     private int usableContours;
 
 
-    public Scalar lower = new Scalar(0, 52.4, 0);
-    public Scalar upper = new Scalar(150, 255, 255);
+    public Scalar lower = new Scalar(0, 20, 0);
+    public Scalar upper = new Scalar(50, 255, 255);
+
+
+
+
+//    public Scalar lower = new Scalar(0, 52.4, 0);
+//    public Scalar upper = new Scalar(150, 255, 255);
 
     Telemetry telemetry;
 

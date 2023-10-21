@@ -45,7 +45,7 @@ public class SelectMotionValuesRed extends CommandBase {
             case 1://left tape
 
 
-                ActiveMotionValues.setyOffset(0);
+                ActiveMotionValues.setyOffset(-2);
 
                 ActiveMotionValues.setxOffset(0);
 
@@ -98,11 +98,11 @@ public class SelectMotionValuesRed extends CommandBase {
             case 2://center straight motion to midddle of center tape
 
 
-                ActiveMotionValues.setyOffset(0);// adds to forward motion to control position where pixel is  dropped
+                ActiveMotionValues.setyOffset(-16);// adds to forward motion to control position where pixel is  dropped
 
                 ActiveMotionValues.setxOffset(0);//can be used to offset x motion so pixel is place off the x center
 
-                ActiveMotionValues.setRetractDistance(-12);// MUST MUST MOT BE ZERO!!!!!!!!!!!!!!! + value makes retract move more negative
+                ActiveMotionValues.setRetractDistance(24);// MUST MUST MOT BE ZERO!!!!!!!!!!!!!!! + value makes retract move more negative
 
 
                 //robot moves in Y
@@ -121,15 +121,15 @@ public class SelectMotionValuesRed extends CommandBase {
 
                 ActiveMotionValues.setyPoint(2, FieldConstantsRed.XPYM.CenterTapeMid.getY() -
                         Constants.TapeConstants.tapeLength / 2 -
-                        ActiveMotionValues.getyOffset());
+                        ActiveMotionValues.getyOffset() - ActiveMotionValues.getRetractDistance());
 
 
-                ActiveMotionValues.setxPoint(3, ActiveMotionValues.getStartPose().getX());
+//                ActiveMotionValues.setxPoint(3, ActiveMotionValues.getStartPose().getX());
+//
+//                ActiveMotionValues.setyPoint(3, ActiveMotionValues.getyPoint(2)
+ //               );
 
-                ActiveMotionValues.setyPoint(3, ActiveMotionValues.getyPoint(2)
-                        + ActiveMotionValues.getRetractDistance());
-
-                ActiveMotionValues.setPointsUsed(3);
+                ActiveMotionValues.setPointsUsed(2);
 
                 ActiveMotionValues.setActTag(5);
 
@@ -152,11 +152,11 @@ public class SelectMotionValuesRed extends CommandBase {
 
             case 3://right tape
 
-                ActiveMotionValues.setyOffset(0);
+                ActiveMotionValues.setyOffset(-2);
 
                 ActiveMotionValues.setxOffset(0);
 
-                ActiveMotionValues.setRetractDistance(-10);
+                ActiveMotionValues.setRetractDistance(-6);
 
 
                 ActiveMotionValues.setStartPose(FieldConstantsRed.XPYM.StartPos);//start pose
@@ -164,7 +164,7 @@ public class SelectMotionValuesRed extends CommandBase {
 
                 ActiveMotionValues.setxPoint(1, FieldConstantsRed.XPYM.CenterTapeMid.getX());
 
-                ActiveMotionValues.setyPoint(1, FieldConstantsRed.XPYM.RightTapeMid.getY()
+                ActiveMotionValues.setyPoint(1, FieldConstantsRed.XPYM.CenterTapeMid.getY()
                         - Constants.RobotConstants.length / 2 - Constants.TapeConstants.tapeLength / 2
                         - ActiveMotionValues.getyOffset());
 

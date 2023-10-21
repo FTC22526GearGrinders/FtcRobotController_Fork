@@ -36,6 +36,7 @@ package org.firstinspires.ftc.teamcode.OpCodesSetupAndTune;
 import android.graphics.Bitmap;
 import android.util.Size;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -74,7 +75,7 @@ import java.util.Locale;
  */
 
 @TeleOp(name = "Utility: Camera Frame Capture", group = "Utility")
-//@Disabled
+@Disabled
 public class UtilityCameraFrameCapture extends LinearOpMode
 {
     /*

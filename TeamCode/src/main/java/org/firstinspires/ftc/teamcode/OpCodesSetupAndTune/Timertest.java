@@ -1,10 +1,11 @@
 package org.firstinspires.ftc.teamcode.OpCodesSetupAndTune;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 @Autonomous (name = "toggletimertest")
-//@Disabled
+@Disabled
 public class Timertest extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {

@@ -103,7 +103,6 @@ public class LookForTeamProp extends CommandBase {
 
         if (ActiveMotionValues.getRedAlliance())
             webcam.setPipeline(sptopR);
-
         else
             webcam.setPipeline(sptopB);
 
@@ -114,9 +113,9 @@ public class LookForTeamProp extends CommandBase {
         lpctr++;
 
 
-        myOpMode.telemetry.addData("NumContours", sptopB.getNumberContours());
-
-        myOpMode.telemetry.addData("ValidContours", sptopB.getValidContours());
+//        myOpMode.telemetry.addData("NumContours", sptopB.getNumberContours());
+//
+//        myOpMode.telemetry.addData("ValidContours", sptopB.getValidContours());
 
         myOpMode.telemetry.addData("Streaming", webcam.getFps());
 
@@ -128,12 +127,9 @@ public class LookForTeamProp extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        webcam.closeCameraDeviceAsync(new OpenCvCamera.AsyncCameraCloseListener() {
-            @Override
-            public void onClose() {
-                myOpMode.telemetry.addData("Closing ", "");
-                myOpMode.telemetry.update();
-            }
+        webcam.closeCameraDeviceAsync(() -> {
+            myOpMode.telemetry.addData("Camera Closed ", "");
+            myOpMode.telemetry.update();
         });
 
     }

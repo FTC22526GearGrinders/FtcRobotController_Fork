@@ -17,7 +17,7 @@ public class PixelHandlerSubsystem extends SubsystemBase {
 
     Servo pixelDrop;
 
-    public final DcMotorEx armMotor;
+    //public final DcMotorEx armMotor;
 
     private Telemetry telemetry;
 
@@ -39,11 +39,11 @@ public class PixelHandlerSubsystem extends SubsystemBase {
         pixelDrop= myOpMode.hardwareMap.get(Servo.class, "pixel drop");
 
 
-        armMotor = myOpMode.hardwareMap.get(DcMotorEx.class, "arm motor");
-        armMotor.setDirection(DcMotor.Direction.REVERSE);
-        armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        armMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+//        armMotor = myOpMode.hardwareMap.get(DcMotorEx.class, "arm motor");
+//        armMotor.setDirection(DcMotor.Direction.REVERSE);
+//        armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//        armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        armMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         controller.setTolerance(Constants.PixelHandlerConstants.POSITION_TOLERANCE);
 
@@ -62,32 +62,32 @@ public class PixelHandlerSubsystem extends SubsystemBase {
     }
 
     public void resetEncoder() {
-        armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        armMotor.setTargetPosition(0);
-        armMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+//        armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        armMotor.setTargetPosition(0);
+//        armMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
     public void jog(double power) {
         if (power > 0 && getPositionInches() < Constants.PixelHandlerConstants.UPPER_POSITION_LIMIT
                 || power < 0 && getPositionInches() > Constants.PixelHandlerConstants.LOWER_POSITION_LIMIT) {
-            armMotor.setPower(power);
+            //armMotor.setPower(power);
         }
     }
 
-    public void position(double target) {
-        double output = controller.calculate(
-                armMotor.getCurrentPosition(), target);  // the measured value
-
-        double motorOutput = output;
-
-        if (output > 0 && output > power) motorOutput = power;
-
-        if (output < 0 && output < power) motorOutput = power;
-
-        armMotor.setVelocity(motorOutput);
+//    public void position(double target) {
+//        double output = controller.calculate(
+//                armMotor.getCurrentPosition(), target);  // the measured value
+//
+//        double motorOutput = output;
+//
+//        if (output > 0 && output > power) motorOutput = power;
+//
+//        if (output < 0 && output < power) motorOutput = power;
+//
+//        armMotor.setVelocity(motorOutput);
 
         //if (controller.atSetPoint()) state = holding;
-    }
+  //  }
 
 
     public void setClawPosition(double position) {
@@ -114,7 +114,7 @@ public class PixelHandlerSubsystem extends SubsystemBase {
 
 
     public void dropPixel() {
-        setPixelDropPosition(Constants.PixelHandlerConstants.DROP_CLOSED_POSITION);
+        setPixelDropPosition(Constants.PixelHandlerConstants.DROP_OPEN_POSITION);
 
     }
 
@@ -141,7 +141,7 @@ public class PixelHandlerSubsystem extends SubsystemBase {
     }
 
     public double getEncoderTicks() {
-        return armMotor.getCurrentPosition();
+        return 10;//armMotor.getCurrentPosition();
 
     }
 
