@@ -44,9 +44,16 @@ public class RunTrussCenterTraj extends CommandBase {
 
                         ActiveMotionValues.getyPoint(2)))
 
+                .lineTo(new Vector2d((ActiveMotionValues.getxPoint(3)),//move left or right on to middle of tape
+
+                        ActiveMotionValues.getyPoint(3)))
+
                 .lineTo(new Vector2d(ActiveMotionValues.getParkPose().getX(),//move left or right on to middle of tape
 
                         ActiveMotionValues.getParkPose().getY()))
+
+
+
 
                 .build();
 

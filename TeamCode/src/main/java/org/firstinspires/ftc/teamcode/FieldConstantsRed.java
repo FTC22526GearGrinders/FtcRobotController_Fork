@@ -14,8 +14,8 @@ public final class FieldConstantsRed {
 
     public static Pose2d nearBackstagePark = new Pose2d(60,-60,Math.toRadians(0));
 
-    public static Pose2d clearForSecondPixel= new Pose2d(12.-60);
-    public static Pose2d clearForSecondPixelMid= new Pose2d(12.12);
+    public static Pose2d secondPixelClearNear = new Pose2d(12,-60);
+    public static Pose2d clearForSecondPixelMid= new Pose2d(12,12);
 
 
     public static Pose2d slideToNearBBSideParkPose = new Pose2d(50, -60, Math.toRadians(0));
@@ -73,7 +73,6 @@ public final class FieldConstantsRed {
                 return FieldConstantsRed.AprilTagConstants.atag5;
             case 6:
                 return FieldConstantsRed.AprilTagConstants.atag6;
-
 
             default:
                 return FieldConstantsRed.AprilTagConstants.atag4;

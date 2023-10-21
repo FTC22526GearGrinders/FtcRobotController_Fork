@@ -30,6 +30,9 @@ public final class FieldConstantsBlue {
 
     public static Pose2d clearForSecondPixel= new Pose2d(12.,60);
 
+    public static Pose2d clearForSecondPixelMid= new Pose2d(12,12);
+
+
     public static Pose2d nearBBSDLineUp = new Pose2d(12, -12, Math.toRadians(0));
 
     public static Pose2d slideToNearBBSideParkPose = new Pose2d(50, 60, Math.toRadians(0));

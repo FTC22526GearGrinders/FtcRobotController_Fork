@@ -6,7 +6,6 @@ import com.arcrobotics.ftclib.command.CommandBase;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.FieldConstantsBlue;
-import org.firstinspires.ftc.teamcode.FieldConstantsBlue;
 
 /*
  *Values are taken fron the FieldConstantsColor files to build values for the auto trajectories to use.
@@ -30,7 +29,7 @@ import org.firstinspires.ftc.teamcode.FieldConstantsBlue;
  *
  *
  * Motions are based on the center of the robot. To compensate, 1/2 robot length is used for Y start positions amd for
- * other values as required. Motions are in the Y direction. Red Y values are negative, Blue Y values are positive.
+ * other values as required. Motions are in the Y direction. Blue Y values are negative, Blue Y values are positive.
  * So a red start position will look like -Field length/ 2 + robot length /2. Blue valus would be +Field length /2 - robot length /2
  *
  * The Y drop off point is called the yfirstposition. For the center tape it is compensated by robot length /2 taking sign into account.
@@ -155,15 +154,8 @@ public class SelectMotionValuesBlue extends CommandBase {
                         Constants.TapeConstants.tapeLength / 2 +
                         ActiveMotionValues.getyOffset());
 
-                ActiveMotionValues.setxPoint(3, ActiveMotionValues.getStartPose().getX());
-
-                ActiveMotionValues.setyPoint(3, ActiveMotionValues.getyPoint(2) +
-                        ActiveMotionValues.getRetractDistance());
-
                 ActiveMotionValues.setPointsUsed(3);
-
                 ActiveMotionValues.setActTag(2);
-
 
                 ActiveMotionValues.setTagLookAheadPose(FieldConstantsBlue.setActiveTagPose(ActiveMotionValues.getActTag())
                         .minus(FieldConstantsBlue.AprilTagConstants.tagLookAheadPose));
@@ -299,11 +291,6 @@ public class SelectMotionValuesBlue extends CommandBase {
                         + Constants.RobotConstants.length + Constants.TapeConstants.tapeLength / 2);
 
 
-                ActiveMotionValues.setxPoint(3, FieldConstantsBlue.XMYP.RightTapeMid.getX());
-
-                ActiveMotionValues.setyPoint(3, ActiveMotionValues.getyPoint(2));
-
-
                 setCommonMotion();
 
 
@@ -370,9 +357,13 @@ public class SelectMotionValuesBlue extends CommandBase {
 
                 ActiveMotionValues.setyPoint(2, FieldConstantsBlue.nearTrussLineUp.getY());
 
+                ActiveMotionValues.setxPoint(3, FieldConstantsBlue.clearForSecondPixel.getX());
+
+                ActiveMotionValues.setyPoint(3, FieldConstantsBlue.clearForSecondPixel.getY());
+
                 ActiveMotionValues.setParkPose(FieldConstantsBlue.nearBBSideParkPose);
 
-                ActiveMotionValues.setPointsUsed(2);
+                ActiveMotionValues.setPointsUsed(3);
 
                 //write over earlier retract value point 4
             } else {
@@ -381,9 +372,14 @@ public class SelectMotionValuesBlue extends CommandBase {
 
                 ActiveMotionValues.setyPoint(4, FieldConstantsBlue.nearTrussLineUp.getY());
 
+                ActiveMotionValues.setxPoint(5, FieldConstantsBlue.clearForSecondPixel.getX());
+
+                ActiveMotionValues.setyPoint(5, FieldConstantsBlue.clearForSecondPixel.getY());
+
+
                 ActiveMotionValues.setParkPose(FieldConstantsBlue.nearBBSideParkPose);
 
-                ActiveMotionValues.setPointsUsed(4);
+                ActiveMotionValues.setPointsUsed(5);
             }
         }
 
@@ -392,21 +388,23 @@ public class SelectMotionValuesBlue extends CommandBase {
 
             if (lcr == 12) {
 //center tape moves across to right tape x center
-                ActiveMotionValues.setxPoint(4, FieldConstantsBlue.XMYP.LeftTapeMid.getX());
 
-                ActiveMotionValues.setyPoint(4, ActiveMotionValues.getyPoint(3));
 
-                ActiveMotionValues.setxPoint(5, FieldConstantsBlue.stageDoorLineUpPose2.getX());
+                ActiveMotionValues.setxPoint(3, FieldConstantsBlue.XMYP.LeftTapeMid.getX());
 
-                ActiveMotionValues.setyPoint(5, FieldConstantsBlue.stageDoorLineUpPose2.getY());
+                ActiveMotionValues.setyPoint(3, ActiveMotionValues.getyPoint(2));
 
-                ActiveMotionValues.setxPoint(6, FieldConstantsBlue.nearBBSDLineUp.getX());
+                ActiveMotionValues.setxPoint(4, FieldConstantsBlue.stageDoorLineUpPose2.getX());
 
-                ActiveMotionValues.setyPoint(6, FieldConstantsBlue.nearBBSDLineUp.getY());
+                ActiveMotionValues.setyPoint(4, FieldConstantsBlue.stageDoorLineUpPose2.getY());
+
+                ActiveMotionValues.setxPoint(5, FieldConstantsBlue.nearBBSDLineUp.getX());
+
+                ActiveMotionValues.setyPoint(5, FieldConstantsBlue.nearBBSDLineUp.getY());
 
                 ActiveMotionValues.setParkPose(FieldConstantsBlue.centerBBSideParkPose);
 
-                ActiveMotionValues.setPointsUsed(6);
+                ActiveMotionValues.setPointsUsed(5);
 
             } else {
 

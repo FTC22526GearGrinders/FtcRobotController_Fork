@@ -49,6 +49,12 @@ public class RunBBCenterTraj extends CommandBase {
 
                         ActiveMotionValues.getyPoint(2)))
 
+                .lineTo(new Vector2d((ActiveMotionValues.getxPoint(3)),//move left or right on to middle of tape
+
+                        ActiveMotionValues.getyPoint(3)))
+
+
+
                 .lineToLinearHeading(ActiveMotionValues.getTagLookAheadPose())
 
 
