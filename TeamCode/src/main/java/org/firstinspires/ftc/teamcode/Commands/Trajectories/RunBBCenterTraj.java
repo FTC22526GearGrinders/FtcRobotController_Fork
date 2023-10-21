@@ -41,9 +41,10 @@ public class RunBBCenterTraj extends CommandBase {
 
                         ActiveMotionValues.getyPoint(1)))
 
-                .addDisplacementMarker(20,()-> phss.dropPixel())
 
-                .waitSeconds(3)//pixel drop off time
+                .UNSTABLE_addTemporalMarkerOffset(.25,()-> phss.dropPixel())
+
+                .waitSeconds(2)//pixel drop off time
 
                 .lineTo(new Vector2d((ActiveMotionValues.getxPoint(2)),//move left or right on to middle of tape
 
@@ -68,6 +69,9 @@ public class RunBBCenterTraj extends CommandBase {
 
     @Override
     public void execute() {
+
+
+
         drive.drive.update();
     }
 

@@ -73,10 +73,10 @@ public class DriveToAprilTagAuto extends CommandBase {
 
     private CommandOpMode myOpMode;
 
-    public DriveToAprilTagAuto(CommandOpMode opMode, Drive_Subsystem drive,Vision_Subsystem visionSubsystem) {
+    public DriveToAprilTagAuto(CommandOpMode opMode, Drive_Subsystem drive, Vision_Subsystem visionSubsystem) {
         this.drive = drive;
         myOpMode = opMode;
-        this.visionSubsystem=visionSubsystem;
+        this.visionSubsystem = visionSubsystem;
 
         addRequirements(this.drive);
     }
@@ -162,7 +162,7 @@ public class DriveToAprilTagAuto extends CommandBase {
             leftBackPower /= max;
             rightBackPower /= max;
         }
-        drive.drive.setMotorPowers(leftFrontPower, rightFrontPower, leftBackPower, rightBackPower);
+        drive.drive.setMotorPowers(leftFrontPower, leftBackPower, rightBackPower, rightFrontPower);
     }
 
     /**

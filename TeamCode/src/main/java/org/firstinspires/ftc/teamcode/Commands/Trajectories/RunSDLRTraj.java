@@ -41,9 +41,9 @@ public class RunSDLRTraj extends CommandBase {
 
                         ActiveMotionValues.getyPoint(2)))
 
-                .addTemporalMarker(() -> new DropPixelCommand(phss))
+                .UNSTABLE_addTemporalMarkerOffset(.25,()-> phss.dropPixel())
 
-                .waitSeconds(3)//pixel drop off time
+                .waitSeconds(2)//pixel drop off time
 
                 .lineTo(new Vector2d((ActiveMotionValues.getxPoint(3)),//move left or right on to middle of tape
 

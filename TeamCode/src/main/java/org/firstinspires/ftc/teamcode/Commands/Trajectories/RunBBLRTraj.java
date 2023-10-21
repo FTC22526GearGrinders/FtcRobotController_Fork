@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.Commands.Trajectories;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.arcrobotics.ftclib.command.CommandBase;
 
-import org.firstinspires.ftc.teamcode.Commands.PixelHandler.DropPixelCommand;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.PixelHandlerSubsystem;
@@ -16,7 +15,7 @@ public class RunBBLRTraj extends CommandBase {
 
     private TrajectorySequence backboardLeftRight;
 
-    private  int numberPoints;
+    private int numberPoints;
 
     public RunBBLRTraj(Drive_Subsystem drive, PixelHandlerSubsystem phss) {
         this.drive = drive;
@@ -26,7 +25,7 @@ public class RunBBLRTraj extends CommandBase {
     @Override
     public void initialize() {
 
-        numberPoints=ActiveMotionValues.getPointsUsed();
+        numberPoints = ActiveMotionValues.getPointsUsed();
         /**
          * Use th 5 step center for stage door selection
          * <p>
@@ -43,9 +42,9 @@ public class RunBBLRTraj extends CommandBase {
 
                         ActiveMotionValues.getyPoint(2)))
 
-                .addTemporalMarker(() -> new DropPixelCommand(phss))
+                .UNSTABLE_addTemporalMarkerOffset(.25, () -> phss.dropPixel())
 
-                .waitSeconds(3)//pixel drop off time
+                .waitSeconds(2)//pixel drop off time
 
                 .lineTo(new Vector2d((ActiveMotionValues.getxPoint(3)),//move left or right on to middle of tape
 
