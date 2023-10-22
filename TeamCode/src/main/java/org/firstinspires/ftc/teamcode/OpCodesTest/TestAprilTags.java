@@ -65,11 +65,12 @@ public class TestAprilTags extends CommandOpMode {
     private VisionPortal visionPortal;
 
     private FtcDashboard dashboard;
-private OpenCvWebcam webcam;
+    private OpenCvWebcam webcam;
+
     @Override
     public void initialize() {
 
-dashboard=FtcDashboard.getInstance();
+        dashboard = FtcDashboard.getInstance();
 
         telemetry = new MultipleTelemetry(telemetry, dashboard.getTelemetry());
 
@@ -79,12 +80,11 @@ dashboard=FtcDashboard.getInstance();
                 hardwareMap.get(WebcamName.class, "Webcam 1"), aprilTag);
 
 
-
         // Wait for the DS start button to be touched.
         telemetry.addData("DS preview on/off", "3 dots, Camera Stream");
         telemetry.update();
 
-       new DetectAprilTags(this, aprilTag, 1).schedule();
+        new DetectAprilTags(this, aprilTag, 1).schedule();
 
     }
 

@@ -37,6 +37,28 @@ public class ActiveMotionValues {
 
     private static double[] xPoints = new double[10];
 
+    public static double getTuenRadians1() {
+        return tuenRadians1;
+    }
+
+    public static void setTuenRadians1(double rad) {
+        ActiveMotionValues.tuenRadians1 = rad;
+    }
+
+    public static double getTuenRadians2() {
+        return tuenRadians2;
+    }
+
+    public static void setTuenRadians2(double rad) {
+        ActiveMotionValues.tuenRadians2 = rad;
+    }
+
+    private static double tuenRadians1= 0;
+
+    private static double tuenRadians2= 0;
+
+
+
     private static int xyPointsUsed = 0;
 
     public static int getPointsUsed() {

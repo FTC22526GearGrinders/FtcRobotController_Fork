@@ -60,7 +60,7 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvWebcam;
 
 
-@Config
+
 @Autonomous(name = "Auto: Select-RED", group = "Auto")
 //@Disabled
 public class AutoSelectAndRunRed extends CommandOpMode {

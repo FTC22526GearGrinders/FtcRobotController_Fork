@@ -35,6 +35,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.controls.ExposureControl;
+import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.Vision_Subsystem;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
@@ -59,13 +60,13 @@ public class DriveToAprilTagTeleop extends CommandBase {
     final double MAX_AUTO_STRAFE = 0.5;   //  Clip the approach speed to this max value (adjust for your robot)
     final double MAX_AUTO_TURN = 0.3;   //  Clip the turn speed to this max value (adjust for your robot)
 
-    int desiredTagID = -1;     // Choose the tag you want to approach or set to -1 for ANY tag.
+    int desiredTagID = 0;     // Choose the tag you want to approach or set to -1 for ANY tag.
     // Used for managing the AprilTag detection process.
     private AprilTagDetection desiredTag = null;     // Used to hold the data for a detected AprilTag
 
     private Drive_Subsystem drive;
 
-    private Vision_Subsystem visionSubsystem;
+    private Vision_Subsystem vss;
 
     private CommandOpMode myOpMode;
 
@@ -80,9 +81,9 @@ public class DriveToAprilTagTeleop extends CommandBase {
 
     int lpctr;
 
-    public DriveToAprilTagTeleop(Drive_Subsystem drive, Vision_Subsystem visionSubsystem, CommandOpMode opMode, Gamepad gamepad) {
+    public DriveToAprilTagTeleop(Drive_Subsystem drive, Vision_Subsystem vss, CommandOpMode opMode, Gamepad gamepad) {
         this.drive = drive;
-        this.visionSubsystem = visionSubsystem;
+        this.vss = vss;
         myOpMode = opMode;
         this.gamepad = gamepad;
         addRequirements(this.drive);
@@ -91,13 +92,15 @@ public class DriveToAprilTagTeleop extends CommandBase {
 
     @Override
     public void initialize() {
-        visionSubsystem.enableAprilTagProcessor(true);
+        vss.enableAprilTagProcessor(true);
         // Initialize the Apriltag Detection process
-        initAprilTag();
+        
         targetFound = false;    // Set to true when an AprilTag target is detected
-        //   desiredTagID = ActiveMotionValues.getActTag();
-        myOpMode.telemetry.addData("EMERGENCY", 911);
-        myOpMode.telemetry.update();
+
+           desiredTagID = ActiveMotionValues.getActTag();
+
+
+        vss.setAprilTagDecimation(2);
     }
 
     @Override
@@ -108,7 +111,7 @@ public class DriveToAprilTagTeleop extends CommandBase {
         desiredTag = null;
 
         // Step through the list of detected tags and look for a matching tag
-        List<AprilTagDetection> currentDetections = visionSubsystem.myAprilTagProcessor.getDetections();
+        List<AprilTagDetection> currentDetections = vss.myAprilTagProcessor.getDetections();
         for (AprilTagDetection detection : currentDetections) {
             // Look to see if we have size info on this tag.
             if (detection.metadata != null) {
@@ -157,7 +160,7 @@ public class DriveToAprilTagTeleop extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        visionSubsystem.enableAprilTagProcessor(false);
+        vss.enableAprilTagProcessor(false);
     }
 
     @Override
@@ -196,25 +199,7 @@ public class DriveToAprilTagTeleop extends CommandBase {
         drive.drive.setMotorPowers(leftFrontPower, rightFrontPower, leftBackPower, rightBackPower);
     }
 
-    /**
-     * Initialize the AprilTag processor.
-     */
-    void initAprilTag() {
-        // Create the AprilTag processor by using a builder.
-
-        // Adjust Image Decimation to trade-off detection-range for detection-rate.
-        // eg: Some typical detection data using a Logitech C920 WebCam
-        // Decimation = 1 ..  Detect 2" Tag from 10 feet away at 10 Frames per second
-        // Decimation = 2 ..  Detect 2" Tag from 6  feet away at 22 Frames per second
-        // Decimation = 3 ..  Detect 2" Tag from 4  feet away at 30 Frames Per Second
-        // Decimation = 3 ..  Detect 5" Tag from 10 feet away at 30 Frames Per Second
-        // Note: Decimation can be changed on-the-fly to adapt during a match.
-        visionSubsystem.myAprilTagProcessor.setDecimation(2);
-
-        // Create the vision portal by using a builder.
-
-
-    }
+    
 
 
 }

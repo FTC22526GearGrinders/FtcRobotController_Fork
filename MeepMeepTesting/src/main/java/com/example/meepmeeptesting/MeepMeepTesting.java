@@ -17,11 +17,11 @@ public class MeepMeepTesting {
 
         boolean bbstart = false;//aaset to false for start on stack side of truss
 
-        int lcr = 2;//left tape ==1, center tape = 2, right tape = 3 from robot view
+        int lcr = 1;//left tape ==1, center tape = 2, right tape = 3 from robot view
 
         if (lcr < 1 || lcr > 3) lcr = 2;
 
-        boolean useStageDoor =true;
+        boolean useStageDoor =false;
 
         boolean centerPark =false;
 
@@ -67,6 +67,8 @@ public class MeepMeepTesting {
 
 
                                     .lineTo(new Vector2d(ActiveMotionValues.getxPoint(1), ActiveMotionValues.getyPoint(1)))
+
+                                    .turn(Math.toRadians(90))
 
                                     .lineTo(new Vector2d(ActiveMotionValues.getxPoint (2),ActiveMotionValues.getyPoint(2)))
 

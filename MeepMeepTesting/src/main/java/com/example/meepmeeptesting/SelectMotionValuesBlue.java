@@ -178,7 +178,7 @@ public class SelectMotionValuesBlue {
 
             case 3://right tape
 
-                ActiveMotionValues.setyOffset(-4);
+                ActiveMotionValues.setyOffset(0);
 
                 ActiveMotionValues.setxOffset(0);
 
@@ -190,7 +190,7 @@ public class SelectMotionValuesBlue {
 
                 ActiveMotionValues.setxPoint(1, FieldConstantsBlue.XPYP.CenterTapeMid.getX() + ActiveMotionValues.getxOffset());
 
-                ActiveMotionValues.setyPoint(1, FieldConstantsBlue.XPYP.RightTapeMid.getY() + Constants.RobotConstants.length / 2 +
+                ActiveMotionValues.setyPoint(1, FieldConstantsBlue.XPYP.RightTapeMid.getY() +
                         Constants.TapeConstants.tapeLength / 2 + ActiveMotionValues.getyOffset());
 
                 ActiveMotionValues.setxPoint(2, FieldConstantsBlue.XPYP.RightTapeMid.getX() + ActiveMotionValues.getxOffset());
