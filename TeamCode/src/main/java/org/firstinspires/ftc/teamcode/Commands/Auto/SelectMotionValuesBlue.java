@@ -116,7 +116,7 @@ public class SelectMotionValuesBlue extends CommandBase {
                 ActiveMotionValues.setxPoint(4, ActiveMotionValues.getStartPose().getX());
 
                 ActiveMotionValues.setyPoint(4, ActiveMotionValues.getyPoint(2)
-                        - ActiveMotionValues.getRetractDistance());
+                        + ActiveMotionValues.getRetractDistance());
 
                 ActiveMotionValues.setPointsUsed(4);
 
@@ -128,9 +128,9 @@ public class SelectMotionValuesBlue extends CommandBase {
 
                 if (ActiveMotionValues.getCenterPark())
 
-                    ActiveMotionValues.setLastPose(FieldConstantsBlue.slideToCenterBBSideParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsBlue.slideToCenterBBSideParkPose);
                 else
-                    ActiveMotionValues.setLastPose(FieldConstantsBlue.slideToNearBBSideParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsBlue.slideToNearBBSideParkPose);
                 break;
 
             //******************************************************************************************
@@ -165,7 +165,7 @@ public class SelectMotionValuesBlue extends CommandBase {
                         + ActiveMotionValues.getxOffset());
 
                 ActiveMotionValues.setyPoint(2, ActiveMotionValues.getyPoint(1)
-                        - ActiveMotionValues.getRetractDistance());
+                        + ActiveMotionValues.getRetractDistance());
 
                 ActiveMotionValues.setPointsUsed(2);
                 ActiveMotionValues.setActTag(2);
@@ -175,11 +175,11 @@ public class SelectMotionValuesBlue extends CommandBase {
 
                 if (ActiveMotionValues.getCenterPark())
 
-                    ActiveMotionValues.setLastPose(FieldConstantsBlue.slideToCenterBBSideParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsBlue.slideToCenterBBSideParkPose);
 
                 else
 
-                    ActiveMotionValues.setLastPose(FieldConstantsBlue.slideToNearBBSideParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsBlue.slideToNearBBSideParkPose);
 
 
                 break;
@@ -235,11 +235,11 @@ public class SelectMotionValuesBlue extends CommandBase {
 
                 if (ActiveMotionValues.getCenterPark())
 
-                    ActiveMotionValues.setLastPose(FieldConstantsBlue.slideToCenterBBSideParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsBlue.slideToCenterBBSideParkPose);
 
                 else
 
-                    ActiveMotionValues.setLastPose(FieldConstantsBlue.slideToNearBBSideParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsBlue.slideToNearBBSideParkPose);
 
 
                 break;
@@ -347,7 +347,7 @@ public class SelectMotionValuesBlue extends CommandBase {
                 ActiveMotionValues.setxPoint(1, FieldConstantsBlue.XMYP.CenterTapeMid.getX()
                         + ActiveMotionValues.getxOffset());
 
-                ActiveMotionValues.setyPoint(1, FieldConstantsBlue.XMYP.RightTapeMid.getY()
+                ActiveMotionValues.setyPoint(1, FieldConstantsBlue.XMYP.CenterTapeMid.getY()
                         - Constants.TapeConstants.tapeWidth/2
                         + Constants.TapeConstants.tapeLength
                         + Constants.RobotConstants.pixelDropTranslation.getY()
@@ -412,7 +412,7 @@ public class SelectMotionValuesBlue extends CommandBase {
                 ActiveMotionValues.setyPoint(5, FieldConstantsBlue.clearForSecondPixelTruss.getY());
 
 
-                ActiveMotionValues.setLastPose(FieldConstantsBlue.nearBBSideParkPose);
+                ActiveMotionValues.setParkPose(FieldConstantsBlue.nearBBSideParkPose);
 
                 ActiveMotionValues.setPointsUsed(5);
             }

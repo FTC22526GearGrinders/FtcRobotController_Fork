@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.acmerobotics.roadrunner.geometry.Pose2d;
-import com.arcrobotics.ftclib.geometry.Translation2d;
+import com.arcrobotics.ftclib.geometry.Vector2d;
 
 public final class Constants {
 
@@ -39,16 +38,13 @@ public final class Constants {
 
     public static final class RobotConstants {
 
-        static final double height = 13;
-
-        static final double width = 16;
-
         public static final double length = 13.25;
-
-       // public static final Pose2d pixelDrop = new Pose2d(-4, -3);
+        static final double height = 13;
+        static final double width = 16;
+        // public static final Pose2d pixelDrop = new Pose2d(-4, -3);
         static final double camToCenterX = 6;
         static final double camToCenterY = 6;
-        public static Translation2d pixelDropTranslation = new Translation2d(-3,-4);
+        public static Vector2d pixelDropTranslation = new Vector2d(-3, -4);
 
 
     }
@@ -71,7 +67,7 @@ public final class Constants {
 
 
     public static final class DriveConstants {
-
+        public static final double MAX_MOTOR_RPM = 312;
         public static final double MOTOR_GEAR_RATIO = 13.7;
 
         public static final double GEARBOX_RATIO = 1;
@@ -80,17 +76,16 @@ public final class Constants {
         public static final double WHEELBASE = 10.5;//front yo back
 
         public static final double TRACKWIDTH = 14.5;//acress width
-        public static final double WHEEL_CIRCUMFERENCE_INCH = Math.PI * WHEEL_DIAMETER_INCH;//12.57
-        public static final double ENCODER_COUNTS_PER_MOTOR_REV = 537.7;
+
+
+
         public static final double ENCODER_COUNTS_PER_WHEEL_REV = 537.7;//1:1 RATIO
+        public static final double WHEEL_CIRCUMFERENCE_INCH = Math.PI * WHEEL_DIAMETER_INCH;//12.57
         public static final double INCHES_PER_ENCODER_COUNT = WHEEL_CIRCUMFERENCE_INCH / ENCODER_COUNTS_PER_WHEEL_REV;//.0234
-
-
-        public static final double MAX_MOTOR_RPM = 312;
         public static final double MAX_IPM = MAX_MOTOR_RPM * WHEEL_CIRCUMFERENCE_INCH;// 312 *12.57/00 = 60 IPS
 
+        public static final double ENCODER_COUNTS_PER_MOTOR_REV = 537.7;
         public static final double BATTERY_VOLTS = 12;
-
         public static final double kV = BATTERY_VOLTS / MAX_IPM;//12/60 = .2 MAX THEORETICAL VALUE
 
         public static final double POSITION_Kp = .03;
@@ -132,7 +127,7 @@ public final class Constants {
         public static final double JOG_DOWN_POWER = -.3;
 
 
-        public static enum armhaights {
+        public enum armhaights {
 
             HOME(0.),
 
@@ -144,7 +139,7 @@ public final class Constants {
             public final double height;
 
 
-            private armhaights(double height) {
+            armhaights(double height) {
                 this.height = height;
             }
 

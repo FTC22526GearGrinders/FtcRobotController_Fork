@@ -13,11 +13,11 @@ public class MeepMeepTesting {
     public static void main(String[] args) {
 
 
-        boolean redAlliance = false;
+        boolean redAlliance = true;
 
         boolean bbstart = true;//aaset to false for start on stack side of truss
 
-        int lcr = 3;//left tape ==1, center tape = 2, right tape = 3 from robot view
+        int lcr = 2;//left tape ==1, center tape = 2, right tape = 3 from robot view
 
         if (lcr < 1 || lcr > 3) lcr = 2;
 
@@ -25,7 +25,7 @@ public class MeepMeepTesting {
 
         boolean centerPark = false;
 
-        boolean secondPixel = true;
+        boolean secondPixel = false;
 
         ActiveMotionValues.setRedAlliance(redAlliance);
 
@@ -38,11 +38,11 @@ public class MeepMeepTesting {
 
         if (ActiveMotionValues.getRedAlliance()) {
 //
-            new SelectMotionValuesRed().initialize();
+            new SelectMotionValuesRed();
 //
         } else {
 //
-            new SelectMotionValuesBlue().initialize();
+            new SelectMotionValuesBlue();
 
         }
 
@@ -66,23 +66,21 @@ public class MeepMeepTesting {
                             drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
 
 //
-                                    .lineTo(new Vector2d(ActiveMotionValues.getxPoint(1), 43))
+                                    .lineTo(new Vector2d(ActiveMotionValues.getxPoint(1), ActiveMotionValues.getyPoint(1)))
+                                    .waitSeconds(2)
+                                    .lineTo(new Vector2d(ActiveMotionValues.getxPoint(2), ActiveMotionValues.getyPoint(2)))
+
+
+
+//                                    .lineTo(new Vector2d(ActiveMotionValues.getxPoint(3), ActiveMotionValues.getyPoint(3) ))
 //
 //
-//                                    .lineTo(new Vector2d(ActiveMotionValues.getxPoint (2),ActiveMotionValues.getyPoint(2)))
-//
-                                    .lineTo(new Vector2d(ActiveMotionValues.getxPoint(2) +4, ActiveMotionValues.getyPoint(1) - 3))
+//                                    .lineTo(new Vector2d(ActiveMotionValues.getxPoint(4), ActiveMotionValues.getyPoint(4)))
 
-                                    .waitSeconds(1)
+                                    //
 
-                                    //  .lineTo(new Vector2d(ActiveMotionValues.getxPoint(3), ActiveMotionValues.getyPoint(3)))
+                                    .lineToLinearHeading(ActiveMotionValues.getLastPose())
 
-                                    .lineTo(new Vector2d(ActiveMotionValues.getxPoint(4), ActiveMotionValues.getyPoint(4)))
-
-
-                                    .lineToLinearHeading(ActiveMotionValues.getActiveTagPose()
-
-                                            .minus(FieldConstantsBlue.AprilTagConstants.tagLookAheadPose))
 
                                     .waitSeconds(1)
 
