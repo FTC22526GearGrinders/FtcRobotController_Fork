@@ -1,22 +1,23 @@
-package org.firstinspires.ftc.teamcode.Commands.Trajectories;
+package org.firstinspires.ftc.teamcode.Commands.Trajectories.Backboard;
 
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.arcrobotics.ftclib.command.CommandBase;
 
-import org.firstinspires.ftc.teamcode.Commands.PixelHandler.DropPixelCommand;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.PixelHandlerSubsystem;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
 
-public class RunSDCenterTraj extends CommandBase {
+public class RunBBLRTraj extends CommandBase {
     private Drive_Subsystem drive;
     private PixelHandlerSubsystem phss;
 
-    private TrajectorySequence stageDoorCenter;
+    private TrajectorySequence backboardLeftRight;
 
-    public RunSDCenterTraj(Drive_Subsystem drive, PixelHandlerSubsystem phss) {
+    private int numberPoints;
+
+    public RunBBLRTraj(Drive_Subsystem drive, PixelHandlerSubsystem phss) {
         this.drive = drive;
         this.phss = phss;
     }
@@ -24,46 +25,33 @@ public class RunSDCenterTraj extends CommandBase {
     @Override
     public void initialize() {
 
-
+        numberPoints = ActiveMotionValues.getPointsUsed();
         /**
          * Use th 5 step center for stage door selection
          * <p>
          * It has the pixel delivery after the first step
          */
-        stageDoorCenter = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
+        backboardLeftRight = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
 
                 .lineTo(new Vector2d((ActiveMotionValues.getxPoint(1)),//drive to drop off poinr
 
                         ActiveMotionValues.getyPoint(1)))
 
-                .UNSTABLE_addTemporalMarkerOffset(.25,()-> phss.dropPixel())
-
-                .waitSeconds(2)//pixel drop off time
 
                 .lineTo(new Vector2d((ActiveMotionValues.getxPoint(2)),//move left or right on to middle of tape
 
                         ActiveMotionValues.getyPoint(2)))
 
+                .UNSTABLE_addTemporalMarkerOffset(.25, () -> phss.dropPixel())
+
+                .waitSeconds(2)//pixel drop off time
+
                 .lineTo(new Vector2d((ActiveMotionValues.getxPoint(3)),//move left or right on to middle of tape
 
                         ActiveMotionValues.getyPoint(3)))
 
-                .lineTo(new Vector2d((ActiveMotionValues.getxPoint(4)),//move left or right on to middle of tape
 
-                        ActiveMotionValues.getyPoint(4)))
-
-                .lineTo(new Vector2d((ActiveMotionValues.getxPoint(5)),//move left or right on to middle of tape
-
-                        ActiveMotionValues.getyPoint(5)))
-
-                .lineTo(new Vector2d((ActiveMotionValues.getxPoint(6)),//move left or right on to middle of tape
-
-                        ActiveMotionValues.getyPoint(6)))
-
-
-                .lineTo(new Vector2d(ActiveMotionValues.getParkPose().getX(),//move left or right on to middle of tape
-
-                        ActiveMotionValues.getParkPose().getY()))
+                .lineToLinearHeading(ActiveMotionValues.getLastPose())
 
 
                 .build();
@@ -71,7 +59,7 @@ public class RunSDCenterTraj extends CommandBase {
 
         drive.drive.setPoseEstimate(ActiveMotionValues.getStartPose());
 
-        drive.drive.followTrajectorySequence(stageDoorCenter);
+        drive.drive.followTrajectorySequence(backboardLeftRight);
     }
 
     @Override

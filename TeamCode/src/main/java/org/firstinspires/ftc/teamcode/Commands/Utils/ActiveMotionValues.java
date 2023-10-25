@@ -8,10 +8,22 @@ public class ActiveMotionValues {
 
 
     private static Pose2d startPose = new Pose2d();
+
     private static AprilTagPoseFtc currentTagPose =
             new AprilTagPoseFtc(0, 0, 0, 0, 0, 0, 0, 0, 0);
 
     private static Pose2d parkPose = new Pose2d();
+
+    public static Pose2d getLastPose() {
+        return lastPose;
+    }
+
+    public static void setLastPose(Pose2d pose) {
+        ActiveMotionValues.lastPose = pose;
+    }
+
+    private static Pose2d lastPose = new Pose2d();
+
 
     private static Pose2d activeAprilTagPose = new Pose2d();
 
@@ -36,28 +48,6 @@ public class ActiveMotionValues {
     private static double[] yPoints = new double[10];
 
     private static double[] xPoints = new double[10];
-
-    public static double getTuenRadians1() {
-        return tuenRadians1;
-    }
-
-    public static void setTuenRadians1(double rad) {
-        ActiveMotionValues.tuenRadians1 = rad;
-    }
-
-    public static double getTuenRadians2() {
-        return tuenRadians2;
-    }
-
-    public static void setTuenRadians2(double rad) {
-        ActiveMotionValues.tuenRadians2 = rad;
-    }
-
-    private static double tuenRadians1= 0;
-
-    private static double tuenRadians2= 0;
-
-
 
     private static int xyPointsUsed = 0;
 
@@ -90,25 +80,24 @@ public class ActiveMotionValues {
         return xPoints[n];
     }
 
-
     private static boolean secondPixel = false;
 
     public static void setSecondPixel(boolean secPixel) {
         secondPixel = secPixel;
     }
 
-    public static boolean getSecondpixel() {
+    public static boolean getSecondPixel() {
         return secondPixel;
     }
 
 
-    public static Pose2d getTagLookAheadPose() {
-        return tagLookAheadPose;
-    }
-
-    public static void setTagLookAheadPose(Pose2d tagLAPose) {
-        tagLookAheadPose = tagLAPose;
-    }
+//    public static Pose2d getTagLookAheadPose() {
+//        return tagLookAheadPose;
+//    }
+//
+//    public static void setTagLookAheadPose(Pose2d tagLAPose) {
+//        tagLookAheadPose = tagLAPose;
+//    }
 
     public static void setActiveTagPose(Pose2d pose) {
         activeAprilTagPose = pose;
@@ -176,13 +165,13 @@ public class ActiveMotionValues {
         actTag = act;
     }
 
-    public static void setParkPose(Pose2d pose) {
-        parkPose = pose;
-    }
-
-    public static Pose2d getParkPose() {
-        return parkPose;
-    }
+//    public static void setParkPose(Pose2d pose) {
+//        parkPose = pose;
+//    }
+//
+//    public static Pose2d getParkPose() {
+//        return parkPose;
+//    }
 
 
     //private static double xFirstPoint;

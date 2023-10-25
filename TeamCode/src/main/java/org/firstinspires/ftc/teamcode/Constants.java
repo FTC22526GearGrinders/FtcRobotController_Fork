@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.arcrobotics.ftclib.geometry.Translation2d;
 
 public final class Constants {
 
@@ -47,6 +48,8 @@ public final class Constants {
        // public static final Pose2d pixelDrop = new Pose2d(-4, -3);
         static final double camToCenterX = 6;
         static final double camToCenterY = 6;
+        public static Translation2d pixelDropTranslation = new Translation2d(-3,-4);
+
 
     }
 

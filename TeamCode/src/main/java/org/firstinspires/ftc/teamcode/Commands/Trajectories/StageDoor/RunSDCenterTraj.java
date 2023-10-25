@@ -1,20 +1,22 @@
-package org.firstinspires.ftc.teamcode.Commands.Trajectories;
+package org.firstinspires.ftc.teamcode.Commands.Trajectories.StageDoor;
 
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.arcrobotics.ftclib.command.CommandBase;
 
+import org.firstinspires.ftc.teamcode.Commands.PixelHandler.DropPixelCommand;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.PixelHandlerSubsystem;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
 
-public class RunTrussLRTraj extends CommandBase {
+public class RunSDCenterTraj extends CommandBase {
     private Drive_Subsystem drive;
     private PixelHandlerSubsystem phss;
-    private TrajectorySequence trussLeftRight;
 
-    public RunTrussLRTraj(Drive_Subsystem drive, PixelHandlerSubsystem phss) {
+    private TrajectorySequence stageDoorCenter;
+
+    public RunSDCenterTraj(Drive_Subsystem drive, PixelHandlerSubsystem phss) {
         this.drive = drive;
         this.phss = phss;
     }
@@ -28,20 +30,19 @@ public class RunTrussLRTraj extends CommandBase {
          * <p>
          * It has the pixel delivery after the first step
          */
-        trussLeftRight = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
+        stageDoorCenter = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
 
                 .lineTo(new Vector2d((ActiveMotionValues.getxPoint(1)),//drive to drop off poinr
 
                         ActiveMotionValues.getyPoint(1)))
 
+                .UNSTABLE_addTemporalMarkerOffset(.25,()-> phss.dropPixel())
+
+                .waitSeconds(2)//pixel drop off time
 
                 .lineTo(new Vector2d((ActiveMotionValues.getxPoint(2)),//move left or right on to middle of tape
 
                         ActiveMotionValues.getyPoint(2)))
-
-                .UNSTABLE_addTemporalMarkerOffset(.25, () -> phss.dropPixel())
-
-                .waitSeconds(2)//pixel drop off time
 
                 .lineTo(new Vector2d((ActiveMotionValues.getxPoint(3)),//move left or right on to middle of tape
 
@@ -55,17 +56,22 @@ public class RunTrussLRTraj extends CommandBase {
 
                         ActiveMotionValues.getyPoint(5)))
 
+                .lineTo(new Vector2d((ActiveMotionValues.getxPoint(6)),//move left or right on to middle of tape
 
-                .lineTo(new Vector2d(ActiveMotionValues.getParkPose().getX(),//move left or right on to middle of tape
+                        ActiveMotionValues.getyPoint(6)))
 
-                        ActiveMotionValues.getParkPose().getY()))
+
+                .lineTo(new Vector2d(ActiveMotionValues.getLastPose().getX(),//move left or right on to middle of tape
+
+                        ActiveMotionValues.getLastPose().getY()))
+
 
                 .build();
 
 
         drive.drive.setPoseEstimate(ActiveMotionValues.getStartPose());
 
-        drive.drive.followTrajectorySequence(trussLeftRight);
+        drive.drive.followTrajectorySequence(stageDoorCenter);
     }
 
     @Override

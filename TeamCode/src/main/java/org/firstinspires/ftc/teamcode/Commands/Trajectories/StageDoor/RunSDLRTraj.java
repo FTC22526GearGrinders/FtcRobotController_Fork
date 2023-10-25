@@ -1,23 +1,22 @@
-package org.firstinspires.ftc.teamcode.Commands.Trajectories;
+package org.firstinspires.ftc.teamcode.Commands.Trajectories.StageDoor;
 
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.arcrobotics.ftclib.command.CommandBase;
 
+import org.firstinspires.ftc.teamcode.Commands.PixelHandler.DropPixelCommand;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
-import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.PixelHandlerSubsystem;
+import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
 
-public class RunBBLRTraj extends CommandBase {
+public class RunSDLRTraj extends CommandBase {
     private Drive_Subsystem drive;
     private PixelHandlerSubsystem phss;
 
-    private TrajectorySequence backboardLeftRight;
+    private TrajectorySequence stageDoorLeftRight;
 
-    private int numberPoints;
-
-    public RunBBLRTraj(Drive_Subsystem drive, PixelHandlerSubsystem phss) {
+    public RunSDLRTraj(Drive_Subsystem drive, PixelHandlerSubsystem phss) {
         this.drive = drive;
         this.phss = phss;
     }
@@ -25,13 +24,13 @@ public class RunBBLRTraj extends CommandBase {
     @Override
     public void initialize() {
 
-        numberPoints = ActiveMotionValues.getPointsUsed();
+
         /**
          * Use th 5 step center for stage door selection
          * <p>
          * It has the pixel delivery after the first step
          */
-        backboardLeftRight = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
+        stageDoorLeftRight = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
 
                 .lineTo(new Vector2d((ActiveMotionValues.getxPoint(1)),//drive to drop off poinr
 
@@ -42,7 +41,7 @@ public class RunBBLRTraj extends CommandBase {
 
                         ActiveMotionValues.getyPoint(2)))
 
-                .UNSTABLE_addTemporalMarkerOffset(.25, () -> phss.dropPixel())
+                .UNSTABLE_addTemporalMarkerOffset(.25,()-> phss.dropPixel())
 
                 .waitSeconds(2)//pixel drop off time
 
@@ -50,8 +49,14 @@ public class RunBBLRTraj extends CommandBase {
 
                         ActiveMotionValues.getyPoint(3)))
 
+                .lineTo(new Vector2d((ActiveMotionValues.getxPoint(4)),//move left or right on to middle of tape
 
-                .lineToLinearHeading(ActiveMotionValues.getTagLookAheadPose())
+                        ActiveMotionValues.getyPoint(4)))
+
+                .lineTo(new Vector2d(ActiveMotionValues.getLastPose().getX(),//move left or right on to middle of tape
+
+                        ActiveMotionValues.getLastPose().getY()))
+
 
 
                 .build();
@@ -59,7 +64,7 @@ public class RunBBLRTraj extends CommandBase {
 
         drive.drive.setPoseEstimate(ActiveMotionValues.getStartPose());
 
-        drive.drive.followTrajectorySequence(backboardLeftRight);
+        drive.drive.followTrajectorySequence(stageDoorLeftRight);
     }
 
     @Override

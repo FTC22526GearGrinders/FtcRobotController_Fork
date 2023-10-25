@@ -45,7 +45,7 @@ Telemetry telemetry;
 
         centerPark = ActiveMotionValues.getCenterPark();
 
-        secondPixel = ActiveMotionValues.getSecondpixel();
+        secondPixel = ActiveMotionValues.getSecondPixel();
 
         lcr = ActiveMotionValues.getLcrpos();
 

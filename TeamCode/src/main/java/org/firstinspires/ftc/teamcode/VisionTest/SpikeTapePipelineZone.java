@@ -32,6 +32,8 @@ public class SpikeTapePipelineZone extends OpenCvPipeline {
     public Scalar lower = new Scalar(0, 20, 0);
     public Scalar upper = new Scalar(50, 255, 255);
 
+    int maxLeft=80;
+
 
 //    public Scalar lower = new Scalar(0, 52.4, 0);
 //    public Scalar upper = new Scalar(150, 255, 255);
@@ -54,8 +56,11 @@ public class SpikeTapePipelineZone extends OpenCvPipeline {
         int imgWidth = input.width();
         int imgHeight = input.height();
 
-        int maxLeft = imgWidth / 3;
-        int maxmid = imgWidth * 2 / 3;
+        telemetry.addData("HEIGHT", imgHeight);
+        telemetry.addData("HWidth", imgWidth);
+
+
+        int maxmid = 170;
         int macRight = imgWidth - 1;
 
         Mat dst = new Mat(src.rows(), src.cols(), src.type(), new Scalar(0));
@@ -159,6 +164,8 @@ public class SpikeTapePipelineZone extends OpenCvPipeline {
 
         }
 
+       // Imgproc.line(src,new Point(100,0),new Point(100,imgHeight-1),new Scalar(128,128,128),6);
+
         telemetry.addData("NumCon", numContours);
         telemetry.addData("ValCon", usableContours);
         telemetry.addData("RRSize", rr.size());
@@ -174,7 +181,7 @@ public class SpikeTapePipelineZone extends OpenCvPipeline {
             frameList.remove(0);
         }
 
-        return filtered;
+        return src;
 
 
     }

@@ -69,8 +69,6 @@ public class SampleMecanumDrive extends MecanumDrive {
     private static double TRACK_WIDTH = Constants.DriveConstants.TRACKWIDTH;
 
 
-
-
     public static double VX_WEIGHT = 1;
     public static double VY_WEIGHT = 1;
     public static double OMEGA_WEIGHT = 1;
@@ -94,7 +92,7 @@ public class SampleMecanumDrive extends MecanumDrive {
 
     private List<Integer> lastEncPositions = new ArrayList<>();
     private List<Integer> lastEncVels = new ArrayList<>();
-    public boolean fieldCentric=false;
+    public boolean fieldCentric = false;
 
     double testX;
 
@@ -318,7 +316,7 @@ public class SampleMecanumDrive extends MecanumDrive {
         rightFront.setPower(v3);
     }
 
-    public void resetEncoderss(){
+    public void resetEncoderss() {
         leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -328,8 +326,6 @@ public class SampleMecanumDrive extends MecanumDrive {
         leftRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-
 
 
     }
@@ -345,7 +341,7 @@ public class SampleMecanumDrive extends MecanumDrive {
         rightFront.setPower((y - x - rx) / denominator);
         leftRear.setPower((y - x + rx) / denominator);
         rightRear.setPower((y + x - rx) / denominator);
-        testX=y;
+        testX = y;
 
     }
 
@@ -370,7 +366,7 @@ public class SampleMecanumDrive extends MecanumDrive {
         return new ProfileAccelerationConstraint(maxAccel);
     }
 
-    public void toggleFieldOrient() {
+    public void toggleFieldCentric() {
         if (fieldCentric) fieldCentric = false;
 
         else fieldCentric = true;
@@ -406,7 +402,7 @@ public class SampleMecanumDrive extends MecanumDrive {
 
         telemetry.addData("Gyro Heading", Math.toDegrees(getExternalHeading()));
         telemetry.addData("BatteryVolts", getBatteryVolts());
-        telemetry.addData("TX",testX);
+        telemetry.addData("FieldCentric", fieldCentric);
         telemetry.update();
 
     }

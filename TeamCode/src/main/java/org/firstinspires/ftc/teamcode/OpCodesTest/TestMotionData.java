@@ -152,19 +152,22 @@ public class TestMotionData extends CommandOpMode {
     public void run() {
 
         waitForStart();
+
+
+        telemetry.addLine();
         telemetry.addData("RedAlliance", ActiveMotionValues.getRedAlliance());
         telemetry.addData("BB Start", ActiveMotionValues.getBBStart());
         telemetry.addData("LCR", ActiveMotionValues.getLcrpos());
         telemetry.addData("CenterPark", ActiveMotionValues.getCenterPark());
         if (!ActiveMotionValues.getBBStart()) {
             telemetry.addData("Use SD", ActiveMotionValues.getUseStageDoor());
-            telemetry.addData("SecondPixel", ActiveMotionValues.getSecondpixel());
+            telemetry.addData("SecondPixel", ActiveMotionValues.getSecondPixel());
         }
 
         telemetry.addData("StartPose", ActiveMotionValues.getStartPose().toString());
 
-        if (ActiveMotionValues.getBBStart() || ActiveMotionValues.getSecondpixel()) {
-            telemetry.addData("TagLAPose", ActiveMotionValues.getTagLookAheadPose().toString());
+        if (ActiveMotionValues.getBBStart() || ActiveMotionValues.getSecondPixel()) {
+            telemetry.addData("TagLAPose", ActiveMotionValues.getLastPose().toString());
             telemetry.addData("Atag", ActiveMotionValues.getActTag());
         }
 
@@ -172,7 +175,7 @@ public class TestMotionData extends CommandOpMode {
         telemetry.addData("XOffset", ActiveMotionValues.getxOffset());
         telemetry.addData("YOffset", ActiveMotionValues.getyOffset());
 
-        telemetry.addData("ParkPose", ActiveMotionValues.getParkPose().toString());
+        telemetry.addData("ParkPose", ActiveMotionValues.getLastPose().toString());
 
         telemetry.addData("XYPointsUsed", ActiveMotionValues.getPointsUsed());
 

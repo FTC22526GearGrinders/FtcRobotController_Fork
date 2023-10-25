@@ -1,24 +1,23 @@
-package org.firstinspires.ftc.teamcode.Commands.Trajectories;
+package org.firstinspires.ftc.teamcode.Commands.Trajectories.Backboard;
 
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.arcrobotics.ftclib.command.CommandBase;
 
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
-import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.PixelHandlerSubsystem;
+import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
 
-public class RunBBLRWithTurnsTraj extends CommandBase {
+public class RunBBCenterTraj extends CommandBase {
     private Drive_Subsystem drive;
     private PixelHandlerSubsystem phss;
 
-    private TrajectorySequence backboardLeftRightTurn1;
-    private TrajectorySequence backboardLeftRightTurn2;
+    private TrajectorySequence backboardCenter;
 
-    private int numberPoints;
+    private  int numberPoints;
 
-    public RunBBLRWithTurnsTraj(Drive_Subsystem drive, PixelHandlerSubsystem phss) {
+    public RunBBCenterTraj(Drive_Subsystem drive, PixelHandlerSubsystem phss) {
         this.drive = drive;
         this.phss = phss;
     }
@@ -26,39 +25,36 @@ public class RunBBLRWithTurnsTraj extends CommandBase {
     @Override
     public void initialize() {
 
-        numberPoints = ActiveMotionValues.getPointsUsed();
+        numberPoints=ActiveMotionValues.getPointsUsed();
+
+
         /**
          * Use th 5 step center for stage door selection
          * <p>
          * It has the pixel delivery after the first step
          */
-        backboardLeftRightTurn1= drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
+        backboardCenter = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
 
                 .lineTo(new Vector2d((ActiveMotionValues.getxPoint(1)),//drive to drop off poinr
 
                         ActiveMotionValues.getyPoint(1)))
 
 
+                .UNSTABLE_addTemporalMarkerOffset(.25,()-> phss.dropPixel())
+
+                .waitSeconds(2)//pixel drop off time
+
                 .lineTo(new Vector2d((ActiveMotionValues.getxPoint(2)),//move left or right on to middle of tape
 
                         ActiveMotionValues.getyPoint(2)))
-
-                .build();
-
-
-        backboardLeftRightTurn2= drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
-
-
-                .UNSTABLE_addTemporalMarkerOffset(.25, () -> phss.dropPixel())
-
-                .waitSeconds(2)//pixel drop off time
 
                 .lineTo(new Vector2d((ActiveMotionValues.getxPoint(3)),//move left or right on to middle of tape
 
                         ActiveMotionValues.getyPoint(3)))
 
 
-                .lineToLinearHeading(ActiveMotionValues.getTagLookAheadPose())
+
+                .lineToLinearHeading(ActiveMotionValues.getLastPose())
 
 
                 .build();
@@ -66,13 +62,14 @@ public class RunBBLRWithTurnsTraj extends CommandBase {
 
         drive.drive.setPoseEstimate(ActiveMotionValues.getStartPose());
 
-        drive.drive.followTrajectorySequence(backboardLeftRightTurn1);
-
-
+        drive.drive.followTrajectorySequence(backboardCenter);
     }
 
     @Override
     public void execute() {
+
+
+
         drive.drive.update();
     }
 

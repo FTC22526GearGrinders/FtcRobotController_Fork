@@ -1,22 +1,21 @@
-package org.firstinspires.ftc.teamcode.Commands.Trajectories;
+package org.firstinspires.ftc.teamcode.Commands.Trajectories.StageDoor;
 
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.arcrobotics.ftclib.command.CommandBase;
 
-import org.firstinspires.ftc.teamcode.Commands.PixelHandler.DropPixelCommand;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
-import org.firstinspires.ftc.teamcode.Subsystems.PixelHandlerSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
+import org.firstinspires.ftc.teamcode.Subsystems.PixelHandlerSubsystem;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
 
-public class RunTrussCenterTraj extends CommandBase {
+public class RunSDCenter2PixTraj extends CommandBase {
     private Drive_Subsystem drive;
     private PixelHandlerSubsystem phss;
 
-    private TrajectorySequence trussCenter;
+    private TrajectorySequence stageDoorCenter;
 
-    public RunTrussCenterTraj(Drive_Subsystem drive, PixelHandlerSubsystem phss) {
+    public RunSDCenter2PixTraj(Drive_Subsystem drive, PixelHandlerSubsystem phss) {
         this.drive = drive;
         this.phss = phss;
     }
@@ -30,7 +29,7 @@ public class RunTrussCenterTraj extends CommandBase {
          * <p>
          * It has the pixel delivery after the first step
          */
-        trussCenter = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
+        stageDoorCenter = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
 
                 .lineTo(new Vector2d((ActiveMotionValues.getxPoint(1)),//drive to drop off poinr
 
@@ -38,7 +37,7 @@ public class RunTrussCenterTraj extends CommandBase {
 
                 .UNSTABLE_addTemporalMarkerOffset(.25,()-> phss.dropPixel())
 
-                .waitSeconds(2)//pixel drop off time\
+                .waitSeconds(2)//pixel drop off time
 
                 .lineTo(new Vector2d((ActiveMotionValues.getxPoint(2)),//move left or right on to middle of tape
 
@@ -48,11 +47,19 @@ public class RunTrussCenterTraj extends CommandBase {
 
                         ActiveMotionValues.getyPoint(3)))
 
-                .lineTo(new Vector2d(ActiveMotionValues.getParkPose().getX(),//move left or right on to middle of tape
+                .lineTo(new Vector2d((ActiveMotionValues.getxPoint(4)),//move left or right on to middle of tape
 
-                        ActiveMotionValues.getParkPose().getY()))
+                        ActiveMotionValues.getyPoint(4)))
 
+                .lineTo(new Vector2d((ActiveMotionValues.getxPoint(5)),//move left or right on to middle of tape
 
+                        ActiveMotionValues.getyPoint(5)))
+
+                .lineTo(new Vector2d((ActiveMotionValues.getxPoint(6)),//move left or right on to middle of tape
+
+                        ActiveMotionValues.getyPoint(6)))
+
+                .lineToLinearHeading(ActiveMotionValues.getLastPose())
 
 
                 .build();
@@ -60,7 +67,7 @@ public class RunTrussCenterTraj extends CommandBase {
 
         drive.drive.setPoseEstimate(ActiveMotionValues.getStartPose());
 
-        drive.drive.followTrajectorySequence(trussCenter);
+        drive.drive.followTrajectorySequence(stageDoorCenter);
     }
 
     @Override

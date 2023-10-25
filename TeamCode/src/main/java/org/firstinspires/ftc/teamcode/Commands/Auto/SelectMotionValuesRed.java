@@ -5,6 +5,7 @@ import com.arcrobotics.ftclib.command.CommandBase;
 
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Constants;
+import org.firstinspires.ftc.teamcode.FieldConstantsBlue;
 import org.firstinspires.ftc.teamcode.FieldConstantsRed;
 
 public class SelectMotionValuesRed extends CommandBase {
@@ -42,10 +43,14 @@ public class SelectMotionValuesRed extends CommandBase {
 
         switch (motionSelected) {
 
+            //******************************************************************************************
+            //******************************************************************************************
+
+
             case 1://left tape
 
 
-                ActiveMotionValues.setyOffset(-2);
+                ActiveMotionValues.setyOffset(0);
 
                 ActiveMotionValues.setxOffset(0);
 
@@ -57,10 +62,13 @@ public class SelectMotionValuesRed extends CommandBase {
                 ActiveMotionValues.setxPoint(1, FieldConstantsRed.XPYM.CenterTapeMid.getX());
 
                 ActiveMotionValues.setyPoint(1, FieldConstantsRed.XPYM.CenterTapeMid.getY()
-                        - Constants.RobotConstants.length / 2 - Constants.TapeConstants.tapeLength / 2
+                        - Constants.TapeConstants.tapeLength
+                        + Constants.TapeConstants.tapeWidth / 2
+                        - Constants.RobotConstants.pixelDropTranslation.getY()
                         - ActiveMotionValues.getyOffset());
 
                 ActiveMotionValues.setxPoint(2, FieldConstantsRed.XPYM.LeftTapeMid.getX()
+                        + Constants.RobotConstants.pixelDropTranslation.getX()
                         + ActiveMotionValues.getxOffset());
 
                 ActiveMotionValues.setyPoint(2, ActiveMotionValues.getyPoint(1));
@@ -79,25 +87,27 @@ public class SelectMotionValuesRed extends CommandBase {
 
                 ActiveMotionValues.setActTag(4);
 
-                ActiveMotionValues.setTagLookAheadPose(FieldConstantsRed.setActiveTagPose(ActiveMotionValues.getActTag())
+                ActiveMotionValues.setLastPose(FieldConstantsRed.setActiveTagPose(ActiveMotionValues.getActTag())
                         .minus(FieldConstantsRed.AprilTagConstants.tagLookAheadPose));
 
 
                 if (ActiveMotionValues.getCenterPark())
 
-                    ActiveMotionValues.setParkPose(FieldConstantsRed.slideToCenterBBSideParkPose);
+                    ActiveMotionValues.setLastPose(FieldConstantsRed.slideToCenterBBSideParkPose);
 
                 else
 
-                    ActiveMotionValues.setParkPose(FieldConstantsRed.slideToNearBBSideParkPose);
+                    ActiveMotionValues.setLastPose(FieldConstantsRed.slideToNearBBSideParkPose);
 
 
                 break;
 
+            //******************************************************************************************
+            //******************************************************************************************
             case 2://center straight motion to midddle of center tape
 
 
-                ActiveMotionValues.setyOffset(-16);// adds to forward motion to control position where pixel is  dropped
+                ActiveMotionValues.setyOffset(0);// adds to forward motion to control position where pixel is  dropped
 
                 ActiveMotionValues.setxOffset(0);//can be used to offset x motion so pixel is place off the x center
 
@@ -112,14 +122,13 @@ public class SelectMotionValuesRed extends CommandBase {
                 ActiveMotionValues.setxPoint(1, FieldConstantsRed.XPYM.CenterTapeMid.getX());
 
                 ActiveMotionValues.setyPoint(1, FieldConstantsRed.XPYM.CenterTapeMid.getY()
-                        - Constants.RobotConstants.length / 2 - Constants.TapeConstants.tapeLength / 2 -
-                        ActiveMotionValues.getyOffset());
+                        - Constants.RobotConstants.pixelDropTranslation.getY()
+                       - ActiveMotionValues.getyOffset());
 
-                ActiveMotionValues.setxPoint(2, FieldConstantsRed.XPYM.CenterTapeMid.getX()
-                        + ActiveMotionValues.getxOffset());
+                ActiveMotionValues.setxPoint(2, FieldConstantsRed.XPYM.CenterTapeMid.getX());
 
-                ActiveMotionValues.setyPoint(2, FieldConstantsRed.XPYM.CenterTapeMid.getY() -
-                        Constants.TapeConstants.tapeLength / 2 - ActiveMotionValues.getyOffset()
+
+                ActiveMotionValues.setyPoint(2,ActiveMotionValues.getyPoint(1)
                         - ActiveMotionValues.getRetractDistance());
 
 
@@ -128,25 +137,26 @@ public class SelectMotionValuesRed extends CommandBase {
                 ActiveMotionValues.setActTag(5);
 
 
-                ActiveMotionValues.setTagLookAheadPose(FieldConstantsRed.setActiveTagPose(ActiveMotionValues.getActTag())
+                ActiveMotionValues.setLastPose(FieldConstantsRed.setActiveTagPose(ActiveMotionValues.getActTag())
                         .minus(FieldConstantsRed.AprilTagConstants.tagLookAheadPose));
 
 
                 if (ActiveMotionValues.getCenterPark())
 
-                    ActiveMotionValues.setParkPose(FieldConstantsRed.slideToCenterBBSideParkPose);
+                    ActiveMotionValues.setLastPose(FieldConstantsRed.slideToCenterBBSideParkPose);
 
                 else
 
-                    ActiveMotionValues.setParkPose(FieldConstantsRed.slideToNearBBSideParkPose);
+                    ActiveMotionValues.setLastPose(FieldConstantsRed.slideToNearBBSideParkPose);
 
 
                 break;
 
-
+            //******************************************************************************************
+            //******************************************************************************************
             case 3://right tape
 
-                ActiveMotionValues.setyOffset(-2);
+                ActiveMotionValues.setyOffset(0);
 
                 ActiveMotionValues.setxOffset(0);
 
@@ -159,10 +169,13 @@ public class SelectMotionValuesRed extends CommandBase {
                 ActiveMotionValues.setxPoint(1, FieldConstantsRed.XPYM.CenterTapeMid.getX());
 
                 ActiveMotionValues.setyPoint(1, FieldConstantsRed.XPYM.CenterTapeMid.getY()
-                        - Constants.RobotConstants.length / 2 - Constants.TapeConstants.tapeLength / 2
+                        - Constants.TapeConstants.tapeLength
+                        + Constants.TapeConstants.tapeWidth / 2
+                        - Constants.RobotConstants.pixelDropTranslation.getY()
                         - ActiveMotionValues.getyOffset());
 
                 ActiveMotionValues.setxPoint(2, FieldConstantsRed.XPYM.RightTapeMid.getX()
+                        + Constants.RobotConstants.pixelDropTranslation.getX()
                         + ActiveMotionValues.getxOffset());
 
                 ActiveMotionValues.setyPoint(2, ActiveMotionValues.getyPoint(1));
@@ -181,21 +194,23 @@ public class SelectMotionValuesRed extends CommandBase {
 
                 ActiveMotionValues.setActTag(6);
 
-                ActiveMotionValues.setTagLookAheadPose(FieldConstantsRed.setActiveTagPose(ActiveMotionValues.getActTag())
+                ActiveMotionValues.setLastPose(FieldConstantsRed.setActiveTagPose(ActiveMotionValues.getActTag())
                         .minus(FieldConstantsRed.AprilTagConstants.tagLookAheadPose));
 
                 if (ActiveMotionValues.getCenterPark())
 
-                    ActiveMotionValues.setParkPose(FieldConstantsRed.slideToCenterBBSideParkPose);
+                    ActiveMotionValues.setLastPose(FieldConstantsRed.slideToCenterBBSideParkPose);
 
                 else
 
-                    ActiveMotionValues.setParkPose(FieldConstantsRed.slideToNearBBSideParkPose);
+                    ActiveMotionValues.setLastPose(FieldConstantsRed.slideToNearBBSideParkPose);
 
 
                 break;
 
-            //RED
+            //******************************************************************************************
+            //******************************************************************************************
+
             case 11://left tape
 
 
@@ -213,10 +228,14 @@ public class SelectMotionValuesRed extends CommandBase {
 //move to tape in y
                 ActiveMotionValues.setxPoint(1, FieldConstantsRed.XMYM.CenterTapeMid.getX());
 
-                ActiveMotionValues.setyPoint(1, FieldConstantsRed.XMYM.CenterTapeMid.getY() - Constants.RobotConstants.length / 2 -
-                        Constants.TapeConstants.tapeLength / 2 - ActiveMotionValues.getyOffset());
+                ActiveMotionValues.setyPoint(1, FieldConstantsRed.XMYM.CenterTapeMid.getY()
+                        - Constants.TapeConstants.tapeLength
+                        - Constants.TapeConstants.tapeWidth / 2
+                        - Constants.RobotConstants.pixelDropTranslation.getY()
+                        - ActiveMotionValues.getyOffset());
 //move to tape in x
                 ActiveMotionValues.setxPoint(2, FieldConstantsRed.XMYM.LeftTapeMid.getX()
+                        - Constants.RobotConstants.pixelDropTranslation.getX()
                         + ActiveMotionValues.getxOffset());
 
                 ActiveMotionValues.setyPoint(2, ActiveMotionValues.getyPoint(1));
@@ -232,6 +251,9 @@ public class SelectMotionValuesRed extends CommandBase {
                 setCommonMotion();
 
                 break;
+
+            //******************************************************************************************
+            //******************************************************************************************
 
             case 12://center
 
@@ -270,13 +292,14 @@ public class SelectMotionValuesRed extends CommandBase {
 
                 break;
 
-
+            //******************************************************************************************
+            //******************************************************************************************
             case 13://right tape Red
 
 
                 //robot moves in Y
 
-                ActiveMotionValues.setyOffset(-6);
+                ActiveMotionValues.setyOffset(0);
 
                 ActiveMotionValues.setxOffset(0);
 
@@ -290,10 +313,14 @@ public class SelectMotionValuesRed extends CommandBase {
                 ActiveMotionValues.setxPoint(1, FieldConstantsRed.XMYM.CenterTapeMid.getX());
 
                 ActiveMotionValues.setyPoint(1, FieldConstantsRed.XMYM.RightTapeMid.getY()
-                        - Constants.RobotConstants.length / 2 - Constants.TapeConstants.tapeLength / 2
+                        - Constants.TapeConstants.tapeLength
+                        + Constants.TapeConstants.tapeWidth / 2
+                        - Constants.RobotConstants.pixelDropTranslation.getY()
                         - ActiveMotionValues.getyOffset());
 
-                ActiveMotionValues.setxPoint(2, FieldConstantsRed.XMYM.RightTapeMid.getX() + ActiveMotionValues.getxOffset());
+                ActiveMotionValues.setxPoint(2, FieldConstantsRed.XMYM.RightTapeMid.getX()
+                        - Constants.RobotConstants.pixelDropTranslation.getX()
+                        + ActiveMotionValues.getxOffset());
 
                 ActiveMotionValues.setyPoint(2, ActiveMotionValues.getyPoint(1));
 
@@ -316,12 +343,12 @@ public class SelectMotionValuesRed extends CommandBase {
         int lcr = ActiveMotionValues.getLcrpos() + 10;
         boolean centerTape = lcr == 12;
         boolean useStageDoor = ActiveMotionValues.getUseStageDoor();
-        boolean secondPixel = ActiveMotionValues.getSecondpixel();
+        boolean secondPixel = ActiveMotionValues.getSecondPixel();
 
         boolean useTruss = !useStageDoor;
 
         //if using the truss center tape has one less move than left or right
-        if (useTruss && !secondPixel) {
+        if (useTruss) {
 
             if (lcr == 12) {
 //write over earlier retract value point 3 so robot retracts in one motion
@@ -330,11 +357,11 @@ public class SelectMotionValuesRed extends CommandBase {
 
                 ActiveMotionValues.setyPoint(2, FieldConstantsRed.nearTrussLineUp.getY());
 
-                ActiveMotionValues.setxPoint(3, FieldConstantsRed.secondPixelClearNear.getX());
+                ActiveMotionValues.setxPoint(3, FieldConstantsRed.clearForSecondPixelTruss.getX());
 
-                ActiveMotionValues.setyPoint(3, FieldConstantsRed.secondPixelClearNear.getY());
+                ActiveMotionValues.setyPoint(3, FieldConstantsRed.clearForSecondPixelTruss.getY());
 
-                ActiveMotionValues.setParkPose(FieldConstantsRed.nearBBSideParkPose);
+                ActiveMotionValues.setLastPose(FieldConstantsRed.nearBBSideParkPose);
 
                 ActiveMotionValues.setPointsUsed(3);
 
@@ -345,11 +372,11 @@ public class SelectMotionValuesRed extends CommandBase {
 
                 ActiveMotionValues.setyPoint(4, FieldConstantsRed.nearTrussLineUp.getY());
 
-                ActiveMotionValues.setxPoint(5, FieldConstantsRed.secondPixelClearNear.getX());
+                ActiveMotionValues.setxPoint(5, FieldConstantsRed.clearForSecondPixelTruss.getX());
 
-                ActiveMotionValues.setyPoint(5, FieldConstantsRed.secondPixelClearNear.getY());
+                ActiveMotionValues.setyPoint(5, FieldConstantsRed.clearForSecondPixelTruss.getY());
 
-                ActiveMotionValues.setParkPose(FieldConstantsRed.nearBBSideParkPose);
+                ActiveMotionValues.setLastPose(FieldConstantsRed.nearBBSideParkPose);
 
                 ActiveMotionValues.setPointsUsed(5);
 
@@ -358,7 +385,7 @@ public class SelectMotionValuesRed extends CommandBase {
         }
 
 
-        if (useStageDoor && !secondPixel) {
+        if (useStageDoor) {
 
             if (lcr == 12) {
 //center tape moves across to right tape x center
@@ -366,7 +393,7 @@ public class SelectMotionValuesRed extends CommandBase {
 
                 ActiveMotionValues.setxPoint(3, FieldConstantsRed.XMYM.LeftTapeMid.getX());
 
-                ActiveMotionValues.setyPoint(3,ActiveMotionValues.getyPoint(2));
+                ActiveMotionValues.setyPoint(3, ActiveMotionValues.getyPoint(2));
 
                 ActiveMotionValues.setxPoint(4, FieldConstantsRed.stageDoorLineUpPose2.getX());
 
@@ -376,7 +403,7 @@ public class SelectMotionValuesRed extends CommandBase {
 
                 ActiveMotionValues.setyPoint(5, FieldConstantsRed.nearBBSDLineUp.getY());
 
-                ActiveMotionValues.setParkPose(FieldConstantsRed.centerBBSideParkPose);
+                ActiveMotionValues.setLastPose(FieldConstantsRed.centerBBSideParkPose);
 
                 ActiveMotionValues.setPointsUsed(5);
 
@@ -394,9 +421,20 @@ public class SelectMotionValuesRed extends CommandBase {
 
                 ActiveMotionValues.setyPoint(6, FieldConstantsRed.nearBBSDLineUp.getY());
 
-                ActiveMotionValues.setParkPose(FieldConstantsRed.centerBBSideParkPose);
+                ActiveMotionValues.setLastPose(FieldConstantsRed.centerBBSideParkPose);
 
                 ActiveMotionValues.setPointsUsed(6);
+            }
+
+            if (secondPixel) {
+
+                int tag = lcr - 10;
+
+                ActiveMotionValues.setActTag(tag);
+
+                ActiveMotionValues.setLastPose(FieldConstantsBlue.setActiveTagPose(ActiveMotionValues.getActTag())
+                        .minus(FieldConstantsBlue.AprilTagConstants.tagLookAheadPose));
+
             }
         }
 

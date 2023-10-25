@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Commands.Trajectories;
+package org.firstinspires.ftc.teamcode.Commands.Trajectories.Truss;
 
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.arcrobotics.ftclib.command.CommandBase;
@@ -10,13 +10,13 @@ import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
 
-public class RunSDLRTraj extends CommandBase {
+public class RunTrussCenterTraj extends CommandBase {
     private Drive_Subsystem drive;
     private PixelHandlerSubsystem phss;
 
-    private TrajectorySequence stageDoorLeftRight;
+    private TrajectorySequence trussCenter;
 
-    public RunSDLRTraj(Drive_Subsystem drive, PixelHandlerSubsystem phss) {
+    public RunTrussCenterTraj(Drive_Subsystem drive, PixelHandlerSubsystem phss) {
         this.drive = drive;
         this.phss = phss;
     }
@@ -30,32 +30,28 @@ public class RunSDLRTraj extends CommandBase {
          * <p>
          * It has the pixel delivery after the first step
          */
-        stageDoorLeftRight = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
+        trussCenter = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
 
                 .lineTo(new Vector2d((ActiveMotionValues.getxPoint(1)),//drive to drop off poinr
 
                         ActiveMotionValues.getyPoint(1)))
 
+                .UNSTABLE_addTemporalMarkerOffset(.25,()-> phss.dropPixel())
+
+                .waitSeconds(2)//pixel drop off time\
 
                 .lineTo(new Vector2d((ActiveMotionValues.getxPoint(2)),//move left or right on to middle of tape
 
                         ActiveMotionValues.getyPoint(2)))
 
-                .UNSTABLE_addTemporalMarkerOffset(.25,()-> phss.dropPixel())
-
-                .waitSeconds(2)//pixel drop off time
-
                 .lineTo(new Vector2d((ActiveMotionValues.getxPoint(3)),//move left or right on to middle of tape
 
                         ActiveMotionValues.getyPoint(3)))
 
-                .lineTo(new Vector2d((ActiveMotionValues.getxPoint(4)),//move left or right on to middle of tape
+                .lineTo(new Vector2d(ActiveMotionValues.getLastPose().getX(),//move left or right on to middle of tape
 
-                        ActiveMotionValues.getyPoint(4)))
+                        ActiveMotionValues.getLastPose().getY()))
 
-                .lineTo(new Vector2d(ActiveMotionValues.getParkPose().getX(),//move left or right on to middle of tape
-
-                        ActiveMotionValues.getParkPose().getY()))
 
 
 
@@ -64,7 +60,7 @@ public class RunSDLRTraj extends CommandBase {
 
         drive.drive.setPoseEstimate(ActiveMotionValues.getStartPose());
 
-        drive.drive.followTrajectorySequence(stageDoorLeftRight);
+        drive.drive.followTrajectorySequence(trussCenter);
     }
 
     @Override
