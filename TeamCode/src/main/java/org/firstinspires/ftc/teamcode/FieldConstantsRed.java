@@ -84,9 +84,10 @@ public final class FieldConstantsRed {
         public static final double RightTapeAngle = Math.toRadians(0);//incremental  number
         public static final Pose2d StartPos = new Pose2d(12, -Constants.FieldConstants.length / 2
                 + Constants.RobotConstants.length / 2, Math.toRadians(-90));
-        public static double autoAdvance = 6;
-        public static final Pose2d advancePose = new Pose2d(12, -Constants.FieldConstants.length / 2
-                + autoAdvance + Constants.RobotConstants.length / 2, Math.toRadians(-90));
+        public static double autoAdvance = 12;
+        public static final Pose2d advancePose = new Pose2d(24, XPYM.StartPos.getY()
+                + autoAdvance, Math.toRadians(-90));
+
         public static final Pose2d RightTapeMid = new Pose2d(23.5, -30, Math.toRadians(RightTapeAngle));
         public static final Pose2d CenterTapeMid = new Pose2d(12, -24.5, Math.toRadians(CenterTapeAngle));
         public static final Pose2d LeftTapeMid = new Pose2d(0.5, -30, LeftTapeAngle);

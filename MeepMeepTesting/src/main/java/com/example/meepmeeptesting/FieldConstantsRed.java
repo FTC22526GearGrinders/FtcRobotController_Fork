@@ -36,7 +36,6 @@ public final class FieldConstantsRed {
     public static Pose2d centerBBSideParkPose = new Pose2d(50, -12, Math.toRadians(0));
 
 
-
     public static final class AprilTagConstants {
         public static int leftAtag = 0; //index into arrtay tags ar 1,2,3
 
@@ -85,11 +84,9 @@ public final class FieldConstantsRed {
         public static final double RightTapeAngle = Math.toRadians(0);//incremental  number
         public static final Pose2d StartPos = new Pose2d(12, -Constants.FieldConstants.length / 2
                 + Constants.RobotConstants.length / 2, Math.toRadians(-90));
-        public static double autoAdvanceY = 12;
-
-
-        public static final Pose2d advancePose = new Pose2d(12 , XPYM.StartPos.getY()
-                +autoAdvanceY , Math.toRadians(-90));
+        public static double autoAdvance = 12;
+        public static final Pose2d advancePose = new Pose2d(24, XPYM.StartPos.getY()
+                + autoAdvance, Math.toRadians(-90));
 
 
         public static final Pose2d RightTapeMid = new Pose2d(23.5, -30, Math.toRadians(RightTapeAngle));
@@ -114,8 +111,8 @@ public final class FieldConstantsRed {
 
         public static double autoAdvance = 12;
 
-        public static final Pose2d advancePose = new Pose2d(-36, -Constants.FieldConstants.length / 2
-                + autoAdvance + Constants.RobotConstants.length / 2, Math.toRadians(-90));
+        public static final Pose2d advancePose = new Pose2d(-48, FieldConstantsRed.XMYM.StartPos.getY()
+                + autoAdvance, Math.toRadians(-90));
 
         public static final Pose2d RightTapeMid = new Pose2d(-24.5, -30, Math.toRadians(LeftTapeAngle));
         public static final Pose2d CenterTapeMid = new Pose2d(-36, -24.5, Math.toRadians(CenterTapeAngle));

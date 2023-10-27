@@ -12,13 +12,13 @@ public class MeepMeepTesting {
 
     public static void main(String[] args) {
 
-        boolean truss = false;
+        boolean truss = true;
 
-        boolean redAlliance = false;
+        boolean redAlliance = true;
 
-        boolean bbstart =true;//aaset to false for start on stack side of truss
+        boolean bbstart = false;//aaset to false for start on stack side of truss
 
-        int lcr = 1;//left tape ==1, center tape = 2, right tape = 3 from robot view
+        int lcr = 3;//left tape ==1, center tape = 2, right tape = 3 from robot view
 
         if (lcr < 1 || lcr > 3) lcr = 2;
 
@@ -77,7 +77,7 @@ public class MeepMeepTesting {
                                     .strafeLeft(ActiveMotionValues.getStrafeDistance())
 
 
-                                  //  .lineToLinearHeading(ActiveMotionValues.getLastPose())
+                                    //  .lineToLinearHeading(ActiveMotionValues.getLastPose())
 
 
                                     .waitSeconds(1)
@@ -91,7 +91,7 @@ public class MeepMeepTesting {
             ShowField.showIt(meepMeep, myBot);
 
 
-        } else if ( !truss) {
+        } else if (!truss) {
 
             RoadRunnerBotEntity myBot = new DefaultBotBuilder(meepMeep)
 
@@ -106,15 +106,15 @@ public class MeepMeepTesting {
 
                                     .lineToLinearHeading(ActiveMotionValues.getDropOffPose())
 
+
                                     .waitSeconds(2)
 
                                     .forward(ActiveMotionValues.getRetractDistance())
 //
-//                                    .strafeLeft(ActiveMotionValues.getStrafeDistance())
+                                    .strafeLeft(ActiveMotionValues.getStrafeDistance())
 
 
-
-                                   // .lineToLinearHeading(ActiveMotionValues.getLastPose())
+                                    // .lineToLinearHeading(ActiveMotionValues.getLastPose())
 
 
                                     .waitSeconds(1)

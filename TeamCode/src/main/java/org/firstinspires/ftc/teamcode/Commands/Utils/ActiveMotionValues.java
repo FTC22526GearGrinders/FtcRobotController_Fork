@@ -20,6 +20,16 @@ public class ActiveMotionValues {
         return lastPose;
     }
 
+    public static double getStrafeDistance() {
+        return strafeDistance;
+    }
+
+    public static void setStrafeDistance(double dist) {
+        ActiveMotionValues.strafeDistance = dist;
+    }
+
+    private static double strafeDistance = 0;
+
     public static void setLastPose(Pose2d pose) {
         ActiveMotionValues.lastPose = pose;
     }
@@ -91,6 +101,40 @@ public class ActiveMotionValues {
     public static boolean getSecondPixel() {
         return secondPixel;
     }
+
+    private static Pose2d advancePose = new Pose2d();
+
+
+    public static void setAdvancePose(Pose2d pose) {
+        advancePose=pose;
+    }
+
+    public static Pose2d getAdvancePose(){
+        return advancePose;
+    }
+
+
+    public static Pose2d getRetractPose() {
+        return retractPose;
+    }
+
+    public static void setRetractPose(Pose2d pose) {
+        ActiveMotionValues.retractPose = pose;
+    }
+
+    private static Pose2d retractPose = new Pose2d();
+
+    public static Pose2d getDropOffPose() {
+        return dropOffPose;
+    }
+
+    public static void setDropOffPose(Pose2d pose) {
+        ActiveMotionValues.dropOffPose = pose;
+    }
+
+    private static Pose2d dropOffPose = new Pose2d();
+
+
 
 
     public static Pose2d getTagLookAheadPose() {

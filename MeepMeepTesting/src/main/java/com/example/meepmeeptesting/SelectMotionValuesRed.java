@@ -46,7 +46,7 @@ public class SelectMotionValuesRed {
 
                 ActiveMotionValues.setRetractDistance(3);
 
-                ActiveMotionValues.setStrafeDistance(12);
+                ActiveMotionValues.setStrafeDistance(11.5);
 
 
                 ActiveMotionValues.setStartPose(FieldConstantsRed.XPYM.StartPos);//start pose
@@ -144,7 +144,7 @@ public class SelectMotionValuesRed {
 
                 ActiveMotionValues.setRetractDistance(12);
 
-                ActiveMotionValues.setStrafeDistance(-1);
+                ActiveMotionValues.setStrafeDistance(-9.5);
 
 
                 ActiveMotionValues.setStartPose(FieldConstantsRed.XPYM.StartPos);//start pose
@@ -192,7 +192,7 @@ public class SelectMotionValuesRed {
                 ActiveMotionValues.setxOffset(0);
 
                 ActiveMotionValues.setRetractDistance(4);
-                ActiveMotionValues.setStrafeDistance(12);
+                ActiveMotionValues.setStrafeDistance(11.5);
 
 
                 ActiveMotionValues.setStartPose(FieldConstantsRed.XMYM.StartPos);//start pose
@@ -295,13 +295,14 @@ public class SelectMotionValuesRed {
 
                 ActiveMotionValues.setRetractDistance(3);
 
-                ActiveMotionValues.setStrafeDistance(-12);
+                ActiveMotionValues.setStrafeDistance(-11.5);
 
 
                 ActiveMotionValues.setStartPose(FieldConstantsRed.XMYM.StartPos);//start pose
 
 
                 ActiveMotionValues.setAdvancePose(FieldConstantsRed.XMYM.advancePose);
+
 
                 y = FieldConstantsRed.XMYM.RightTapeMid.getY()
                         - Constants.TapeConstants.tapeLength * 2 / 3
