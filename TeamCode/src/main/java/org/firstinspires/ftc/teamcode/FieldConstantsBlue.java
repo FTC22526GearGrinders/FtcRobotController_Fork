@@ -93,6 +93,7 @@ public final class FieldConstantsBlue {
         public static final Pose2d CenterTapeMid = new Pose2d(12, 24.5, Math.toRadians(CenterTapeAngle));
         public static final Pose2d RightTapeMid = new Pose2d(0.5, 30, RightTapeAngle);
 
+        public static Pose2d advancePose;
     }
 
 
@@ -110,6 +111,7 @@ public final class FieldConstantsBlue {
         public static final Pose2d RightTapeMid = new Pose2d(-47.5, 36, RightTapeAngle);
 
 
+        public static Pose2d advancePose;
     }
 
 

@@ -177,12 +177,7 @@ public class TestMotionData extends CommandOpMode {
 
         telemetry.addData("ParkPose", ActiveMotionValues.getLastPose().toString());
 
-        telemetry.addData("XYPointsUsed", ActiveMotionValues.getPointsUsed());
 
-        for (int n = 1; n <= ActiveMotionValues.getPointsUsed(); n++) {
-            Pose2d pose = new Pose2d(ActiveMotionValues.getxPoint(n), ActiveMotionValues.getyPoint(n));
-            telemetry.addData("Pose " + String.valueOf(n), pose.toString());
-        }
 
 
 //

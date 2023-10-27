@@ -70,7 +70,6 @@ public class ActiveMotionValues {
 
     private static Pose2d activeAprilTagPose = new Pose2d();
 
-    private static Pose2d neqrAprilTagPose = new Pose2d();
 
 
     private static Pose2d clearStageDoorPose;
@@ -88,41 +87,7 @@ public class ActiveMotionValues {
 //    }
 
 
-    private static double[] yPoints = new double[10];
-
-    private static double[] xPoints = new double[10];
-
-    private static int xyPointsUsed = 0;
-
-    public static int getPointsUsed() {
-        return xyPointsUsed;
-    }
-
-    public static void setPointsUsed(int n) {
-        xyPointsUsed = n;
-    }
-
-
-    public static int getPointsLength() {
-        return xPoints.length;
-    }
-
-    public static void setyPoint(int n, double val) {
-        yPoints[n] = val;
-    }
-
-    public static double getyPoint(int n) {
-        return yPoints[n];
-    }
-
-    public static void setxPoint(int n, double val) {
-        xPoints[n] = val;
-    }
-
-    public static double getxPoint(int n) {
-        return xPoints[n];
-    }
-
+//
     private static boolean secondPixel = false;
 
     public static void setSecondPixel(boolean secPixel) {

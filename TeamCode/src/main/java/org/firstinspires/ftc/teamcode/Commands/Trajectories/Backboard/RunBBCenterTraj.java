@@ -15,7 +15,7 @@ public class RunBBCenterTraj extends CommandBase {
 
     private TrajectorySequence backboardCenter;
 
-    private  int numberPoints;
+
 
     public RunBBCenterTraj(Drive_Subsystem drive, PixelHandlerSubsystem phss) {
         this.drive = drive;
@@ -25,7 +25,6 @@ public class RunBBCenterTraj extends CommandBase {
     @Override
     public void initialize() {
 
-        numberPoints=ActiveMotionValues.getPointsUsed();
 
 
         /**
