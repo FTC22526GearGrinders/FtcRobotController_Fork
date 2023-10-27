@@ -14,11 +14,11 @@ public class MeepMeepTesting {
 
         boolean truss = false;
 
-        boolean redAlliance = true;
+        boolean redAlliance = false;
 
-        boolean bbstart =false;//aaset to false for start on stack side of truss
+        boolean bbstart =true;//aaset to false for start on stack side of truss
 
-        int lcr = 2;//left tape ==1, center tape = 2, right tape = 3 from robot view
+        int lcr = 1;//left tape ==1, center tape = 2, right tape = 3 from robot view
 
         if (lcr < 1 || lcr > 3) lcr = 2;
 
