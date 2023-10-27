@@ -41,10 +41,10 @@ public final class Constants {
         public static final double length = 13.25;
         static final double height = 13;
         static final double width = 16;
-        // public static final Pose2d pixelDrop = new Pose2d(-4, -3);
+
         static final double camToCenterX = 6;
         static final double camToCenterY = 6;
-        public static Vector2d pixelDropTranslation = new Vector2d(-3, -4);
+        public static Vector2d pixelDropTranslation = new Vector2d(0, -RobotConstants.length / 2 +1);
 
 
     }
@@ -76,7 +76,6 @@ public final class Constants {
         public static final double WHEELBASE = 10.5;//front yo back
 
         public static final double TRACKWIDTH = 14.5;//acress width
-
 
 
         public static final double ENCODER_COUNTS_PER_WHEEL_REV = 537.7;//1:1 RATIO

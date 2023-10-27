@@ -1,8 +1,14 @@
 package org.firstinspires.ftc.teamcode.Commands.Utils;
 
+
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.arcrobotics.ftclib.command.CommandOpMode;
+import com.arcrobotics.ftclib.geometry.Pose2d;
+import com.arcrobotics.ftclib.geometry.Rotation2d;
+import com.arcrobotics.ftclib.geometry.Transform2d;
+import com.arcrobotics.ftclib.geometry.Translation2d;
 
+import org.firstinspires.ftc.teamcode.FieldConstantsRed;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
@@ -48,29 +54,47 @@ public class DetectAprilTags extends CommandBase {
                 tagsSeen = true;
                 if (detection.id == n) {
                     ActiveMotionValues.setPoseFromTag(detection.ftcPose);
+
+                Transform2d t2d   = new Transform2d(new Translation2d(detection.ftcPose.y, detection.ftcPose.x),
+                            new Rotation2d(Math.toRadians(detection.ftcPose.yaw)));
+
+                    Pose2d atag = new Pose2d(60.25,-35.42,new Rotation2d(0));
+
+                    Pose2d robotPose = atag.transformBy(t2d.inverse());
+                    myOpMode.telemetry.addData("Tag ID", detection.id);
+                    myOpMode.telemetry.addLine();
+                    myOpMode.telemetry.addData("TagPose", atag.toString());
+                    myOpMode.telemetry.addLine();
+                    myOpMode.telemetry.addData("CamTrans", t2d.toString());
+                    myOpMode.telemetry.addLine();
+                    myOpMode.telemetry.addData("RobPose", robotPose.toString());
+
+                    myOpMode.telemetry.update();
+
+
                 }
 
 
-                myOpMode.telemetry.addLine(String.format("\n==== (ID %d) %s", detection.id, detection.metadata.name));
-                myOpMode.telemetry.addLine(String.format("XYZ %6.1f %6.1f %6.1f  (inch)", detection.ftcPose.x, detection.ftcPose.y, detection.ftcPose.z));
-                myOpMode.telemetry.addLine(String.format("PRY %6.1f %6.1f %6.1f  (deg)", detection.ftcPose.pitch, detection.ftcPose.roll, detection.ftcPose.yaw));
-                myOpMode.telemetry.addLine(String.format("RBE %6.1f %6.1f %6.1f  (inch, deg, deg)", detection.ftcPose.range, detection.ftcPose.bearing, detection.ftcPose.elevation));
+//                myOpMode.telemetry.addLine(String.format("\n==== (ID %d) %s", detection.id, detection.metadata.name));
+//                myOpMode.telemetry.addLine(String.format("XYZ %6.1f %6.1f %6.1f  (inch)", detection.ftcPose.x, detection.ftcPose.y, detection.ftcPose.z));
+//                myOpMode.telemetry.addLine(String.format("PRY %6.1f %6.1f %6.1f  (deg)", detection.ftcPose.pitch, detection.ftcPose.roll, detection.ftcPose.yaw));
+//                myOpMode.telemetry.addLine(String.format("RBE %6.1f %6.1f %6.1f  (inch, deg, deg)", detection.ftcPose.range, detection.ftcPose.bearing, detection.ftcPose.elevation));
             } else {
                 tagsSeen = false;
-                myOpMode.telemetry.addLine(String.format("\n==== (ID %d) Unknown", detection.id));
-                myOpMode.telemetry.addLine(String.format("Center %6.0f %6.0f   (pixels)", detection.center.x, detection.center.y));
+//                myOpMode.telemetry.addLine(String.format("\n==== (ID %d) Unknown", detection.id));
+//                myOpMode.telemetry.addLine(String.format("Center %6.0f %6.0f   (pixels)", detection.center.x, detection.center.y));
             }
 
             int numTagsseen = currentDetections.size();
 
 
-            myOpMode.telemetry.addLine("\nkey:\nXYZ = X (Right), Y (Forward), Z (Up) dist.");
-            myOpMode.telemetry.addLine("PRY = Pitch, Roll & Yaw (XYZ Rotation)");
-            myOpMode.telemetry.addLine("RBE = Range, Bearing & Elevation");
+//            myOpMode.telemetry.addLine("\nkey:\nXYZ = X (Right), Y (Forward), Z (Up) dist.");
+//            myOpMode.telemetry.addLine("PRY = Pitch, Roll & Yaw (XYZ Rotation)");
+//            myOpMode.telemetry.addLine("RBE = Range, Bearing & Elevation");
 
 
         }
-        myOpMode.telemetry.update();
+        //  myOpMode.telemetry.update();
     }
 
     @Override

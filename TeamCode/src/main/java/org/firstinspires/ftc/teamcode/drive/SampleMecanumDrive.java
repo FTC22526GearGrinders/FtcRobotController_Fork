@@ -390,14 +390,14 @@ public class SampleMecanumDrive extends MecanumDrive {
 
     public void showTelemetry(Telemetry telemetry) {
 
+        telemetry.addData("Current Pose", getPoseEstimate().toString());
+
         telemetry.addData("FrontLeftPosn", encoderTicksToInches(leftFront.getCurrentPosition()));
         telemetry.addData("FrontLeftTicks", leftFront.getCurrentPosition());
 
         telemetry.addData("FrontRightPosn", encoderTicksToInches(rightFront.getCurrentPosition()));
         telemetry.addData("BackLeftPosn", encoderTicksToInches(leftRear.getCurrentPosition()));
         telemetry.addData("BackRightPosn", encoderTicksToInches(rightRear.getCurrentPosition()));
-
-
         telemetry.addData("FrontLeftVel", leftFront.getVelocity());
 
         telemetry.addData("Gyro Heading", Math.toDegrees(getExternalHeading()));

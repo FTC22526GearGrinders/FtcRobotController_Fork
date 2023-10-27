@@ -11,6 +11,19 @@ public class ActiveMotionValues {
 
     private static Pose2d parkPose = new Pose2d();
 
+    private static Pose2d advancePose = new Pose2d();
+
+    public static Pose2d getDropOffPose() {
+        return dropOffPose;
+    }
+
+    public static void setDropOffPose(Pose2d pose) {
+        ActiveMotionValues.dropOffPose = pose;
+    }
+
+    private static Pose2d dropOffPose = new Pose2d();
+
+
     public static Pose2d getLastPose() {
         return lastPose;
     }
@@ -21,7 +34,15 @@ public class ActiveMotionValues {
 
     private static Pose2d lastPose = new Pose2d();
 
+    public static Pose2d getRetractPose() {
+        return retractPose;
+    }
 
+    public static void setRetractPose(Pose2d pose) {
+        ActiveMotionValues.retractPose = pose;
+    }
+
+    private static Pose2d retractPose = new Pose2d();
     private static Pose2d activeAprilTagPose = new Pose2d();
 
     private static Pose2d neqrAprilTagPose = new Pose2d();
@@ -37,9 +58,13 @@ public class ActiveMotionValues {
         startPose = pose;
     }
 
-//    public static Pose2d getFinalPose() {
-//        return finalPose;
-//    }
+    public static void setAdvancePose(Pose2d pose) {
+        advancePose=pose;
+    }
+
+    public static Pose2d getAdvancePose(){
+        return advancePose;
+    }
 
 
     private static double[] yPoints = new double[10];
@@ -183,6 +208,15 @@ public class ActiveMotionValues {
     private static double xOffset;
     private static double retractDistance = 0;
 
+    public static double getStrafeDistance() {
+        return strafeDistance;
+    }
+
+    public static void setStrafeDistance(double dist) {
+        ActiveMotionValues.strafeDistance = dist;
+    }
+
+    private static double strafeDistance = 0;
 
     //auto running
     private static boolean redAlliance;

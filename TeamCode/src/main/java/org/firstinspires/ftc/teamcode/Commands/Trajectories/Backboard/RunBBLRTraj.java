@@ -33,10 +33,9 @@ public class RunBBLRTraj extends CommandBase {
          */
         backboardLeftRight = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
 
-                .lineTo(new Vector2d((ActiveMotionValues.getxPoint(1)),//drive to drop off poinr
+                .lineTo(new Vector2d(ActiveMotionValues.getxPoint(1),
 
                         ActiveMotionValues.getyPoint(1)))
-
 
                 .lineTo(new Vector2d((ActiveMotionValues.getxPoint(2)),//move left or right on to middle of tape
 

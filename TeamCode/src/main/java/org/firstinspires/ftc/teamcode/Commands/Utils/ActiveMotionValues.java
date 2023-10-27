@@ -12,6 +12,8 @@ public class ActiveMotionValues {
     private static AprilTagPoseFtc currentTagPose =
             new AprilTagPoseFtc(0, 0, 0, 0, 0, 0, 0, 0, 0);
 
+    public static Pose2d curretTagPose2d= new Pose2d();
+
     private static Pose2d parkPose = new Pose2d();
 
     public static Pose2d getLastPose() {

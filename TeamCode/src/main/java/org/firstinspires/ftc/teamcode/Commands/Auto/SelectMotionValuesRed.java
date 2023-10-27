@@ -5,7 +5,6 @@ import com.arcrobotics.ftclib.command.CommandBase;
 
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Constants;
-import org.firstinspires.ftc.teamcode.FieldConstantsBlue;
 import org.firstinspires.ftc.teamcode.FieldConstantsRed;
 
 public class SelectMotionValuesRed extends CommandBase {
@@ -58,32 +57,27 @@ public class SelectMotionValuesRed extends CommandBase {
 
                 ActiveMotionValues.setStartPose(FieldConstantsRed.XPYM.StartPos);//start pose
 
+                ActiveMotionValues.setxPoint(1, FieldConstantsRed.XPYM.advancePose.getX());
 
-                ActiveMotionValues.setxPoint(1, FieldConstantsRed.XPYM.CenterTapeMid.getX());
-
-                ActiveMotionValues.setyPoint(1, FieldConstantsRed.XPYM.CenterTapeMid.getY()
-                        - Constants.TapeConstants.tapeLength
-                        + Constants.TapeConstants.tapeWidth / 2
-                        - Constants.RobotConstants.pixelDropTranslation.getY()
-                        - ActiveMotionValues.getyOffset());
+                ActiveMotionValues.setyPoint(1, FieldConstantsRed.XPYM.advancePose.getY());
 
                 ActiveMotionValues.setxPoint(2, FieldConstantsRed.XPYM.LeftTapeMid.getX()
                         + Constants.RobotConstants.pixelDropTranslation.getX()
                         + ActiveMotionValues.getxOffset());
 
-                ActiveMotionValues.setyPoint(2, ActiveMotionValues.getyPoint(1));
+                ActiveMotionValues.setyPoint(2, FieldConstantsRed.XPYM.CenterTapeMid.getY()
+                        - Constants.TapeConstants.tapeLength / 2
+                        + Constants.TapeConstants.tapeWidth / 2
+                        - Constants.RobotConstants.pixelDropTranslation.getY()
+                        + ActiveMotionValues.getyOffset());
 
-                ActiveMotionValues.setxPoint(3, ActiveMotionValues.getStartPose().getX());
 
-                ActiveMotionValues.setyPoint(3, ActiveMotionValues.getyPoint(1));
+                ActiveMotionValues.setxPoint(3, ActiveMotionValues.getxPoint(2));
+
+                ActiveMotionValues.setyPoint(3, ActiveMotionValues.getyPoint(2));
 
 
-                ActiveMotionValues.setxPoint(4, ActiveMotionValues.getStartPose().getX());
-
-                ActiveMotionValues.setyPoint(4, ActiveMotionValues.getyPoint(2)
-                        - ActiveMotionValues.getRetractDistance());
-
-                ActiveMotionValues.setPointsUsed(4);
+                ActiveMotionValues.setPointsUsed(3);
 
                 ActiveMotionValues.setActTag(4);
 
@@ -123,12 +117,12 @@ public class SelectMotionValuesRed extends CommandBase {
 
                 ActiveMotionValues.setyPoint(1, FieldConstantsRed.XPYM.CenterTapeMid.getY()
                         - Constants.RobotConstants.pixelDropTranslation.getY()
-                       - ActiveMotionValues.getyOffset());
+                        - ActiveMotionValues.getyOffset());
 
                 ActiveMotionValues.setxPoint(2, FieldConstantsRed.XPYM.CenterTapeMid.getX());
 
 
-                ActiveMotionValues.setyPoint(2,ActiveMotionValues.getyPoint(1)
+                ActiveMotionValues.setyPoint(2, ActiveMotionValues.getyPoint(1)
                         - ActiveMotionValues.getRetractDistance());
 
 

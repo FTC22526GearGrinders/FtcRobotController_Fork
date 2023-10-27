@@ -6,16 +6,14 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 public final class FieldConstantsRed {
 
 
-
-
     public static Pose2d wingPose = new Pose2d(-60, 60, Math.toRadians(0));
 
-    public static Pose2d farBackstagePark = new Pose2d(60,-12,Math.toRadians(90));// 'near' to drivers
+    public static Pose2d farBackstagePark = new Pose2d(60, -12, Math.toRadians(90));// 'near' to drivers
 
-    public static Pose2d nearBackstagePark = new Pose2d(60,-60,Math.toRadians(0));
+    public static Pose2d nearBackstagePark = new Pose2d(60, -60, Math.toRadians(0));
 
-    public static Pose2d clearForSecondPixelTruss = new Pose2d(24,-60);
-    public static Pose2d clearForSecondPixelSD = new Pose2d(24,12);
+    public static Pose2d clearForSecondPixelTruss = new Pose2d(24, -60);
+    public static Pose2d clearForSecondPixelSD = new Pose2d(24, 12);
 
 
     public static Pose2d slideToNearBBSideParkPose = new Pose2d(50, -60, Math.toRadians(0));
@@ -35,7 +33,8 @@ public final class FieldConstantsRed {
 
     public static Pose2d nearTrussLineUp = new Pose2d(-36, -60, Math.toRadians(0));
 
-    public static Pose2d centerBBSideParkPose=new Pose2d(50, -12, Math.toRadians(0));
+    public static Pose2d centerBBSideParkPose = new Pose2d(50, -12, Math.toRadians(0));
+
 
 
     public static final class AprilTagConstants {
@@ -48,7 +47,7 @@ public final class FieldConstantsRed {
         static final double atagAngle = 0;
 
 
-        public static final Pose2d tagLookAheadPose = new Pose2d(14, 0,Math.toRadians(0));
+        public static final Pose2d tagLookAheadPose = new Pose2d(14, 0, Math.toRadians(180));
 
 
         // tages 4,5 6
@@ -84,7 +83,15 @@ public final class FieldConstantsRed {
         public static final double LeftTapeAngle = Math.toRadians(0);//incremental  number
         static final double CenterTapeAngle = Math.toRadians(90);//incremental  number
         public static final double RightTapeAngle = Math.toRadians(0);//incremental  number
-        public static final Pose2d StartPos = new Pose2d(12, -Constants.FieldConstants.length/2 + Constants.RobotConstants.length/2, Math.toRadians(90));
+        public static final Pose2d StartPos = new Pose2d(12, -Constants.FieldConstants.length / 2
+                + Constants.RobotConstants.length / 2, Math.toRadians(-90));
+        public static double autoAdvanceY = 12;
+
+
+        public static final Pose2d advancePose = new Pose2d(12 , XPYM.StartPos.getY()
+                +autoAdvanceY , Math.toRadians(-90));
+
+
         public static final Pose2d RightTapeMid = new Pose2d(23.5, -30, Math.toRadians(RightTapeAngle));
         public static final Pose2d CenterTapeMid = new Pose2d(12, -24.5, Math.toRadians(CenterTapeAngle));
         public static final Pose2d LeftTapeMid = new Pose2d(0.5, -30, LeftTapeAngle);
@@ -102,7 +109,14 @@ public final class FieldConstantsRed {
         static final double CenterTapeAngle = Math.toRadians(90);//incremental  number
         public static final double RightTapeAngle = Math.toRadians(90);//incremental  number
         public static final Pose2d StartPos = new Pose2d(-36, -(Constants.FieldConstants.length
-                - Constants.RobotConstants.length) / 2, Math.toRadians(90));
+                - Constants.RobotConstants.length) / 2, Math.toRadians(-90));
+
+
+        public static double autoAdvance = 12;
+
+        public static final Pose2d advancePose = new Pose2d(-36, -Constants.FieldConstants.length / 2
+                + autoAdvance + Constants.RobotConstants.length / 2, Math.toRadians(-90));
+
         public static final Pose2d RightTapeMid = new Pose2d(-24.5, -30, Math.toRadians(LeftTapeAngle));
         public static final Pose2d CenterTapeMid = new Pose2d(-36, -24.5, Math.toRadians(CenterTapeAngle));
         public static final Pose2d LeftTapeMid = new Pose2d(-47.5, -30, RightTapeAngle);

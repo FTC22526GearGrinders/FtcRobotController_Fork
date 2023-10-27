@@ -41,14 +41,14 @@ public final class Constants {
 
         static final double height = 13;
 
-        static final double width = 16;
+        public static final double width = 16;
 
         public static final double length = 13.25;
 
-       // public static final Pose2d pixelDrop = new Pose2d(-4, -3);
         static final double camToCenterX = 6;
         static final double camToCenterY = 6;
-        public static Vector2d pixelDropTranslation = new Vector2d(-3,-4);
+        public static Vector2d pixelDropTranslation = new Vector2d(0, -RobotConstants.length / 2 +1);
+
 
 
     }

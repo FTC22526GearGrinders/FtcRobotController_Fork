@@ -12,10 +12,11 @@ public class MeepMeepTesting {
 
     public static void main(String[] args) {
 
+        boolean truss = false;
 
         boolean redAlliance = true;
 
-        boolean bbstart = true;//aaset to false for start on stack side of truss
+        boolean bbstart =false;//aaset to false for start on stack side of truss
 
         int lcr = 2;//left tape ==1, center tape = 2, right tape = 3 from robot view
 
@@ -52,7 +53,7 @@ public class MeepMeepTesting {
 
         MeepMeep meepMeep = new MeepMeep(800);
 
-        if (bbstart) {
+        if (truss) {
 
             RoadRunnerBotEntity myBot = new DefaultBotBuilder(meepMeep)
 
@@ -66,20 +67,17 @@ public class MeepMeepTesting {
                             drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
 
 //
-                                    .lineTo(new Vector2d(ActiveMotionValues.getxPoint(1), ActiveMotionValues.getyPoint(1)))
-                                    .waitSeconds(2)
-                                    .lineTo(new Vector2d(ActiveMotionValues.getxPoint(2), ActiveMotionValues.getyPoint(2)))
+                                    .lineToLinearHeading(ActiveMotionValues.getAdvancePose())
+
+                                    .lineToLinearHeading(ActiveMotionValues.getDropOffPose())
 
 
+                                    .forward(ActiveMotionValues.getRetractDistance())
 
-//                                    .lineTo(new Vector2d(ActiveMotionValues.getxPoint(3), ActiveMotionValues.getyPoint(3) ))
-//
-//
-//                                    .lineTo(new Vector2d(ActiveMotionValues.getxPoint(4), ActiveMotionValues.getyPoint(4)))
+                                    .strafeLeft(ActiveMotionValues.getStrafeDistance())
 
-                                    //
 
-                                    .lineToLinearHeading(ActiveMotionValues.getLastPose())
+                                  //  .lineToLinearHeading(ActiveMotionValues.getLastPose())
 
 
                                     .waitSeconds(1)
@@ -92,6 +90,42 @@ public class MeepMeepTesting {
 
             ShowField.showIt(meepMeep, myBot);
 
+
+        } else if ( !truss) {
+
+            RoadRunnerBotEntity myBot = new DefaultBotBuilder(meepMeep)
+
+                    .setDimensions(Constants.RobotConstants.width, Constants.RobotConstants.length)
+
+                    // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
+                    .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
+
+                    .followTrajectorySequence(drive ->
+
+                            drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
+
+                                    .lineToLinearHeading(ActiveMotionValues.getDropOffPose())
+
+                                    .waitSeconds(2)
+
+                                    .forward(ActiveMotionValues.getRetractDistance())
+//
+//                                    .strafeLeft(ActiveMotionValues.getStrafeDistance())
+
+
+
+                                   // .lineToLinearHeading(ActiveMotionValues.getLastPose())
+
+
+                                    .waitSeconds(1)
+
+
+                                    .build());
+
+
+            myBot.getDrive().setPoseEstimate(startPose);
+
+            ShowField.showIt(meepMeep, myBot);
 
         } else {
 
