@@ -35,29 +35,18 @@ public class RunBBCenterTraj extends CommandBase {
          */
         backboardCenter = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
 
-                .lineTo(new Vector2d((ActiveMotionValues.getxPoint(1)),//drive to drop off poinr
+                .lineToLinearHeading(ActiveMotionValues.getDropOffPose())
 
-                        ActiveMotionValues.getyPoint(1)))
+                .forward(ActiveMotionValues.getRetractDistance())
 
-
-                .UNSTABLE_addTemporalMarkerOffset(.25,()-> phss.dropPixel())
-
-                .waitSeconds(2)//pixel drop off time
-
-                .lineTo(new Vector2d((ActiveMotionValues.getxPoint(2)),//move left or right on to middle of tape
-
-                        ActiveMotionValues.getyPoint(2)))
-
-                .lineTo(new Vector2d((ActiveMotionValues.getxPoint(3)),//move left or right on to middle of tape
-
-                        ActiveMotionValues.getyPoint(3)))
-
-
+                .strafeLeft(ActiveMotionValues.getStrafeDistance())
 
                 .lineToLinearHeading(ActiveMotionValues.getLastPose())
 
 
                 .build();
+
+
 
 
         drive.drive.setPoseEstimate(ActiveMotionValues.getStartPose());

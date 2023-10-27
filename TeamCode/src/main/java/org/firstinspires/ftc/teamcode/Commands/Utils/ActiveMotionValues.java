@@ -7,12 +7,43 @@ import org.firstinspires.ftc.vision.apriltag.AprilTagPoseFtc;
 public class ActiveMotionValues {
 
 
+    public static Pose2d getTrussLineUpPose() {
+        return trussLineUpPose;
+    }
+
+    public static void setTrussLineUpPose(Pose2d lineUpPose) {
+        ActiveMotionValues.trussLineUpPose = lineUpPose;
+    }
+
+    public static Pose2d getStrafePose() {
+        return strafePose;
+    }
+
+    public static void setStrafePose(Pose2d pose) {
+        strafePose = pose;
+    }
+
+    public static Pose2d getLookForAprilTagPose() {
+        return lookForAprilTagPose;
+    }
+
+    public static void setLookForAprilTagPose(Pose2d tagPose) {
+        ActiveMotionValues.lookForAprilTagPose = tagPose;
+    }
+
+    private static Pose2d trussLineUpPose;
+    private static Pose2d retractPose;
+
+    private static Pose2d strafePose;
+    private static Pose2d lookForAprilTagPose;
+
+
     private static Pose2d startPose = new Pose2d();
 
     private static AprilTagPoseFtc currentTagPose =
             new AprilTagPoseFtc(0, 0, 0, 0, 0, 0, 0, 0, 0);
 
-    public static Pose2d curretTagPose2d= new Pose2d();
+    public static Pose2d curretTagPose2d = new Pose2d();
 
     private static Pose2d parkPose = new Pose2d();
 
@@ -106,10 +137,10 @@ public class ActiveMotionValues {
 
 
     public static void setAdvancePose(Pose2d pose) {
-        advancePose=pose;
+        advancePose = pose;
     }
 
-    public static Pose2d getAdvancePose(){
+    public static Pose2d getAdvancePose() {
         return advancePose;
     }
 
@@ -122,8 +153,6 @@ public class ActiveMotionValues {
         ActiveMotionValues.retractPose = pose;
     }
 
-    private static Pose2d retractPose = new Pose2d();
-
     public static Pose2d getDropOffPose() {
         return dropOffPose;
     }
@@ -133,8 +162,6 @@ public class ActiveMotionValues {
     }
 
     private static Pose2d dropOffPose = new Pose2d();
-
-
 
 
     public static Pose2d getTagLookAheadPose() {
@@ -302,4 +329,6 @@ public class ActiveMotionValues {
     public static boolean getUseStageDoor() {
         return useStageDoor;
     }
+
+
 }

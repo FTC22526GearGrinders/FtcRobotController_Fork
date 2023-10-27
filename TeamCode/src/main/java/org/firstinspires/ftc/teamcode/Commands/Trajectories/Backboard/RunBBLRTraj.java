@@ -24,37 +24,57 @@ public class RunBBLRTraj extends CommandBase {
 
     @Override
     public void initialize() {
+        boolean trussSideTape = ActiveMotionValues.getRedAlliance() &&
 
-        numberPoints = ActiveMotionValues.getPointsUsed();
+                (ActiveMotionValues.getBBStart() && ActiveMotionValues.getLcrpos() == 1
+
+                        || !ActiveMotionValues.getBBStart() && ActiveMotionValues.getLcrpos() == 3);
         /**
          * Use th 5 step center for stage door selection
          * <p>
          * It has the pixel delivery after the first step
          */
-        backboardLeftRight = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
 
-                .lineTo(new Vector2d(ActiveMotionValues.getxPoint(1),
+        if(!trussSideTape) {
 
-                        ActiveMotionValues.getyPoint(1)))
+            backboardLeftRight = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
 
-                .lineTo(new Vector2d((ActiveMotionValues.getxPoint(2)),//move left or right on to middle of tape
+                    .lineToLinearHeading(ActiveMotionValues.getDropOffPose())
 
-                        ActiveMotionValues.getyPoint(2)))
+                    .waitSeconds(.5)
 
-                .UNSTABLE_addTemporalMarkerOffset(.25, () -> phss.dropPixel())
+                    .lineToLinearHeading(ActiveMotionValues.getRetractPose())
 
-                .waitSeconds(2)//pixel drop off time
-
-                .lineTo(new Vector2d((ActiveMotionValues.getxPoint(3)),//move left or right on to middle of tape
-
-                        ActiveMotionValues.getyPoint(3)))
+                    .lineToLinearHeading(ActiveMotionValues.getLastPose())
 
 
-                .lineToLinearHeading(ActiveMotionValues.getLastPose())
+                    .build();
+        }
+
+        else{
+
+            backboardLeftRight = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
+
+                    .lineToLinearHeading(ActiveMotionValues.getDropOffPose())
+
+                    .waitSeconds(.5)
+
+                    .lineToLinearHeading(ActiveMotionValues.getRetractPose())
+
+                    .lineToLinearHeading(ActiveMotionValues.getStrafePose())
+
+                    .lineToLinearHeading(ActiveMotionValues.getLastPose())
 
 
-                .build();
+                    .build();
 
+
+
+
+
+
+
+        }
 
         drive.drive.setPoseEstimate(ActiveMotionValues.getStartPose());
 

@@ -12,7 +12,7 @@ public final class FieldConstantsRed {
 
     public static Pose2d nearBackstagePark = new Pose2d(60, -60, Math.toRadians(0));
 
-    public static Pose2d clearForSecondPixelTruss = new Pose2d(24, -60);
+    public static Pose2d clearForSecondPixelTrussPose = new Pose2d(24, -60);
     public static Pose2d clearForSecondPixelSD = new Pose2d(24, 12);
 
 
@@ -29,9 +29,9 @@ public final class FieldConstantsRed {
 
     public static Pose2d stageDoorLineUpPose2 = new Pose2d(-48, -12, Math.toRadians(90));
 
-    public static Pose2d nearBBSDLineUp = new Pose2d(12, -12, Math.toRadians(0));
+    public static Pose2d nearBBSDLineUpPose = new Pose2d(12, -12, Math.toRadians(0));
 
-    public static Pose2d nearTrussLineUp = new Pose2d(-36, -60, Math.toRadians(0));
+    public static Pose2d nearTrussLineUpPose = new Pose2d(-36, -60, Math.toRadians(0));
 
     public static Pose2d centerBBSideParkPose = new Pose2d(50, -12, Math.toRadians(0));
 
