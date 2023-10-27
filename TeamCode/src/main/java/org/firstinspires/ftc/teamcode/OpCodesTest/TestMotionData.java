@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.OpCodesTest;
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
-import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
@@ -92,8 +91,6 @@ public class TestMotionData extends CommandOpMode {
                 }
 
 
-
-
             }
 
             boolean xReleased = !currentX;
@@ -157,31 +154,32 @@ public class TestMotionData extends CommandOpMode {
         telemetry.addLine();
         telemetry.addData("RedAlliance", ActiveMotionValues.getRedAlliance());
         telemetry.addData("BB Start", ActiveMotionValues.getBBStart());
-        telemetry.addData("LCR", ActiveMotionValues.getLcrpos());
         telemetry.addData("CenterPark", ActiveMotionValues.getCenterPark());
-        if (!ActiveMotionValues.getBBStart()) {
+        telemetry.addData("LCR", ActiveMotionValues.getLcrpos());
+
+
             telemetry.addData("Use SD", ActiveMotionValues.getUseStageDoor());
             telemetry.addData("SecondPixel", ActiveMotionValues.getSecondPixel());
-        }
+
+            telemetry.addLine();
+
 
         telemetry.addData("StartPose", ActiveMotionValues.getStartPose().toString());
+        telemetry.addData("DropOffPose", ActiveMotionValues.getDropOffPose().toString());
+        telemetry.addData("RetractPose", ActiveMotionValues.getRetractPose().toString());
+        telemetry.addLine();
+        telemetry.addData("StrafePose", ActiveMotionValues.getStrafePose().toString());
+        telemetry.addData("AdvancePose", ActiveMotionValues.getAdvancePose().toString());
+        telemetry.addLine();
+        telemetry.addData("TrussPose", ActiveMotionValues.getTrussLineUpPose().toString());
+        telemetry.addData("Atag", ActiveMotionValues.getActTag());
 
-        if (ActiveMotionValues.getBBStart() || ActiveMotionValues.getSecondPixel()) {
-            telemetry.addData("TagLAPose", ActiveMotionValues.getLastPose().toString());
-            telemetry.addData("Atag", ActiveMotionValues.getActTag());
-        }
-
-        telemetry.addData("RetctDist", ActiveMotionValues.getRetractDistance());
         telemetry.addData("XOffset", ActiveMotionValues.getxOffset());
         telemetry.addData("YOffset", ActiveMotionValues.getyOffset());
 
         telemetry.addData("ParkPose", ActiveMotionValues.getLastPose().toString());
 
 
-
-
-//
-//
         telemetry.update();
 
         CommandScheduler.getInstance().run();
