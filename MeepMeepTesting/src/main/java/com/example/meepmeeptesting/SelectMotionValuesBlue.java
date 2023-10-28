@@ -351,13 +351,13 @@ public class SelectMotionValuesBlue{
             if (lcr == 12) {
 //write over earlier retract value point 3 so robot retracts in one motion
 
-                ActiveMotionValues.setxPoint(2, FieldConstantsRed.nearTrussLineUp.getX());
+                ActiveMotionValues.setxPoint(2, FieldConstantsRed.nearTrussLineUpPose.getX());
 
-                ActiveMotionValues.setyPoint(2, FieldConstantsRed.nearTrussLineUp.getY());
+                ActiveMotionValues.setyPoint(2, FieldConstantsRed.nearTrussLineUpPose.getY());
 
-                ActiveMotionValues.setxPoint(3, FieldConstantsRed.clearForSecondPixelTruss.getX());
+                ActiveMotionValues.setxPoint(3, FieldConstantsRed.clearForSecondPixelTrussPose.getX());
 
-                ActiveMotionValues.setyPoint(3, FieldConstantsRed.clearForSecondPixelTruss.getY());
+                ActiveMotionValues.setyPoint(3, FieldConstantsRed.clearForSecondPixelTrussPose.getY());
 
                 ActiveMotionValues.setLastPose(FieldConstantsRed.nearBBSideParkPose);
 
@@ -366,13 +366,13 @@ public class SelectMotionValuesBlue{
                 //write over earlier retract value point 4
             } else {
 
-                ActiveMotionValues.setxPoint(4, FieldConstantsRed.nearTrussLineUp.getX());
+                ActiveMotionValues.setxPoint(4, FieldConstantsRed.nearTrussLineUpPose.getX());
 
-                ActiveMotionValues.setyPoint(4, FieldConstantsRed.nearTrussLineUp.getY());
+                ActiveMotionValues.setyPoint(4, FieldConstantsRed.nearTrussLineUpPose.getY());
 
-                ActiveMotionValues.setxPoint(5, FieldConstantsRed.clearForSecondPixelTruss.getX());
+                ActiveMotionValues.setxPoint(5, FieldConstantsRed.clearForSecondPixelTrussPose.getX());
 
-                ActiveMotionValues.setyPoint(5, FieldConstantsRed.clearForSecondPixelTruss.getY());
+                ActiveMotionValues.setyPoint(5, FieldConstantsRed.clearForSecondPixelTrussPose.getY());
 
                 ActiveMotionValues.setLastPose(FieldConstantsRed.nearBBSideParkPose);
 
@@ -393,13 +393,7 @@ public class SelectMotionValuesBlue{
 
                 ActiveMotionValues.setyPoint(3, ActiveMotionValues.getyPoint(2));
 
-                ActiveMotionValues.setxPoint(4, FieldConstantsRed.stageDoorLineUpPose2.getX());
-
-                ActiveMotionValues.setyPoint(4, FieldConstantsRed.stageDoorLineUpPose2.getY());
-
-                ActiveMotionValues.setxPoint(5, FieldConstantsRed.nearBBSDLineUp.getX());
-
-                ActiveMotionValues.setyPoint(5, FieldConstantsRed.nearBBSDLineUp.getY());
+                ActiveMotionValues.setxPoint(4, FieldConstantsRed.stageDoorLineUpPose2.getY());
 
                 ActiveMotionValues.setLastPose(FieldConstantsRed.centerBBSideParkPose);
 
@@ -415,9 +409,9 @@ public class SelectMotionValuesBlue{
 
                 ActiveMotionValues.setyPoint(5, FieldConstantsRed.stageDoorLineUpPose13.getY());
 
-                ActiveMotionValues.setxPoint(6, FieldConstantsRed.nearBBSDLineUp.getX());
+                ActiveMotionValues.setxPoint(6, FieldConstantsRed.nearBBSDLineUpPose.getX());
 
-                ActiveMotionValues.setyPoint(6, FieldConstantsRed.nearBBSDLineUp.getY());
+                ActiveMotionValues.setyPoint(6, FieldConstantsRed.nearBBSDLineUpPose.getY());
 
                 ActiveMotionValues.setLastPose(FieldConstantsRed.centerBBSideParkPose);
 
