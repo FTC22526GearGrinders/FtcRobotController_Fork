@@ -1,11 +1,9 @@
 package org.firstinspires.ftc.teamcode.Commands.Auto;
 
 
-import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.arcrobotics.ftclib.command.CommandBase;
 
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
-import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.FieldConstantsRed;
 
 public class SelectMotionValuesRed extends CommandBase {
@@ -49,43 +47,20 @@ public class SelectMotionValuesRed extends CommandBase {
 
                 ActiveMotionValues.setxOffset(0);
 
-                ActiveMotionValues.setRetractDistance(3);
 
-                ActiveMotionValues.setStrafeDistance(11.5);
-
-                ActiveMotionValues.setStartPose(FieldConstantsRed.XPYM.StartPos);//start pose
+                ActiveMotionValues.setStartPose(FieldConstantsRed.XPYM.startPos);//start pose
 
 
                 ActiveMotionValues.setAdvancePose(FieldConstantsRed.XPYM.advancePose);
 
-                double y = FieldConstantsRed.XPYM.LeftTapeMid.getY()
-                        - Constants.TapeConstants.tapeLength * 2 / 3
-                        // + Constants.TapeConstants.tapeWidth / 2
-                        - Constants.RobotConstants.pixelDropTranslation.getY()
-                        - ActiveMotionValues.getyOffset();
+
+                ActiveMotionValues.setDropOffPose(FieldConstantsRed.XPYM.leftDropPose);
 
 
-                double x = FieldConstantsRed.XPYM.LeftTapeMid.getX()
-                        + Constants.RobotConstants.pixelDropTranslation.getX()
-                        + ActiveMotionValues.getxOffset();
+                ActiveMotionValues.setRetractPose(FieldConstantsRed.XPYM.leftRetractPose);
 
-                ActiveMotionValues.setDropOffPose(new Pose2d(x, y, Math.toRadians(-90)));
 
-                double tempy = 0;
-
-                tempy += ActiveMotionValues.getRetractDistance();
-
-                double tempX = ActiveMotionValues.getDropOffPose().getX();
-
-                ActiveMotionValues.setRetractPose(new Pose2d(tempX, tempy));
-
-                tempX = ActiveMotionValues.getRetractPose().getX();
-
-                tempX += ActiveMotionValues.getStrafeDistance();
-
-                tempy = ActiveMotionValues.getRetractPose().getY();
-
-                ActiveMotionValues.setStrafePose(new Pose2d(tempX, tempy));
+                ActiveMotionValues.setStrafePose(FieldConstantsRed.XPYM.lrStrafePose);
 
                 ActiveMotionValues.setActTag(4);
 
@@ -113,28 +88,17 @@ public class SelectMotionValuesRed extends CommandBase {
 
                 ActiveMotionValues.setxOffset(0);//can be used to offset x motion so pixel is place off the x center
 
-                ActiveMotionValues.setRetractDistance(24);// MUST MUST MOT BE ZERO!!!!!!!!!!!!!!! + value makes retract move more negative
 
 
                 //robot moves in Y
 
-                ActiveMotionValues.setStartPose(FieldConstantsRed.XPYM.StartPos);//start pose
+                ActiveMotionValues.setStartPose(FieldConstantsRed.XPYM.startPos);//start pose
 
 
-                x = FieldConstantsRed.XPYM.CenterTapeMid.getX();
+                ActiveMotionValues.setDropOffPose(FieldConstantsRed.XPYM.centerDropPose);
 
-                y = FieldConstantsRed.XPYM.CenterTapeMid.getY()
 
-                        + Constants.RobotConstants.pixelDropTranslation.getY()
-                        - ActiveMotionValues.getyOffset();
-
-                ActiveMotionValues.setDropOffPose(new Pose2d(x, y, Math.toRadians(-90)));
-
-                double x1 = x;
-
-                double y1 = y - ActiveMotionValues.getRetractDistance();
-
-                ActiveMotionValues.setRetractPose(new Pose2d(x1, y1, Math.toRadians(-90)));
+                ActiveMotionValues.setRetractPose(FieldConstantsRed.XPYM.centerRetractPose);
 
                 ActiveMotionValues.setActTag(5);
 
@@ -162,34 +126,14 @@ public class SelectMotionValuesRed extends CommandBase {
 
                 ActiveMotionValues.setxOffset(0);
 
-                ActiveMotionValues.setRetractDistance(12);
 
-                ActiveMotionValues.setStrafeDistance(-9.5);
-
-
-                ActiveMotionValues.setStartPose(FieldConstantsRed.XPYM.StartPos);//start pose
-
-                ActiveMotionValues.setAdvancePose(FieldConstantsRed.XPYM.advancePose);//start pose
+                ActiveMotionValues.setStartPose(FieldConstantsRed.XPYM.startPos);//start pose
 
 
-                x = FieldConstantsRed.XPYM.RightTapeMid.getX()
-                        + Constants.RobotConstants.pixelDropTranslation.getX()
-                        + ActiveMotionValues.getxOffset();
-
-                y = FieldConstantsRed.XPYM.RightTapeMid.getY() - Constants.TapeConstants.tapeLength / 2;
+                ActiveMotionValues.setDropOffPose(FieldConstantsRed.XPYM.rightDropPose);
 
 
-                ActiveMotionValues.setDropOffPose(new Pose2d(x, y, Math.toRadians(-90)));
-
-                tempy = 0;
-
-                tempy += ActiveMotionValues.getRetractDistance();
-
-                tempX = ActiveMotionValues.getDropOffPose().getX();
-
-                ActiveMotionValues.setRetractPose(new Pose2d(tempX, tempy));
-
-                tempX = ActiveMotionValues.getRetractPose().getX();
+                ActiveMotionValues.setRetractPose(FieldConstantsRed.XPYM.rightRetractPose);
 
 
                 ActiveMotionValues.setActTag(6);
@@ -218,36 +162,19 @@ public class SelectMotionValuesRed extends CommandBase {
 
                 ActiveMotionValues.setxOffset(0);
 
-                ActiveMotionValues.setRetractDistance(4);
+
+                ActiveMotionValues.setStartPose(FieldConstantsRed.XMYM.startPos);//start pose
 
 
-                ActiveMotionValues.setStartPose(FieldConstantsRed.XMYM.StartPos);//start pose
+                ActiveMotionValues.setDropOffPose(FieldConstantsRed.XMYM.leftDropPose);
 
+                ActiveMotionValues.setRetractPose(FieldConstantsRed.XMYM.leftRetractPose);
 
-                x = FieldConstantsRed.XMYM.LeftTapeMid.getX() + Constants.TapeConstants.tapeWidth / 2
-                        - Constants.RobotConstants.pixelDropTranslation.getX()
-                        + ActiveMotionValues.getxOffset();
-
-                y = FieldConstantsRed.XMYM.LeftTapeMid.getY()
-                        - Constants.TapeConstants.tapeLength - Constants.RobotConstants.pixelDropTranslation.getY();
-
-                ActiveMotionValues.setDropOffPose(new Pose2d(x, y, Math.toRadians(-90)));
-
-                tempy = ActiveMotionValues.getDropOffPose().getY();
-
-                tempy += ActiveMotionValues.getRetractDistance();
-
-                tempX = ActiveMotionValues.getDropOffPose().getX();
-
-                ActiveMotionValues.setRetractPose(new Pose2d(tempX, tempy));
+                ActiveMotionValues.setStrafePose(FieldConstantsRed.XMYM.lrStrafePose);
 
 
                 ActiveMotionValues.setActTag(4);
 
-
-//set up options depending on selections
-
-                // setCommonMotion();
 
                 break;
 
@@ -261,38 +188,18 @@ public class SelectMotionValuesRed extends CommandBase {
 
                 ActiveMotionValues.setxOffset(0);//can be used to offset x motion so pixel is place off the x center
 
-                ActiveMotionValues.setRetractDistance(24);// MUST MUST MOT BE ZERO!!!!!!!!!!!!!!! + value makes retract move more negative
 
-                ActiveMotionValues.setStrafeDistance(12);
-
-                //robot moves in Y
-
-                ActiveMotionValues.setStartPose(FieldConstantsRed.XMYM.StartPos);//start pose
+                ActiveMotionValues.setStartPose(FieldConstantsRed.XMYM.startPos);//start pose
 
 
-                x = FieldConstantsRed.XMYM.CenterTapeMid.getX();
+                ActiveMotionValues.setDropOffPose(FieldConstantsRed.XMYM.centerDropPose);
 
-                y = FieldConstantsRed.XMYM.CenterTapeMid.getY()
-                        + Constants.RobotConstants.pixelDropTranslation.getY()
-                        - ActiveMotionValues.getyOffset();
-
-                ActiveMotionValues.setDropOffPose(new Pose2d(x, y, Math.toRadians(-90)));
+                ActiveMotionValues.setRetractPose(FieldConstantsRed.XMYM.centerRetractPose);
 
 
                 ActiveMotionValues.setActTag(5);
 
 
-                ActiveMotionValues.setLastPose(FieldConstantsRed.setActiveTagPose(ActiveMotionValues.getActTag())
-                        .minus(FieldConstantsRed.AprilTagConstants.tagLookAheadPose));
-
-
-                if (ActiveMotionValues.getCenterPark())
-
-                    ActiveMotionValues.setParkPose(FieldConstantsRed.slideToCenterBBSideParkPose);
-
-                else
-
-                    ActiveMotionValues.setParkPose(FieldConstantsRed.slideToNearBBSideParkPose);
 
 
 //set up options depending on selections
@@ -313,57 +220,20 @@ public class SelectMotionValuesRed extends CommandBase {
 
                 ActiveMotionValues.setxOffset(0);
 
-                ActiveMotionValues.setRetractDistance(3);
 
-                ActiveMotionValues.setStrafeDistance(-11.5);
-
-
-                ActiveMotionValues.setStartPose(FieldConstantsRed.XMYM.StartPos);//start pose
+                ActiveMotionValues.setStartPose(FieldConstantsRed.XMYM.startPos);//start pose
 
 
                 ActiveMotionValues.setAdvancePose(FieldConstantsRed.XMYM.advancePose);
 
 
-                y = FieldConstantsRed.XMYM.RightTapeMid.getY()
-                        - Constants.TapeConstants.tapeLength * 2 / 3
-                        // + Constants.TapeConstants.tapeWidth / 2
-                        - Constants.RobotConstants.pixelDropTranslation.getY()
-                        - ActiveMotionValues.getyOffset();
+                ActiveMotionValues.setDropOffPose(FieldConstantsRed.XMYM.rightDropPose);
 
+                ActiveMotionValues.setRetractPose(FieldConstantsRed.XMYM.rightRetractPose);
 
-                x = FieldConstantsRed.XMYM.RightTapeMid.getX()
-                        + Constants.RobotConstants.pixelDropTranslation.getX()
-                        + ActiveMotionValues.getxOffset();
-
-                ActiveMotionValues.setDropOffPose(new Pose2d(x, y, Math.toRadians(-90)));
-
-                tempy = 0;
-
-                tempy += ActiveMotionValues.getRetractDistance();
-
-                tempX = ActiveMotionValues.getDropOffPose().getX();
-
-                ActiveMotionValues.setRetractPose(new Pose2d(tempX, tempy));
-
-                tempX = ActiveMotionValues.getRetractPose().getX();
-
-                tempX += ActiveMotionValues.getStrafeDistance();
-
-                tempy = ActiveMotionValues.getRetractPose().getY();
-
-                ActiveMotionValues.setStrafePose(new Pose2d(tempX, tempy));
-
+                ActiveMotionValues.setStrafePose(FieldConstantsRed.XMYM.lrStrafePose);
 
                 ActiveMotionValues.setActTag(6);
-
-
-                if (ActiveMotionValues.getCenterPark())
-
-                    ActiveMotionValues.setParkPose(FieldConstantsRed.slideToCenterBBSideParkPose);
-
-                else
-
-                    ActiveMotionValues.setParkPose(FieldConstantsRed.slideToNearBBSideParkPose);
 
 
                 break;

@@ -62,12 +62,12 @@ public class SelectMotionValuesBlue extends CommandBase {
                 double y = FieldConstantsBlue.XPYP.LeftTapeMid.getY()
                         - Constants.TapeConstants.tapeLength * 2 / 3
                         // + Constants.TapeConstants.tapeWidth / 2
-                        - Constants.RobotConstants.pixelDropTranslation.getY()
+                        - Constants.RobotConstants.pixelDropPose.getY()
                         - ActiveMotionValues.getyOffset();
 
 
                 double x = FieldConstantsBlue.XPYP.LeftTapeMid.getX()
-                        + Constants.RobotConstants.pixelDropTranslation.getX()
+                        + Constants.RobotConstants.pixelDropPose.getX()
                         + ActiveMotionValues.getxOffset();
 
                 ActiveMotionValues.setDropOffPose(new Pose2d(x, y, Math.toRadians(-90)));
@@ -126,7 +126,7 @@ public class SelectMotionValuesBlue extends CommandBase {
 
                 y = FieldConstantsBlue.XPYP.CenterTapeMid.getY()
 
-                        + Constants.RobotConstants.pixelDropTranslation.getY()
+                        + Constants.RobotConstants.pixelDropPose.getY()
                         - ActiveMotionValues.getyOffset();
 
                 ActiveMotionValues.setDropOffPose(new Pose2d(x, y, Math.toRadians(-90)));
@@ -174,7 +174,7 @@ public class SelectMotionValuesBlue extends CommandBase {
 
 
                 x = FieldConstantsBlue.XPYP.RightTapeMid.getX()
-                        + Constants.RobotConstants.pixelDropTranslation.getX()
+                        + Constants.RobotConstants.pixelDropPose.getX()
                         + ActiveMotionValues.getxOffset();
 
                 y = FieldConstantsBlue.XPYP.RightTapeMid.getY() - Constants.TapeConstants.tapeLength / 2;
@@ -226,11 +226,11 @@ public class SelectMotionValuesBlue extends CommandBase {
 
 
                 x = FieldConstantsBlue.XMYP.LeftTapeMid.getX() + Constants.TapeConstants.tapeWidth / 2
-                        - Constants.RobotConstants.pixelDropTranslation.getX()
+                        - Constants.RobotConstants.pixelDropPose.getX()
                         + ActiveMotionValues.getxOffset();
 
                 y = FieldConstantsBlue.XMYP.LeftTapeMid.getY()
-                        - Constants.TapeConstants.tapeLength - Constants.RobotConstants.pixelDropTranslation.getY();
+                        - Constants.TapeConstants.tapeLength - Constants.RobotConstants.pixelDropPose.getY();
 
                 ActiveMotionValues.setDropOffPose(new Pose2d(x, y, Math.toRadians(-90)));
 
@@ -274,7 +274,7 @@ public class SelectMotionValuesBlue extends CommandBase {
                 x = FieldConstantsBlue.XMYP.CenterTapeMid.getX();
 
                 y = FieldConstantsBlue.XMYP.CenterTapeMid.getY()
-                        + Constants.RobotConstants.pixelDropTranslation.getY()
+                        + Constants.RobotConstants.pixelDropPose.getY()
                         - ActiveMotionValues.getyOffset();
 
                 ActiveMotionValues.setDropOffPose(new Pose2d(x, y, Math.toRadians(-90)));
@@ -328,12 +328,12 @@ public class SelectMotionValuesBlue extends CommandBase {
                 y = FieldConstantsBlue.XMYP.RightTapeMid.getY()
                         - Constants.TapeConstants.tapeLength * 2 / 3
                         // + Constants.TapeConstants.tapeWidth / 2
-                        - Constants.RobotConstants.pixelDropTranslation.getY()
+                        - Constants.RobotConstants.pixelDropPose.getY()
                         - ActiveMotionValues.getyOffset();
 
 
                 x = FieldConstantsBlue.XMYP.RightTapeMid.getX()
-                        + Constants.RobotConstants.pixelDropTranslation.getX()
+                        + Constants.RobotConstants.pixelDropPose.getX()
                         + ActiveMotionValues.getxOffset();
 
                 ActiveMotionValues.setDropOffPose(new Pose2d(x, y, Math.toRadians(-90)));

@@ -8,6 +8,7 @@ import com.arcrobotics.ftclib.geometry.Rotation2d;
 import com.arcrobotics.ftclib.geometry.Transform2d;
 import com.arcrobotics.ftclib.geometry.Translation2d;
 
+import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.FieldConstantsRed;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
@@ -60,7 +61,8 @@ public class DetectAprilTags extends CommandBase {
 
                     Pose2d atag = new Pose2d(60.25,-35.42,new Rotation2d(0));
 
-                    Pose2d robotPose = atag.transformBy(t2d.inverse());
+                    Pose2d camToTargetPose = atag.transformBy(t2d.inverse());
+                    Pose2d robotPose = camToTargetPose.transformBy(Constants.RobotConstants.kCameraToRobot);
                     myOpMode.telemetry.addData("Tag ID", detection.id);
                     myOpMode.telemetry.addLine();
                     myOpMode.telemetry.addData("TagPose", atag.toString());

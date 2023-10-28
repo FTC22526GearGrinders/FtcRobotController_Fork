@@ -6,6 +6,7 @@ import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 
 import org.checkerframework.checker.units.qual.C;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
+import org.firstinspires.ftc.teamcode.Commands.Utils.DoNothing;
 
 public class SelectValues extends SequentialCommandGroup {
 
@@ -17,12 +18,12 @@ public class SelectValues extends SequentialCommandGroup {
         ActiveMotionValues.setLcrpos(lcr);
         boolean redAlliance = ActiveMotionValues.getRedAlliance();
 
-        addCommands(new SequentialCommandGroup(
+      addCommands(
 
+                new ConditionalCommand(new SelectMotionValuesRed()
 
-                new ConditionalCommand(
-
-                        new SelectMotionValuesRed(), new SelectMotionValuesBlue(), () -> redAlliance)));
+                       , new SelectMotionValuesRed(), () -> redAlliance),
+              new DoNothing());
 
     }
 

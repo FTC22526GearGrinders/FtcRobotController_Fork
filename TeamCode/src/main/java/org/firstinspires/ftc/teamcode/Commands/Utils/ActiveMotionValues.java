@@ -31,11 +31,11 @@ public class ActiveMotionValues {
         ActiveMotionValues.lookForAprilTagPose = tagPose;
     }
 
-    private static Pose2d trussLineUpPose;
-    private static Pose2d retractPose;
+    private static Pose2d trussLineUpPose = new Pose2d();
+    private static Pose2d retractPose = new Pose2d();
 
-    private static Pose2d strafePose;
-    private static Pose2d lookForAprilTagPose;
+    private static Pose2d strafePose = new Pose2d();
+    private static Pose2d lookForAprilTagPose = new Pose2d();
 
 
     private static Pose2d startPose = new Pose2d();
@@ -72,7 +72,7 @@ public class ActiveMotionValues {
 
 
 
-    private static Pose2d clearStageDoorPose;
+    private static Pose2d clearStageDoorPose = new Pose2d();;
 
     public static Pose2d getStartPose() {
         return startPose;
@@ -82,12 +82,8 @@ public class ActiveMotionValues {
         startPose = pose;
     }
 
-//    public static Pose2d getFinalPose() {
-//        return finalPose;
-//    }
 
 
-//
     private static boolean secondPixel = false;
 
     public static void setSecondPixel(boolean secPixel) {

@@ -5,10 +5,12 @@ import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
+import com.arcrobotics.ftclib.command.ConditionalCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
+import org.firstinspires.ftc.teamcode.Commands.Auto.SelectMotionValuesRed;
 import org.firstinspires.ftc.teamcode.Commands.Auto.SelectValues;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 
@@ -132,12 +134,15 @@ public class TestMotionData extends CommandOpMode {
 
         ActiveMotionValues.setUseStageDoor(useStageDoor);
         ActiveMotionValues.setCenterPark(centerPark);
+        ActiveMotionValues.setSecondPixel(secondPixel);
 
         waitForStart();
 
         new SequentialCommandGroup(
 
-                new SelectValues(),
+                new ConditionalCommand(new SelectMotionValuesRed()
+
+                        , new SelectMotionValuesRed(), () -> redAlliance),
 
                 new WaitCommand(60000)).schedule();
 
@@ -168,7 +173,8 @@ public class TestMotionData extends CommandOpMode {
         telemetry.addData("DropOffPose", ActiveMotionValues.getDropOffPose().toString());
         telemetry.addData("RetractPose", ActiveMotionValues.getRetractPose().toString());
         telemetry.addLine();
-        telemetry.addData("StrafePose", ActiveMotionValues.getStrafePose().toString());
+       telemetry.addData("StrafePose", ActiveMotionValues.getStrafePose().toString());
+
         telemetry.addData("AdvancePose", ActiveMotionValues.getAdvancePose().toString());
         telemetry.addLine();
         telemetry.addData("TrussPose", ActiveMotionValues.getTrussLineUpPose().toString());

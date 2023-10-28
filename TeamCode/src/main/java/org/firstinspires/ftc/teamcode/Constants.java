@@ -1,6 +1,9 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.arcrobotics.ftclib.geometry.Vector2d;
+import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.arcrobotics.ftclib.geometry.Rotation2d;
+import com.arcrobotics.ftclib.geometry.Transform2d;
+import com.arcrobotics.ftclib.geometry.Translation2d;
 
 public final class Constants {
 
@@ -44,9 +47,10 @@ public final class Constants {
 
         static final double camToCenterX = 6;
         static final double camToCenterY = 6;
-        public static Vector2d pixelDropTranslation = new Vector2d(0, -RobotConstants.length / 2 +1);
+        public static Pose2d pixelDropPose = new Pose2d(0, -RobotConstants.length / 2 + 1, 0);
 
 
+        public static Transform2d kCameraToRobot = new Transform2d(new Translation2d(4, RobotConstants.length / 2), new Rotation2d());
     }
 
     public static final class FieldConstants {
