@@ -31,7 +31,6 @@ package org.firstinspires.ftc.teamcode.OpModes_Auto;
  */
 
 
-import com.acmerobotics.dashboard.config.Config;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.ConditionalCommand;
@@ -42,11 +41,10 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.CV.SpikeTapePipelineBlue;
 import org.firstinspires.ftc.teamcode.CV.SpikeTapePipelineRed;
-import org.firstinspires.ftc.teamcode.Commands.Auto.DriveToAprilTagAuto;
 import org.firstinspires.ftc.teamcode.Commands.Auto.LookForTeamProp;
 import org.firstinspires.ftc.teamcode.Commands.Auto.MoveToPark;
 import org.firstinspires.ftc.teamcode.Commands.Auto.SelectAndRunTrajectory;
-import org.firstinspires.ftc.teamcode.Commands.Auto.SelectValues;
+import org.firstinspires.ftc.teamcode.Commands.Auto.SelectMotionValuesBlue;
 import org.firstinspires.ftc.teamcode.Commands.PixelHandler.PlacePixelOnBB;
 import org.firstinspires.ftc.teamcode.Commands.PixelHandler.PositionPHArm;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
@@ -58,7 +56,6 @@ import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvWebcam;
-
 
 
 @Autonomous(name = "Auto: Select-BLUE", group = "Auto")
@@ -147,14 +144,16 @@ public class AutoSelectAndRunBlue extends CommandOpMode {
 
             telemetry.addData("BB Start Selected A to Change", bbStart);
             telemetry.addLine();
-            telemetry.addData("Stage Door Selected Y to Change", useStageDoor);
-            telemetry.addLine();
-            telemetry.addData("Center Park Selected B to Change", centerPark);
-            telemetry.addLine();
-            telemetry.addData("Second Pixel Selected RB to Change", secondPixel);
-            telemetry.addLine();
-            telemetry.addData("Press Left Bumper To Continue", "");
 
+            if (!bbStart) {
+                telemetry.addData("Stage Door Selected Y to Change", useStageDoor);
+                telemetry.addLine();
+                telemetry.addData("Center Park Selected B to Change", centerPark);
+                telemetry.addLine();
+                telemetry.addData("Second Pixel Selected RB to Change", secondPixel);
+                telemetry.addLine();
+                telemetry.addData("Press Left Bumper To Continue", "");
+            }
 
             telemetry.update();
 
@@ -254,10 +253,6 @@ public class AutoSelectAndRunBlue extends CommandOpMode {
                     webcam.setPipeline(sptopB);
 
 
-                //if you are using dashboard, update dashboard camera view
-                //     FtcDashboard.getInstance().startCameraStream(webcam, 5);
-
-
             }
 
             @Override
@@ -273,7 +268,7 @@ public class AutoSelectAndRunBlue extends CommandOpMode {
 
                 new LookForTeamProp(this, webcam).withTimeout(8),
 
-                new SelectValues(),
+                new SelectMotionValuesBlue(),
 
                 new SelectAndRunTrajectory(drive, phss).withTimeout(10),
 
@@ -290,7 +285,7 @@ public class AutoSelectAndRunBlue extends CommandOpMode {
 
                                 new ParallelCommandGroup(
                                         new PositionPHArm(phss, .5, Constants.PixelHandlerConstants.armhaights.HOME.height),
-                                        new MoveToPark())),
+                                        new MoveToPark(drive))),
 
                         new DoNothing(), () -> ActiveMotionValues.getBBStart())).schedule();
 

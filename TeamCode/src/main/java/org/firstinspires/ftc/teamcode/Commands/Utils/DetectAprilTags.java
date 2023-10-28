@@ -1,12 +1,9 @@
 package org.firstinspires.ftc.teamcode.Commands.Utils;
 
 
+import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.arcrobotics.ftclib.command.CommandOpMode;
-import com.arcrobotics.ftclib.geometry.Pose2d;
-import com.arcrobotics.ftclib.geometry.Rotation2d;
-import com.arcrobotics.ftclib.geometry.Transform2d;
-import com.arcrobotics.ftclib.geometry.Translation2d;
 
 import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.FieldConstantsRed;
@@ -32,16 +29,17 @@ public class DetectAprilTags extends CommandBase {
 
     private int n;
     private boolean tagsSeen;
+    private Pose2d tagDistancePose;
+    private Pose2d finalPose;
 
-    public DetectAprilTags(CommandOpMode opMode, AprilTagProcessor aprilTag, int n) {
+    public DetectAprilTags(CommandOpMode opMode, AprilTagProcessor aprilTag) {
         myOpMode = opMode;
         this.aprilTag = aprilTag;
-        this.n = n;
     }
 
     @Override
     public void initialize() {
-
+        n = ActiveMotionValues.getActTag();
 //
     }
 
@@ -56,20 +54,38 @@ public class DetectAprilTags extends CommandBase {
                 if (detection.id == n) {
                     ActiveMotionValues.setPoseFromTag(detection.ftcPose);
 
-                Transform2d t2d   = new Transform2d(new Translation2d(detection.ftcPose.y, detection.ftcPose.x),
-                            new Rotation2d(Math.toRadians(detection.ftcPose.yaw)));
 
-                    Pose2d atag = new Pose2d(60.25,-35.42,new Rotation2d(0));
 
-                    Pose2d camToTargetPose = atag.transformBy(t2d.inverse());
-                    Pose2d robotPose = camToTargetPose.transformBy(Constants.RobotConstants.kCameraToRobot);
+                    Pose2d camPose = new Pose2d(detection.ftcPose.y, detection.ftcPose.x);
+
+                    Pose2d tagPose = FieldConstantsRed.getActiveTagPose(ActiveMotionValues.getActTag());
+
+                    Pose2d fieldCamPose = tagPose.minus(camPose);
+
+                    Pose2d robotPose = fieldCamPose.minus(Constants.RobotConstants.kCameraToRobot);
+
+                    ActiveMotionValues.setRobotPose(robotPose);
+
+
+                    tagDistancePose = new Pose2d(-6 - Constants.RobotConstants.length / 2, 0);
+
+                    finalPose = tagPose.plus(tagDistancePose);
+
+
                     myOpMode.telemetry.addData("Tag ID", detection.id);
                     myOpMode.telemetry.addLine();
-                    myOpMode.telemetry.addData("TagPose", atag.toString());
+                    myOpMode.telemetry.addData("CamPose", camPose.toString());
                     myOpMode.telemetry.addLine();
-                    myOpMode.telemetry.addData("CamTrans", t2d.toString());
+
+                    myOpMode.telemetry.addData("RobFieldPose", robotPose.toString());
+                    myOpMode.telemetry.addData("tagePose", tagPose.toString());
                     myOpMode.telemetry.addLine();
-                    myOpMode.telemetry.addData("RobPose", robotPose.toString());
+                    myOpMode.telemetry.addData("fieldCamPose", fieldCamPose.toString());
+                    myOpMode.telemetry.addLine();
+                    myOpMode.telemetry.addData("TagDistPose", tagDistancePose.toString());
+                    myOpMode.telemetry.addLine();
+                    myOpMode.telemetry.addData("FinalPose", finalPose.toString());
+                    myOpMode.telemetry.addLine();
 
                     myOpMode.telemetry.update();
 

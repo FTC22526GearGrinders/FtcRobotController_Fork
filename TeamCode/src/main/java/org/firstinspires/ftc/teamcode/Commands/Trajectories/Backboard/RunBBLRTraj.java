@@ -55,7 +55,11 @@ public class RunBBLRTraj extends CommandBase {
 
             backboardLeftRight = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
 
+                    .lineToLinearHeading(ActiveMotionValues.getAdvancePose())
+
                     .lineToLinearHeading(ActiveMotionValues.getDropOffPose())
+
+                    .UNSTABLE_addTemporalMarkerOffset(.5,()-> phss.dropPixel())
 
                     .waitSeconds(.5)
 

@@ -31,15 +31,15 @@ package org.firstinspires.ftc.teamcode.OpCodesTest;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
-
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
+import org.firstinspires.ftc.teamcode.Commands.Trajectories.Backboard.RunToAprilTag;
 import org.firstinspires.ftc.teamcode.Commands.Utils.DetectAprilTags;
-import org.firstinspires.ftc.teamcode.FieldConstantsRed;
+import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 import org.openftc.easyopencv.OpenCvWebcam;
@@ -51,43 +51,22 @@ import org.openftc.easyopencv.OpenCvWebcam;
  * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list.
  */
-@TeleOp(name = "Auto: Test AprilTag ", group = "Test")
+@TeleOp(name = "Auto: To April Tag ", group = "Test")
 //Disabled
-public class TestAprilTags extends CommandOpMode {
+public class ToAprilTag extends CommandOpMode {
 
-    private static final boolean USE_WEBCAM = true;  // true for webcam, false for phone camera
 
-    /**
-     * The variable to store our instance of the AprilTag processor.
-     */
-    private AprilTagProcessor aprilTag;
+  private Drive_Subsystem drive = null;
 
-    /**
-     * The variable to store our instance of the vision portal.
-     */
-    private VisionPortal visionPortal;
-
-    private FtcDashboard dashboard;
-    private OpenCvWebcam webcam;
-
+Telemetry telemetry;
     @Override
     public void initialize() {
 
-        dashboard = FtcDashboard.getInstance();
+      drive = new Drive_Subsystem(this);
 
-        telemetry = new MultipleTelemetry(telemetry, dashboard.getTelemetry());
+      waitForStart();
 
-        aprilTag = AprilTagProcessor.easyCreateWithDefaults();
-
-        visionPortal = VisionPortal.easyCreateWithDefaults(
-                hardwareMap.get(WebcamName.class, "Webcam 1"), aprilTag);
-
-
-        // Wait for the DS start button to be touched.
-        telemetry.addData("DS preview on/off", "3 dots, Camera Stream");
-        telemetry.update();
-
-        new DetectAprilTags(this, aprilTag).schedule();
+       new RunToAprilTag(drive,this).schedule();
 
     }
 

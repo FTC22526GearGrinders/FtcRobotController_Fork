@@ -64,7 +64,7 @@ public class SelectMotionValuesRed extends CommandBase {
 
                 ActiveMotionValues.setActTag(4);
 
-                ActiveMotionValues.setLastPose(FieldConstantsRed.setActiveTagPose(ActiveMotionValues.getActTag())
+                ActiveMotionValues.setLastPose(FieldConstantsRed.getActiveTagPose(ActiveMotionValues.getActTag())
                         .minus(FieldConstantsRed.AprilTagConstants.tagLookAheadPose));
 
 
@@ -89,7 +89,6 @@ public class SelectMotionValuesRed extends CommandBase {
                 ActiveMotionValues.setxOffset(0);//can be used to offset x motion so pixel is place off the x center
 
 
-
                 //robot moves in Y
 
                 ActiveMotionValues.setStartPose(FieldConstantsRed.XPYM.startPos);//start pose
@@ -103,7 +102,7 @@ public class SelectMotionValuesRed extends CommandBase {
                 ActiveMotionValues.setActTag(5);
 
 
-                ActiveMotionValues.setLastPose(FieldConstantsRed.setActiveTagPose(ActiveMotionValues.getActTag())
+                ActiveMotionValues.setLastPose(FieldConstantsRed.getActiveTagPose(ActiveMotionValues.getActTag())
                         .minus(FieldConstantsRed.AprilTagConstants.tagLookAheadPose));
 
 
@@ -138,7 +137,7 @@ public class SelectMotionValuesRed extends CommandBase {
 
                 ActiveMotionValues.setActTag(6);
 
-                ActiveMotionValues.setLastPose(FieldConstantsRed.setActiveTagPose(ActiveMotionValues.getActTag())
+                ActiveMotionValues.setLastPose(FieldConstantsRed.getActiveTagPose(ActiveMotionValues.getActTag())
                         .minus(FieldConstantsRed.AprilTagConstants.tagLookAheadPose));
 
                 if (ActiveMotionValues.getCenterPark())
@@ -198,8 +197,6 @@ public class SelectMotionValuesRed extends CommandBase {
 
 
                 ActiveMotionValues.setActTag(5);
-
-
 
 
 //set up options depending on selections

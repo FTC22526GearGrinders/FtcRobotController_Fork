@@ -45,12 +45,14 @@ public final class Constants {
         static final double height = 13;
         static final double width = 16;
 
+        public static final Pose2d robotPose = new Pose2d(length / 2, width / 2);
+
         static final double camToCenterX = 6;
         static final double camToCenterY = 6;
         public static Pose2d pixelDropPose = new Pose2d(0, -RobotConstants.length / 2 + 1, 0);
 
 
-        public static Transform2d kCameraToRobot = new Transform2d(new Translation2d(4, RobotConstants.length / 2), new Rotation2d());
+        public static Pose2d kCameraToRobot = new Pose2d(RobotConstants.length / 2,0, Math.toRadians(180));
     }
 
     public static final class FieldConstants {

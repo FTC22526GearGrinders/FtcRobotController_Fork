@@ -31,7 +31,6 @@ package org.firstinspires.ftc.teamcode.OpModes_Auto;
  */
 
 
-import com.acmerobotics.dashboard.config.Config;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.ConditionalCommand;
@@ -42,23 +41,25 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.CV.SpikeTapePipelineBlue;
 import org.firstinspires.ftc.teamcode.CV.SpikeTapePipelineRed;
-import org.firstinspires.ftc.teamcode.Commands.Auto.DriveToAprilTagAuto;
+import org.firstinspires.ftc.teamcode.Commands.Auto.DriveToAprilTag;
+import org.firstinspires.ftc.teamcode.Commands.Auto.GetRobotPoseFromAprilTag;
 import org.firstinspires.ftc.teamcode.Commands.Auto.LookForTeamProp;
 import org.firstinspires.ftc.teamcode.Commands.Auto.MoveToPark;
 import org.firstinspires.ftc.teamcode.Commands.Auto.SelectAndRunTrajectory;
-import org.firstinspires.ftc.teamcode.Commands.Auto.SelectValues;
+import org.firstinspires.ftc.teamcode.Commands.Auto.SelectMotionValuesRed;
 import org.firstinspires.ftc.teamcode.Commands.PixelHandler.PlacePixelOnBB;
 import org.firstinspires.ftc.teamcode.Commands.PixelHandler.PositionPHArm;
+import org.firstinspires.ftc.teamcode.Commands.Trajectories.Backboard.RunToAprilTag;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Commands.Utils.DoNothing;
 import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.PixelHandlerSubsystem;
+import org.firstinspires.ftc.teamcode.Subsystems.Vision_Subsystem;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvWebcam;
-
 
 
 @Autonomous(name = "Auto: Select-RED", group = "Auto")
@@ -68,6 +69,8 @@ public class AutoSelectAndRunRed extends CommandOpMode {
     private Drive_Subsystem drive;
 
     private OpenCvWebcam webcam;//
+
+    private Vision_Subsystem vss;
 
     private PixelHandlerSubsystem phss;
 
@@ -81,7 +84,7 @@ public class AutoSelectAndRunRed extends CommandOpMode {
 
     boolean useStageDoor = false;
 
-    boolean centerPark = false;
+    boolean centerPark = true;
 
     boolean secondPixel = false;
 
@@ -147,14 +150,17 @@ public class AutoSelectAndRunRed extends CommandOpMode {
 
             telemetry.addData("BB Start Selected A to Change", bbStart);
             telemetry.addLine();
-            telemetry.addData("Stage Door Selected Y to Change", useStageDoor);
-            telemetry.addLine();
-            telemetry.addData("Center Park Selected B to Change", centerPark);
-            telemetry.addLine();
-            telemetry.addData("Second Pixel Selected RB to Change", secondPixel);
-            telemetry.addLine();
-            telemetry.addData("Press Left Bumper To Continue", "");
 
+            if (!bbStart) {
+                telemetry.addData("Second Pixel Selected RB to Change", secondPixel);
+                telemetry.addLine();
+                telemetry.addData("Stage Door Selected Y to Change", useStageDoor);
+                telemetry.addLine();
+                telemetry.addData("Center Park Selected B to Change", centerPark);
+                telemetry.addLine();
+
+                telemetry.addData("Press Left Bumper To Continue", "");
+            }
 
             telemetry.update();
 
@@ -173,29 +179,34 @@ public class AutoSelectAndRunRed extends CommandOpMode {
 
         telemetry.addLine();
 
-        if (useStageDoor)
+        if (!bbStart) {
 
-            telemetry.addData("You Have Chosen Stage Door", "");
-        else
-            telemetry.addData("You Have Chosen Near Truss", "");
+            if (useStageDoor)
+
+                telemetry.addData("You Have Chosen Stage Door", "");
+            else
+                telemetry.addData("You Have Chosen Near Truss", "");
+
+            telemetry.addLine();
+
+            if (centerPark)
+
+                telemetry.addData("You Have Chosen Center Park", "");
+            else
+                telemetry.addData("You Have Chosen Near Park", "");
+
+            telemetry.addLine();
+
+            if (secondPixel)
+
+                telemetry.addData("You Have Chosen Second Pixel", "");
+            else
+                telemetry.addData("You Have Chosen One Pixel Only", "");
+
+        }
 
         telemetry.addLine();
 
-        if (centerPark)
-
-            telemetry.addData("You Have Chosen Center Park", "");
-        else
-            telemetry.addData("You Have Chosen Near Park", "");
-
-        telemetry.addLine();
-
-        if (secondPixel)
-
-            telemetry.addData("You Have Chosen Second Pixel", "");
-        else
-            telemetry.addData("You Have Chosen One Pixel Only", "");
-
-        telemetry.addLine();
 
         telemetry.addData("Reselect Opmode to Change", "");
         telemetry.addLine();
@@ -215,6 +226,8 @@ public class AutoSelectAndRunRed extends CommandOpMode {
         drive = new Drive_Subsystem(this);
 
         phss = new PixelHandlerSubsystem(this);
+
+        vss = new Vision_Subsystem(this);
 
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
 
@@ -274,7 +287,7 @@ public class AutoSelectAndRunRed extends CommandOpMode {
 
                 new LookForTeamProp(this, webcam).withTimeout(8),
 
-                new SelectValues(),
+                new SelectMotionValuesRed(),
 
                 new SelectAndRunTrajectory(drive, phss).withTimeout(10),
 
@@ -282,16 +295,26 @@ public class AutoSelectAndRunRed extends CommandOpMode {
 
                         new SequentialCommandGroup(
 
+                                new GetRobotPoseFromAprilTag(drive, vss),
+                                new DriveToAprilTag(drive)),
+
+                        new MoveToPark(drive), () -> bbStart || secondPixel),
+
+
+                new ConditionalCommand(
+
+                        new SequentialCommandGroup(
+
                                 new ParallelCommandGroup(
 
-                                     //   new DriveToAprilTagAuto(this, drive),
+                                        //   new DriveToAprilTagAuto(this, drive),
                                         new PositionPHArm(phss, .5, Constants.PixelHandlerConstants.armhaights.LOW.height)),
 
                                 new PlacePixelOnBB(phss),
 
                                 new ParallelCommandGroup(
                                         new PositionPHArm(phss, .5, Constants.PixelHandlerConstants.armhaights.HOME.height),
-                                        new MoveToPark())),
+                                        new MoveToPark(drive))),
 
                         new DoNothing(), () -> ActiveMotionValues.getBBStart())).schedule();
 

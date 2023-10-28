@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Commands.Auto;
 import com.arcrobotics.ftclib.command.CommandBase;
 
 import org.firstinspires.ftc.teamcode.Commands.Trajectories.Backboard.RunBBCenterTraj;
+import org.firstinspires.ftc.teamcode.Commands.Trajectories.Backboard.RunBBLRTraj;
 import org.firstinspires.ftc.teamcode.Commands.Trajectories.Truss.RunTrussCenterTapeAllOptions;
 import org.firstinspires.ftc.teamcode.Commands.Trajectories.Truss.RunTrussLRTapeAllOptions;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
@@ -43,7 +44,7 @@ public class SelectAndRunTrajectory extends CommandBase {
 
             if (lcr == 1 || lcr == 3)
 
-                new RunBBCenterTraj(drive, phss).schedule();
+                new RunBBLRTraj(drive, phss).schedule();
 
 
         }

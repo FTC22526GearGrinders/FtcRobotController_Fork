@@ -6,6 +6,16 @@ import org.firstinspires.ftc.vision.apriltag.AprilTagPoseFtc;
 
 public class ActiveMotionValues {
 
+    public static Pose2d getRobotPose() {
+        return robotPose;
+    }
+
+    public static void setRobotPose(Pose2d pose) {
+        robotPose = pose;
+    }
+
+    private static Pose2d robotPose=new Pose2d();
+
 
     public static Pose2d getTrussLineUpPose() {
         return trussLineUpPose;
@@ -229,7 +239,7 @@ public class ActiveMotionValues {
 
     private static int lcrpos = 2;
 
-    private static int actTag = 1;
+    private static int actTag = 5;
 
 
     private ActiveMotionValues() {
