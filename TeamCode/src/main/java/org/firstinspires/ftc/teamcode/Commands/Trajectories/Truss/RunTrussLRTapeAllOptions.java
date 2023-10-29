@@ -47,7 +47,7 @@ public class RunTrussLRTapeAllOptions extends CommandBase {
 
                     .lineToLinearHeading(ActiveMotionValues.getRetractPose())
 
-                    .lineToLinearHeading(ActiveMotionValues.getTrussLineUpPose())
+                    .lineToLinearHeading(ActiveMotionValues.getTrussSDLineUpPose())
 
                     .lineToLinearHeading(ActiveMotionValues.getParkPose())
 
@@ -71,9 +71,9 @@ public class RunTrussLRTapeAllOptions extends CommandBase {
                     .lineToLinearHeading(ActiveMotionValues.getStrafePose())
 
 
-                    .lineToLinearHeading(ActiveMotionValues.getTrussLineUpPose())
+                    .lineToLinearHeading(ActiveMotionValues.getTrussSDLineUpPose())
 
-                    .lineToLinearHeading(ActiveMotionValues.getLookForAprilTagPose())
+                    .lineToLinearHeading(ActiveMotionValues.getStrafeToAprilTagPose())
 
 
                     .build();
@@ -94,9 +94,9 @@ public class RunTrussLRTapeAllOptions extends CommandBase {
 
                     .lineToLinearHeading(ActiveMotionValues.getRetractPose())
 
-                    .lineToLinearHeading(ActiveMotionValues.getTrussLineUpPose())
+                    .lineToLinearHeading(ActiveMotionValues.getTrussSDLineUpPose())
 
-                    .lineToLinearHeading(ActiveMotionValues.getLookForAprilTagPose())
+                    .lineToLinearHeading(ActiveMotionValues.getStrafeToAprilTagPose())
 
 
                     .build();
@@ -115,9 +115,9 @@ public class RunTrussLRTapeAllOptions extends CommandBase {
 
                     .lineToLinearHeading(ActiveMotionValues.getRetractPose())
 
-                    .lineToLinearHeading(ActiveMotionValues.getTrussLineUpPose())
+                    .lineToLinearHeading(ActiveMotionValues.getTrussSDLineUpPose())
 
-                    .lineToLinearHeading(ActiveMotionValues.getLookForAprilTagPose())
+                    .lineToLinearHeading(ActiveMotionValues.getStrafeToAprilTagPose())
 
 
                     .build();

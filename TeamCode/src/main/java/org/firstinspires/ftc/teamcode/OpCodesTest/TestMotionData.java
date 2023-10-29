@@ -11,7 +11,6 @@ import com.arcrobotics.ftclib.command.WaitCommand;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.Commands.Auto.SelectMotionValuesRed;
-import org.firstinspires.ftc.teamcode.Commands.Auto.SelectValues;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 
 @Config
@@ -177,11 +176,10 @@ public class TestMotionData extends CommandOpMode {
 
         telemetry.addData("AdvancePose", ActiveMotionValues.getAdvancePose().toString());
         telemetry.addLine();
-        telemetry.addData("TrussPose", ActiveMotionValues.getTrussLineUpPose().toString());
+        telemetry.addData("TrussPose", ActiveMotionValues.getTrussSDLineUpPose().toString());
         telemetry.addData("Atag", ActiveMotionValues.getActTag());
 
-        telemetry.addData("XOffset", ActiveMotionValues.getxOffset());
-        telemetry.addData("YOffset", ActiveMotionValues.getyOffset());
+
 
         telemetry.addData("ParkPose", ActiveMotionValues.getLastPose().toString());
 

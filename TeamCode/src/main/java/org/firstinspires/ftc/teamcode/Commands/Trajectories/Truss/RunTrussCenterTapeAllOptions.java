@@ -40,7 +40,7 @@ public class RunTrussCenterTapeAllOptions extends CommandBase {
 
                     .lineToLinearHeading(ActiveMotionValues.getRetractPose())
 
-                    .lineToLinearHeading(ActiveMotionValues.getTrussLineUpPose())
+                    .lineToLinearHeading(ActiveMotionValues.getTrussSDLineUpPose())
 
                     .lineToLinearHeading(ActiveMotionValues.getParkPose())
 
@@ -55,9 +55,9 @@ public class RunTrussCenterTapeAllOptions extends CommandBase {
 
                     .waitSeconds(.5)
 
-                    .lineToLinearHeading(ActiveMotionValues.getTrussLineUpPose())
+                    .lineToLinearHeading(ActiveMotionValues.getTrussSDLineUpPose())
 
-                    .lineToLinearHeading(ActiveMotionValues.getLookForAprilTagPose())
+                    .lineToLinearHeading(ActiveMotionValues.getStrafeToAprilTagPose())
 
 
                     .build();

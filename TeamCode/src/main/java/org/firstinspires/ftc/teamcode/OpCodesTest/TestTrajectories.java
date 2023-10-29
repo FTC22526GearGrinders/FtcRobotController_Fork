@@ -3,12 +3,13 @@ package org.firstinspires.ftc.teamcode.OpCodesTest;
 import com.acmerobotics.dashboard.config.Config;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
+import com.arcrobotics.ftclib.command.ConditionalCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Commands.Auto.SelectAndRunTrajectory;
-import org.firstinspires.ftc.teamcode.Commands.Auto.SelectValues;
+import org.firstinspires.ftc.teamcode.Commands.Auto.SelectMotionValuesRed;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.PixelHandlerSubsystem;
@@ -50,7 +51,11 @@ Telemetry telemetry;
         lcr = ActiveMotionValues.getLcrpos();
 
         new SequentialCommandGroup(
-                new SelectValues(),
+
+                new ConditionalCommand(new SelectMotionValuesRed()
+
+                        , new SelectMotionValuesRed(), () -> redAlliance),
+
                 new SelectAndRunTrajectory(drive, phss)).schedule();
 
 

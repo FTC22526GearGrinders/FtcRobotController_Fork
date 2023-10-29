@@ -16,20 +16,19 @@ public final class FieldConstantsRed {
     public static Pose2d clearForSecondPixelSD = new Pose2d(24, 12);
 
 
-    public static Pose2d slideToNearBBSideParkPose = new Pose2d(50, -60, Math.toRadians(0));
+    public static Pose2d slideToNearParkPose = new Pose2d(50, -60);
 
-    public static Pose2d slideToCenterBBSideParkPose = new Pose2d(50, -14, Math.toRadians(0));
+    public static Pose2d slideToCenterParkPose = new Pose2d(50, -14);
 
-    public static Pose2d nearBBSideParkPose = new Pose2d(60, -60, Math.toRadians(90));
+    public static Pose2d nearParkPose = new Pose2d(60, -60);
 
-    public static Pose2d nearLookForAprilTagPose = new Pose2d(12, -60, Math.toRadians(90));
-    public static Pose2d centerLookForAprilTagPose = new Pose2d(12, -12, Math.toRadians(90));
+    public static Pose2d nearLookForAprilTagPose = new Pose2d(36, -60);
+    public static Pose2d centerLookForAprilTagPose = new Pose2d(36, -12);
 
-    public static Pose2d stageDoorLineUpPose13 = new Pose2d(-36, -12, Math.toRadians(90));
+    public static Pose2d stageDoorLineUpPose13 = new Pose2d(-36, -12);
 
-    public static Pose2d stageDoorLineUpPose2 = new Pose2d(-48, -12, Math.toRadians(90));
+    public static Pose2d stageDoorLineUpPose2 = new Pose2d(-48, -12);
 
-    public static Pose2d nearBBSDLineUpPose = new Pose2d(12, -12, Math.toRadians(0));
 
     public static Pose2d nearTrussLineUpPose = new Pose2d(-36, -60, Math.toRadians(0));
 
@@ -47,6 +46,8 @@ public final class FieldConstantsRed {
 
 
         public static final Pose2d tagLookAheadPose = new Pose2d(14 + Constants.RobotConstants.length / 2, 0, Math.toRadians(180));
+
+        public static final Pose2d tagStrafeOffsetPose = new Pose2d(-60.25 + 36, 0, 0);
 
 
         // tages 4,5 6
@@ -119,7 +120,8 @@ public final class FieldConstantsRed {
         public static final double leftTapeAngle = Math.toRadians(90);//incremental  number
         static final double centerTapeAngle = Math.toRadians(90);//incremental  number
         public static final double rightTapeAngle = Math.toRadians(90);//incremental  number
-        public static final Pose2d startPos = new Pose2d(-36, -(Constants.FieldConstants.length
+
+        public static final Pose2d startPose = new Pose2d(-36, -(Constants.FieldConstants.length
                 - Constants.RobotConstants.length) / 2, Math.toRadians(90));
 
         public static final Pose2d advancePose = new Pose2d(-48, -48, Math.toRadians(90));
@@ -145,7 +147,7 @@ public final class FieldConstantsRed {
 
         private static final Pose2d lrStafeByPose = new Pose2d(11.5, 0);
 
-        public static final Pose2d lrStrafePose = leftRetractPose.plus(lrStafeByPose);
+        public static final Pose2d lrStrafePose = rightRetractPose.plus(lrStafeByPose);
 
 
     }

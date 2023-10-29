@@ -14,15 +14,15 @@ public class ActiveMotionValues {
         robotPose = pose;
     }
 
-    private static Pose2d robotPose=new Pose2d();
+    private static Pose2d robotPose = new Pose2d();
 
 
-    public static Pose2d getTrussLineUpPose() {
-        return trussLineUpPose;
+    public static Pose2d getTrussSDLineUpPose() {
+        return trussSDLineUpPose;
     }
 
-    public static void setTrussLineUpPose(Pose2d lineUpPose) {
-        ActiveMotionValues.trussLineUpPose = lineUpPose;
+    public static void setTrussSDLineUpPose(Pose2d lineUpPose) {
+        trussSDLineUpPose = lineUpPose;
     }
 
     public static Pose2d getStrafePose() {
@@ -33,27 +33,35 @@ public class ActiveMotionValues {
         strafePose = pose;
     }
 
-    public static Pose2d getLookForAprilTagPose() {
-        return lookForAprilTagPose;
+    public static Pose2d getStrafeToAprilTagPose() {
+        return strafeToAprilTagPose;
     }
 
-    public static void setLookForAprilTagPose(Pose2d tagPose) {
-        ActiveMotionValues.lookForAprilTagPose = tagPose;
+    public static void setStrafeToAprilTagPose(Pose2d tagPose) {
+        strafeToAprilTagPose = tagPose;
     }
 
-    private static Pose2d trussLineUpPose = new Pose2d();
+    private static Pose2d trussSDLineUpPose = new Pose2d();
     private static Pose2d retractPose = new Pose2d();
 
     private static Pose2d strafePose = new Pose2d();
-    private static Pose2d lookForAprilTagPose = new Pose2d();
+
+    public static Pose2d getLineupPose() {
+        return lineupPose;
+    }
+
+    public static void setLineupPose(Pose2d pose) {
+      lineupPose = pose;
+    }
+
+    private static Pose2d lineupPose = new Pose2d();
+    private static Pose2d strafeToAprilTagPose = new Pose2d();
 
 
     private static Pose2d startPose = new Pose2d();
 
     private static AprilTagPoseFtc currentTagPose =
             new AprilTagPoseFtc(0, 0, 0, 0, 0, 0, 0, 0, 0);
-
-    public static Pose2d curretTagPose2d = new Pose2d();
 
     private static Pose2d parkPose = new Pose2d();
 
@@ -66,13 +74,13 @@ public class ActiveMotionValues {
     }
 
     public static void setStrafeDistance(double dist) {
-        ActiveMotionValues.strafeDistance = dist;
+      strafeDistance = dist;
     }
 
     private static double strafeDistance = 0;
 
     public static void setLastPose(Pose2d pose) {
-        ActiveMotionValues.lastPose = pose;
+        lastPose = pose;
     }
 
     private static Pose2d lastPose = new Pose2d();
@@ -81,8 +89,8 @@ public class ActiveMotionValues {
     private static Pose2d activeAprilTagPose = new Pose2d();
 
 
+    private static Pose2d clearStageDoorPose = new Pose2d();
 
-    private static Pose2d clearStageDoorPose = new Pose2d();;
 
     public static Pose2d getStartPose() {
         return startPose;
@@ -91,7 +99,6 @@ public class ActiveMotionValues {
     public static void setStartPose(Pose2d pose) {
         startPose = pose;
     }
-
 
 
     private static boolean secondPixel = false;
@@ -121,7 +128,7 @@ public class ActiveMotionValues {
     }
 
     public static void setRetractPose(Pose2d pose) {
-        ActiveMotionValues.retractPose = pose;
+       retractPose = pose;
     }
 
     public static Pose2d getDropOffPose() {
@@ -129,19 +136,19 @@ public class ActiveMotionValues {
     }
 
     public static void setDropOffPose(Pose2d pose) {
-        ActiveMotionValues.dropOffPose = pose;
+        dropOffPose = pose;
     }
 
     private static Pose2d dropOffPose = new Pose2d();
 
 
-    public static Pose2d getTagLookAheadPose() {
-        return tagLookAheadPose;
-    }
-
-    public static void setTagLookAheadPose(Pose2d tagLAPose) {
-        tagLookAheadPose = tagLAPose;
-    }
+//    public static Pose2d getTagLookAheadPose() {
+//        return tagLookAheadPose;
+//    }
+//
+//    public static void setTagLookAheadPose(Pose2d tagLAPose) {
+//        tagLookAheadPose = tagLAPose;
+//    }
 
     public static void setActiveTagPose(Pose2d pose) {
         activeAprilTagPose = pose;
@@ -153,20 +160,16 @@ public class ActiveMotionValues {
     }
 
 
-    public static double getyOffset() {
-        return yOffset;
+    public static void setYOffsetPose(Pose2d yOff) {
+        yOffsetPose = yOff;
     }
 
-    public static void setyOffset(double yOff) {
-        yOffset = yOff;
+    public static Pose2d getYOffsetPose() {
+        return xOffsetPose;
     }
 
-    public static double getxOffset() {
-        return xOffset;
-    }
-
-    public static void setxOffset(double xOff) {
-        xOffset = xOff;
+    public static void setXOffsetPose(Pose2d xOff) {
+        xOffsetPose = xOff;
     }
 
     public static double getRetractDistance() {
@@ -226,8 +229,8 @@ public class ActiveMotionValues {
     private static double ySecondPoint;
 
     private static Pose2d tagLookAheadPose = new Pose2d();
-    private static double yOffset;
-    private static double xOffset;
+    private static Pose2d yOffsetPose;
+    private static Pose2d xOffsetPose;
     private static double retractDistance = 0;
 
 
@@ -240,11 +243,6 @@ public class ActiveMotionValues {
     private static int lcrpos = 2;
 
     private static int actTag = 5;
-
-
-    private ActiveMotionValues() {
-
-    }
 
     public double HSVAreaL = 0;
     public double HSVAreaC = 0;

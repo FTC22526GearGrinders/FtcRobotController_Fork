@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Commands.Auto;
 
 
+import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.arcrobotics.ftclib.command.CommandBase;
 
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
@@ -43,9 +44,9 @@ public class SelectMotionValuesRed extends CommandBase {
             case 1://left tape
 
 
-                ActiveMotionValues.setyOffset(0);
+                ActiveMotionValues.setYOffsetPose(new Pose2d());
 
-                ActiveMotionValues.setxOffset(0);
+                ActiveMotionValues.setXOffsetPose(new Pose2d());
 
 
                 ActiveMotionValues.setStartPose(FieldConstantsRed.XPYM.startPos);//start pose
@@ -65,16 +66,16 @@ public class SelectMotionValuesRed extends CommandBase {
                 ActiveMotionValues.setActTag(4);
 
                 ActiveMotionValues.setLastPose(FieldConstantsRed.getActiveTagPose(ActiveMotionValues.getActTag())
-                        .minus(FieldConstantsRed.AprilTagConstants.tagLookAheadPose));
+                        .plus(FieldConstantsRed.AprilTagConstants.tagStrafeOffsetPose));
 
 
                 if (ActiveMotionValues.getCenterPark())
 
-                    ActiveMotionValues.setParkPose(FieldConstantsRed.slideToCenterBBSideParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsRed.slideToCenterParkPose);
 
                 else
 
-                    ActiveMotionValues.setParkPose(FieldConstantsRed.slideToNearBBSideParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsRed.slideToNearParkPose);
 
 
                 break;
@@ -84,9 +85,9 @@ public class SelectMotionValuesRed extends CommandBase {
             case 2://center straight motion to midddle of center tape
 
 
-                ActiveMotionValues.setyOffset(0);// adds to forward motion to control position where pixel is  dropped
+                ActiveMotionValues.setYOffsetPose(new Pose2d());
 
-                ActiveMotionValues.setxOffset(0);//can be used to offset x motion so pixel is place off the x center
+                ActiveMotionValues.setXOffsetPose(new Pose2d());
 
 
                 //robot moves in Y
@@ -108,22 +109,21 @@ public class SelectMotionValuesRed extends CommandBase {
 
                 if (ActiveMotionValues.getCenterPark())
 
-                    ActiveMotionValues.setParkPose(FieldConstantsRed.slideToCenterBBSideParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsRed.slideToCenterParkPose);
 
                 else
 
-                    ActiveMotionValues.setParkPose(FieldConstantsRed.slideToNearBBSideParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsRed.slideToNearParkPose);
 
 
                 break;
 
             //******************************************************************************************
             //******************************************************************************************
-            case 3://right tape
+            case 3://right ta
+                ActiveMotionValues.setYOffsetPose(new Pose2d());
 
-                ActiveMotionValues.setyOffset(0);
-
-                ActiveMotionValues.setxOffset(0);
+                ActiveMotionValues.setXOffsetPose(new Pose2d());
 
 
                 ActiveMotionValues.setStartPose(FieldConstantsRed.XPYM.startPos);//start pose
@@ -142,11 +142,11 @@ public class SelectMotionValuesRed extends CommandBase {
 
                 if (ActiveMotionValues.getCenterPark())
 
-                    ActiveMotionValues.setParkPose(FieldConstantsRed.slideToCenterBBSideParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsRed.slideToCenterParkPose);
 
                 else
 
-                    ActiveMotionValues.setParkPose(FieldConstantsRed.slideToNearBBSideParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsRed.slideToNearParkPose);
 
 
                 break;
@@ -156,23 +156,22 @@ public class SelectMotionValuesRed extends CommandBase {
 
             case 11://left tape
 
+                ActiveMotionValues.setYOffsetPose(new Pose2d());
 
-                ActiveMotionValues.setyOffset(0);
-
-                ActiveMotionValues.setxOffset(0);
+                ActiveMotionValues.setXOffsetPose(new Pose2d());
 
 
-                ActiveMotionValues.setStartPose(FieldConstantsRed.XMYM.startPos);//start pose
+                ActiveMotionValues.setStartPose(FieldConstantsRed.XMYM.startPose);//start pose
 
 
                 ActiveMotionValues.setDropOffPose(FieldConstantsRed.XMYM.leftDropPose);
 
                 ActiveMotionValues.setRetractPose(FieldConstantsRed.XMYM.leftRetractPose);
 
-                ActiveMotionValues.setStrafePose(FieldConstantsRed.XMYM.lrStrafePose);
-
 
                 ActiveMotionValues.setActTag(4);
+
+                setOptions();
 
 
                 break;
@@ -183,13 +182,11 @@ public class SelectMotionValuesRed extends CommandBase {
             case 12://center
 
 
-                ActiveMotionValues.setyOffset(0);// adds to forward motion to control position where pixel is  dropped
+                ActiveMotionValues.setYOffsetPose(new Pose2d());
 
-                ActiveMotionValues.setxOffset(0);//can be used to offset x motion so pixel is place off the x center
+                ActiveMotionValues.setXOffsetPose(new Pose2d());
 
-
-                ActiveMotionValues.setStartPose(FieldConstantsRed.XMYM.startPos);//start pose
-
+                ActiveMotionValues.setStartPose(FieldConstantsRed.XMYM.startPose);//start pose
 
                 ActiveMotionValues.setDropOffPose(FieldConstantsRed.XMYM.centerDropPose);
 
@@ -198,11 +195,7 @@ public class SelectMotionValuesRed extends CommandBase {
 
                 ActiveMotionValues.setActTag(5);
 
-
-//set up options depending on selections
-
-                //     setCommonMotion();
-
+                setOptions();
 
                 break;
 
@@ -213,25 +206,22 @@ public class SelectMotionValuesRed extends CommandBase {
 
                 //robot moves in Y
 
-                ActiveMotionValues.setyOffset(0);
+                ActiveMotionValues.setYOffsetPose(new Pose2d());
 
-                ActiveMotionValues.setxOffset(0);
+                ActiveMotionValues.setXOffsetPose(new Pose2d());
 
-
-                ActiveMotionValues.setStartPose(FieldConstantsRed.XMYM.startPos);//start pose
-
+                ActiveMotionValues.setStartPose(FieldConstantsRed.XMYM.startPose);//start pose
 
                 ActiveMotionValues.setAdvancePose(FieldConstantsRed.XMYM.advancePose);
-
 
                 ActiveMotionValues.setDropOffPose(FieldConstantsRed.XMYM.rightDropPose);
 
                 ActiveMotionValues.setRetractPose(FieldConstantsRed.XMYM.rightRetractPose);
 
-                ActiveMotionValues.setStrafePose(FieldConstantsRed.XMYM.lrStrafePose);
 
                 ActiveMotionValues.setActTag(6);
 
+                setOptions();
 
                 break;
 
@@ -249,21 +239,64 @@ public class SelectMotionValuesRed extends CommandBase {
 
         if (ActiveMotionValues.getCenterPark())
 
-            ActiveMotionValues.setParkPose(FieldConstantsRed.slideToCenterBBSideParkPose);
+            ActiveMotionValues.setParkPose(FieldConstantsRed.slideToCenterParkPose);
         else
-            ActiveMotionValues.setParkPose(FieldConstantsRed.slideToNearBBSideParkPose);
-
-        if (!secondPixel && useTruss) {
+            ActiveMotionValues.setParkPose(FieldConstantsRed.slideToNearParkPose);
 
 
-            ActiveMotionValues.setTrussLineUpPose(FieldConstantsRed.nearTrussLineUpPose);
+        if (useTruss) {
 
+            if (lcr == 11) ActiveMotionValues.setStrafeDistance(11.75 / 2);
+
+            if (lcr == 13) ActiveMotionValues.setStrafeDistance(11.75 / 2);
+
+
+            ActiveMotionValues.setTrussSDLineUpPose(FieldConstantsRed.nearTrussLineUpPose);
+
+            ActiveMotionValues.setStrafeToAprilTagPose(FieldConstantsRed.nearLookForAprilTagPose);
+
+            if (!secondPixel)
+
+                ActiveMotionValues.setParkPose(FieldConstantsRed.nearParkPose);
+
+            else {
+
+                ActiveMotionValues.setStrafeToAprilTagPose(ActiveMotionValues.getActiveTagPose()
+                        .plus(FieldConstantsRed.AprilTagConstants.tagStrafeOffsetPose));
+
+            }
         }
 
-        if (secondPixel && useTruss) {
-            ActiveMotionValues.setTrussLineUpPose(FieldConstantsRed.nearTrussLineUpPose);
+        if (useStageDoor) {
 
-            ActiveMotionValues.setLookForAprilTagPose(FieldConstantsRed.nearLookForAprilTagPose);
+            if (lcr == 11) {
+                ActiveMotionValues.setStrafeDistance(11.75 / 2);
+                ActiveMotionValues.setClearStageDoorPose((FieldConstantsRed.stageDoorLineUpPose13));
+            }
+            if (lcr == 12) {
+                ActiveMotionValues.setStrafeDistance(-11.75 / 2);
+                ActiveMotionValues.setClearStageDoorPose((FieldConstantsRed.stageDoorLineUpPose2));
+            }
+
+
+            if (lcr == 13) {
+                ActiveMotionValues.setStrafeDistance(11.75 / 2);
+                ActiveMotionValues.setTrussSDLineUpPose((FieldConstantsRed.stageDoorLineUpPose13));
+            }
+
+            ActiveMotionValues.setStrafeToAprilTagPose(FieldConstantsRed.centerLookForAprilTagPose);
+
+            if (!secondPixel)
+
+                ActiveMotionValues.setParkPose(FieldConstantsRed.nearParkPose);
+
+            else {
+
+                ActiveMotionValues.setStrafeToAprilTagPose(ActiveMotionValues.getActiveTagPose()
+                        .plus(FieldConstantsRed.AprilTagConstants.tagStrafeOffsetPose));
+
+            }
+
         }
     }
 
