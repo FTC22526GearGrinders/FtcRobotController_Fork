@@ -12,15 +12,15 @@ public class MeepMeepTesting {
     public static void main(String[] args) {
 
 
-        boolean redAlliance = true;
+        boolean redAlliance = false;
 
-        boolean bbstart = false;//aaset to false for start on stack side of truss
+        boolean bbstart = true;//aaset to false for start on stack side of truss
 
         int lcr = 2;//left tape ==1, center tape = 2, right tape = 3 from robot view
 
         if (lcr < 1 || lcr > 3) lcr = 2;
 
-        boolean useStageDoor = true;
+        boolean useStageDoor = false;
 
         boolean truss = !useStageDoor;
 
@@ -66,7 +66,7 @@ public class MeepMeepTesting {
                         drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
 
 //
-                               // .lineToLinearHeading(ActiveMotionValues.getAdvancePose())
+                              //  .lineToLinearHeading(ActiveMotionValues.getAdvancePose())
 
                                 .lineToLinearHeading(ActiveMotionValues.getDropOffPose())
 
@@ -74,18 +74,21 @@ public class MeepMeepTesting {
 
                                 .lineToLinearHeading(ActiveMotionValues.getRetractPose())
 
-                                .strafeLeft(ActiveMotionValues.getStrafeDistance())
 
-                                .lineToLinearHeading(ActiveMotionValues.getClearStageDoorPose())
+                               // .strafeLeft(ActiveMotionValues.getStrafeDistance())
+
+                                .lineToLinearHeading(ActiveMotionValues.getLastPose())
+
+                              //  .lineToLinearHeading(ActiveMotionValues.getClearStageDoorPose())
 
                                 //   .lineToLinearHeading(ActiveMotionValues.getTrussSDLineUpPose())
 
-                                .lineToLinearHeading(ActiveMotionValues.getStrafeToAprilTagPose())
+                                //     .lineToLinearHeading(ActiveMotionValues.getStrafeToAprilTagPose())
 
-                             //   .lineToLinearHeading(ActiveMotionValues.getSecondAprilTagPose())
+                                //   .lineToLinearHeading(ActiveMotionValues.getSecondAprilTagPose())
 
 
-                                 .lineToLinearHeading(ActiveMotionValues.getParkPose())
+                                //  .lineToLinearHeading(ActiveMotionValues.getParkPose())
 
 
                                 .build());

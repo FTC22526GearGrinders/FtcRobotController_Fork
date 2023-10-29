@@ -6,7 +6,7 @@ import com.arcrobotics.ftclib.command.CommandBase;
 
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.FieldConstantsBlue;
-import org.firstinspires.ftc.teamcode.FieldConstantsRed;
+import org.firstinspires.ftc.teamcode.FieldConstantsBlue;
 
 public class SelectMotionValuesBlue extends CommandBase {
 
@@ -66,17 +66,17 @@ public class SelectMotionValuesBlue extends CommandBase {
 
                 ActiveMotionValues.setActTag(4);
 
-                ActiveMotionValues.setLastPose(FieldConstantsRed.getActiveTagPose(ActiveMotionValues.getActTag())
-                        .plus(FieldConstantsRed.AprilTagConstants.tagStrafeOffsetPose));
+                ActiveMotionValues.setLastPose(FieldConstantsBlue.setActiveTagPose(ActiveMotionValues.getActTag())
+                        .plus(FieldConstantsBlue.AprilTagConstants.tagStrafeOffsetPose));
 
 
                 if (ActiveMotionValues.getCenterPark())
 
-                    ActiveMotionValues.setParkPose(FieldConstantsRed.slideToCenterParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsBlue.slideToCenterParkPose);
 
                 else
 
-                    ActiveMotionValues.setParkPose(FieldConstantsRed.slideToNearParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsBlue.slideToNearParkPose);
 
 
                 break;
@@ -104,17 +104,17 @@ public class SelectMotionValuesBlue extends CommandBase {
                 ActiveMotionValues.setActTag(5);
 
 
-                ActiveMotionValues.setLastPose(FieldConstantsRed.getActiveTagPose(ActiveMotionValues.getActTag())
-                        .minus(FieldConstantsRed.AprilTagConstants.tagLookAheadPose));
+                ActiveMotionValues.setLastPose(FieldConstantsBlue.setActiveTagPose(ActiveMotionValues.getActTag())
+                        .minus(FieldConstantsBlue.AprilTagConstants.tagLookAheadPose));
 
 
                 if (ActiveMotionValues.getCenterPark())
 
-                    ActiveMotionValues.setParkPose(FieldConstantsRed.slideToCenterParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsBlue.slideToCenterParkPose);
 
                 else
 
-                    ActiveMotionValues.setParkPose(FieldConstantsRed.slideToNearParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsBlue.slideToNearParkPose);
 
 
                 break;
@@ -138,16 +138,16 @@ public class SelectMotionValuesBlue extends CommandBase {
 
                 ActiveMotionValues.setActTag(6);
 
-                ActiveMotionValues.setLastPose(FieldConstantsRed.getActiveTagPose(ActiveMotionValues.getActTag())
-                        .minus(FieldConstantsRed.AprilTagConstants.tagLookAheadPose));
+                ActiveMotionValues.setLastPose(FieldConstantsBlue.setActiveTagPose(ActiveMotionValues.getActTag())
+                        .minus(FieldConstantsBlue.AprilTagConstants.tagLookAheadPose));
 
                 if (ActiveMotionValues.getCenterPark())
 
-                    ActiveMotionValues.setParkPose(FieldConstantsRed.slideToCenterParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsBlue.slideToCenterParkPose);
 
                 else
 
-                    ActiveMotionValues.setParkPose(FieldConstantsRed.slideToNearParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsBlue.slideToNearParkPose);
 
 
                 break;
@@ -240,9 +240,9 @@ public class SelectMotionValuesBlue extends CommandBase {
 
         if (ActiveMotionValues.getCenterPark())
 
-            ActiveMotionValues.setParkPose(FieldConstantsRed.slideToCenterParkPose);
+            ActiveMotionValues.setParkPose(FieldConstantsBlue.slideToCenterParkPose);
         else
-            ActiveMotionValues.setParkPose(FieldConstantsRed.slideToNearParkPose);
+            ActiveMotionValues.setParkPose(FieldConstantsBlue.slideToNearParkPose);
 
 
         if (useTruss) {
@@ -252,18 +252,18 @@ public class SelectMotionValuesBlue extends CommandBase {
             if (lcr == 13) ActiveMotionValues.setStrafeDistance(11.75 / 2);
 
 
-            ActiveMotionValues.setTrussSDLineUpPose(FieldConstantsRed.nearTrussLineUpPose);
+            ActiveMotionValues.setTrussSDLineUpPose(FieldConstantsBlue.nearTrussLineUpPose);
 
-            ActiveMotionValues.setStrafeToAprilTagPose(FieldConstantsRed.nearLookForAprilTagPose);
+            ActiveMotionValues.setStrafeToAprilTagPose(FieldConstantsBlue.nearLookForAprilTagPose);
 
             if (!secondPixel)
 
-                ActiveMotionValues.setParkPose(FieldConstantsRed.nearParkPose);
+                ActiveMotionValues.setParkPose(FieldConstantsBlue.nearParkPose);
 
             else {
 
                 ActiveMotionValues.setStrafeToAprilTagPose(ActiveMotionValues.getActiveTagPose()
-                        .plus(FieldConstantsRed.AprilTagConstants.tagStrafeOffsetPose));
+                        .plus(FieldConstantsBlue.AprilTagConstants.tagStrafeOffsetPose));
 
             }
         }
@@ -272,29 +272,29 @@ public class SelectMotionValuesBlue extends CommandBase {
 
             if (lcr == 11) {
                 ActiveMotionValues.setStrafeDistance(11.75 / 2);
-                ActiveMotionValues.setClearStageDoorPose((FieldConstantsRed.stageDoorLineUpPose13));
+                ActiveMotionValues.setClearStageDoorPose((FieldConstantsBlue.stageDoorLineUpPose13));
             }
             if (lcr == 12) {
                 ActiveMotionValues.setStrafeDistance(-11.75 / 2);
-                ActiveMotionValues.setClearStageDoorPose((FieldConstantsRed.stageDoorLineUpPose2));
+                ActiveMotionValues.setClearStageDoorPose((FieldConstantsBlue.stageDoorLineUpPose2));
             }
 
 
             if (lcr == 13) {
                 ActiveMotionValues.setStrafeDistance(11.75 / 2);
-                ActiveMotionValues.setTrussSDLineUpPose((FieldConstantsRed.stageDoorLineUpPose13));
+                ActiveMotionValues.setTrussSDLineUpPose((FieldConstantsBlue.stageDoorLineUpPose13));
             }
 
-            ActiveMotionValues.setStrafeToAprilTagPose(FieldConstantsRed.centerLookForAprilTagPose);
+            ActiveMotionValues.setStrafeToAprilTagPose(FieldConstantsBlue.centerLookForAprilTagPose);
 
             if (!secondPixel)
 
-                ActiveMotionValues.setParkPose(FieldConstantsRed.nearParkPose);
+                ActiveMotionValues.setParkPose(FieldConstantsBlue.nearParkPose);
 
             else {
 
                 ActiveMotionValues.setStrafeToAprilTagPose(ActiveMotionValues.getActiveTagPose()
-                        .plus(FieldConstantsRed.AprilTagConstants.tagStrafeOffsetPose));
+                        .plus(FieldConstantsBlue.AprilTagConstants.tagStrafeOffsetPose));
 
             }
 
