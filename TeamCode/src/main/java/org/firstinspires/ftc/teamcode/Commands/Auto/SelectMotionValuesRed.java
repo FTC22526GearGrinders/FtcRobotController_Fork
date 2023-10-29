@@ -246,9 +246,9 @@ public class SelectMotionValuesRed extends CommandBase {
 
         if (useTruss) {
 
-            if (lcr == 11) ActiveMotionValues.setStrafeDistance(11.75 / 2);
+            if (lcr == 11) ActiveMotionValues.setStrafeDistance(11.5 / 2);
 
-            if (lcr == 13) ActiveMotionValues.setStrafeDistance(11.75 / 2);
+            if (lcr == 13) ActiveMotionValues.setStrafeDistance(11.5 / 2);
 
 
             ActiveMotionValues.setTrussSDLineUpPose(FieldConstantsRed.nearTrussLineUpPose);
@@ -261,7 +261,7 @@ public class SelectMotionValuesRed extends CommandBase {
 
             else {
 
-                ActiveMotionValues.setStrafeToAprilTagPose(ActiveMotionValues.getActiveTagPose()
+                ActiveMotionValues.setSecondAprilTagPose(FieldConstantsRed.getActiveTagPose(ActiveMotionValues.getActTag())
                         .plus(FieldConstantsRed.AprilTagConstants.tagStrafeOffsetPose));
 
             }
@@ -270,17 +270,17 @@ public class SelectMotionValuesRed extends CommandBase {
         if (useStageDoor) {
 
             if (lcr == 11) {
-                ActiveMotionValues.setStrafeDistance(-11.75);
+                ActiveMotionValues.setStrafeDistance(-11.5);
                 ActiveMotionValues.setClearStageDoorPose((FieldConstantsRed.stageDoorLineUpPose13));
             }
             if (lcr == 12) {
-                ActiveMotionValues.setStrafeDistance(11.75);
+                ActiveMotionValues.setStrafeDistance(11.5);
                 ActiveMotionValues.setClearStageDoorPose((FieldConstantsRed.stageDoorLineUpPose2));
             }
 
 
             if (lcr == 13) {
-                ActiveMotionValues.setStrafeDistance(11.75 / 2);
+                ActiveMotionValues.setStrafeDistance(11.5 / 2);
                 ActiveMotionValues.setTrussSDLineUpPose((FieldConstantsRed.stageDoorLineUpPose13));
             }
 
@@ -288,7 +288,7 @@ public class SelectMotionValuesRed extends CommandBase {
 
             if (!secondPixel)
 
-                ActiveMotionValues.setParkPose(FieldConstantsRed.nearParkPose);
+                ActiveMotionValues.setParkPose(FieldConstantsRed.centerParkPose);
 
             else {
 
