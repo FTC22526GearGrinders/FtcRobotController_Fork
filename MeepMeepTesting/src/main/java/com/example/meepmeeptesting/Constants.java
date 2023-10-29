@@ -1,6 +1,7 @@
 package com.example.meepmeeptesting;
 
 
+import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 
 public final class Constants {
@@ -49,7 +50,10 @@ public final class Constants {
         static final double camToCenterY = 6;
         public static Vector2d pixelDropTranslation = new Vector2d(0, -RobotConstants.length / 2 +1);
 
+        public static Pose2d pixelDropPose = new Pose2d(0, -RobotConstants.length / 2 + 1, 0);
 
+
+        public static Pose2d kCameraToRobot = new Pose2d(RobotConstants.length / 2,0, Math.toRadians(180));
 
     }
 

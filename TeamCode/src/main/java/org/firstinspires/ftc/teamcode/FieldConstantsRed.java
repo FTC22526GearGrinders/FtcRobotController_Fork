@@ -136,7 +136,7 @@ public final class FieldConstantsRed {
         public static final Pose2d centerDropPose = new Pose2d(centerTapeMid.getX(), centerTapeMid.getY(), Math.toRadians(90))
                 .plus(Constants.RobotConstants.pixelDropPose);
         public static final Pose2d rightDropPose = new Pose2d(rightTapeMid.getX(), rightTapeMid.getY()
-                - Constants.TapeConstants.tapeLength / 4, Math.toRadians(90))
+                + Constants.TapeConstants.tapeLength / 4, Math.toRadians(90))
                 .plus(Constants.RobotConstants.pixelDropPose);
 
         public static final Pose2d retPose = new Pose2d(0, -4);

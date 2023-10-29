@@ -270,11 +270,11 @@ public class SelectMotionValuesRed extends CommandBase {
         if (useStageDoor) {
 
             if (lcr == 11) {
-                ActiveMotionValues.setStrafeDistance(11.75 / 2);
+                ActiveMotionValues.setStrafeDistance(-11.75);
                 ActiveMotionValues.setClearStageDoorPose((FieldConstantsRed.stageDoorLineUpPose13));
             }
             if (lcr == 12) {
-                ActiveMotionValues.setStrafeDistance(-11.75 / 2);
+                ActiveMotionValues.setStrafeDistance(11.75);
                 ActiveMotionValues.setClearStageDoorPose((FieldConstantsRed.stageDoorLineUpPose2));
             }
 
@@ -292,7 +292,8 @@ public class SelectMotionValuesRed extends CommandBase {
 
             else {
 
-                ActiveMotionValues.setStrafeToAprilTagPose(ActiveMotionValues.getActiveTagPose()
+
+                ActiveMotionValues.setSecondAprilTagPose(FieldConstantsRed.getActiveTagPose(ActiveMotionValues.getActTag())
                         .plus(FieldConstantsRed.AprilTagConstants.tagStrafeOffsetPose));
 
             }

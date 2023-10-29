@@ -91,6 +91,16 @@ public class ActiveMotionValues {
 
     private static Pose2d clearStageDoorPose = new Pose2d();
 
+    public static Pose2d getSecondAprilTagPose() {
+        return secondAprilTagPose;
+    }
+
+    public static void setSecondAprilTagPose(Pose2d pose) {
+        ActiveMotionValues.secondAprilTagPose = pose;
+    }
+
+    private static Pose2d secondAprilTagPose = new Pose2d();
+
 
     public static Pose2d getStartPose() {
         return startPose;
