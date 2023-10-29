@@ -95,6 +95,7 @@ public final class Constants {
         public static final double JOG_UP_POWER = +.5;
 
         public static final double JOG_DOWN_POWER = -.3;
+        public static double POSITION_Kg;
 
 
         public enum armHeights {

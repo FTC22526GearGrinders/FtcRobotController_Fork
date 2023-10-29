@@ -52,6 +52,7 @@ import org.firstinspires.ftc.teamcode.Commands.PixelHandler.PositionPHArm;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Commands.Utils.DoNothing;
 import org.firstinspires.ftc.teamcode.Constants;
+import org.firstinspires.ftc.teamcode.Subsystems.ArmSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.PixelHandlerSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.Vision_Subsystem;
@@ -73,7 +74,7 @@ public class AutoSelectAndRunRed extends CommandOpMode {
 
     private PixelHandlerSubsystem phss;
 
-
+    private ArmSubsystem arm;
     boolean buttonLocked = false;
 
 
@@ -223,6 +224,8 @@ public class AutoSelectAndRunRed extends CommandOpMode {
 
         phss = new PixelHandlerSubsystem(this);
 
+        arm = new ArmSubsystem(this);
+
         vss = new Vision_Subsystem(this);
 
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
@@ -304,12 +307,12 @@ public class AutoSelectAndRunRed extends CommandOpMode {
                                 new ParallelCommandGroup(
 
                                         //   new DriveToAprilTagAuto(this, drive),
-                                        new PositionPHArm(phss, .5, Constants.PixelHandlerConstants.armHeights.LOW.height)),
+                                        new PositionPHArm(arm, Constants.PixelHandlerConstants.armHeights.LOW.height, .5)),
 
                                 new PlacePixelOnBB(phss),
 
                                 new ParallelCommandGroup(
-                                        new PositionPHArm(phss, .5, Constants.PixelHandlerConstants.armHeights.HOME.height),
+                                        new PositionPHArm(arm, Constants.PixelHandlerConstants.armHeights.HOME.height, 5),
                                         new MoveToPark(drive))),
 
                         new DoNothing(), () -> ActiveMotionValues.getBBStart())).schedule();

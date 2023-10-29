@@ -2,18 +2,19 @@ package org.firstinspires.ftc.teamcode.Commands.PixelHandler;
 
 import com.arcrobotics.ftclib.command.CommandBase;
 
+import org.firstinspires.ftc.teamcode.Subsystems.ArmSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.PixelHandlerSubsystem;
 
 
 public class JogArm extends CommandBase {
 
-    private PixelHandlerSubsystem phss;
+    private ArmSubsystem arm;
     private double power;
 
-    public JogArm(PixelHandlerSubsystem phss, double power) {
-        this.phss = phss;
+    public JogArm(ArmSubsystem arm, double power) {
+        this.arm=arm;
         this.power = power;
-        addRequirements(this.phss);
+        addRequirements(this.arm);
     }
 
     @Override
@@ -21,13 +22,12 @@ public class JogArm extends CommandBase {
     }
 
     @Override
-    public void execute() {
-        phss.jog(power);
+    public void execute() {arm.jog(power);
     }
 
     @Override
     public void end(boolean interrupted) {
-        phss.armMotor.setPower(0);
+        arm.armMotor.setPower(0);
     }
 
     @Override

@@ -6,10 +6,12 @@ import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.checkerframework.checker.units.qual.A;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Commands.Drive.JogDrive;
 import org.firstinspires.ftc.teamcode.Commands.PixelHandler.JogArm;
 import org.firstinspires.ftc.teamcode.Commands.PixelHandler.PositionPHArm;
+import org.firstinspires.ftc.teamcode.Subsystems.ArmSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.PixelHandlerSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.Vision_Subsystem;
@@ -23,6 +25,7 @@ public class TeleopOpMode extends CommandOpMode {
 
     protected PixelHandlerSubsystem phss;
 
+    protected ArmSubsystem arm;
 
     GamepadEx driver;
     GamepadEx coDriver;
@@ -43,6 +46,8 @@ public class TeleopOpMode extends CommandOpMode {
       //  visionSubsystem = new Vision_Subsystem(this);
 
         phss = new PixelHandlerSubsystem(this);
+
+        arm=new ArmSubsystem(this);
 
 
         ///register(drive, phss, visionSubsystem);
@@ -67,15 +72,15 @@ public class TeleopOpMode extends CommandOpMode {
         driver.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT).whenPressed(drive.drive::toggleFieldCentric);
 
 
-        driver.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenHeld(new JogArm(phss,.25));
+        driver.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenHeld(new JogArm(arm,.25));
 
-        driver.getGamepadButton(GamepadKeys.Button.DPAD_DOWN).whenHeld(new JogArm(phss,.25));
+        driver.getGamepadButton(GamepadKeys.Button.DPAD_DOWN).whenHeld(new JogArm(arm,.25));
 
-        driver.getGamepadButton(GamepadKeys.Button.DPAD_LEFT).whenPressed(new PositionPHArm(phss,500,.1));
+        driver.getGamepadButton(GamepadKeys.Button.DPAD_LEFT).whenPressed(new PositionPHArm(arm,500,.1));
 
-        driver.getGamepadButton(GamepadKeys.Button.LEFT_STICK_BUTTON).whenPressed(new PositionPHArm(phss,1000,.1));
+        driver.getGamepadButton(GamepadKeys.Button.LEFT_STICK_BUTTON).whenPressed(new PositionPHArm(arm,1000,.1));
 
-        driver.getGamepadButton(GamepadKeys.Button.RIGHT_STICK_BUTTON).whenPressed(new PositionPHArm(phss,0,.1));
+        driver.getGamepadButton(GamepadKeys.Button.RIGHT_STICK_BUTTON).whenPressed(new PositionPHArm(arm,0,.1));
 
 
 
@@ -94,7 +99,7 @@ public class TeleopOpMode extends CommandOpMode {
 
        // drive.showtelemetry(telemetry);
 
-        phss.showTelemetry(telemetry);
+        arm.showTelemetry(telemetry);
     }
 
 
