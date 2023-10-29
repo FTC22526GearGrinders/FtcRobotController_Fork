@@ -34,7 +34,7 @@ public class RunTrussCenterTapeAllOptions extends CommandBase {
              */
             trussNear = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
 
-                    .lineToLinearHeading(ActiveMotionValues.getDropOffPose())
+                  .lineToLinearHeading(ActiveMotionValues.getDropOffPose())
 
                     .waitSeconds(.5)
 

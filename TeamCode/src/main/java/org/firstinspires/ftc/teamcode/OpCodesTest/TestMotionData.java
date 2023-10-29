@@ -162,24 +162,25 @@ public class TestMotionData extends CommandOpMode {
         telemetry.addData("LCR", ActiveMotionValues.getLcrpos());
 
 
-            telemetry.addData("Use SD", ActiveMotionValues.getUseStageDoor());
-            telemetry.addData("SecondPixel", ActiveMotionValues.getSecondPixel());
+        telemetry.addData("Use SD", ActiveMotionValues.getUseStageDoor());
+        telemetry.addData("SecondPixel", ActiveMotionValues.getSecondPixel());
 
-            telemetry.addLine();
+        telemetry.addLine();
 
 
         telemetry.addData("StartPose", ActiveMotionValues.getStartPose().toString());
         telemetry.addData("DropOffPose", ActiveMotionValues.getDropOffPose().toString());
         telemetry.addData("RetractPose", ActiveMotionValues.getRetractPose().toString());
         telemetry.addLine();
-       telemetry.addData("StrafePose", ActiveMotionValues.getStrafePose().toString());
+        telemetry.addData("StrafePose", ActiveMotionValues.getStrafePose().toString());
 
         telemetry.addData("AdvancePose", ActiveMotionValues.getAdvancePose().toString());
         telemetry.addLine();
         telemetry.addData("TrussPose", ActiveMotionValues.getTrussSDLineUpPose().toString());
+
         telemetry.addData("Atag", ActiveMotionValues.getActTag());
 
-
+        telemetry.addData("ATStrafePose", ActiveMotionValues.getStrafeToAprilTagPose().toString());
 
         telemetry.addData("ParkPose", ActiveMotionValues.getLastPose().toString());
 
