@@ -20,8 +20,8 @@ public final class FieldConstantsBlue {
 
     public static Pose2d stageDoorLineUpPose2 = new Pose2d(-48, 12, Math.toRadians(90));
 
-    public static Pose2d nearLookForAprilTagPose = new Pose2d(12, 60, Math.toRadians(90));
-    public static Pose2d centerLookForAprilTagPose = new Pose2d(12, 12, Math.toRadians(90));
+    public static Pose2d nearLookForAprilTagPose = new Pose2d(36, 60, Math.toRadians(90));
+    public static Pose2d centerLookForAprilTagPose = new Pose2d(36, 12, Math.toRadians(90));
 
     public static Pose2d centerTurnForAprilTagPose = new Pose2d(18, 12, Math.toRadians(0));
 
@@ -59,7 +59,7 @@ public final class FieldConstantsBlue {
 
     }
 
-    public static Pose2d setActiveTagPose(int num) {
+    public static Pose2d getActiveTagPose(int num) {
         int sel = num;
         switch (sel) {
             case 0:

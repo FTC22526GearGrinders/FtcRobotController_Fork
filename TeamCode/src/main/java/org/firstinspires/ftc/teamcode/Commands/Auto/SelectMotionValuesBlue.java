@@ -6,7 +6,6 @@ import com.arcrobotics.ftclib.command.CommandBase;
 
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.FieldConstantsBlue;
-import org.firstinspires.ftc.teamcode.FieldConstantsBlue;
 
 public class SelectMotionValuesBlue extends CommandBase {
 
@@ -66,7 +65,7 @@ public class SelectMotionValuesBlue extends CommandBase {
 
                 ActiveMotionValues.setActTag(4);
 
-                ActiveMotionValues.setLastPose(FieldConstantsBlue.setActiveTagPose(ActiveMotionValues.getActTag())
+                ActiveMotionValues.setLastPose(FieldConstantsBlue.getActiveTagPose(ActiveMotionValues.getActTag())
                         .plus(FieldConstantsBlue.AprilTagConstants.tagStrafeOffsetPose));
 
 
@@ -104,7 +103,7 @@ public class SelectMotionValuesBlue extends CommandBase {
                 ActiveMotionValues.setActTag(5);
 
 
-                ActiveMotionValues.setLastPose(FieldConstantsBlue.setActiveTagPose(ActiveMotionValues.getActTag())
+                ActiveMotionValues.setLastPose(FieldConstantsBlue.getActiveTagPose(ActiveMotionValues.getActTag())
                         .minus(FieldConstantsBlue.AprilTagConstants.tagLookAheadPose));
 
 
@@ -138,7 +137,7 @@ public class SelectMotionValuesBlue extends CommandBase {
 
                 ActiveMotionValues.setActTag(6);
 
-                ActiveMotionValues.setLastPose(FieldConstantsBlue.setActiveTagPose(ActiveMotionValues.getActTag())
+                ActiveMotionValues.setLastPose(FieldConstantsBlue.getActiveTagPose(ActiveMotionValues.getActTag())
                         .minus(FieldConstantsBlue.AprilTagConstants.tagLookAheadPose));
 
                 if (ActiveMotionValues.getCenterPark())
@@ -170,7 +169,7 @@ public class SelectMotionValuesBlue extends CommandBase {
                 ActiveMotionValues.setRetractPose(FieldConstantsBlue.XMYP.leftRetractPose);
 
 
-                ActiveMotionValues.setActTag(2);
+                ActiveMotionValues.setActTag(1);
 
                 setOptions();
 
@@ -194,7 +193,7 @@ public class SelectMotionValuesBlue extends CommandBase {
                 ActiveMotionValues.setRetractPose(FieldConstantsBlue.XMYP.centerRetractPose);
 
 
-                ActiveMotionValues.setActTag(5);
+                ActiveMotionValues.setActTag(2);
 
                 setOptions();
 
@@ -220,7 +219,7 @@ public class SelectMotionValuesBlue extends CommandBase {
                 ActiveMotionValues.setRetractPose(FieldConstantsBlue.XMYP.rightRetractPose);
 
 
-                ActiveMotionValues.setActTag(6);
+                ActiveMotionValues.setActTag(3);
 
                 setOptions();
 
@@ -262,7 +261,7 @@ public class SelectMotionValuesBlue extends CommandBase {
 
             else {
 
-                ActiveMotionValues.setStrafeToAprilTagPose(ActiveMotionValues.getActiveTagPose()
+                ActiveMotionValues.setSecondAprilTagPose(FieldConstantsBlue.getActiveTagPose(ActiveMotionValues.getActTag())
                         .plus(FieldConstantsBlue.AprilTagConstants.tagStrafeOffsetPose));
 
             }
@@ -271,17 +270,17 @@ public class SelectMotionValuesBlue extends CommandBase {
         if (useStageDoor) {
 
             if (lcr == 11) {
-                ActiveMotionValues.setStrafeDistance(11.75 / 2);
-                ActiveMotionValues.setClearStageDoorPose((FieldConstantsBlue.stageDoorLineUpPose13));
+                ActiveMotionValues.setStrafeDistance(-11.5);
+                ActiveMotionValues.setTrussSDLineUpPose((FieldConstantsBlue.stageDoorLineUpPose13));
             }
             if (lcr == 12) {
-                ActiveMotionValues.setStrafeDistance(-11.75 / 2);
-                ActiveMotionValues.setClearStageDoorPose((FieldConstantsBlue.stageDoorLineUpPose2));
+                ActiveMotionValues.setStrafeDistance(11.5);
+                ActiveMotionValues.setTrussSDLineUpPose((FieldConstantsBlue.stageDoorLineUpPose2));
             }
 
 
             if (lcr == 13) {
-                ActiveMotionValues.setStrafeDistance(11.75 / 2);
+                ActiveMotionValues.setStrafeDistance(11.5);
                 ActiveMotionValues.setTrussSDLineUpPose((FieldConstantsBlue.stageDoorLineUpPose13));
             }
 
