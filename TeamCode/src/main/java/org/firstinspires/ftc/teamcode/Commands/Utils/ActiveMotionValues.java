@@ -65,8 +65,8 @@ public class ActiveMotionValues {
 
     private static Pose2d parkPose = new Pose2d();
 
-    public static Pose2d getLastPose() {
-        return lastPose;
+    public static Pose2d getPreTagPose() {
+        return preTagPose;
     }
 
     public static double getStrafeDistance() {
@@ -79,17 +79,15 @@ public class ActiveMotionValues {
 
     private static double strafeDistance = 0;
 
-    public static void setLastPose(Pose2d pose) {
-        lastPose = pose;
+    public static void setPreTagPose(Pose2d pose) {
+        preTagPose = pose;
     }
 
-    private static Pose2d lastPose = new Pose2d();
+    private static Pose2d preTagPose = new Pose2d();
 
 
     private static Pose2d activeAprilTagPose = new Pose2d();
 
-
-    private static Pose2d clearStageDoorPose = new Pose2d();
 
     public static Pose2d getSecondAprilTagPose() {
         return secondAprilTagPose;
@@ -278,14 +276,6 @@ public class ActiveMotionValues {
 
     public static Pose2d getAprilTagPos2d() {
         return aprilTagPos2d;
-    }
-
-    public static void setClearStageDoorPose(Pose2d pose) {
-        clearStageDoorPose = pose;
-    }
-
-    public static Pose2d getClearStageDoorPose() {
-        return clearStageDoorPose;
     }
 
 

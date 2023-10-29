@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.Commands.Trajectories.Backboard;
 
-import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.arcrobotics.ftclib.command.CommandBase;
 
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
@@ -40,7 +39,7 @@ public class RunBBCenterTraj extends CommandBase {
 
                 .lineToLinearHeading(ActiveMotionValues.getRetractPose())
 
-                .lineToLinearHeading(ActiveMotionValues.getLastPose())
+                .lineToLinearHeading(ActiveMotionValues.getPreTagPose())
 
 
                 .build();

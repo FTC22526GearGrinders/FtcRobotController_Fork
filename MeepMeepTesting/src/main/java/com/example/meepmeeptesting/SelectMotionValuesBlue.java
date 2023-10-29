@@ -59,7 +59,7 @@ public class SelectMotionValuesBlue {
 
                 ActiveMotionValues.setActTag(1);
 
-                ActiveMotionValues.setLastPose(FieldConstantsBlue.getActiveTagPose(ActiveMotionValues.getActTag())
+                ActiveMotionValues.setPreTagPose(FieldConstantsBlue.getActiveTagPose(ActiveMotionValues.getActTag())
                         .plus(FieldConstantsBlue.AprilTagConstants.tagStrafeOffsetPose));
 
 
@@ -97,7 +97,7 @@ public class SelectMotionValuesBlue {
                 ActiveMotionValues.setActTag(2);
 
 
-                ActiveMotionValues.setLastPose(FieldConstantsBlue.getActiveTagPose(ActiveMotionValues.getActTag())
+                ActiveMotionValues.setPreTagPose(FieldConstantsBlue.getActiveTagPose(ActiveMotionValues.getActTag())
                         .minus(FieldConstantsBlue.AprilTagConstants.tagLookAheadPose));
 
 
@@ -135,7 +135,7 @@ public class SelectMotionValuesBlue {
 
                 ActiveMotionValues.setActTag(3);
 
-                ActiveMotionValues.setLastPose(FieldConstantsBlue.getActiveTagPose(ActiveMotionValues.getActTag())
+                ActiveMotionValues.setPreTagPose(FieldConstantsBlue.getActiveTagPose(ActiveMotionValues.getActTag())
                         .minus(FieldConstantsBlue.AprilTagConstants.tagLookAheadPose));
 
                 if (ActiveMotionValues.getCenterPark())

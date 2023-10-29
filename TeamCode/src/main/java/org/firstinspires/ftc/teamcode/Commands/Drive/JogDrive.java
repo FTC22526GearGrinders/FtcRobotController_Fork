@@ -13,10 +13,10 @@ public class JogDrive extends CommandBase {
     private Gamepad gamepad;
     private boolean fieldOriented;
 
-    public JogDrive(Drive_Subsystem drive, Gamepad gamepad, boolean fieldoOriented) {
+    public JogDrive(Drive_Subsystem drive, Gamepad gamepad, boolean fieldOriented) {
         this.drive = drive;
         this.gamepad = gamepad;
-        this.fieldOriented = fieldoOriented;
+        this.fieldOriented = fieldOriented;
         addRequirements(this.drive);
 
     }

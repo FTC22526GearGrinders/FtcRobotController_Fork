@@ -79,7 +79,6 @@ public class MeepMeepTesting {
 //
 //                                .lineToLinearHeading(ActiveMotionValues.getLastPose())
 
-                                //  .lineToLinearHeading(ActiveMotionValues.getClearStageDoorPose())
 
                                 .lineToLinearHeading(ActiveMotionValues.getTrussSDLineUpPose())
 //

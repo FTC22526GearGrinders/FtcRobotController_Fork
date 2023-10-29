@@ -62,7 +62,7 @@ public class SelectMotionValuesRed {
 
                 ActiveMotionValues.setActTag(4);
 
-                ActiveMotionValues.setLastPose(FieldConstantsRed.getActiveTagPose(ActiveMotionValues.getActTag())
+                ActiveMotionValues.setPreTagPose(FieldConstantsRed.getActiveTagPose(ActiveMotionValues.getActTag())
                         .plus(FieldConstantsRed.AprilTagConstants.tagStrafeOffsetPose));
 
 
@@ -100,7 +100,7 @@ public class SelectMotionValuesRed {
                 ActiveMotionValues.setActTag(5);
 
 
-                ActiveMotionValues.setLastPose(FieldConstantsRed.getActiveTagPose(ActiveMotionValues.getActTag())
+                ActiveMotionValues.setPreTagPose(FieldConstantsRed.getActiveTagPose(ActiveMotionValues.getActTag())
                         .minus(FieldConstantsRed.AprilTagConstants.tagLookAheadPose));
 
 
@@ -134,7 +134,7 @@ public class SelectMotionValuesRed {
 
                 ActiveMotionValues.setActTag(6);
 
-                ActiveMotionValues.setLastPose(FieldConstantsRed.getActiveTagPose(ActiveMotionValues.getActTag())
+                ActiveMotionValues.setPreTagPose(FieldConstantsRed.getActiveTagPose(ActiveMotionValues.getActTag())
                         .minus(FieldConstantsRed.AprilTagConstants.tagLookAheadPose));
 
                 if (ActiveMotionValues.getCenterPark())
@@ -270,17 +270,17 @@ public class SelectMotionValuesRed {
 
             if (lcr == 11) {
                 ActiveMotionValues.setStrafeDistance(-11.5 );
-                ActiveMotionValues.setClearStageDoorPose((FieldConstantsRed.stageDoorLineUpPose13));
+                ActiveMotionValues.setTrussSDLineUpPose(FieldConstantsRed.stageDoorLineUpPose13);
             }
             if (lcr == 12) {
                 ActiveMotionValues.setStrafeDistance(11.5);
-                ActiveMotionValues.setClearStageDoorPose((FieldConstantsRed.stageDoorLineUpPose2));
+                ActiveMotionValues.setTrussSDLineUpPose((FieldConstantsRed.stageDoorLineUpPose2));
             }
 
 
             if (lcr == 13) {
                 ActiveMotionValues.setStrafeDistance(11.5);
-                ActiveMotionValues.setClearStageDoorPose((FieldConstantsRed.stageDoorLineUpPose13));
+                ActiveMotionValues.setTrussSDLineUpPose(FieldConstantsRed.stageDoorLineUpPose13);
             }
 
             ActiveMotionValues.setStrafeToAprilTagPose(FieldConstantsRed.centerLookForAprilTagPose);

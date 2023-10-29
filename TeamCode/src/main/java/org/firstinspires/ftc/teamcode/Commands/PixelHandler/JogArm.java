@@ -1,43 +1,29 @@
 package org.firstinspires.ftc.teamcode.Commands.PixelHandler;
 
 import com.arcrobotics.ftclib.command.CommandBase;
-import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.Subsystems.PixelHandlerSubsystem;
 
 
-public class PositionPHArm extends CommandBase {
+public class JogArm extends CommandBase {
 
     private PixelHandlerSubsystem phss;
-
     private double power;
 
-    private double distance;
-
-    private int counts;
-
-    public PositionPHArm(PixelHandlerSubsystem phss, double distance, double power) {
+    public JogArm(PixelHandlerSubsystem phss, double power) {
         this.phss = phss;
         this.power = power;
-        this.distance = distance;
-        addRequirements(phss);
+        addRequirements(this.phss);
     }
 
     @Override
     public void initialize() {
-        counts = phss.getCountsfrominches(this.distance);
-        phss.armMotor.setTargetPosition(counts);
-        phss.armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        phss.armMotor.setPower(.2);
     }
 
     @Override
     public void execute() {
-
-
+        phss.jog(power);
     }
-
 
     @Override
     public void end(boolean interrupted) {
@@ -46,6 +32,6 @@ public class PositionPHArm extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return phss.inPosition();
+        return false;
     }
 }

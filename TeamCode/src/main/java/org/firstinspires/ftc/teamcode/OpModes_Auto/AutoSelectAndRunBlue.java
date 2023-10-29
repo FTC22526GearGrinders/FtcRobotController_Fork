@@ -144,11 +144,11 @@ public class AutoSelectAndRunBlue extends CommandOpMode {
 
             telemetry.addData("BB Start Selected A to Change", bbStart);
             telemetry.addLine();
+            telemetry.addData("Center Park Selected B to Change", centerPark);
+            telemetry.addLine();
 
             if (!bbStart) {
                 telemetry.addData("Stage Door Selected Y to Change", useStageDoor);
-                telemetry.addLine();
-                telemetry.addData("Center Park Selected B to Change", centerPark);
                 telemetry.addLine();
                 telemetry.addData("Second Pixel Selected RB to Change", secondPixel);
                 telemetry.addLine();
@@ -159,7 +159,7 @@ public class AutoSelectAndRunBlue extends CommandOpMode {
 
         }
 
-        telemetry.addData("You Have Chosen Blue Alliance", "");
+        telemetry.addData("You Have Chosen BLUE Alliance", "");
 
         telemetry.addLine();
 
@@ -171,28 +171,31 @@ public class AutoSelectAndRunBlue extends CommandOpMode {
 
         telemetry.addLine();
 
-        if (useStageDoor)
+        if (!bbStart) {
 
-            telemetry.addData("You Have Chosen Stage Door", "");
-        else
-            telemetry.addData("You Have Chosen Near Truss", "");
+            if (centerPark)
 
-        telemetry.addLine();
+                telemetry.addData("You Have Chosen Center Park", "");
+            else
+                telemetry.addData("You Have Chosen Near Park", "");
 
-        if (centerPark)
+            telemetry.addLine();
 
-            telemetry.addData("You Have Chosen Center Park", "");
-        else
-            telemetry.addData("You Have Chosen Near Park", "");
+            if (useStageDoor)
 
-        telemetry.addLine();
+                telemetry.addData("You Have Chosen Stage Door", "");
+            else
+                telemetry.addData("You Have Chosen Near Truss", "");
 
-        if (secondPixel)
+            telemetry.addLine();
 
-            telemetry.addData("You Have Chosen Second Pixel", "");
-        else
-            telemetry.addData("You Have Chosen One Pixel Only", "");
 
+            if (secondPixel)
+
+                telemetry.addData("You Have Chosen Second Pixel", "");
+            else
+                telemetry.addData("You Have Chosen One Pixel Only", "");
+        }
         telemetry.addLine();
 
         telemetry.addData("Reselect Opmode to Change", "");
@@ -279,12 +282,12 @@ public class AutoSelectAndRunBlue extends CommandOpMode {
                                 new ParallelCommandGroup(
 
                                         //new DriveToAprilTagAuto(this, drive),
-                                        new PositionPHArm(phss, .5, Constants.PixelHandlerConstants.armhaights.LOW.height)),
+                                        new PositionPHArm(phss, .5, Constants.PixelHandlerConstants.armHeights.LOW.height)),
 
                                 new PlacePixelOnBB(phss),
 
                                 new ParallelCommandGroup(
-                                        new PositionPHArm(phss, .5, Constants.PixelHandlerConstants.armhaights.HOME.height),
+                                        new PositionPHArm(phss, .5, Constants.PixelHandlerConstants.armHeights.HOME.height),
                                         new MoveToPark(drive))),
 
                         new DoNothing(), () -> ActiveMotionValues.getBBStart())).schedule();

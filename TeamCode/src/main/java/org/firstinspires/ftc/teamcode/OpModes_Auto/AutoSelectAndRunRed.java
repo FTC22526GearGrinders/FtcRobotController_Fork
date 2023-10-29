@@ -49,7 +49,6 @@ import org.firstinspires.ftc.teamcode.Commands.Auto.SelectAndRunTrajectory;
 import org.firstinspires.ftc.teamcode.Commands.Auto.SelectMotionValuesRed;
 import org.firstinspires.ftc.teamcode.Commands.PixelHandler.PlacePixelOnBB;
 import org.firstinspires.ftc.teamcode.Commands.PixelHandler.PositionPHArm;
-import org.firstinspires.ftc.teamcode.Commands.Trajectories.Backboard.RunToAprilTag;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Commands.Utils.DoNothing;
 import org.firstinspires.ftc.teamcode.Constants;
@@ -150,15 +149,14 @@ public class AutoSelectAndRunRed extends CommandOpMode {
 
             telemetry.addData("BB Start Selected A to Change", bbStart);
             telemetry.addLine();
+            telemetry.addData("Center Park Selected B to Change", centerPark);
+            telemetry.addLine();
 
             if (!bbStart) {
-                telemetry.addData("Second Pixel Selected RB to Change", secondPixel);
-                telemetry.addLine();
                 telemetry.addData("Stage Door Selected Y to Change", useStageDoor);
                 telemetry.addLine();
-                telemetry.addData("Center Park Selected B to Change", centerPark);
+                telemetry.addData("Second Pixel Selected RB to Change", secondPixel);
                 telemetry.addLine();
-
                 telemetry.addData("Press Left Bumper To Continue", "");
             }
 
@@ -166,8 +164,7 @@ public class AutoSelectAndRunRed extends CommandOpMode {
 
         }
 
-
-        telemetry.addData("You Have Chosen Red Alliance", "");
+        telemetry.addData("You Have Chosen RED Alliance", "");
 
         telemetry.addLine();
 
@@ -181,14 +178,6 @@ public class AutoSelectAndRunRed extends CommandOpMode {
 
         if (!bbStart) {
 
-            if (useStageDoor)
-
-                telemetry.addData("You Have Chosen Stage Door", "");
-            else
-                telemetry.addData("You Have Chosen Near Truss", "");
-
-            telemetry.addLine();
-
             if (centerPark)
 
                 telemetry.addData("You Have Chosen Center Park", "");
@@ -197,14 +186,21 @@ public class AutoSelectAndRunRed extends CommandOpMode {
 
             telemetry.addLine();
 
+            if (useStageDoor)
+
+                telemetry.addData("You Have Chosen Stage Door", "");
+            else
+                telemetry.addData("You Have Chosen Near Truss", "");
+
+            telemetry.addLine();
+
+
             if (secondPixel)
 
                 telemetry.addData("You Have Chosen Second Pixel", "");
             else
                 telemetry.addData("You Have Chosen One Pixel Only", "");
-
         }
-
         telemetry.addLine();
 
 
@@ -308,12 +304,12 @@ public class AutoSelectAndRunRed extends CommandOpMode {
                                 new ParallelCommandGroup(
 
                                         //   new DriveToAprilTagAuto(this, drive),
-                                        new PositionPHArm(phss, .5, Constants.PixelHandlerConstants.armhaights.LOW.height)),
+                                        new PositionPHArm(phss, .5, Constants.PixelHandlerConstants.armHeights.LOW.height)),
 
                                 new PlacePixelOnBB(phss),
 
                                 new ParallelCommandGroup(
-                                        new PositionPHArm(phss, .5, Constants.PixelHandlerConstants.armhaights.HOME.height),
+                                        new PositionPHArm(phss, .5, Constants.PixelHandlerConstants.armHeights.HOME.height),
                                         new MoveToPark(drive))),
 
                         new DoNothing(), () -> ActiveMotionValues.getBBStart())).schedule();

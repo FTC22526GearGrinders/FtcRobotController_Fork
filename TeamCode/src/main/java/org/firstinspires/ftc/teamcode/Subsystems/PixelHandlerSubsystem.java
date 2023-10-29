@@ -17,13 +17,12 @@ public class PixelHandlerSubsystem extends SubsystemBase {
 
     Servo pixelDrop;
 
-    //public final DcMotorEx armMotor;
+    public final DcMotorEx armMotor;
 
-    private Telemetry telemetry;
 
     private final CommandOpMode myOpMode;
 
-    double power = .5;
+    double maxPower = .5;
 
     double kP = 0.005;
     double kI = 0;
@@ -36,14 +35,14 @@ public class PixelHandlerSubsystem extends SubsystemBase {
 
         claw = myOpMode.hardwareMap.get(Servo.class, "claw");
 
-        pixelDrop= myOpMode.hardwareMap.get(Servo.class, "pixel drop");
+        pixelDrop = myOpMode.hardwareMap.get(Servo.class, "pixel drop");
 
 
-//        armMotor = myOpMode.hardwareMap.get(DcMotorEx.class, "arm motor");
-//        armMotor.setDirection(DcMotor.Direction.REVERSE);
-//        armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-//        armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//        armMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        armMotor = myOpMode.hardwareMap.get(DcMotorEx.class, "armMotor");
+        armMotor.setDirection(DcMotor.Direction.REVERSE);
+        armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        armMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         controller.setTolerance(Constants.PixelHandlerConstants.POSITION_TOLERANCE);
 
@@ -62,32 +61,32 @@ public class PixelHandlerSubsystem extends SubsystemBase {
     }
 
     public void resetEncoder() {
-//        armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//        armMotor.setTargetPosition(0);
-//        armMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        armMotor.setTargetPosition(0);
+        armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
     public void jog(double power) {
-        if (power > 0 && getPositionInches() < Constants.PixelHandlerConstants.UPPER_POSITION_LIMIT
-                || power < 0 && getPositionInches() > Constants.PixelHandlerConstants.LOWER_POSITION_LIMIT) {
-            //armMotor.setPower(power);
-        }
+
+//        if (power > 0 && getPositionInches() < Constants.PixelHandlerConstants.UPPER_POSITION_LIMIT
+//                || power < 0 && getPositionInches() > Constants.PixelHandlerConstants.LOWER_POSITION_LIMIT) {
+            armMotor.setPower(power);
+       // }
     }
 
-//    public void position(double target) {
-//        double output = controller.calculate(
-//                armMotor.getCurrentPosition(), target);  // the measured value
-//
-//        double motorOutput = output;
-//
-//        if (output > 0 && output > power) motorOutput = power;
-//
-//        if (output < 0 && output < power) motorOutput = power;
-//
-//        armMotor.setVelocity(motorOutput);
+    public void position(double target) {
+        double output = controller.calculate(
+                armMotor.getCurrentPosition(), target);  // the measured value
 
-        //if (controller.atSetPoint()) state = holding;
-  //  }
+        double motorOutput = output;
+
+        if (output > 0 && output > maxPower) motorOutput = maxPower;
+
+        if (output < 0 && output < -maxPower) motorOutput = -maxPower;
+
+        armMotor.setVelocity(motorOutput);
+
+    }
 
 
     public void setClawPosition(double position) {
@@ -154,4 +153,18 @@ public class PixelHandlerSubsystem extends SubsystemBase {
         return controller.atSetPoint();
     }
 
+    public DcMotorEx getArmMotor() {
+        return armMotor;
+    }
+
+    public void showTelemetry(Telemetry telemetry) {
+        telemetry.addData("ArmPosition", armMotor.getCurrentPosition());
+        telemetry.addData("ArmInches", encoderTicksToInches(armMotor.getCurrentPosition()));
+        telemetry.addData("ArmVelocity", armMotor.getVelocity());
+        telemetry.addData("ArmPower", armMotor.getPower());
+
+
+        telemetry.update();
+
+    }
 }
