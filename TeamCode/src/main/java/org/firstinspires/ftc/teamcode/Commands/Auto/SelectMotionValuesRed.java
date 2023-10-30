@@ -161,11 +161,9 @@ public class SelectMotionValuesRed extends CommandBase {
 
                 ActiveMotionValues.setStartPose(FieldConstantsRed.XMYM.startPose);//start pose
 
-
                 ActiveMotionValues.setDropOffPose(FieldConstantsRed.XMYM.leftDropPose);
 
                 ActiveMotionValues.setRetractPose(FieldConstantsRed.XMYM.leftRetractPose);
-
 
                 ActiveMotionValues.setActTag(4);
 
@@ -244,21 +242,16 @@ public class SelectMotionValuesRed extends CommandBase {
 
             ActiveMotionValues.setTrussSDLineUpPose(FieldConstantsRed.nearTrussLineUpPose);
 
-            ActiveMotionValues.setStrafeToAprilTagPose(FieldConstantsRed.nearLookForAprilTagPose);
+            ActiveMotionValues.setOptionStopPose(FieldConstantsRed.nearOptionPose);
 
             if (!secondPixel)
 
-                //ActiveMotionValues.setParkPose(FieldConstantsRed.nearParkPose);
-            ActiveMotionValues.setOptionPose(FieldConstantsRed.nearParkPose);
+                ActiveMotionValues.setOptionTargetPose(FieldConstantsRed.nearParkPose);
 
             else {
 
-//                ActiveMotionValues.setSecondAprilTagPose(FieldConstantsRed.getActiveTagPose(ActiveMotionValues.getActTag())
-//                        .plus(FieldConstantsRed.AprilTagConstants.tagStrafeOffsetPose));
-
-                ActiveMotionValues.setOptionPose(FieldConstantsRed.getActiveTagPose(ActiveMotionValues.getActTag())
+                ActiveMotionValues.setOptionTargetPose(FieldConstantsRed.getActiveTagPose(ActiveMotionValues.getActTag())
                         .plus(FieldConstantsRed.AprilTagConstants.tagStrafeOffsetPose));
-
 
             }
         }
@@ -276,29 +269,18 @@ public class SelectMotionValuesRed extends CommandBase {
 
 
             if (lcr == 13) {
-
                 ActiveMotionValues.setStrafeDistance(11.5 / 2);
-
                 ActiveMotionValues.setTrussSDLineUpPose((FieldConstantsRed.stageDoorLineUpPose13));
             }
 
-            ActiveMotionValues.setStrafeToAprilTagPose(FieldConstantsRed.centerLookForAprilTagPose);
+            ActiveMotionValues.setOptionStopPose(FieldConstantsRed.centerOptionPose);
 
             if (!secondPixel)
-
-//                ActiveMotionValues.setParkPose(FieldConstantsRed.centerParkPose);
-                ActiveMotionValues.setOptionPose(FieldConstantsRed.centerParkPose);
-
+                ActiveMotionValues.setOptionTargetPose(FieldConstantsRed.centerParkPose);
             else {
-
-
-//                ActiveMotionValues.setSecondAprilTagPose(FieldConstantsRed.getActiveTagPose(ActiveMotionValues.getActTag())
-//                        .plus(FieldConstantsRed.AprilTagConstants.tagStrafeOffsetPose));
-                ActiveMotionValues.setOptionPose(FieldConstantsRed.getActiveTagPose(ActiveMotionValues.getActTag())
+                ActiveMotionValues.setOptionTargetPose(FieldConstantsRed.getActiveTagPose(ActiveMotionValues.getActTag())
                         .plus(FieldConstantsRed.AprilTagConstants.tagStrafeOffsetPose));
-
             }
-
         }
     }
 

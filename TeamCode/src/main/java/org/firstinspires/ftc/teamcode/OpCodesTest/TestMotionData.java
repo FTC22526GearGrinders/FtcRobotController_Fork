@@ -178,7 +178,7 @@ public class TestMotionData extends CommandOpMode {
         telemetry.addData("StrafeDistance", ActiveMotionValues.getStrafeDistance());
         telemetry.addLine();
         telemetry.addData("TrussSDPose", ActiveMotionValues.getTrussSDLineUpPose().toString());
-        telemetry.addData("Strafe2AtagPose", ActiveMotionValues.getStrafeToAprilTagPose().toString());
+        telemetry.addData("Strafe2AtagPose", ActiveMotionValues.getOptionStopPose().toString());
         telemetry.addLine();
         telemetry.addData("SecondAtagPose", ActiveMotionValues.getSecondAprilTagPose().toString());
         telemetry.addData("ParkPose", ActiveMotionValues.getParkPose().toString());
@@ -193,7 +193,7 @@ public class TestMotionData extends CommandOpMode {
 
         telemetry.addData("Atag", ActiveMotionValues.getActTag());
 
-        telemetry.addData("ATStrafePose", ActiveMotionValues.getStrafeToAprilTagPose().toString());
+        telemetry.addData("ATStrafePose", ActiveMotionValues.getOptionStopPose().toString());
 
         telemetry.addData("ParkPose", ActiveMotionValues.getPreTagPose().toString());
 

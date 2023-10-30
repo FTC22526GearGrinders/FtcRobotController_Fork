@@ -54,9 +54,9 @@ public class RunTrussSDLRTape extends CommandBase {
 
                         .lineToLinearHeading(ActiveMotionValues.getTrussSDLineUpPose())
 
-                        .lineToLinearHeading(ActiveMotionValues.getStrafeToAprilTagPose())
+                        .lineToLinearHeading(ActiveMotionValues.getOptionStopPose())
 
-                        .lineToLinearHeading(ActiveMotionValues.getOptionPose())
+                        .lineToLinearHeading(ActiveMotionValues.getOptionTargetPose())
 
 
                         .build();
@@ -77,9 +77,9 @@ public class RunTrussSDLRTape extends CommandBase {
 
                         .lineToLinearHeading(ActiveMotionValues.getTrussSDLineUpPose())
 
-                        .lineToLinearHeading(ActiveMotionValues.getStrafeToAprilTagPose())
+                        .lineToLinearHeading(ActiveMotionValues.getOptionStopPose())
 
-                        .lineToLinearHeading(ActiveMotionValues.getOptionPose())
+                        .lineToLinearHeading(ActiveMotionValues.getOptionTargetPose())
 
                         .build();
 
@@ -102,9 +102,9 @@ public class RunTrussSDLRTape extends CommandBase {
 
                         .lineToLinearHeading(ActiveMotionValues.getTrussSDLineUpPose())
 
-                        .lineToLinearHeading(ActiveMotionValues.getStrafeToAprilTagPose())
+                        .lineToLinearHeading(ActiveMotionValues.getOptionStopPose())
 
-                        .lineToLinearHeading(ActiveMotionValues.getOptionPose())
+                        .lineToLinearHeading(ActiveMotionValues.getOptionTargetPose())
 
 
                         .build();
@@ -127,9 +127,9 @@ public class RunTrussSDLRTape extends CommandBase {
 
                         .lineToLinearHeading(ActiveMotionValues.getTrussSDLineUpPose())
 
-                        .lineToLinearHeading(ActiveMotionValues.getStrafeToAprilTagPose())
+                        .lineToLinearHeading(ActiveMotionValues.getOptionStopPose())
 
-                        .lineToLinearHeading(ActiveMotionValues.getOptionPose())
+                        .lineToLinearHeading(ActiveMotionValues.getOptionTargetPose())
 
                         .build();
 
