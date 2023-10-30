@@ -11,10 +11,6 @@ public class HoldArmAtPosition extends CommandBase {
 
     private double power;
 
-    private double distanceInches;
-
-    private int counts;
-
 
     public HoldArmAtPosition(ArmSubsystem arm) {
         this.arm = arm;
@@ -23,18 +19,18 @@ public class HoldArmAtPosition extends CommandBase {
 
     @Override
     public void initialize() {
-        distanceInches = arm.getPositionInches();
+
+        arm.holdInches = arm.getPositionInches();
+        arm.holdCountTimer = 0;
     }
 
     @Override
     public void execute() {
-
+        arm.holdCountTimer++;
         double output = arm.controller.calculate(
-                arm.getPositionInches(), this.distanceInches);  // the measured value
+                arm.getPositionInches(), arm.holdInches);
 
-        double motorOutput = output;
-
-        arm.armMotor.setPower(motorOutput + Constants.PixelHandlerConstants.POSITION_Kg);
+        arm.armMotor.set(output + Constants.ArmConstants.POSITION_Kg);
 
 
     }
@@ -42,7 +38,7 @@ public class HoldArmAtPosition extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-
+        arm.armMotor.set(0);
     }
 
     @Override

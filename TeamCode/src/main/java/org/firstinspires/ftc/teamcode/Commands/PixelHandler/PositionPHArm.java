@@ -1,11 +1,9 @@
 package org.firstinspires.ftc.teamcode.Commands.PixelHandler;
 
 import com.arcrobotics.ftclib.command.CommandBase;
-import com.qualcomm.robotcore.hardware.DcMotor;
 
-import org.checkerframework.checker.units.qual.A;
+import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.Subsystems.ArmSubsystem;
-import org.firstinspires.ftc.teamcode.Subsystems.PixelHandlerSubsystem;
 
 
 public class PositionPHArm extends CommandBase {
@@ -14,28 +12,39 @@ public class PositionPHArm extends CommandBase {
 
     private double power;
 
-    private double distance;
+    private double targetInches;
 
-    private int counts;
 
-    public PositionPHArm(ArmSubsystem arm, double distance, double power) {
-        this.arm=arm;
+    public PositionPHArm(ArmSubsystem arm, double targetInches, double power) {
+        this.arm = arm;
         this.power = power;
-        this.distance = distance;
+        this.targetInches = targetInches;
         addRequirements(arm);
     }
 
     @Override
     public void initialize() {
-        counts = arm.getCountsfrominches(this.distance);
-        arm.armMotor.setTargetPosition(counts);
-        arm.armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        arm.armMotor.setPower(.2);
+        arm.loopCountTimer = 0;
+        arm.targetInches = targetInches;
     }
 
     @Override
     public void execute() {
+
+        arm.loopCountTimer++;
+
+        double output = arm.controller.calculate(
+                arm.getPositionInches(), arm.targetInches);
+
+        double temp = output + Constants.ArmConstants.POSITION_Kg;
+
+        boolean minus = temp < 0;
+
+        if (Math.abs(temp) > power) temp = power;
+
+        if (minus) temp = -temp;
+
+        arm.armMotor.set(temp);
 
 
     }
@@ -43,11 +52,11 @@ public class PositionPHArm extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        arm.armMotor.setPower(0);
+        arm.armMotor.set(0);
     }
 
     @Override
     public boolean isFinished() {
-        return arm.inPosition();
+        return arm.loopCountTimer > 10 && arm.inPosition() || arm.loopCountTimer > 5000;
     }
 }

@@ -3,8 +3,7 @@ package org.firstinspires.ftc.teamcode.Subsystems;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.arcrobotics.ftclib.controller.PIDController;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.arcrobotics.ftclib.hardware.motors.Motor;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Constants;
@@ -12,35 +11,43 @@ import org.firstinspires.ftc.teamcode.Constants;
 public class ArmSubsystem extends SubsystemBase {
 
 
-    public final DcMotorEx armMotor;
+    public Motor armMotor;
+
+    public Motor.Encoder armEncoder;
 
 
     private final CommandOpMode myOpMode;
 
+    public double targetInches;
+
+    public double holdInches;
+
+    public int loopCountTimer;
+    public int holdCountTimer;
+
     double maxPower = .5;
 
-    double kP = 0.005;
-    double kI = 0;
-    double kD = 0;
-
-    public PIDController controller = new PIDController(kP, kI, kD);
+    public PIDController controller = new PIDController(Constants.ArmConstants.kP, Constants.ArmConstants.kI, Constants.ArmConstants.kD);
 
     public ArmSubsystem(CommandOpMode opMode) {
         myOpMode = opMode;
 
-        armMotor = myOpMode.hardwareMap.get(DcMotorEx.class, "armMotor");
-        armMotor.setDirection(DcMotor.Direction.REVERSE);
-        armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        armMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        armMotor = new Motor(myOpMode.hardwareMap, "armMotor", Motor.GoBILDA.RPM_435);
 
-        controller.setTolerance(Constants.PixelHandlerConstants.POSITION_TOLERANCE);
+        armMotor.setInverted(false);
 
+        armMotor.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
 
-    }
+        armEncoder = armMotor.encoder;
 
-    public static double encoderTicksToInches(double ticks) {
-        return 100 * ticks;
+        armEncoder.setDirection(Motor.Direction.FORWARD);
+
+        armEncoder.setDistancePerPulse( 1/Constants.ArmConstants.ENCODER_COUNTS_PER_INCH);
+
+        controller.setTolerance(Constants.ArmConstants.POSITION_TOLERANCE_INCHES);
+
+        resetEncoder();
+        ;
     }
 
 
@@ -51,65 +58,33 @@ public class ArmSubsystem extends SubsystemBase {
     }
 
     public void resetEncoder() {
-        armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        armMotor.setTargetPosition(0);
-        armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-    }
-
-    public void jog(double power) {
-
-//        if (power > 0 && getPositionInches() < Constants.PixelHandlerConstants.UPPER_POSITION_LIMIT
-//                || power < 0 && getPositionInches() > Constants.PixelHandlerConstants.LOWER_POSITION_LIMIT) {
-        armMotor.setPower(power);
-        // }
-    }
-
-    public void position(double target) {
-        double output = controller.calculate(
-                armMotor.getCurrentPosition(), target);  // the measured value
-
-        double motorOutput = output;
-
-        if (output > 0 && output > maxPower) motorOutput = maxPower;
-
-        if (output < 0 && output < -maxPower) motorOutput = -maxPower;
-
-        armMotor.setVelocity(motorOutput);
-
-    }
-
-
-    public void positionArm(double height) {
-
+        armEncoder.reset();
     }
 
     public double getPositionInches() {
-        return encoderTicksToInches(getEncoderTicks());
+        return armEncoder.getDistance();
     }
 
-    public double getEncoderTicks() {
-        return 10;//armMotor.getCurrentPosition();
-
-    }
-
-    public int getCountsfrominches(double inches) {
-        return (int) (inches * Constants.PixelHandlerConstants.ENCODER_COUNTS_PER_INCH);
-
-    }
 
     public boolean inPosition() {
         return controller.atSetPoint();
     }
 
-    public DcMotorEx getArmMotor() {
-        return armMotor;
-    }
-
     public void showTelemetry(Telemetry telemetry) {
-        telemetry.addData("ArmPosition", armMotor.getCurrentPosition());
-        telemetry.addData("ArmInches", encoderTicksToInches(armMotor.getCurrentPosition()));
-        telemetry.addData("ArmVelocity", armMotor.getVelocity());
-        telemetry.addData("ArmPower", armMotor.getPower());
+
+        telemetry.addData("EncCtsPerInch", Constants.ArmConstants.ENCODER_COUNTS_PER_INCH);
+        telemetry.addData("MaxIPS", Constants.ArmConstants.MAX_INCHES_PER_SECOND);
+
+        telemetry.addData("ArmInches", getPositionInches());
+        telemetry.addData("TargetInches", targetInches);
+        telemetry.addData("HoldInches", holdInches);
+
+
+        telemetry.addData("ArmInches", getPositionInches());
+        telemetry.addData("ArmVelocity", armEncoder.getRawVelocity());
+        telemetry.addData("ArmPower", armMotor.get());
+        telemetry.addData("LoopCtr", loopCountTimer);
+        telemetry.addData("HoldCtr", holdCountTimer);
 
 
         telemetry.update();

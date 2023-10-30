@@ -12,7 +12,7 @@ public class RunTrussSDCenterTape extends CommandBase {
     private Drive_Subsystem drive;
     private PixelHandlerSubsystem phss;
 
-    private TrajectorySequence trussNearTraj;
+    private TrajectorySequence trussSDTraj;
 
 
     public RunTrussSDCenterTape(Drive_Subsystem drive, PixelHandlerSubsystem phss) {
@@ -29,7 +29,7 @@ public class RunTrussSDCenterTape extends CommandBase {
              * <p>
              * It has the pixel delivery after the first step
              */
-            trussNearTraj = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
+            trussSDTraj = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
 
                   .lineToLinearHeading(ActiveMotionValues.getDropOffPose())
 
@@ -49,7 +49,7 @@ public class RunTrussSDCenterTape extends CommandBase {
 
         drive.drive.setPoseEstimate(ActiveMotionValues.getStartPose());
 
-        drive.drive.followTrajectorySequence(trussNearTraj);
+        drive.drive.followTrajectorySequence(trussSDTraj);
     }
 
     @Override

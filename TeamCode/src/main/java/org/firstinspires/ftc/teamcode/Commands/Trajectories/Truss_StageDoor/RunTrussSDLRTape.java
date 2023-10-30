@@ -12,7 +12,7 @@ public class RunTrussSDLRTape extends CommandBase {
     private Drive_Subsystem drive;
     private PixelHandlerSubsystem phss;
 
-    private TrajectorySequence trussNearTraj;
+    private TrajectorySequence trussSDTraj;
 
 
     public RunTrussSDLRTape(Drive_Subsystem drive, PixelHandlerSubsystem phss) {
@@ -44,7 +44,7 @@ public class RunTrussSDLRTape extends CommandBase {
 
             if (!trussSideTape) {
 
-                trussNearTraj = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
+                trussSDTraj = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
 
                         .lineToLinearHeading(ActiveMotionValues.getDropOffPose())
 
@@ -65,7 +65,7 @@ public class RunTrussSDLRTape extends CommandBase {
 
             if (trussSideTape) {
 
-                trussNearTraj = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
+                trussSDTraj = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
 
                         .lineToLinearHeading(ActiveMotionValues.getAdvancePose())
 
@@ -90,7 +90,7 @@ public class RunTrussSDLRTape extends CommandBase {
 
             if (!trussSideTape) {
 
-                trussNearTraj = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
+                trussSDTraj = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
 
                         .lineToLinearHeading(ActiveMotionValues.getDropOffPose())
 
@@ -113,7 +113,7 @@ public class RunTrussSDLRTape extends CommandBase {
 
             if (trussSideTape) {
 
-                trussNearTraj = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
+                trussSDTraj = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
 
                         .lineToLinearHeading(ActiveMotionValues.getAdvancePose())
 
@@ -139,7 +139,7 @@ public class RunTrussSDLRTape extends CommandBase {
 
         drive.drive.setPoseEstimate(ActiveMotionValues.getStartPose());
 
-        drive.drive.followTrajectorySequence(trussNearTraj);
+        drive.drive.followTrajectorySequence(trussSDTraj);
     }
 
     @Override

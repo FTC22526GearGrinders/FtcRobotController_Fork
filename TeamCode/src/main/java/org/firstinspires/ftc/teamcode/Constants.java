@@ -25,8 +25,6 @@ public final class Constants {
         static final double length = 144;
         static final double width = 144;
 
-        public static double trussBaseClearance = 1;
-
     }
 
     public static final class TapeConstants {
@@ -82,21 +80,41 @@ public final class Constants {
         public static final double DROP_OPEN_POSITION = .74;
         public static final double DROP_CLOSED_POSITION = .20;
 
-        public static final double TICKS_PER_REV = 537.7;
 
-        public static final double ENCODER_COUNTS_PER_INCH = 84.75;
-        public static final double MAX_RPM = 312;
-        public static final int POSITION_TOLERANCE = 1;
+    }
 
+    public static final class ArmConstants {
+
+        public static final double MAX_MOTOR_RPM = 435;
+
+        public static final double MAX_MOTOR_RPSEC = 312 / 60;
+
+
+        public static final double ENCODER_COUNTS_PER_MOTOR_REV = 384.5;
+
+        public static final double GEARING_RATIO = .16667;// motor revs per inch
+
+        public static final double ENCODER_COUNTS_PER_INCH = ENCODER_COUNTS_PER_MOTOR_REV * GEARING_RATIO;
+
+        public static final double MOTOR_REVS_PER_INCH = GEARING_RATIO;
+
+        public static final double MAX_INCHES_PER_SECOND = MAX_MOTOR_RPSEC / GEARING_RATIO;
+        public static final double POSITION_TOLERANCE_INCHES = .5;
         public static final double UPPER_POSITION_LIMIT = 35.00;
 
         public static final int LOWER_POSITION_LIMIT = -1;
 
+
         public static final double JOG_UP_POWER = +.5;
 
         public static final double JOG_DOWN_POWER = -.3;
-        public static double POSITION_Kg;
 
+
+        public static double kP = .25;
+        public static double kI = 0;
+        public static double kD = 0;
+
+        public static double POSITION_Kg;
 
         public enum armHeights {
 
@@ -119,6 +137,4 @@ public final class Constants {
 
 
     }
-
-
 }

@@ -309,5 +309,18 @@ public class ActiveMotionValues {
         return optionPose;
     }
 
+    private static Pose2d endAutoPose = new Pose2d();
+
+    public static void setEndAutoPose(Pose2d opt) {
+        endAutoPose = opt;
+    }
+
+    public static Pose2d getEndAutoPose() {
+        return endAutoPose;
+    }
+
+
+
+
 
 }
