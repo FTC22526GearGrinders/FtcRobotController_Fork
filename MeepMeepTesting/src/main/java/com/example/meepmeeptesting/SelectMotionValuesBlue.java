@@ -55,7 +55,7 @@ public class SelectMotionValuesBlue {
                 ActiveMotionValues.setRetractPose(FieldConstantsBlue.XPYP.leftRetractPose);
 
 
-                ActiveMotionValues.setStrafePose(FieldConstantsBlue.XPYP.lrStrafePose);
+//                ActiveMotionValues.setStrafePose(FieldConstantsBlue.XPYP.lrStrafePose);
 
                 ActiveMotionValues.setActTag(1);
 

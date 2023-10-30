@@ -24,13 +24,13 @@ public class ActiveMotionValues {
         trussSDLineUpPose = lineUpPose;
     }
 
-    public static Pose2d getStrafePose() {
-        return strafePose;
-    }
-
-    public static void setStrafePose(Pose2d pose) {
-        strafePose = pose;
-    }
+//    public static Pose2d getStrafePose() {
+//        return strafePose;
+//    }
+//
+//    public static void setStrafePose(Pose2d pose) {
+//        strafePose = pose;
+//    }
 
     public static Pose2d getStrafeToAprilTagPose() {
         return strafeToAprilTagPose;

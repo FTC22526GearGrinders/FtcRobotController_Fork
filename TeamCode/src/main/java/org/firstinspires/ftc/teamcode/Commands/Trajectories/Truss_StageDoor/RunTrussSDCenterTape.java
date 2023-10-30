@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Commands.Trajectories.Truss;
+package org.firstinspires.ftc.teamcode.Commands.Trajectories.Truss_StageDoor;
 
 import com.arcrobotics.ftclib.command.CommandBase;
 
@@ -8,14 +8,14 @@ import org.firstinspires.ftc.teamcode.Subsystems.PixelHandlerSubsystem;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
 
-public class RunTrussCenterTapeAllOptions extends CommandBase {
+public class RunTrussSDCenterTape extends CommandBase {
     private Drive_Subsystem drive;
     private PixelHandlerSubsystem phss;
 
-    private TrajectorySequence trussNear;
+    private TrajectorySequence trussNearTraj;
 
 
-    public RunTrussCenterTapeAllOptions(Drive_Subsystem drive, PixelHandlerSubsystem phss) {
+    public RunTrussSDCenterTape(Drive_Subsystem drive, PixelHandlerSubsystem phss) {
         this.drive = drive;
         this.phss = phss;
 
@@ -24,15 +24,12 @@ public class RunTrussCenterTapeAllOptions extends CommandBase {
     @Override
     public void initialize() {
 
-        boolean secondPixel = ActiveMotionValues.getSecondPixel();
-
-        if (!secondPixel) {
             /**
              * Use th 5 step center for stage door selection
              * <p>
              * It has the pixel delivery after the first step
              */
-            trussNear = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
+            trussNearTraj = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
 
                   .lineToLinearHeading(ActiveMotionValues.getDropOffPose())
 
@@ -42,31 +39,17 @@ public class RunTrussCenterTapeAllOptions extends CommandBase {
 
                     .lineToLinearHeading(ActiveMotionValues.getTrussSDLineUpPose())
 
-                    .lineToLinearHeading(ActiveMotionValues.getParkPose())
-
-
-                    .build();
-
-        } else {
-
-            trussNear = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
-
-                    .lineToLinearHeading(ActiveMotionValues.getDropOffPose())
-
-                    .waitSeconds(.5)
-
-                    .lineToLinearHeading(ActiveMotionValues.getTrussSDLineUpPose())
-
                     .lineToLinearHeading(ActiveMotionValues.getStrafeToAprilTagPose())
 
+                    .lineToLinearHeading(ActiveMotionValues.getOptionPose())
 
                     .build();
 
-        }
+
 
         drive.drive.setPoseEstimate(ActiveMotionValues.getStartPose());
 
-        drive.drive.followTrajectorySequence(trussNear);
+        drive.drive.followTrajectorySequence(trussNearTraj);
     }
 
     @Override
