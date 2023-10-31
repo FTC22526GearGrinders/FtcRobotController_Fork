@@ -31,17 +31,12 @@ package org.firstinspires.ftc.teamcode.OpCodesTest;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
-
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Commands.Utils.DetectAprilTags;
-import org.firstinspires.ftc.teamcode.FieldConstantsRed;
-import org.firstinspires.ftc.vision.VisionPortal;
-import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
+import org.firstinspires.ftc.teamcode.Subsystems.Vision_Subsystem;
 import org.openftc.easyopencv.OpenCvWebcam;
 
 /*
@@ -60,13 +55,7 @@ public class TestAprilTags extends CommandOpMode {
     /**
      * The variable to store our instance of the AprilTag processor.
      */
-    private AprilTagProcessor aprilTag;
-
-    /**
-     * The variable to store our instance of the vision portal.
-     */
-    private VisionPortal visionPortal;
-
+    private Vision_Subsystem vss;
     private FtcDashboard dashboard;
     private OpenCvWebcam webcam;
 
@@ -77,17 +66,14 @@ public class TestAprilTags extends CommandOpMode {
 
         telemetry = new MultipleTelemetry(telemetry, dashboard.getTelemetry());
 
-        aprilTag = AprilTagProcessor.easyCreateWithDefaults();
-
-        visionPortal = VisionPortal.easyCreateWithDefaults(
-                hardwareMap.get(WebcamName.class, "Webcam 1"), aprilTag);
+        vss = new Vision_Subsystem(this);
 
 
         // Wait for the DS start button to be touched.
         telemetry.addData("DS preview on/off", "3 dots, Camera Stream");
         telemetry.update();
 
-        new DetectAprilTags(this, aprilTag).schedule();
+        new DetectAprilTags(this, vss.myAprilTagProcessor).schedule();
 
     }
 

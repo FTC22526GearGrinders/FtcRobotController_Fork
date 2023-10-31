@@ -4,6 +4,7 @@ import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Constants;
 
 public class PixelHandlerSubsystem extends SubsystemBase {
@@ -17,6 +18,7 @@ public class PixelHandlerSubsystem extends SubsystemBase {
 
 
     private final CommandOpMode myOpMode;
+
 
     private double currentArmPosition;
 
@@ -82,6 +84,10 @@ public class PixelHandlerSubsystem extends SubsystemBase {
         setArmExtendPosition(currentArmPosition);
     }
 
+    public double getLastPosition() {
+        return currentArmPosition;
+    }
+
     public void extendArm() {
         setArmExtendPosition(Constants.PixelHandlerConstants.ARM_EXTEND_POSITION);
     }
@@ -111,5 +117,33 @@ public class PixelHandlerSubsystem extends SubsystemBase {
             armExtend.setDirection(Servo.Direction.REVERSE);
     }
 
+    public double getCurrentArmPosition() {
+        return currentArmPosition;
+    }
+
+    public void setCurrentArmPosition(double position) {
+        this.currentArmPosition = position;
+    }
+
+    public void iterateExtendArm(double increment) {
+        currentArmPosition += increment;
+        if (currentArmPosition > Constants.PixelHandlerConstants.ARM_EXTEND_POSITION)
+            currentArmPosition = Constants.PixelHandlerConstants.ARM_EXTEND_POSITION;
+        setArmExtendPosition(currentArmPosition);
+    }
+
+    public void iterateRetractArm(double increment) {
+        currentArmPosition -= increment;
+        if (currentArmPosition < Constants.PixelHandlerConstants.ARM_RETRACT_POSITION)
+            currentArmPosition = Constants.PixelHandlerConstants.ARM_RETRACT_POSITION;
+        setArmExtendPosition(currentArmPosition);
+    }
+
+    public void showTelemetry(Telemetry telemetry) {
+        telemetry.addData("CurrentExtPosition", getCurrentArmPosition());
+        telemetry.addData("MaxExtPosn", Constants.PixelHandlerConstants.ARM_EXTEND_POSITION);
+        telemetry.addData("MinExtPosn", Constants.PixelHandlerConstants.ARM_RETRACT_POSITION);
+        telemetry.update();
+    }
 
 }

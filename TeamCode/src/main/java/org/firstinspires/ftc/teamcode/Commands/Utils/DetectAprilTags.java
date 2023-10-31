@@ -39,7 +39,7 @@ public class DetectAprilTags extends CommandBase {
 
     @Override
     public void initialize() {
-        n = ActiveMotionValues.getActTag();
+        n = 6;// ActiveMotionValues.getActTag();
 //
     }
 

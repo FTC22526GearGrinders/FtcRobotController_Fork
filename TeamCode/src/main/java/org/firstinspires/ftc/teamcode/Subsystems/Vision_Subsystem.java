@@ -40,6 +40,7 @@ public class Vision_Subsystem extends SubsystemBase {
                 .setTagLibrary(myAprilTagLibrary)
                 .setDrawTagID(true)
                 .setDrawTagOutline(true)
+                .setLensIntrinsics( 634.549 , 634.549, 303.319 , 235.933)
                 .setDrawAxes(true)
                 .setDrawCubeProjection(true)
                 .build();
@@ -55,7 +56,7 @@ public class Vision_Subsystem extends SubsystemBase {
         myVisionPortalBuilder = new VisionPortal.Builder();
 
 // Specify the camera to be used for this VisionPortal.
-        myVisionPortalBuilder.setCamera(myOpMode.hardwareMap.get(WebcamName.class, "Webcam 1"));      // Other choices are: RC phone camera and "switchable camera name".
+        myVisionPortalBuilder.setCamera(myOpMode.hardwareMap.get(WebcamName.class, "Webcam 2"));      // Other choices are: RC phone camera and "switchable camera name".
 
 // Add the AprilTag Processor to the VisionPortal Builder.
         myVisionPortalBuilder.addProcessor(myAprilTagProcessor);

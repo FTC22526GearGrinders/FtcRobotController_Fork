@@ -80,8 +80,8 @@ public final class Constants {
         public static final double DROP_OPEN_POSITION = .20;
         public static final double DROP_CLOSED_POSITION =74;
 
-        public static final double ARM_EXTEND_POSITION = .20;
-        public static final double ARM_RETRACT_POSITION = .74;
+        public static final double ARM_EXTEND_POSITION = .90;
+        public static final double ARM_RETRACT_POSITION = .10;
 
 
     }

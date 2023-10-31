@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.OpModes_Teleop;
 
-import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
@@ -9,14 +8,13 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Commands.Drive.JogDrive;
 import org.firstinspires.ftc.teamcode.Commands.PixelHandler.HoldArmAtPosition;
+import org.firstinspires.ftc.teamcode.Commands.PixelHandler.IterateExtendArnServo;
 import org.firstinspires.ftc.teamcode.Commands.PixelHandler.JogArm;
 import org.firstinspires.ftc.teamcode.Commands.PixelHandler.PositionPHArm;
-import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.Subsystems.ArmSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.PixelHandlerSubsystem;
-import org.firstinspires.ftc.teamcode.drive.StandardTrackingWheelLocalizer;
 
 @TeleOp
 public class TeleopOpMode extends CommandOpMode {
@@ -29,7 +27,7 @@ public class TeleopOpMode extends CommandOpMode {
 
     protected ArmSubsystem arm;
 
-    protected StandardTrackingWheelLocalizer teleLocalizer;
+    //   protected StandardTrackingWheelLocalizer teleLocalizer;
 
     GamepadEx driver;
     GamepadEx coDriver;
@@ -53,16 +51,13 @@ public class TeleopOpMode extends CommandOpMode {
 
         arm = new ArmSubsystem(this);
 
-        teleLocalizer= new StandardTrackingWheelLocalizer(this.hardwareMap);
-
-        teleLocalizer.setPoseEstimate(ActiveMotionValues.getAutoRobotPose());
+//        teleLocalizer= new StandardTrackingWheelLocalizer(this.hardwareMap);
+//
+//        teleLocalizer.setPoseEstimate(ActiveMotionValues.getAutoRobotPose());
 
         drive.setDefaultCommand(new JogDrive(this.drive, gamepad1, false));
 
         arm.setDefaultCommand(new HoldArmAtPosition(this.arm));
-
-
-
 
 
 //        gamepad.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenHeld(
@@ -93,6 +88,11 @@ public class TeleopOpMode extends CommandOpMode {
 
         driver.getGamepadButton(GamepadKeys.Button.RIGHT_STICK_BUTTON).whenPressed(new PositionPHArm(arm, Constants.ArmConstants.armHeights.HIGH.height, .1));
 
+        //Codriver buttons
+
+        coDriver.getGamepadButton((GamepadKeys.Button.A)).whenHeld(new IterateExtendArnServo(phss, true));
+        coDriver.getGamepadButton((GamepadKeys.Button.B)).whenHeld(new IterateExtendArnServo(phss, false));
+
 
     }
 
@@ -104,16 +104,18 @@ public class TeleopOpMode extends CommandOpMode {
 
         CommandScheduler.getInstance().run();
 
-        teleLocalizer.update();
+//        teleLocalizer.update();
+//
+//        Pose2d currentPose = teleLocalizer.getPoseEstimate();
 
-        Pose2d currentPose = teleLocalizer.getPoseEstimate();
 
-
-        drive.drive.showTelemetry(telemetry);
+       // drive.drive.showTelemetry(telemetry);
 
         // drive.showtelemetry(telemetry);
 
-        arm.showTelemetry(telemetry);
+//        arm.showTelemetry(telemetry);
+
+        phss.showTelemetry(telemetry);
     }
 
 
