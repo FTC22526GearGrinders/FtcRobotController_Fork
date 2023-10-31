@@ -1,7 +1,9 @@
 package org.firstinspires.ftc.teamcode.OpModes_Teleop;
 
+import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
+import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -14,6 +16,7 @@ import org.firstinspires.ftc.teamcode.Commands.PixelHandler.PositionPHArm;
 import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.Subsystems.ArmSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
+import org.firstinspires.ftc.teamcode.Subsystems.DroneCatapultSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.PixelHandlerSubsystem;
 
 @TeleOp
@@ -27,7 +30,9 @@ public class TeleopOpMode extends CommandOpMode {
 
     protected ArmSubsystem arm;
 
-    //   protected StandardTrackingWheelLocalizer teleLocalizer;
+    private DroneCatapultSubsystem dcatss;
+
+    Pose2d poseEstimate;
 
     GamepadEx driver;
     GamepadEx coDriver;
@@ -45,15 +50,14 @@ public class TeleopOpMode extends CommandOpMode {
 
         drive = new Drive_Subsystem(this);
 
+
         //  visionSubsystem = new Vision_Subsystem(this);
 
         phss = new PixelHandlerSubsystem(this);
 
         arm = new ArmSubsystem(this);
 
-//        teleLocalizer= new StandardTrackingWheelLocalizer(this.hardwareMap);
-//
-//        teleLocalizer.setPoseEstimate(ActiveMotionValues.getAutoRobotPose());
+        dcatss = new DroneCatapultSubsystem(this);
 
         drive.setDefaultCommand(new JogDrive(this.drive, gamepad1, false));
 
@@ -85,13 +89,21 @@ public class TeleopOpMode extends CommandOpMode {
 
         driver.getGamepadButton(GamepadKeys.Button.LEFT_STICK_BUTTON).whenPressed(new PositionPHArm(arm, Constants.ArmConstants.armHeights.MID.height, .1));
 
-
         driver.getGamepadButton(GamepadKeys.Button.RIGHT_STICK_BUTTON).whenPressed(new PositionPHArm(arm, Constants.ArmConstants.armHeights.HIGH.height, .1));
 
         //Codriver buttons
 
         coDriver.getGamepadButton((GamepadKeys.Button.A)).whenHeld(new IterateExtendArnServo(phss, true));
         coDriver.getGamepadButton((GamepadKeys.Button.B)).whenHeld(new IterateExtendArnServo(phss, false));
+        coDriver.getGamepadButton((GamepadKeys.Button.DPAD_LEFT)).whenPressed(phss::extendArm);
+        coDriver.getGamepadButton((GamepadKeys.Button.DPAD_LEFT)).whenPressed(phss::retractArml);
+
+
+        coDriver.getGamepadButton((GamepadKeys.Button.DPAD_DOWN)).whenPressed(dcatss::lockCatapult);
+
+
+        coDriver.getGamepadButton((GamepadKeys.Button.DPAD_UP)).whenPressed(dcatss::releaseCatapult);
+        coDriver.getGamepadButton((GamepadKeys.Button.DPAD_DOWN)).whenPressed(dcatss::lockCatapult);
 
 
     }
@@ -104,12 +116,10 @@ public class TeleopOpMode extends CommandOpMode {
 
         CommandScheduler.getInstance().run();
 
-//        teleLocalizer.update();
-//
-//        Pose2d currentPose = teleLocalizer.getPoseEstimate();
 
+        poseEstimate = drive.drive.getPoseEstimate();
 
-       // drive.drive.showTelemetry(telemetry);
+        drive.drive.showTelemetry(telemetry);
 
         // drive.showtelemetry(telemetry);
 

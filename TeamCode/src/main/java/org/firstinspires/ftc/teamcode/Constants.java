@@ -140,4 +140,13 @@ public final class Constants {
 
 
     }
+
+    public static final class CatapultConstants {
+
+        public static final double CATAPULT_LOCK_POSITION = .10;
+        public static final double CATAPULT_RELEASE_POSITION = .90;
+
+
+
+    }
 }

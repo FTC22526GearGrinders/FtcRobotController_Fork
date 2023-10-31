@@ -32,6 +32,12 @@ public class PixelHandlerSubsystem extends SubsystemBase {
 
         armExtend = myOpMode.hardwareMap.get(Servo.class, "arm extend");
 
+        claw.setDirection(Servo.Direction.FORWARD);
+
+        pixelDrop.setDirection(Servo.Direction.FORWARD);
+
+        armExtend.setDirection(Servo.Direction.FORWARD);
+
         retractArml();
 
         currentArmPosition = Constants.PixelHandlerConstants.ARM_RETRACT_POSITION;
@@ -75,13 +81,6 @@ public class PixelHandlerSubsystem extends SubsystemBase {
 
     public void setArmExtendPosition(double position) {
         armExtend.setPosition(position);
-    }
-
-    public void extendArm(double increment) {
-        currentArmPosition += increment;
-        if (currentArmPosition > Constants.PixelHandlerConstants.ARM_RETRACT_POSITION)
-            currentArmPosition = Constants.PixelHandlerConstants.ARM_RETRACT_POSITION;
-        setArmExtendPosition(currentArmPosition);
     }
 
     public double getLastPosition() {
