@@ -11,6 +11,7 @@ import org.firstinspires.ftc.teamcode.Commands.Drive.JogDrive;
 import org.firstinspires.ftc.teamcode.Commands.PixelHandler.HoldArmAtPosition;
 import org.firstinspires.ftc.teamcode.Commands.PixelHandler.JogArm;
 import org.firstinspires.ftc.teamcode.Commands.PixelHandler.PositionPHArm;
+import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.Subsystems.ArmSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
@@ -54,7 +55,7 @@ public class TeleopOpMode extends CommandOpMode {
 
         teleLocalizer= new StandardTrackingWheelLocalizer(this.hardwareMap);
 
-        teleLocalizer.setPoseEstimate(new Pose2d(0,0.,Math.toRadians(0)));
+        teleLocalizer.setPoseEstimate(ActiveMotionValues.getAutoRobotPose());
 
         drive.setDefaultCommand(new JogDrive(this.drive, gamepad1, false));
 

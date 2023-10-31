@@ -17,7 +17,7 @@ public final class Constants {
         public static Pose2d pixelDropPose = new Pose2d(0, -RobotConstants.length / 2 + 1, 0);
 
 
-        public static Pose2d kCameraToRobot = new Pose2d(RobotConstants.length / 2, 0, Math.toRadians(180));
+        public static Pose2d kCameraToRobot = new Pose2d(RobotConstants.length / 2, 0);
     }
 
     public static final class FieldConstants {
@@ -77,8 +77,11 @@ public final class Constants {
     public static final class PixelHandlerConstants {
         public static final double CLAW_CLOSE_POSITION = .74;
         public static final double CLAW_OPEN_POSITION = .20;
-        public static final double DROP_OPEN_POSITION = .74;
-        public static final double DROP_CLOSED_POSITION = .20;
+        public static final double DROP_OPEN_POSITION = .20;
+        public static final double DROP_CLOSED_POSITION =74;
+
+        public static final double ARM_EXTEND_POSITION = .20;
+        public static final double ARM_RETRACT_POSITION = .74;
 
 
     }

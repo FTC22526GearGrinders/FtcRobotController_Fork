@@ -66,7 +66,7 @@ public class MeepMeepTesting {
                         drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
 
 //
-                             //  .lineToLinearHeading(ActiveMotionValues.getAdvancePose())
+                                //  .lineToLinearHeading(ActiveMotionValues.getAdvancePose())
 
                                 .lineToLinearHeading(ActiveMotionValues.getDropOffPose())
 
@@ -80,12 +80,12 @@ public class MeepMeepTesting {
 //
                                 .lineToLinearHeading(ActiveMotionValues.getTrussSDLineUpPose())
 //
-                                .lineToLinearHeading(ActiveMotionValues.getStrafeToAprilTagPose())
+                                .lineToLinearHeading(ActiveMotionValues.getOptionStopPose())
 
-                                   .lineToLinearHeading(ActiveMotionValues.getSecondAprilTagPose())
+                                .turn(Math.toRadians(130))
 
-
-                      //          .lineToLinearHeading(ActiveMotionValues.getParkPose())
+                                .waitSeconds(2)
+                                .lineToLinearHeading(ActiveMotionValues.getOptionPose())
 
 
                                 .build());

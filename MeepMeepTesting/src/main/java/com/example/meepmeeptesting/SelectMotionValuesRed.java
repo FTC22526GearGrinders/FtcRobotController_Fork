@@ -250,7 +250,7 @@ public class SelectMotionValuesRed {
 
             ActiveMotionValues.setTrussSDLineUpPose(FieldConstantsRed.nearTrussLineUpPose);
 
-            ActiveMotionValues.setStrafeToAprilTagPose(FieldConstantsRed.nearLookForAprilTagPose);
+            ActiveMotionValues.setOptionStopPose(FieldConstantsRed.nearLookForAprilTagPose);
 
             if (!secondPixel)
 
@@ -283,7 +283,7 @@ public class SelectMotionValuesRed {
                 ActiveMotionValues.setTrussSDLineUpPose(FieldConstantsRed.stageDoorLineUpPose13);
             }
 
-            ActiveMotionValues.setStrafeToAprilTagPose(FieldConstantsRed.centerLookForAprilTagPose);
+            ActiveMotionValues.setOptionStopPose(FieldConstantsRed.centerLookForAprilTagPose);
 
             if (!secondPixel)
 

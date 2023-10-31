@@ -55,32 +55,32 @@ public class DetectAprilTags extends CommandBase {
                     ActiveMotionValues.setPoseFromTag(detection.ftcPose);
 
 
-
-                    Pose2d camPose = new Pose2d(detection.ftcPose.y, detection.ftcPose.x);
-
+                    Pose2d camPose = new Pose2d(detection.ftcPose.y, detection.ftcPose.x, Math.toRadians(detection.ftcPose.yaw));
                     Pose2d tagPose = FieldConstantsRed.getActiveTagPose(ActiveMotionValues.getActTag());
-
-                    Pose2d fieldCamPose = tagPose.minus(camPose);
-
-                    Pose2d robotPose = fieldCamPose.minus(Constants.RobotConstants.kCameraToRobot);
-
-                    ActiveMotionValues.setRobotPose(robotPose);
+                    Pose2d camFieldPose = tagPose.minus(camPose);
 
 
-                    tagDistancePose = new Pose2d(-6 - Constants.RobotConstants.length / 2, 0);
+                    Pose2d currentRobotPose = camFieldPose.minus(Constants.RobotConstants.kCameraToRobot);
 
-                    finalPose = tagPose.plus(tagDistancePose);
+                    Pose2d robotPoseAtTag = tagPose.minus(Constants.RobotConstants.kCameraToRobot);
+
+                    tagDistancePose = new Pose2d(6, 0);
+
+                    finalPose = robotPoseAtTag.minus(tagDistancePose);
 
 
                     myOpMode.telemetry.addData("Tag ID", detection.id);
                     myOpMode.telemetry.addLine();
+                    myOpMode.telemetry.addData("TagPose", tagPose.toString());
+                    myOpMode.telemetry.addLine();
                     myOpMode.telemetry.addData("CamPose", camPose.toString());
                     myOpMode.telemetry.addLine();
-
-                    myOpMode.telemetry.addData("RobFieldPose", robotPose.toString());
-                    myOpMode.telemetry.addData("tagePose", tagPose.toString());
+                    myOpMode.telemetry.addData("CamFieldPose", camFieldPose.toString());
                     myOpMode.telemetry.addLine();
-                    myOpMode.telemetry.addData("fieldCamPose", fieldCamPose.toString());
+
+                    myOpMode.telemetry.addData("CurrRobotPose", currentRobotPose.toString());
+                    myOpMode.telemetry.addLine();
+                    myOpMode.telemetry.addData("RobotPoseAtTag", robotPoseAtTag.toString());
                     myOpMode.telemetry.addLine();
                     myOpMode.telemetry.addData("TagDistPose", tagDistancePose.toString());
                     myOpMode.telemetry.addLine();

@@ -32,12 +32,12 @@ public class ActiveMotionValues {
 //        strafePose = pose;
 //    }
 
-    public static Pose2d getStrafeToAprilTagPose() {
-        return strafeToAprilTagPose;
+    public static Pose2d getOptionStopPose() {
+        return optionStopPose;
     }
 
-    public static void setStrafeToAprilTagPose(Pose2d tagPose) {
-        strafeToAprilTagPose = tagPose;
+    public static void setOptionStopPose(Pose2d tagPose) {
+        optionStopPose = tagPose;
     }
 
     private static Pose2d trussSDLineUpPose = new Pose2d();
@@ -54,7 +54,7 @@ public class ActiveMotionValues {
     }
 
     private static Pose2d lineupPose = new Pose2d();
-    private static Pose2d strafeToAprilTagPose = new Pose2d();
+    private static Pose2d optionStopPose = new Pose2d();
 
 
     private static Pose2d startPose = new Pose2d();
@@ -279,6 +279,16 @@ public class ActiveMotionValues {
     public static boolean getUseStageDoor() {
         return useStageDoor;
     }
+
+    public static Pose2d getOptionPose() {
+        return optionPose;
+    }
+
+    public static void setOptionPose(Pose2d pose) {
+        optionPose = pose;
+    }
+
+    public static Pose2d optionPose = new Pose2d();
 
 
 }

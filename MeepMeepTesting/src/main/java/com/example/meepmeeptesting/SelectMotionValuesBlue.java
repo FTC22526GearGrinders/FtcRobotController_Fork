@@ -136,7 +136,7 @@ public class SelectMotionValuesBlue {
                 ActiveMotionValues.setActTag(3);
 
                 ActiveMotionValues.setPreTagPose(FieldConstantsBlue.getActiveTagPose(ActiveMotionValues.getActTag())
-                        .minus(FieldConstantsBlue.AprilTagConstants.tagLookAheadPose));
+                        .minus(FieldConstantsBlue.AprilTagConstants.tagStrafeOffsetPose));
 
                 if (ActiveMotionValues.getCenterPark())
 
@@ -251,15 +251,15 @@ public class SelectMotionValuesBlue {
 
             ActiveMotionValues.setTrussSDLineUpPose(FieldConstantsBlue.nearTrussLineUPose);
 
-            ActiveMotionValues.setStrafeToAprilTagPose(FieldConstantsBlue.nearLookForAprilTagPose);
+            ActiveMotionValues.setOptionStopPose(FieldConstantsBlue.nearOptionStopPose);
 
             if (!secondPixel)
 
-                ActiveMotionValues.setParkPose(FieldConstantsBlue.nearParkPose);
+                ActiveMotionValues.setOptionPose(FieldConstantsBlue.nearParkPose);
 
             else {
 
-                ActiveMotionValues.setSecondAprilTagPose(FieldConstantsBlue.getActiveTagPose(ActiveMotionValues.getActTag())
+                ActiveMotionValues.setOptionPose(FieldConstantsBlue.getActiveTagPose(ActiveMotionValues.getActTag())
                         .plus(FieldConstantsBlue.AprilTagConstants.tagStrafeOffsetPose));
 
             }
@@ -281,15 +281,15 @@ public class SelectMotionValuesBlue {
                 ActiveMotionValues.setStrafeDistance(-11.5);
                 ActiveMotionValues.setTrussSDLineUpPose((FieldConstantsBlue.stageDoorLineUpPose13));
             }
-            ActiveMotionValues.setStrafeToAprilTagPose(FieldConstantsBlue.centerLookForAprilTagPose);
+            ActiveMotionValues.setOptionStopPose(FieldConstantsBlue.centerOptionStopPose);
 
             if (!secondPixel)
 
-                ActiveMotionValues.setParkPose(FieldConstantsBlue.centerParkPose);
+                ActiveMotionValues.setOptionPose(FieldConstantsBlue.centerParkPose);
 
             else {
 
-                ActiveMotionValues.setSecondAprilTagPose(FieldConstantsBlue.getActiveTagPose(ActiveMotionValues.getActTag())
+                ActiveMotionValues.setOptionPose(FieldConstantsBlue.getActiveTagPose(ActiveMotionValues.getActTag())
                         .plus(FieldConstantsBlue.AprilTagConstants.tagStrafeOffsetPose));
 
             }
