@@ -8,15 +8,26 @@ public class ActiveMotionValues {
 
 
 
-    public static Pose2d getRobotPose() {
-        return robotPose;
+    public static Pose2d getFinalTagPose() {
+        return finalTagPose;
     }
 
-    public static void setRobotPose(Pose2d pose) {
-        robotPose = pose;
+    public static void setFinalTagPose(Pose2d pose) {
+        finalTagPose = pose;
     }
 
-    private static Pose2d robotPose = new Pose2d();
+    private static Pose2d finalTagPose = new Pose2d();
+
+    public static Pose2d getCurrentRobotPose() {
+        return currentRobotPose;
+    }
+
+    public static void setCurrentRobotPose(Pose2d pose) {
+        currentRobotPose = pose;
+    }
+
+    private static Pose2d currentRobotPose = new Pose2d();
+
 
     public static Pose2d getAutoRobotPose() {
         return autoRobotPose;
@@ -27,7 +38,6 @@ public class ActiveMotionValues {
     }
 
     private static Pose2d autoRobotPose = new Pose2d();
-
 
 
     public static Pose2d getTrussSDLineUpPose() {
@@ -57,24 +67,10 @@ public class ActiveMotionValues {
     private static Pose2d trussSDLineUpPose = new Pose2d();
     private static Pose2d retractPose = new Pose2d();
 
-    //private static Pose2d strafePose = new Pose2d();
-
-    public static Pose2d getLineupPose() {
-        return lineupPose;
-    }
-
-    public static void setLineupPose(Pose2d pose) {
-      lineupPose = pose;
-    }
-
-    private static Pose2d lineupPose = new Pose2d();
     private static Pose2d optionStopPose = new Pose2d();
 
 
     private static Pose2d startPose = new Pose2d();
-
-    private static AprilTagPoseFtc currentTagPose =
-            new AprilTagPoseFtc(0, 0, 0, 0, 0, 0, 0, 0, 0);
 
     private static Pose2d parkPose = new Pose2d();
 
@@ -271,17 +267,17 @@ public class ActiveMotionValues {
 
     public boolean HSVRed = false;
 
-    private static AprilTagPoseFtc tagPoseFtc;
+   // private static AprilTagPoseFtc tagPoseFtc;
 
     private static Pose2d aprilTagPos2d = new Pose2d();
 
-    public static void setPoseFromTag(AprilTagPoseFtc ftcPose) {
-        tagPoseFtc = ftcPose;
-    }
-
-    public static AprilTagPoseFtc getPoseFromTag() {
-        return tagPoseFtc;
-    }
+//    public static void setPoseFromTag(AprilTagPoseFtc ftcPose) {
+//        tagPoseFtc = ftcPose;
+//    }
+//
+//    public static AprilTagPoseFtc getPoseFromTag() {
+//        return tagPoseFtc;
+//    }
 
     public static void setTagPose2d(Pose2d tagPose2d) {
         aprilTagPos2d = tagPose2d;
@@ -331,6 +327,16 @@ public class ActiveMotionValues {
     public static Pose2d getEndAutoPose() {
         return endAutoPose;
     }
+
+    public static boolean getLeftPark() {
+        return leftPark;
+    }
+
+    public static void setParkInPlace(boolean park) {
+        ActiveMotionValues.leftPark = park;
+    }
+
+    private static boolean leftPark=false;
 
 
 

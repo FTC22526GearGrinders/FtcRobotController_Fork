@@ -64,9 +64,6 @@ public class RunBBLRTraj extends CommandBase {
 
                     .lineToLinearHeading(ActiveMotionValues.getRetractPose())
 
- //                   .lineToLinearHeading(ActiveMotionValues.getStrafePose())
-
-                    .lineToLinearHeading(ActiveMotionValues.getLineupPose())
 
                     .lineToLinearHeading(ActiveMotionValues.getPreTagPose())
 

@@ -60,7 +60,7 @@ public class SelectMotionValuesBlue {
                 ActiveMotionValues.setActTag(1);
 
                 ActiveMotionValues.setPreTagPose(FieldConstantsBlue.getActiveTagPose(ActiveMotionValues.getActTag())
-                        .plus(FieldConstantsBlue.AprilTagConstants.tagStrafeOffsetPose));
+                        .plus(FieldConstantsBlue.AprilTagConstants.tagStrafeOffsetPose1));
 
 
                 if (ActiveMotionValues.getCenterPark())
@@ -126,7 +126,6 @@ public class SelectMotionValuesBlue {
                 ActiveMotionValues.setAdvancePose(FieldConstantsBlue.XPYP.advancePose);
 
 
-
                 ActiveMotionValues.setDropOffPose(FieldConstantsBlue.XPYP.rightDropPose);
 
 
@@ -136,7 +135,7 @@ public class SelectMotionValuesBlue {
                 ActiveMotionValues.setActTag(3);
 
                 ActiveMotionValues.setPreTagPose(FieldConstantsBlue.getActiveTagPose(ActiveMotionValues.getActTag())
-                        .minus(FieldConstantsBlue.AprilTagConstants.tagStrafeOffsetPose));
+                        .minus(FieldConstantsBlue.AprilTagConstants.tagStrafeOffsetPose1));
 
                 if (ActiveMotionValues.getCenterPark())
 
@@ -260,7 +259,7 @@ public class SelectMotionValuesBlue {
             else {
 
                 ActiveMotionValues.setOptionPose(FieldConstantsBlue.getActiveTagPose(ActiveMotionValues.getActTag())
-                        .plus(FieldConstantsBlue.AprilTagConstants.tagStrafeOffsetPose));
+                        .plus(FieldConstantsBlue.AprilTagConstants.tagStrafeOffsetPose1));
 
             }
         }
@@ -281,7 +280,14 @@ public class SelectMotionValuesBlue {
                 ActiveMotionValues.setStrafeDistance(-11.5);
                 ActiveMotionValues.setTrussSDLineUpPose((FieldConstantsBlue.stageDoorLineUpPose13));
             }
-            ActiveMotionValues.setOptionStopPose(FieldConstantsBlue.centerOptionStopPose);
+
+            if (lcr == 11)
+                ActiveMotionValues.setOptionStopPose(FieldConstantsBlue.centerOptionStopPose1);
+            if (lcr == 12)
+                ActiveMotionValues.setOptionStopPose(FieldConstantsBlue.centerOptionStopPose2);
+            if (lcr == 13)
+                ActiveMotionValues.setOptionStopPose(FieldConstantsBlue.centerOptionStopPose3);
+
 
             if (!secondPixel)
 
@@ -289,8 +295,15 @@ public class SelectMotionValuesBlue {
 
             else {
 
-                ActiveMotionValues.setOptionPose(FieldConstantsBlue.getActiveTagPose(ActiveMotionValues.getActTag())
-                        .plus(FieldConstantsBlue.AprilTagConstants.tagStrafeOffsetPose));
+                if (lcr == 11)
+                    ActiveMotionValues.setOptionPose(FieldConstantsBlue.getActiveTagPose(ActiveMotionValues.getActTag())
+                            .plus(FieldConstantsBlue.AprilTagConstants.tagStrafeOffsetPose1));
+                if (lcr == 12)
+                    ActiveMotionValues.setOptionPose(FieldConstantsBlue.getActiveTagPose(ActiveMotionValues.getActTag())
+                            .plus(FieldConstantsBlue.AprilTagConstants.tagStrafeOffsetPose2));
+                if (lcr == 13)
+                    ActiveMotionValues.setOptionPose(FieldConstantsBlue.getActiveTagPose(ActiveMotionValues.getActTag())
+                            .plus(FieldConstantsBlue.AprilTagConstants.tagStrafeOffsetPose3));
 
             }
 

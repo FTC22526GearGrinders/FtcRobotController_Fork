@@ -40,19 +40,22 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.CV.SpikeTapePipelineBlue;
-import org.firstinspires.ftc.teamcode.CV.SpikeTapePipelineRed;
+import org.firstinspires.ftc.teamcode.Commands.Arm.PositionPHArm;
+import org.firstinspires.ftc.teamcode.Commands.Auto.DetectAprilTags;
 import org.firstinspires.ftc.teamcode.Commands.Auto.LookForTeamProp;
-import org.firstinspires.ftc.teamcode.Commands.Auto.MoveToPark;
 import org.firstinspires.ftc.teamcode.Commands.Auto.SelectAndRunTrajectory;
 import org.firstinspires.ftc.teamcode.Commands.Auto.SelectMotionValuesBlue;
+import org.firstinspires.ftc.teamcode.Commands.Drive.MoveToPark;
+import org.firstinspires.ftc.teamcode.Commands.Drive.RunToAprilTag;
+import org.firstinspires.ftc.teamcode.Commands.PixelHandler.IterateExtendArnServo;
 import org.firstinspires.ftc.teamcode.Commands.PixelHandler.PlacePixelOnBB;
-import org.firstinspires.ftc.teamcode.Commands.PixelHandler.PositionPHArm;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Commands.Utils.DoNothing;
 import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.Subsystems.ArmSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.PixelHandlerSubsystem;
+import org.firstinspires.ftc.teamcode.Subsystems.Vision_Subsystem;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
@@ -71,6 +74,8 @@ public class AutoSelectAndRunBlue extends CommandOpMode {
 
     private ArmSubsystem arm;
 
+    private Vision_Subsystem vss;
+
 
     boolean buttonLocked = false;
 
@@ -78,14 +83,10 @@ public class AutoSelectAndRunBlue extends CommandOpMode {
     boolean redAlliance = false;
 
     boolean bbStart = true;
-
+    boolean centerPark = true;
     boolean useStageDoor = false;
 
-    boolean centerPark = true;
-
-    boolean secondPixel = false;
-
-    SpikeTapePipelineRed sptopR = null;
+    boolean secondPixel = true;
 
     SpikeTapePipelineBlue sptopB = null;
 
@@ -118,14 +119,14 @@ public class AutoSelectAndRunBlue extends CommandOpMode {
                     bbStart = !bbStart;
                 }
 
+                if (currentB) {
+                    centerPark = !centerPark;
+                }
+
                 if (currentA) {
                     useStageDoor = !useStageDoor;
                 }
 
-
-                if (currentB) {
-                    centerPark = !centerPark;
-                }
                 if (currentRB) {
                     secondPixel = !secondPixel;
                 }
@@ -150,14 +151,17 @@ public class AutoSelectAndRunBlue extends CommandOpMode {
             telemetry.addData("Center Park Selected B to Change", centerPark);
             telemetry.addLine();
 
+
+
             if (!bbStart) {
-                telemetry.addData("Stage Door Selected Y to Change", useStageDoor);
-                telemetry.addLine();
                 telemetry.addData("Second Pixel Selected RB to Change", secondPixel);
                 telemetry.addLine();
-                telemetry.addData("Press Left Bumper To Continue", "");
-            }
+                telemetry.addData("Stage Door Selected Y to Change", useStageDoor);
+                telemetry.addLine();
 
+            }
+            telemetry.addLine();
+            telemetry.addData("Press Left Bumper To Continue", "");
             telemetry.update();
 
         }
@@ -174,15 +178,17 @@ public class AutoSelectAndRunBlue extends CommandOpMode {
 
         telemetry.addLine();
 
+        if (centerPark)
+
+            telemetry.addData("You Have Chosen Center Park", "");
+        else
+            telemetry.addData("You Have Chosen Near Park", "");
+
+        telemetry.addLine();
+
+
         if (!bbStart) {
 
-            if (centerPark)
-
-                telemetry.addData("You Have Chosen Center Park", "");
-            else
-                telemetry.addData("You Have Chosen Near Park", "");
-
-            telemetry.addLine();
 
             if (useStageDoor)
 
@@ -222,6 +228,8 @@ public class AutoSelectAndRunBlue extends CommandOpMode {
 
         arm = new ArmSubsystem(this);
 
+        vss = new Vision_Subsystem(this);
+
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
 
 
@@ -252,13 +260,7 @@ public class AutoSelectAndRunBlue extends CommandOpMode {
 
                 sptopB = new SpikeTapePipelineBlue();
 
-                sptopR = new SpikeTapePipelineRed();
-
-                if (ActiveMotionValues.getRedAlliance())
-                    webcam.setPipeline(sptopR);
-
-                else
-                    webcam.setPipeline(sptopB);
+                webcam.setPipeline(sptopB);
 
 
             }
@@ -279,24 +281,33 @@ public class AutoSelectAndRunBlue extends CommandOpMode {
                 new SelectMotionValuesBlue(),
 
                 new SelectAndRunTrajectory(drive, phss).withTimeout(10),
+                new ConditionalCommand(
+
+                        new SequentialCommandGroup(
+
+                                new DetectAprilTags(this, vss),
+
+                                new RunToAprilTag(drive, this)),
+
+                        new MoveToPark(drive), () -> bbStart || secondPixel),
+
 
                 new ConditionalCommand(
 
                         new SequentialCommandGroup(
 
-                                new ParallelCommandGroup(
+                                new PositionPHArm(arm, Constants.ArmConstants.armHeights.LOW.height, .5),
 
-                                        //new DriveToAprilTagAuto(this, drive),
-                                        new PositionPHArm(arm, Constants.ArmConstants.armHeights.LOW.height, .5)),
+                                new IterateExtendArnServo(phss, true),
 
                                 new PlacePixelOnBB(phss),
 
                                 new ParallelCommandGroup(
-                                        new PositionPHArm(arm, Constants.ArmConstants.armHeights.HOME.height, .5),
+                                        new PositionPHArm(arm, Constants.ArmConstants.armHeights.HOME.height, 5),
+                                        new IterateExtendArnServo(phss, false),
                                         new MoveToPark(drive))),
 
                         new DoNothing(), () -> ActiveMotionValues.getBBStart())).schedule();
-
 
     }
 

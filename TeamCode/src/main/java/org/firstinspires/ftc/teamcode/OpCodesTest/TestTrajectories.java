@@ -6,6 +6,7 @@ import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.ConditionalCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Commands.Auto.SelectAndRunTrajectory;
@@ -15,7 +16,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.PixelHandlerSubsystem;
 
 @Config
-@Autonomous(name = "Auto Main Test Trajectories", group = "Test")
+@TeleOp (name = "Teleop Main Test Trajectories", group = "Test")
 
 public class TestTrajectories extends CommandOpMode {
     boolean redAlliance = true;

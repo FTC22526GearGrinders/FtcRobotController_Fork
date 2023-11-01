@@ -35,7 +35,7 @@ import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.Commands.Utils.DetectAprilTags;
+import org.firstinspires.ftc.teamcode.Commands.Auto.DetectAprilTags;
 import org.firstinspires.ftc.teamcode.Subsystems.Vision_Subsystem;
 import org.openftc.easyopencv.OpenCvWebcam;
 
@@ -73,7 +73,7 @@ public class TestAprilTags extends CommandOpMode {
         telemetry.addData("DS preview on/off", "3 dots, Camera Stream");
         telemetry.update();
 
-        new DetectAprilTags(this, vss.myAprilTagProcessor).schedule();
+        new DetectAprilTags(this, vss).schedule();
 
     }
 

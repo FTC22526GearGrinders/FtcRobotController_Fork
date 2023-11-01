@@ -32,11 +32,11 @@ public class SpikeTapePipelineZone extends OpenCvPipeline {
     public Scalar lower = new Scalar(0, 20, 0);
     public Scalar upper = new Scalar(50, 255, 255);
 
-    int maxLeft=80;
+    int maxLeft = 80;
 
+    public int left =50;
+    public int right =100;
 
-//    public Scalar lower = new Scalar(0, 52.4, 0);
-//    public Scalar upper = new Scalar(150, 255, 255);
 
     Telemetry telemetry;
 
@@ -132,11 +132,18 @@ public class SpikeTapePipelineZone extends OpenCvPipeline {
             Point points[] = new Point[4];
 
             temp.points(points);
-
-            for (int p = 0; p < 4; ++p) {
-                Imgproc.line(filtered, points[p], points[(p + 1) % 4], new Scalar(128, 128, 128));
-            }
             Scalar color = new Scalar(128, 128, 128);
+
+            Point leftTop = new Point(left, 0);
+            Point leftBottom = new Point(left, imgHeight - 10);
+            Point rightTop = new Point(right, 0);
+            Point rightBottom = new Point(right, imgHeight - 10);
+
+
+
+            Imgproc.line(src, leftTop, leftBottom, new Scalar(128, 128, 128),3);
+            Imgproc.line(src, rightTop, rightBottom, new Scalar(128, 128, 128),3);
+
 
 //            Imgproc.putText(filtered, String.valueOf(i), new Point(temp.center.x + 20, temp.center.y), 7, Imgproc.FONT_HERSHEY_PLAIN,
 //                    color, 1);
@@ -151,11 +158,11 @@ public class SpikeTapePipelineZone extends OpenCvPipeline {
         sort(rrAreas, rrxval);
 
 
-        if (rrxval.get(0) < maxLeft) lcr = 1;
+        if (rrxval.get(0) < left) lcr = 1;
 
-        if (rrxval.get(0) > maxLeft && rrxval.get(0) < maxmid) lcr = 2;
+        if (rrxval.get(0) > left && rrxval.get(0) < right) lcr = 2;
 
-        if (rrxval.get(0) > maxmid) lcr = 2;
+        if (rrxval.get(0) > right) lcr = 3;
 
 
         for (int i = 0; i < rr.size(); i++) {
@@ -164,7 +171,7 @@ public class SpikeTapePipelineZone extends OpenCvPipeline {
 
         }
 
-       // Imgproc.line(src,new Point(100,0),new Point(100,imgHeight-1),new Scalar(128,128,128),6);
+        // Imgproc.line(src,new Point(100,0),new Point(100,imgHeight-1),new Scalar(128,128,128),6);
 
         telemetry.addData("NumCon", numContours);
         telemetry.addData("ValCon", usableContours);
@@ -197,7 +204,6 @@ public class SpikeTapePipelineZone extends OpenCvPipeline {
             // greater than key, to one position ahead
             // of their current position
             while (j >= 0 && rrAreas.get(j) < key) {
-                // arr[j + 1] = arr[j];
                 rrAreas.set(j + 1, rrAreas.get(j));
                 rrxval.set(j + 1, rrxval.get(j));
 

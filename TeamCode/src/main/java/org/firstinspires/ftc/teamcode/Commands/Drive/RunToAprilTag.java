@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Commands.Trajectories.Backboard;
+package org.firstinspires.ftc.teamcode.Commands.Drive;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
@@ -17,7 +17,7 @@ public class RunToAprilTag extends CommandBase {
 
     private Trajectory tagTraj;
 
-    private Pose2d robotPose;
+    private Pose2d currentRobotPose;
 
     private CommandOpMode myOpMode;
 
@@ -36,22 +36,18 @@ public class RunToAprilTag extends CommandBase {
     @Override
     public void initialize() {
 
-        robotPose = ActiveMotionValues.getRobotPose();
+        currentRobotPose = ActiveMotionValues.getCurrentRobotPose();
 
 
-        tagDistancePose = new Pose2d(-6 - Constants.RobotConstants.length / 2, 0);
-
-        tagPose = FieldConstantsRed.getActiveTagPose(ActiveMotionValues.getActTag());
-
-        finalPose = tagPose.plus(tagDistancePose);
+        finalPose = ActiveMotionValues.getFinalTagPose();
 
 
-        tagTraj = drive.drive.trajectoryBuilder(robotPose)
+        tagTraj = drive.drive.trajectoryBuilder(currentRobotPose)
                 .lineToLinearHeading(finalPose)
                 .build();
 
 
-        drive.drive.setPoseEstimate(robotPose);
+        drive.drive.setPoseEstimate(currentRobotPose);
 
         drive.drive.followTrajectory(tagTraj);
     }
@@ -59,7 +55,7 @@ public class RunToAprilTag extends CommandBase {
     @Override
     public void execute() {
 
-        myOpMode.telemetry.addData("RobotPose", robotPose.toString());
+        myOpMode.telemetry.addData("RobotPose", currentRobotPose.toString());
         myOpMode.telemetry.addLine();
         myOpMode.telemetry.addData("DistPose", tagDistancePose.toString());
         myOpMode.telemetry.addLine();

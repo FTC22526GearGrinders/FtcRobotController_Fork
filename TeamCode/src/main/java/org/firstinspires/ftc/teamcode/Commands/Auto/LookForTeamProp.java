@@ -113,10 +113,6 @@ public class LookForTeamProp extends CommandBase {
         lpctr++;
 
 
-//        myOpMode.telemetry.addData("NumContours", sptopB.getNumberContours());
-//
-//        myOpMode.telemetry.addData("ValidContours", sptopB.getValidContours());
-
         myOpMode.telemetry.addData("Streaming", webcam.getFps());
 
 

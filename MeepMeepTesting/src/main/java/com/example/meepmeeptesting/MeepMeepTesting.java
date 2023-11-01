@@ -16,7 +16,7 @@ public class MeepMeepTesting {
 
         boolean bbstart = false;//aaset to false for start on stack side of truss
 
-        int lcr = 1;//left tape ==1, center tape = 2, right tape = 3 from robot view
+        int lcr = 3;//left tape ==1, center tape = 2, right tape = 3 from robot view
 
         if (lcr < 1 || lcr > 3) lcr = 2;
 
@@ -24,7 +24,7 @@ public class MeepMeepTesting {
 
         boolean truss = !useStageDoor;
 
-        boolean centerPark = false;
+        int parkType =0;
 
         boolean secondPixel = true;
 
@@ -33,7 +33,7 @@ public class MeepMeepTesting {
         ActiveMotionValues.setBBStart(bbstart);
         ActiveMotionValues.setLcrpos(lcr);
         ActiveMotionValues.setUseStageDoor(useStageDoor);
-        ActiveMotionValues.setCenterPark(centerPark);
+        ActiveMotionValues.setParkType(parkType);
         ActiveMotionValues.setSecondPixel(secondPixel);
 
 
@@ -82,9 +82,10 @@ public class MeepMeepTesting {
 //
                                 .lineToLinearHeading(ActiveMotionValues.getOptionStopPose())
 
-                                .turn(Math.toRadians(130))
+                              //  .turn(Math.toRadians(130))
 
-                                .waitSeconds(2)
+                                .waitSeconds(.1)
+
                                 .lineToLinearHeading(ActiveMotionValues.getOptionPose())
 
 

@@ -9,12 +9,13 @@ import com.arcrobotics.ftclib.command.ConditionalCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Commands.Auto.SelectMotionValuesRed;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 
 @Config
-@Autonomous(name = "Auto: Values", group = "Test")
+@TeleOp(name = "Auto: Values", group = "Test")
 
 public class TestMotionData extends CommandOpMode {
 

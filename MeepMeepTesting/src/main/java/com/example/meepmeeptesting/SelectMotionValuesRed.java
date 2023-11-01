@@ -66,12 +66,10 @@ public class SelectMotionValuesRed {
                         .plus(FieldConstantsRed.AprilTagConstants.tagStrafeOffsetPose));
 
 
-                if (ActiveMotionValues.getCenterPark())
-
+                if (ActiveMotionValues.getParkTyoe()==1)
                     ActiveMotionValues.setParkPose(FieldConstantsRed.slideToCenterParkPose);
 
-                else
-
+                if (ActiveMotionValues.getParkTyoe()==2)
                     ActiveMotionValues.setParkPose(FieldConstantsRed.slideToNearParkPose);
 
 

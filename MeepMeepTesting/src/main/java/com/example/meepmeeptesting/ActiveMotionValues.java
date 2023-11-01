@@ -262,14 +262,14 @@ public class ActiveMotionValues {
 
     private static boolean useStageDoor = false;
 
-    private static boolean centerPark = false;
+    private static int  parkType = 0;
 
-    public static void setCenterPark(boolean cPark) {
-        centerPark = cPark;
+    public static void setParkType(int cPark) {
+        parkType = cPark;
     }
 
-    public static boolean getCenterPark() {
-        return centerPark;
+    public static int getParkTyoe() {
+        return parkType;
     }
 
     public static void setUseStageDoor(boolean useStDoor) {

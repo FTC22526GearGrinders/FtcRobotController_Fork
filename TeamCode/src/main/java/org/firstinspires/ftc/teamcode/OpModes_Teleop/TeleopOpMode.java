@@ -3,16 +3,16 @@ package org.firstinspires.ftc.teamcode.OpModes_Teleop;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
-import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.Commands.Drive.RunToAprilTag;
 import org.firstinspires.ftc.teamcode.Commands.Drive.JogDrive;
-import org.firstinspires.ftc.teamcode.Commands.PixelHandler.HoldArmAtPosition;
+import org.firstinspires.ftc.teamcode.Commands.Arm.HoldArmAtPosition;
 import org.firstinspires.ftc.teamcode.Commands.PixelHandler.IterateExtendArnServo;
-import org.firstinspires.ftc.teamcode.Commands.PixelHandler.JogArm;
-import org.firstinspires.ftc.teamcode.Commands.PixelHandler.PositionPHArm;
+import org.firstinspires.ftc.teamcode.Commands.Arm.JogArm;
+import org.firstinspires.ftc.teamcode.Commands.Arm.PositionPHArm;
 import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.Subsystems.ArmSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
@@ -99,11 +99,10 @@ public class TeleopOpMode extends CommandOpMode {
         coDriver.getGamepadButton((GamepadKeys.Button.DPAD_LEFT)).whenPressed(phss::retractArml);
 
 
-        coDriver.getGamepadButton((GamepadKeys.Button.DPAD_DOWN)).whenPressed(dcatss::lockCatapult);
-
-
         coDriver.getGamepadButton((GamepadKeys.Button.DPAD_UP)).whenPressed(dcatss::releaseCatapult);
         coDriver.getGamepadButton((GamepadKeys.Button.DPAD_DOWN)).whenPressed(dcatss::lockCatapult);
+
+        coDriver.getGamepadButton((GamepadKeys.Button.X)).whenPressed(new RunToAprilTag(drive,this));
 
 
     }

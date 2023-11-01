@@ -6,10 +6,12 @@ import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.controls.ExposureControl;
 import org.firstinspires.ftc.teamcode.Commands.Auto.LookForTeamProp;
+import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
@@ -24,7 +26,7 @@ import org.openftc.easyopencv.OpenCvWebcam;
  * deprecated Modern Robotics and Hitechnic DC Motor Controllers) do not.
  */
 @Config
-@Autonomous(name = "Vision: Team Element", group = "Auto")
+@TeleOp(name = "Vision: Team Element", group = "Auto")
 
 public class LookForTeamElement extends CommandOpMode {
 
@@ -33,33 +35,60 @@ public class LookForTeamElement extends CommandOpMode {
 
     FtcDashboard dashboard;
 
-    public static int DISPSWITCH = 0;
-
 
     public OpenCvWebcam webcam;//
 
     private int myExposure;
     private int minExposure;
-    private int maxExposure;
-    private int myGain;
-    private int minGain;
-    private int maxGain;
-
-    boolean thisExpUp = false;
-    boolean thisExpDn = false;
-    boolean thisGainUp = false;
-    boolean thisGainDn = false;
-
-    boolean lastExpUp = false;
-    boolean lastExpDn = false;
-    boolean lastGainUp = false;
-    boolean lastGainDn = false;
+     boolean lastGainDn = false;
     private boolean exposureSupported;
     private boolean cameraOpened;
+    private boolean redAlliance = true;
+
+    boolean buttonLocked = false;
 
 
     public void initialize() {
 
+        boolean currentX = false;
+        boolean currentLB = false;
+
+        while (!currentLB && opModeInInit() && !isStopRequested()) {
+
+            currentX = gamepad1.x;
+            currentLB = gamepad1.left_bumper;
+
+
+            if (buttonLocked) {
+
+                if (currentX) {
+                    redAlliance = !redAlliance;
+                }
+
+
+            }
+
+            boolean xReleased = !currentX;
+            boolean lbReleased = !currentLB;
+
+
+            buttonLocked = xReleased && lbReleased;
+
+            telemetry.addData(" RED Selected Press X to Change Alliance", redAlliance);
+            telemetry.addLine();
+
+            telemetry.addData("Press Left Bumper To Confirm","");
+            telemetry.update();
+
+        }
+        if (redAlliance)
+            telemetry.addData("You Have Chosen RED Alliance", "");
+        else
+            telemetry.addData("You Have Chosen BLUE Alliance", "");
+
+        telemetry.addLine();
+
+        ActiveMotionValues.setRedAlliance(redAlliance);
 
         webcam = OpenCvCameraFactory.getInstance().createWebcam(this.hardwareMap.get(WebcamName.class, "Webcam 1"));
 
@@ -70,7 +99,6 @@ public class LookForTeamElement extends CommandOpMode {
 
         //if you are using dashboard, update dashboard camera view
         FtcDashboard.getInstance().startCameraStream(webcam, 5);
-
 
 
         cameraOpened = false;
@@ -103,8 +131,6 @@ public class LookForTeamElement extends CommandOpMode {
                 webcam.startStreaming(640, 480, OpenCvCameraRotation.UPRIGHT);
 
                 //if you are using dashboard, update dashboard camera view
-
-
 
                 cameraOpened = true;
 

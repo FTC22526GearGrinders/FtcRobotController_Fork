@@ -21,7 +21,9 @@ public final class FieldConstantsBlue {
     public static Pose2d stageDoorLineUpPose2 = new Pose2d(-48, 12, Math.toRadians(90));
 
     public static Pose2d nearOptionStopPose = new Pose2d(36, 60, Math.toRadians(90));
-    public static Pose2d centerOptionStopPose = new Pose2d(24, 12, Math.toRadians(90));
+    public static Pose2d centerOptionStopPose1 = new Pose2d(31, 12, Math.toRadians(90));
+    public static Pose2d centerOptionStopPose2 = new Pose2d(20, 12, Math.toRadians(90));
+    public static Pose2d centerOptionStopPose3 = new Pose2d(15, 12, Math.toRadians(90));
 
     public static Pose2d slideToNearParkPose = new Pose2d(50, 60, Math.toRadians(0));
 
@@ -38,7 +40,9 @@ public final class FieldConstantsBlue {
 
         public static final Pose2d tagLookAheadPose = new Pose2d(14, 0, Math.toRadians(180));
 
-        public static final Pose2d tagStrafeOffsetPose = new Pose2d(-60.25 + 36, 0, Math.toRadians(180));
+        public static final Pose2d tagStrafeOffsetPose1 = new Pose2d(-60.25 + 36, 0, Math.toRadians(180));
+        public static final Pose2d tagStrafeOffsetPose2 = new Pose2d(-60.25 + 30, 0, Math.toRadians(180));
+        public static final Pose2d tagStrafeOffsetPose3 = new Pose2d(-60.25 + 24, 0, Math.toRadians(180));
 
 
         public static final Pose2d atag1 = new Pose2d(60.25, 41.41);

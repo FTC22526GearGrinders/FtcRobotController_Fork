@@ -39,16 +39,16 @@ import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.teamcode.CV.SpikeTapePipelineBlue;
 import org.firstinspires.ftc.teamcode.CV.SpikeTapePipelineRed;
-import org.firstinspires.ftc.teamcode.Commands.Auto.DriveToAprilTag;
-import org.firstinspires.ftc.teamcode.Commands.Auto.GetRobotPoseFromAprilTag;
+import org.firstinspires.ftc.teamcode.Commands.Arm.PositionPHArm;
+import org.firstinspires.ftc.teamcode.Commands.Auto.DetectAprilTags;
 import org.firstinspires.ftc.teamcode.Commands.Auto.LookForTeamProp;
-import org.firstinspires.ftc.teamcode.Commands.Auto.MoveToPark;
 import org.firstinspires.ftc.teamcode.Commands.Auto.SelectAndRunTrajectory;
 import org.firstinspires.ftc.teamcode.Commands.Auto.SelectMotionValuesRed;
+import org.firstinspires.ftc.teamcode.Commands.Drive.MoveToPark;
+import org.firstinspires.ftc.teamcode.Commands.Drive.RunToAprilTag;
+import org.firstinspires.ftc.teamcode.Commands.PixelHandler.IterateExtendArnServo;
 import org.firstinspires.ftc.teamcode.Commands.PixelHandler.PlacePixelOnBB;
-import org.firstinspires.ftc.teamcode.Commands.PixelHandler.PositionPHArm;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Commands.Utils.DoNothing;
 import org.firstinspires.ftc.teamcode.Constants;
@@ -81,16 +81,11 @@ public class AutoSelectAndRunRed extends CommandOpMode {
     boolean redAlliance = true;
 
     boolean bbStart = true;
-
+    boolean centerPark = true;
+    boolean secondPixel = false;
     boolean useStageDoor = false;
 
-    boolean centerPark = true;
-
-    boolean secondPixel = false;
-
     SpikeTapePipelineRed sptopR = null;
-
-    SpikeTapePipelineBlue sptopB = null;
 
     @Override
     public void initialize() {
@@ -121,16 +116,15 @@ public class AutoSelectAndRunRed extends CommandOpMode {
                     bbStart = !bbStart;
                 }
 
-                if (currentA) {
-                    useStageDoor = !useStageDoor;
-                }
-
-
                 if (currentB) {
                     centerPark = !centerPark;
                 }
                 if (currentRB) {
                     secondPixel = !secondPixel;
+                }
+
+                if (currentA) {
+                    useStageDoor = !useStageDoor;
                 }
 
 
@@ -154,12 +148,13 @@ public class AutoSelectAndRunRed extends CommandOpMode {
             telemetry.addLine();
 
             if (!bbStart) {
-                telemetry.addData("Stage Door Selected Y to Change", useStageDoor);
-                telemetry.addLine();
                 telemetry.addData("Second Pixel Selected RB to Change", secondPixel);
                 telemetry.addLine();
-                telemetry.addData("Press Left Bumper To Continue", "");
+                telemetry.addData("Stage Door Selected Y to Change", useStageDoor);
+                telemetry.addLine();
             }
+
+            telemetry.addData("Press Left Bumper To Confirm","");
 
             telemetry.update();
 
@@ -175,15 +170,14 @@ public class AutoSelectAndRunRed extends CommandOpMode {
         else
             telemetry.addData("You Have Chosen Non BB Start", "");
 
+        if (centerPark)
+            telemetry.addData("You Have Chosen Center Park", "");
+        else
+            telemetry.addData("You Have Chosen Near Park", "");
         telemetry.addLine();
 
         if (!bbStart) {
 
-            if (centerPark)
-
-                telemetry.addData("You Have Chosen Center Park", "");
-            else
-                telemetry.addData("You Have Chosen Near Park", "");
 
             telemetry.addLine();
 
@@ -256,15 +250,10 @@ public class AutoSelectAndRunRed extends CommandOpMode {
                 //start streaming the camera
                 webcam.startStreaming(640, 480, OpenCvCameraRotation.UPRIGHT);
 
-                sptopB = new SpikeTapePipelineBlue();
 
                 sptopR = new SpikeTapePipelineRed();
 
-                if (ActiveMotionValues.getRedAlliance())
-                    webcam.setPipeline(sptopR);
-
-                else
-                    webcam.setPipeline(sptopB);
+                webcam.setPipeline(sptopR);
 
 
                 //if you are using dashboard, update dashboard camera view
@@ -294,8 +283,9 @@ public class AutoSelectAndRunRed extends CommandOpMode {
 
                         new SequentialCommandGroup(
 
-                                new GetRobotPoseFromAprilTag(drive, vss),
-                                new DriveToAprilTag(drive)),
+                                new DetectAprilTags(this, vss),
+
+                                new RunToAprilTag(drive, this)),
 
                         new MoveToPark(drive), () -> bbStart || secondPixel),
 
@@ -304,19 +294,19 @@ public class AutoSelectAndRunRed extends CommandOpMode {
 
                         new SequentialCommandGroup(
 
-                                new ParallelCommandGroup(
 
-                                        //   new DriveToAprilTagAuto(this, drive),
-                                        new PositionPHArm(arm, Constants.ArmConstants.armHeights.LOW.height, .5)),
+                                new PositionPHArm(arm, Constants.ArmConstants.armHeights.LOW.height, .5),
+
+                                new IterateExtendArnServo(phss, true),
 
                                 new PlacePixelOnBB(phss),
 
                                 new ParallelCommandGroup(
                                         new PositionPHArm(arm, Constants.ArmConstants.armHeights.HOME.height, 5),
+                                        new IterateExtendArnServo(phss, false),
                                         new MoveToPark(drive))),
 
                         new DoNothing(), () -> ActiveMotionValues.getBBStart())).schedule();
-
 
     }
 
