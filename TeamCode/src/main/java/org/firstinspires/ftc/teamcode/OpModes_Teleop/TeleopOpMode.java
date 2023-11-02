@@ -61,7 +61,7 @@ public class TeleopOpMode extends CommandOpMode {
 
         drive.setDefaultCommand(new JogDrive(this.drive, gamepad1, false));
 
-        arm.setDefaultCommand(new HoldArmAtPosition(this.arm));
+       // arm.setDefaultCommand(new HoldArmAtPosition(this.arm));
 
 
 //        gamepad.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenHeld(
@@ -99,8 +99,9 @@ public class TeleopOpMode extends CommandOpMode {
         coDriver.getGamepadButton((GamepadKeys.Button.DPAD_LEFT)).whenPressed(phss::retractArml);
 
 
-        coDriver.getGamepadButton((GamepadKeys.Button.DPAD_UP)).whenPressed(dcatss::releaseCatapult);
-        coDriver.getGamepadButton((GamepadKeys.Button.DPAD_DOWN)).whenPressed(dcatss::lockCatapult);
+        coDriver.getGamepadButton((GamepadKeys.Button.DPAD_UP)).whenPressed(phss::dropPixel);
+        coDriver.getGamepadButton((GamepadKeys.Button.DPAD_DOWN)).whenPressed(phss::holdPixel);
+
 
         coDriver.getGamepadButton((GamepadKeys.Button.X)).whenPressed(new RunToAprilTag(drive,this));
 
@@ -118,13 +119,13 @@ public class TeleopOpMode extends CommandOpMode {
 
         poseEstimate = drive.drive.getPoseEstimate();
 
-        drive.drive.showTelemetry(telemetry);
+     //   drive.drive.showTelemetry(telemetry);
 
         // drive.showtelemetry(telemetry);
 
-//        arm.showTelemetry(telemetry);
+       arm.showTelemetry(telemetry);
 
-        phss.showTelemetry(telemetry);
+       // phss.showTelemetry(telemetry);
     }
 
 

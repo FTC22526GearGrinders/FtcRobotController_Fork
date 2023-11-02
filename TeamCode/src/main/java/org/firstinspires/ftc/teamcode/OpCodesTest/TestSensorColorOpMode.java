@@ -209,6 +209,7 @@ public class TestSensorColorOpMode extends LinearOpMode {
        * ambient light and surface reflectivity. */
       if (colorSensor instanceof DistanceSensor) {
         telemetry.addData("Distance (cm)", "%.3f", ((DistanceSensor) colorSensor).getDistance(DistanceUnit.CM));
+        telemetry.addData("Distance (in)", "%.3f", ((DistanceSensor) colorSensor).getDistance(DistanceUnit.INCH));
       }
 
       telemetry.update();

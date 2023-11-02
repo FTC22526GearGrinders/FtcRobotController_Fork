@@ -30,6 +30,8 @@ public class PixelHandlerSubsystem extends SubsystemBase {
 
         pixelDrop = myOpMode.hardwareMap.get(Servo.class, "pixel drop");
 
+        pixelDrop.setDirection(Servo.Direction.FORWARD);
+
         armExtend = myOpMode.hardwareMap.get(Servo.class, "arm extend");
 
         claw.setDirection(Servo.Direction.FORWARD);

@@ -32,9 +32,9 @@ public class ArmSubsystem extends SubsystemBase {
     public ArmSubsystem(CommandOpMode opMode) {
         myOpMode = opMode;
 
-        armMotor = new Motor(myOpMode.hardwareMap, "armMotor", Motor.GoBILDA.RPM_435);
+        armMotor = new Motor(myOpMode.hardwareMap, "arm motor", Motor.GoBILDA.RPM_435);
 
-        armMotor.setInverted(false);
+        armMotor.setInverted(true);
 
         armMotor.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
 

@@ -41,8 +41,8 @@ public class Vision_Subsystem extends SubsystemBase {
                 .setDrawTagID(true)
                 .setDrawTagOutline(true)
               //  .setLensIntrinsics( 634.549 , 634.549, 303.319 , 235.933) C920HD
-
-                .setLensIntrinsics( 634.549, 634.549, 303.319, 235.933)
+              //  .setLensIntrinsics( 634.549, 634.549, 303.319, 235.933)//ms2
+                .setLensIntrinsics( 1156.14, 1156.14, 643.32, 371.34)
                 .setDrawAxes(true)
                 .setDrawCubeProjection(true)
                 .build();

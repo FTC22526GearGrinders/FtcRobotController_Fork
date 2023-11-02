@@ -30,24 +30,23 @@ public class JogArm extends CommandBase {
 
             power = Constants.ArmConstants.JOG_UP_POWER;
 
-           // arm.targetInches = Constants.ArmConstants.UPPER_POSITION_LIMIT;
+            // arm.targetInches = Constants.ArmConstants.UPPER_POSITION_LIMIT;
 
         }
 
         if (!up) {
 
             power = Constants.ArmConstants.JOG_DOWN_POWER;
-           // arm.targetInches = Constants.ArmConstants.LOWER_POSITION_LIMIT;
+            // arm.targetInches = Constants.ArmConstants.LOWER_POSITION_LIMIT;
 
         }
 
-        if (power > 0 && arm.getPositionInches() < Constants.ArmConstants.UPPER_POSITION_LIMIT
+//        if (power > 0 && arm.getPositionInches() < Constants.ArmConstants.UPPER_POSITION_LIMIT
+//
+//                || power < 0 && arm.getPositionInches() > Constants.ArmConstants.LOWER_POSITION_LIMIT) {
 
-                || power < 0 && arm.getPositionInches() > Constants.ArmConstants.LOWER_POSITION_LIMIT) {
-
-            arm.armMotor.set(power);
-
-        } else arm.armMotor.set(0);
+        arm.armMotor.set(power);
+       // arm.armMotor.set(0);
     }
 
     @Override
