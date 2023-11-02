@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.PixelHandlerSubsystem;
  */
 
 
-public class IterateExtendArnServo extends CommandBase {
+public class IterateClawExtendServo extends CommandBase {
 
     private PixelHandlerSubsystem phss;
 
@@ -21,7 +21,7 @@ public class IterateExtendArnServo extends CommandBase {
     private double lastPosition;
 
 
-    public IterateExtendArnServo(PixelHandlerSubsystem phss, boolean extend) {
+    public IterateClawExtendServo(PixelHandlerSubsystem phss, boolean extend) {
         this.phss = phss;
         this.extend = extend;
     }
@@ -34,7 +34,7 @@ public class IterateExtendArnServo extends CommandBase {
     @Override
     public void execute() {
         double increment = .005;
-        if (extend) phss.iterateExtendArm(increment);
+        if (extend) phss.iterateExtendClawArm(increment);
         else phss.iterateRetractArm(increment);
     }
 

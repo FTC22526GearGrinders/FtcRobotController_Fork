@@ -2,30 +2,32 @@ package org.firstinspires.ftc.teamcode.Commands.Arm;
 
 import com.arcrobotics.ftclib.command.CommandBase;
 
+import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.Subsystems.ArmSubsystem;
 
 
-public class PositionPHArm extends CommandBase {
+public class PositionPHArmToPreset extends CommandBase {
 
     private ArmSubsystem arm;
 
     private double power;
 
-    private double extension;
 
 
-    public PositionPHArm(ArmSubsystem arm, double extension, double power) {
+    public PositionPHArmToPreset(ArmSubsystem arm, double power) {
         this.arm = arm;
         this.power = power;
-        this.extension = extension;
+
         addRequirements(arm);
     }
 
     @Override
     public void initialize() {
         arm.loopCountTimer = 0;
-        arm.targetInches = extension;
+        Constants.ArmConstants.armExtensions entry = Constants.ArmConstants.armExtensions.values()[ActiveMotionValues.getBackboardLevel()];
+
+        double distance = entry.extension;
     }
 
     @Override

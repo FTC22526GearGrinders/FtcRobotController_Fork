@@ -3,16 +3,20 @@ package org.firstinspires.ftc.teamcode.OpModes_Teleop;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
+import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.Commands.Drive.RunToAprilTag;
-import org.firstinspires.ftc.teamcode.Commands.Drive.JogDrive;
-import org.firstinspires.ftc.teamcode.Commands.Arm.HoldArmAtPosition;
-import org.firstinspires.ftc.teamcode.Commands.PixelHandler.IterateExtendArnServo;
 import org.firstinspires.ftc.teamcode.Commands.Arm.JogArm;
 import org.firstinspires.ftc.teamcode.Commands.Arm.PositionPHArm;
+import org.firstinspires.ftc.teamcode.Commands.Arm.PositionPHArmToPreset;
+import org.firstinspires.ftc.teamcode.Commands.Auto.IncrementAprilTagTarget;
+import org.firstinspires.ftc.teamcode.Commands.Auto.IncrementPixelDeliveryLevel;
+import org.firstinspires.ftc.teamcode.Commands.Drive.JogDrive;
+import org.firstinspires.ftc.teamcode.Commands.Drive.RunToAprilTag;
+import org.firstinspires.ftc.teamcode.Commands.PixelHandler.IterateClawExtendServo;
+import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.Subsystems.ArmSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
@@ -61,7 +65,12 @@ public class TeleopOpMode extends CommandOpMode {
 
         drive.setDefaultCommand(new JogDrive(this.drive, gamepad1, false));
 
-       // arm.setDefaultCommand(new HoldArmAtPosition(this.arm));
+        // arm.setDefaultCommand(new HoldArmAtPosition(this.arm));
+
+        if (ActiveMotionValues.getRedAlliance())
+            ActiveMotionValues.setActTag(4);
+        else ActiveMotionValues.setActTag(1);
+
 
 
 //        gamepad.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenHeld(
@@ -71,12 +80,17 @@ public class TeleopOpMode extends CommandOpMode {
 
         driver.getGamepadButton(GamepadKeys.Button.A).whenPressed(phss::openClaw);
 
-        driver.getGamepadButton(GamepadKeys.Button.B).whenPressed(phss::closeClaw);
+        driver.getGamepadButton(GamepadKeys.Button.B).whenPressed(new IncrementPixelDeliveryLevel(false));
 
 
-        driver.getGamepadButton(GamepadKeys.Button.Y).whenPressed(phss::dropPixel);
+        driver.getGamepadButton(GamepadKeys.Button.Y).whileHeld(
+                new ParallelCommandGroup(new RunToAprilTag(drive,this),
+                        new PositionPHArmToPreset(arm,.5)));
 
-        driver.getGamepadButton(GamepadKeys.Button.X).whenPressed(phss::holdPixel);
+
+        driver.getGamepadButton(GamepadKeys.Button.X).whenPressed(new IncrementAprilTagTarget(false));
+
+
 
         driver.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT).whenPressed(drive.drive::toggleFieldCentric);
 
@@ -85,25 +99,25 @@ public class TeleopOpMode extends CommandOpMode {
 
         driver.getGamepadButton(GamepadKeys.Button.DPAD_DOWN).whenHeld(new JogArm(arm, false));
 
-        driver.getGamepadButton(GamepadKeys.Button.DPAD_LEFT).whenPressed(new PositionPHArm(arm, Constants.ArmConstants.armHeights.HOME.height, .1));
+        driver.getGamepadButton(GamepadKeys.Button.DPAD_LEFT).whenPressed(new PositionPHArm(arm, Constants.ArmConstants.armExtensions.HOME.extension, .1));
 
-        driver.getGamepadButton(GamepadKeys.Button.LEFT_STICK_BUTTON).whenPressed(new PositionPHArm(arm, Constants.ArmConstants.armHeights.MID.height, .1));
+        driver.getGamepadButton(GamepadKeys.Button.LEFT_STICK_BUTTON).whenPressed(new PositionPHArm(arm, Constants.ArmConstants.armExtensions.MID.extension, .1));
 
-        driver.getGamepadButton(GamepadKeys.Button.RIGHT_STICK_BUTTON).whenPressed(new PositionPHArm(arm, Constants.ArmConstants.armHeights.HIGH.height, .1));
+        driver.getGamepadButton(GamepadKeys.Button.RIGHT_STICK_BUTTON).whenPressed(new PositionPHArm(arm, Constants.ArmConstants.armExtensions.HIGH.extension, .1));
 
         //Codriver buttons
 
-        coDriver.getGamepadButton((GamepadKeys.Button.A)).whenHeld(new IterateExtendArnServo(phss, true));
-        coDriver.getGamepadButton((GamepadKeys.Button.B)).whenHeld(new IterateExtendArnServo(phss, false));
-        coDriver.getGamepadButton((GamepadKeys.Button.DPAD_LEFT)).whenPressed(phss::extendArm);
-        coDriver.getGamepadButton((GamepadKeys.Button.DPAD_LEFT)).whenPressed(phss::retractArml);
+        coDriver.getGamepadButton((GamepadKeys.Button.A)).whenHeld(new IterateClawExtendServo(phss, true));
+        coDriver.getGamepadButton((GamepadKeys.Button.B)).whenHeld(new IterateClawExtendServo(phss, false));
+        coDriver.getGamepadButton((GamepadKeys.Button.DPAD_LEFT)).whenPressed(phss::extendClawArm);
+        coDriver.getGamepadButton((GamepadKeys.Button.DPAD_RIGHT)).whenPressed(phss::retractClawArml);
 
 
         coDriver.getGamepadButton((GamepadKeys.Button.DPAD_UP)).whenPressed(phss::dropPixel);
         coDriver.getGamepadButton((GamepadKeys.Button.DPAD_DOWN)).whenPressed(phss::holdPixel);
 
 
-        coDriver.getGamepadButton((GamepadKeys.Button.X)).whenPressed(new RunToAprilTag(drive,this));
+        coDriver.getGamepadButton((GamepadKeys.Button.X)).whenPressed(new RunToAprilTag(drive, this));
 
 
     }
@@ -119,13 +133,13 @@ public class TeleopOpMode extends CommandOpMode {
 
         poseEstimate = drive.drive.getPoseEstimate();
 
-     //   drive.drive.showTelemetry(telemetry);
+        //   drive.drive.showTelemetry(telemetry);
 
         // drive.showtelemetry(telemetry);
 
-       arm.showTelemetry(telemetry);
+        arm.showTelemetry(telemetry);
 
-       // phss.showTelemetry(telemetry);
+        // phss.showTelemetry(telemetry);
     }
 
 

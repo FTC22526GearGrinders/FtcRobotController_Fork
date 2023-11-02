@@ -72,6 +72,28 @@ public final class Constants {
         public static final double POSITION_POWER = .5;
         public static final double ROTATE_SPEED = .75;
         //  public static final double LATERAL_MULTIPLIER = .7;
+
+        public enum tagDistances {
+
+            HOME(0.),
+            LOW(2),
+            MID(14),
+            HIGH(6);
+
+            public final double distance;
+
+
+            tagDistances(double distance) {
+                this.distance = distance;
+            }
+
+
+        }
+
+
+
+
+
     }
 
     public static final class PixelHandlerConstants {
@@ -80,10 +102,11 @@ public final class Constants {
         public static final double DROP_OPEN_POSITION = 0;
         public static final double DROP_CLOSED_POSITION =.7;
 
-        public static final double ARM_EXTEND_POSITION = .90;
-        public static final double ARM_RETRACT_POSITION = .10;
+        public static final double CLAW_ARM_EXTEND_POSITION = .90;
+        public static final double CLAW_ARM_RETRACT_POSITION = .10;
 
 
+        public static final double CLAW_ARM_DROP_DISTANCE = .5 ;
     }
 
     public static final class ArmConstants {
@@ -119,20 +142,21 @@ public final class Constants {
 
         public static double POSITION_Kg;
 
-        public enum armHeights {
+        public static final int NUMBER_LEVELS = armExtensions.values().length;
+
+
+        public enum armExtensions {
 
             HOME(0.),
-
-            FLOOR_PICKUP(1),
             LOW(5),
             MID(12),
             HIGH(19);
 
-            public final double height;
+            public final double extension;
 
 
-            armHeights(double height) {
-                this.height = height;
+            armExtensions(double extension) {
+                this.extension = extension;
             }
 
 

@@ -47,7 +47,7 @@ import org.firstinspires.ftc.teamcode.Commands.Auto.SelectAndRunTrajectory;
 import org.firstinspires.ftc.teamcode.Commands.Auto.SelectMotionValuesRed;
 import org.firstinspires.ftc.teamcode.Commands.Drive.MoveToPark;
 import org.firstinspires.ftc.teamcode.Commands.Drive.RunToAprilTag;
-import org.firstinspires.ftc.teamcode.Commands.PixelHandler.IterateExtendArnServo;
+import org.firstinspires.ftc.teamcode.Commands.PixelHandler.IterateClawExtendServo;
 import org.firstinspires.ftc.teamcode.Commands.PixelHandler.PlacePixelOnBB;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Commands.Utils.DoNothing;
@@ -154,7 +154,7 @@ public class AutoSelectAndRunRed extends CommandOpMode {
                 telemetry.addLine();
             }
 
-            telemetry.addData("Press Left Bumper To Confirm","");
+            telemetry.addData("Press Left Bumper To Confirm", "");
 
             telemetry.update();
 
@@ -270,7 +270,7 @@ public class AutoSelectAndRunRed extends CommandOpMode {
             }
         });
         waitForStart();
-
+        ActiveMotionValues.setBackboardLevel(1);
         new SequentialCommandGroup(
 
                 new LookForTeamProp(this, webcam).withTimeout(8),
@@ -295,15 +295,15 @@ public class AutoSelectAndRunRed extends CommandOpMode {
                         new SequentialCommandGroup(
 
 
-                                new PositionPHArm(arm, Constants.ArmConstants.armHeights.LOW.height, .5),
+                                new PositionPHArm(arm, Constants.ArmConstants.armExtensions.LOW.extension, .5),
 
-                                new IterateExtendArnServo(phss, true),
+                                new IterateClawExtendServo(phss, true),
 
                                 new PlacePixelOnBB(phss),
 
                                 new ParallelCommandGroup(
-                                        new PositionPHArm(arm, Constants.ArmConstants.armHeights.HOME.height, 5),
-                                        new IterateExtendArnServo(phss, false),
+                                        new PositionPHArm(arm, Constants.ArmConstants.armExtensions.HOME.extension, 5),
+                                        new IterateClawExtendServo(phss, false),
                                         new MoveToPark(drive))),
 
                         new DoNothing(), () -> ActiveMotionValues.getBBStart())).schedule();

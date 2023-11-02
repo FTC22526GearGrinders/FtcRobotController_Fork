@@ -6,7 +6,15 @@ import org.firstinspires.ftc.vision.apriltag.AprilTagPoseFtc;
 
 public class ActiveMotionValues {
 
+    public static int getBackboardLevel() {
+        return backboardlevel;
+    }
 
+    public static void setBackboardLevel(int level) {
+       backboardlevel = level;
+    }
+
+    private static int backboardlevel =1;
 
     public static Pose2d getFinalTagPose() {
         return finalTagPose;

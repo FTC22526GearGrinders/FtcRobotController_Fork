@@ -2,9 +2,14 @@ package org.firstinspires.ftc.teamcode.Subsystems;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.SubsystemBase;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
+import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
+import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.SwitchableLight;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.Constants;
 
 public class PixelHandlerSubsystem extends SubsystemBase {
@@ -14,13 +19,14 @@ public class PixelHandlerSubsystem extends SubsystemBase {
 
     Servo pixelDrop;
 
-    Servo armExtend;
+    Servo clawExtend;
+
+    NormalizedColorSensor colorSensor;
+
+    private CommandOpMode myOpMode = null;
 
 
-    private final CommandOpMode myOpMode;
-
-
-    private double currentArmPosition;
+    private double currentClawArmPosition;
 
 
     public PixelHandlerSubsystem(CommandOpMode opMode) {
@@ -32,17 +38,32 @@ public class PixelHandlerSubsystem extends SubsystemBase {
 
         pixelDrop.setDirection(Servo.Direction.FORWARD);
 
-        armExtend = myOpMode.hardwareMap.get(Servo.class, "arm extend");
+        clawExtend = myOpMode.hardwareMap.get(Servo.class, "claw extend");
 
         claw.setDirection(Servo.Direction.FORWARD);
 
         pixelDrop.setDirection(Servo.Direction.FORWARD);
 
-        armExtend.setDirection(Servo.Direction.FORWARD);
+        clawExtend.setDirection(Servo.Direction.FORWARD);
 
-        retractArml();
+        retractClawArml();
 
-        currentArmPosition = Constants.PixelHandlerConstants.ARM_RETRACT_POSITION;
+        currentClawArmPosition = Constants.PixelHandlerConstants.CLAW_ARM_RETRACT_POSITION;
+
+        // Get a reference to our sensor object. It's recommended to use NormalizedColorSensor over
+        // ColorSensor, because NormalizedColorSensor consistently gives values between 0 and 1, while
+        // the values you get from ColorSensor are dependent on the specific sensor you're using.
+        colorSensor = myOpMode.hardwareMap.get(NormalizedColorSensor.class, "sensor_color");
+
+        float gain = 1;
+        colorSensor.setGain(gain);
+
+        // If possible, turn the light on in the beginning (it might already be on anyway,
+        // we just make sure it is if we can).
+        if (colorSensor instanceof SwitchableLight) {
+            ((SwitchableLight) colorSensor).enableLight(true);
+
+        }
 
 
     }
@@ -81,20 +102,20 @@ public class PixelHandlerSubsystem extends SubsystemBase {
 
     }
 
-    public void setArmExtendPosition(double position) {
-        armExtend.setPosition(position);
+    public void setClawArmExtendPosition(double position) {
+        clawExtend.setPosition(position);
     }
 
     public double getLastPosition() {
-        return currentArmPosition;
+        return currentClawArmPosition;
     }
 
-    public void extendArm() {
-        setArmExtendPosition(Constants.PixelHandlerConstants.ARM_EXTEND_POSITION);
+    public void extendClawArm() {
+        setClawArmExtendPosition(Constants.PixelHandlerConstants.CLAW_ARM_EXTEND_POSITION);
     }
 
-    public void retractArml() {
-        setArmExtendPosition(Constants.PixelHandlerConstants.ARM_RETRACT_POSITION);
+    public void retractClawArml() {
+        setClawArmExtendPosition(Constants.PixelHandlerConstants.CLAW_ARM_RETRACT_POSITION);
     }
 
     public void setClawDirection(boolean fwd) {
@@ -113,37 +134,62 @@ public class PixelHandlerSubsystem extends SubsystemBase {
 
     public void setArmExtendDirection(boolean fwd) {
         if (fwd)
-            armExtend.setDirection(Servo.Direction.FORWARD);
+            clawExtend.setDirection(Servo.Direction.FORWARD);
         else
-            armExtend.setDirection(Servo.Direction.REVERSE);
+            clawExtend.setDirection(Servo.Direction.REVERSE);
     }
 
-    public double getCurrentArmPosition() {
-        return currentArmPosition;
+    public double getCurrentClawArmPosition() {
+        return currentClawArmPosition;
     }
 
-    public void setCurrentArmPosition(double position) {
-        this.currentArmPosition = position;
+    public void setCurrentClawArmPosition(double position) {
+        this.currentClawArmPosition = position;
     }
 
-    public void iterateExtendArm(double increment) {
-        currentArmPosition += increment;
-        if (currentArmPosition > Constants.PixelHandlerConstants.ARM_EXTEND_POSITION)
-            currentArmPosition = Constants.PixelHandlerConstants.ARM_EXTEND_POSITION;
-        setArmExtendPosition(currentArmPosition);
+    public void iterateExtendClawArm(double increment) {
+        currentClawArmPosition += increment;
+        if (currentClawArmPosition > Constants.PixelHandlerConstants.CLAW_ARM_EXTEND_POSITION)
+            currentClawArmPosition = Constants.PixelHandlerConstants.CLAW_ARM_EXTEND_POSITION;
+        setClawArmExtendPosition(currentClawArmPosition);
     }
 
     public void iterateRetractArm(double increment) {
-        currentArmPosition -= increment;
-        if (currentArmPosition < Constants.PixelHandlerConstants.ARM_RETRACT_POSITION)
-            currentArmPosition = Constants.PixelHandlerConstants.ARM_RETRACT_POSITION;
-        setArmExtendPosition(currentArmPosition);
+        currentClawArmPosition -= increment;
+        if (currentClawArmPosition < Constants.PixelHandlerConstants.CLAW_ARM_RETRACT_POSITION)
+            currentClawArmPosition = Constants.PixelHandlerConstants.CLAW_ARM_RETRACT_POSITION;
+        setClawArmExtendPosition(currentClawArmPosition);
     }
 
+    public  void  retractClawArm(){
+        clawExtend.setPosition(Constants.PixelHandlerConstants.CLAW_ARM_RETRACT_POSITION);
+    }
+
+    public double getSensorDistanceInches() {
+        return ((DistanceSensor) colorSensor).getDistance(DistanceUnit.INCH);
+    }
+
+    public NormalizedRGBA getColors() {
+        return colorSensor.getNormalizedColors();
+    }
+
+    public float getRed() {
+        return colorSensor.getNormalizedColors().red;
+    }
+    public float getGreen() {
+        return colorSensor.getNormalizedColors().green;
+    }
+
+    public float getBlue() {
+        return colorSensor.getNormalizedColors().blue;
+    }
+
+
     public void showTelemetry(Telemetry telemetry) {
-        telemetry.addData("CurrentExtPosition", getCurrentArmPosition());
-        telemetry.addData("MaxExtPosn", Constants.PixelHandlerConstants.ARM_EXTEND_POSITION);
-        telemetry.addData("MinExtPosn", Constants.PixelHandlerConstants.ARM_RETRACT_POSITION);
+        telemetry.addData("Sensor Inches",getSensorDistanceInches());
+        telemetry.addData("CurrentExtPosition", getCurrentClawArmPosition());
+        telemetry.addData("MaxExtPosn", Constants.PixelHandlerConstants.CLAW_ARM_EXTEND_POSITION);
+        telemetry.addData("MinExtPosn", Constants.PixelHandlerConstants.CLAW_ARM_RETRACT_POSITION);
         telemetry.update();
     }
 

@@ -34,7 +34,7 @@ public class DetectAprilTags extends CommandBase {
     @Override
     public void initialize() {
         n = ActiveMotionValues.getActTag();
-//
+
     }
 
     @Override
@@ -58,7 +58,11 @@ public class DetectAprilTags extends CommandBase {
 
                     Pose2d robotPoseAtTag = tagPose.minus(Constants.RobotConstants.kCameraToRobot);
 
-                    Pose2d tagDistancePose = new Pose2d(6, 0);
+                    Constants.DriveConstants.tagDistances entry = Constants.DriveConstants.tagDistances.values()[ActiveMotionValues.getBackboardLevel()];
+
+                    double distance = entry.distance;
+
+                    Pose2d tagDistancePose = new Pose2d(distance, 0);
 
                     Pose2d finalTagPose = robotPoseAtTag.minus(tagDistancePose);
 
