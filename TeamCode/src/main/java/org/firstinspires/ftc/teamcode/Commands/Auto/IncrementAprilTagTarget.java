@@ -8,13 +8,10 @@ import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 public class IncrementAprilTagTarget extends CommandBase {
 
     public int number;
-
-    private boolean reset;
-
     boolean redAlliance;
 
-    public IncrementAprilTagTarget(boolean reset) {
-        this.reset = reset;
+    public IncrementAprilTagTarget() {
+
     }
 
     @Override
@@ -22,21 +19,16 @@ public class IncrementAprilTagTarget extends CommandBase {
 
         redAlliance = ActiveMotionValues.getRedAlliance();
 
-        if (reset) {
-            if (redAlliance)
-                ActiveMotionValues.setActTag(4);
-            else ActiveMotionValues.setActTag(1);
+        number = ActiveMotionValues.getActTag();
+        number++;
+        if (redAlliance) {
+            if (number > 6) number = 4;
         } else {
-            number = ActiveMotionValues.getActTag();
-            number++;
-            if (redAlliance) {
-                if (number > 6) number = 4;
-            } else {
-                if (number > 3) number = 1;
-            }
-            ActiveMotionValues.setActTag(number);
+            if (number > 3) number = 1;
         }
+        ActiveMotionValues.setActTag(number);
     }
+
 
     @Override
     public void execute() {

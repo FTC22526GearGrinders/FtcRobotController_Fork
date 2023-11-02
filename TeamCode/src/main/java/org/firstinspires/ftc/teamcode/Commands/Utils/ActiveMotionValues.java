@@ -6,6 +6,18 @@ import org.firstinspires.ftc.vision.apriltag.AprilTagPoseFtc;
 
 public class ActiveMotionValues {
 
+    public static int getBaseTag() {
+        return baseTag;
+    }
+
+    public static void setBaseTag(int tag) {
+        baseTag = tag;
+    }
+
+    private static int baseTag =1;
+
+
+
     public static int getBackboardLevel() {
         return backboardlevel;
     }

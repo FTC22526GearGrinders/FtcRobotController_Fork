@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Commands.Auto;
 
 import com.arcrobotics.ftclib.command.CommandBase;
+import com.arcrobotics.ftclib.util.Timing;
 
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Constants;
@@ -8,28 +9,26 @@ import org.firstinspires.ftc.teamcode.Constants;
 
 public class IncrementPixelDeliveryLevel extends CommandBase {
 
-    boolean reset;
+    public IncrementPixelDeliveryLevel() {
 
-    public IncrementPixelDeliveryLevel(boolean reset) {
-        this.reset = reset;
     }
 
     @Override
     public void initialize() {
-        if (reset) {
-            ActiveMotionValues.setBackboardLevel(1);
-        } else {
-            int level = ActiveMotionValues.getBackboardLevel();
-            level++;
-            if (level > Constants.ArmConstants.NUMBER_LEVELS)
-                level = 1;
-            ActiveMotionValues.setBackboardLevel(level);
-        }
+        int level = ActiveMotionValues.getBackboardLevel();
+        level++;
+        if (level >= Constants.ArmConstants.armExtensions.values().length)
+            level = 1;
+        ActiveMotionValues.setBackboardLevel(level);
+        Constants.ArmConstants.armExtensions entry = Constants.ArmConstants.armExtensions.values()[ActiveMotionValues.getBackboardLevel()];
+
+
+
     }
+
 
     @Override
     public void execute() {
-
     }
 
     @Override
@@ -39,6 +38,6 @@ public class IncrementPixelDeliveryLevel extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return false;
+        return true;
     }
 }

@@ -58,9 +58,9 @@ public class DetectAprilTags extends CommandBase {
 
                     Pose2d robotPoseAtTag = tagPose.minus(Constants.RobotConstants.kCameraToRobot);
 
-                    Constants.DriveConstants.tagDistances entry = Constants.DriveConstants.tagDistances.values()[ActiveMotionValues.getBackboardLevel()];
+                    Constants.ArmConstants.armExtensions entry = Constants.ArmConstants.armExtensions.values()[ActiveMotionValues.getBackboardLevel()];
 
-                    double distance = entry.distance;
+                    double distance = entry.tagDistance;
 
                     Pose2d tagDistancePose = new Pose2d(distance, 0);
 

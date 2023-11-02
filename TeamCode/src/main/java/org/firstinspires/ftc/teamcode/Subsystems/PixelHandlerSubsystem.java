@@ -161,7 +161,7 @@ public class PixelHandlerSubsystem extends SubsystemBase {
         setClawArmExtendPosition(currentClawArmPosition);
     }
 
-    public  void  retractClawArm(){
+    public void retractClawArm() {
         clawExtend.setPosition(Constants.PixelHandlerConstants.CLAW_ARM_RETRACT_POSITION);
     }
 
@@ -176,6 +176,7 @@ public class PixelHandlerSubsystem extends SubsystemBase {
     public float getRed() {
         return colorSensor.getNormalizedColors().red;
     }
+
     public float getGreen() {
         return colorSensor.getNormalizedColors().green;
     }
@@ -186,10 +187,8 @@ public class PixelHandlerSubsystem extends SubsystemBase {
 
 
     public void showTelemetry(Telemetry telemetry) {
-        telemetry.addData("Sensor Inches",getSensorDistanceInches());
+        telemetry.addData("Sensor Inches", getSensorDistanceInches());
         telemetry.addData("CurrentExtPosition", getCurrentClawArmPosition());
-        telemetry.addData("MaxExtPosn", Constants.PixelHandlerConstants.CLAW_ARM_EXTEND_POSITION);
-        telemetry.addData("MinExtPosn", Constants.PixelHandlerConstants.CLAW_ARM_RETRACT_POSITION);
         telemetry.update();
     }
 

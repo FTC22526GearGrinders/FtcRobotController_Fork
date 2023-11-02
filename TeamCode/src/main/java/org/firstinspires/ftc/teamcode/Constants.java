@@ -73,40 +73,21 @@ public final class Constants {
         public static final double ROTATE_SPEED = .75;
         //  public static final double LATERAL_MULTIPLIER = .7;
 
-        public enum tagDistances {
-
-            HOME(0.),
-            LOW(2),
-            MID(14),
-            HIGH(6);
-
-            public final double distance;
-
-
-            tagDistances(double distance) {
-                this.distance = distance;
-            }
-
-
-        }
-
-
-
-
 
     }
+
 
     public static final class PixelHandlerConstants {
         public static final double CLAW_CLOSE_POSITION = .74;
         public static final double CLAW_OPEN_POSITION = .20;
         public static final double DROP_OPEN_POSITION = 0;
-        public static final double DROP_CLOSED_POSITION =.7;
+        public static final double DROP_CLOSED_POSITION = .7;
 
         public static final double CLAW_ARM_EXTEND_POSITION = .90;
         public static final double CLAW_ARM_RETRACT_POSITION = .10;
 
 
-        public static final double CLAW_ARM_DROP_DISTANCE = .5 ;
+        public static final double CLAW_ARM_DROP_DISTANCE = .5;
     }
 
     public static final class ArmConstants {
@@ -147,16 +128,18 @@ public final class Constants {
 
         public enum armExtensions {
 
-            HOME(0.),
-            LOW(5),
-            MID(12),
-            HIGH(19);
+            HOME(0, 1.3),
+            LOW(5, 2.4),
+            MID(12, 3.5),
+            HIGH(19, 4.6);
 
             public final double extension;
+            public final double tagDistance;
 
 
-            armExtensions(double extension) {
+            armExtensions(double extension, double tagDistance) {
                 this.extension = extension;
+                this.tagDistance = tagDistance;
             }
 
 
@@ -169,7 +152,6 @@ public final class Constants {
 
         public static final double CATAPULT_LOCK_POSITION = .10;
         public static final double CATAPULT_RELEASE_POSITION = .90;
-
 
 
     }

@@ -27,7 +27,7 @@ public class PositionPHArmToPreset extends CommandBase {
         arm.loopCountTimer = 0;
         Constants.ArmConstants.armExtensions entry = Constants.ArmConstants.armExtensions.values()[ActiveMotionValues.getBackboardLevel()];
 
-        double distance = entry.extension;
+        double extension = entry.extension;
     }
 
     @Override
