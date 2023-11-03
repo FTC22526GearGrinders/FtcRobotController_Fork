@@ -2,9 +2,18 @@ package org.firstinspires.ftc.teamcode.Commands.Utils;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 
-import org.firstinspires.ftc.vision.apriltag.AprilTagPoseFtc;
-
 public class ActiveMotionValues {
+
+    public static boolean getAprilTagSeen() {
+        return aprilTagSeen;
+    }
+
+    public static void setAprilTagSeen(boolean tagSeen) {
+        aprilTagSeen = tagSeen;
+    }
+
+    private static boolean aprilTagSeen = false;
+
 
     public static int getBaseTag() {
         return baseTag;
@@ -14,8 +23,7 @@ public class ActiveMotionValues {
         baseTag = tag;
     }
 
-    private static int baseTag =1;
-
+    private static int baseTag = 1;
 
 
     public static int getBackboardLevel() {
@@ -23,10 +31,10 @@ public class ActiveMotionValues {
     }
 
     public static void setBackboardLevel(int level) {
-       backboardlevel = level;
+        backboardlevel = level;
     }
 
-    private static int backboardlevel =1;
+    private static int backboardlevel = 1;
 
     public static Pose2d getFinalTagPose() {
         return finalTagPose;
@@ -103,7 +111,7 @@ public class ActiveMotionValues {
     }
 
     public static void setStrafeDistance(double dist) {
-      strafeDistance = dist;
+        strafeDistance = dist;
     }
 
     private static double strafeDistance = 0;
@@ -165,7 +173,7 @@ public class ActiveMotionValues {
     }
 
     public static void setRetractPose(Pose2d pose) {
-       retractPose = pose;
+        retractPose = pose;
     }
 
     public static Pose2d getDropOffPose() {
@@ -287,7 +295,7 @@ public class ActiveMotionValues {
 
     public boolean HSVRed = false;
 
-   // private static AprilTagPoseFtc tagPoseFtc;
+    // private static AprilTagPoseFtc tagPoseFtc;
 
     private static Pose2d aprilTagPos2d = new Pose2d();
 
@@ -356,10 +364,7 @@ public class ActiveMotionValues {
         ActiveMotionValues.leftPark = park;
     }
 
-    private static boolean leftPark=false;
-
-
-
+    private static boolean leftPark = false;
 
 
 }

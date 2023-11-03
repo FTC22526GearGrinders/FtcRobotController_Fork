@@ -2,11 +2,9 @@ package org.firstinspires.ftc.teamcode.Subsystems;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.SubsystemBase;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
-import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
-import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.SwitchableLight;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
@@ -21,7 +19,7 @@ public class PixelHandlerSubsystem extends SubsystemBase {
 
     Servo clawExtend;
 
-    NormalizedColorSensor colorSensor;
+    ColorSensor colorSensor;
 
     private CommandOpMode myOpMode = null;
 
@@ -53,17 +51,11 @@ public class PixelHandlerSubsystem extends SubsystemBase {
         // Get a reference to our sensor object. It's recommended to use NormalizedColorSensor over
         // ColorSensor, because NormalizedColorSensor consistently gives values between 0 and 1, while
         // the values you get from ColorSensor are dependent on the specific sensor you're using.
-        colorSensor = myOpMode.hardwareMap.get(NormalizedColorSensor.class, "sensor_color");
+        colorSensor = myOpMode.hardwareMap.get(ColorSensor.class, "sensor_color");
 
-        float gain = 1;
-        colorSensor.setGain(gain);
 
         // If possible, turn the light on in the beginning (it might already be on anyway,
         // we just make sure it is if we can).
-        if (colorSensor instanceof SwitchableLight) {
-            ((SwitchableLight) colorSensor).enableLight(true);
-
-        }
 
 
     }
@@ -169,20 +161,16 @@ public class PixelHandlerSubsystem extends SubsystemBase {
         return ((DistanceSensor) colorSensor).getDistance(DistanceUnit.INCH);
     }
 
-    public NormalizedRGBA getColors() {
-        return colorSensor.getNormalizedColors();
-    }
-
     public float getRed() {
-        return colorSensor.getNormalizedColors().red;
+        return colorSensor.red();
     }
 
     public float getGreen() {
-        return colorSensor.getNormalizedColors().green;
+        return colorSensor.green();
     }
 
     public float getBlue() {
-        return colorSensor.getNormalizedColors().blue;
+        return colorSensor.blue();
     }
 
 

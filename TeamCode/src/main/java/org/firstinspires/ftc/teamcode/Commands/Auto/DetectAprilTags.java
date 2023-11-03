@@ -16,25 +16,23 @@ import java.util.List;
 
 public class DetectAprilTags extends CommandBase {
 
-    private CommandOpMode myOpMode;
+    private final CommandOpMode myOpMode;
 
-
-    private static final boolean USE_WEBCAM = true;  // true for webcam, false for phone camera
 
     private int n;
     private boolean tagsSeen;
 
-    private Vision_Subsystem vss;
+    private final Vision_Subsystem vss;
 
     public DetectAprilTags(CommandOpMode opMode, Vision_Subsystem vss) {
         this.vss = vss;
+
         myOpMode = opMode;
     }
 
     @Override
     public void initialize() {
         n = ActiveMotionValues.getActTag();
-
     }
 
     @Override
@@ -45,8 +43,9 @@ public class DetectAprilTags extends CommandBase {
         for (AprilTagDetection detection : currentDetections) {
             if (detection.metadata != null) {
                 tagsSeen = true;
+                ActiveMotionValues.setAprilTagSeen(false);
                 if (detection.id == n) {
-
+                    ActiveMotionValues.setAprilTagSeen(true);
 
                     Pose2d camPose = new Pose2d(detection.ftcPose.y, detection.ftcPose.x, Math.toRadians(detection.ftcPose.yaw));
 
@@ -58,13 +57,9 @@ public class DetectAprilTags extends CommandBase {
 
                     Pose2d robotPoseAtTag = tagPose.minus(Constants.RobotConstants.kCameraToRobot);
 
-                    Constants.ArmConstants.armExtensions entry = Constants.ArmConstants.armExtensions.values()[ActiveMotionValues.getBackboardLevel()];
+                    Pose2d tagOffsetPose = Constants.DriveConstants.tagOffsetPose;
 
-                    double distance = entry.tagDistance;
-
-                    Pose2d tagDistancePose = new Pose2d(distance, 0);
-
-                    Pose2d finalTagPose = robotPoseAtTag.minus(tagDistancePose);
+                    Pose2d finalTagPose = robotPoseAtTag.minus(tagOffsetPose);
 
                     ActiveMotionValues.setFinalTagPose(finalTagPose);
 
@@ -84,7 +79,7 @@ public class DetectAprilTags extends CommandBase {
                     myOpMode.telemetry.addLine();
                     myOpMode.telemetry.addData("RobotPoseAtTag", robotPoseAtTag.toString());
                     myOpMode.telemetry.addLine();
-                    myOpMode.telemetry.addData("TagDistPose", tagDistancePose.toString());
+                    myOpMode.telemetry.addData("TagDistPose", tagOffsetPose.toString());
                     myOpMode.telemetry.addLine();
                     myOpMode.telemetry.addData("FinalPose", finalTagPose.toString());
                     myOpMode.telemetry.addLine();
@@ -100,14 +95,8 @@ public class DetectAprilTags extends CommandBase {
 
             int numTagsseen = currentDetections.size();
 
-
-//            myOpMode.telemetry.addLine("\nkey:\nXYZ = X (Right), Y (Forward), Z (Up) dist.");
-//            myOpMode.telemetry.addLine("PRY = Pitch, Roll & Yaw (XYZ Rotation)");
-//            myOpMode.telemetry.addLine("RBE = Range, Bearing & Elevation");
-
-
         }
-        //  myOpMode.telemetry.update();
+
     }
 
     @Override
@@ -118,6 +107,6 @@ public class DetectAprilTags extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return false;
+        return ActiveMotionValues.getAprilTagSeen();
     }
 }

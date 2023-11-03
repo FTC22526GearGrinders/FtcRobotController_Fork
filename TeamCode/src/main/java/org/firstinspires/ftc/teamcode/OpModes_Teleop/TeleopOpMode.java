@@ -22,6 +22,7 @@ import org.firstinspires.ftc.teamcode.Commands.Drive.RunToAprilTag;
 import org.firstinspires.ftc.teamcode.Commands.PixelHandler.IterateClawExtendArmToDistance;
 import org.firstinspires.ftc.teamcode.Commands.PixelHandler.IterateClawExtendServo;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
+import org.firstinspires.ftc.teamcode.Commands.Utils.TimeDelay;
 import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.Subsystems.ArmSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
@@ -46,6 +47,7 @@ public class TeleopOpMode extends CommandOpMode {
 
     @Override
     public void initialize() {
+
 
         driver = new GamepadEx(gamepad1);
 
@@ -76,28 +78,28 @@ public class TeleopOpMode extends CommandOpMode {
 
 //        driver.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
 
-//        driver.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
 
-        TriggerReader trdltt = new TriggerReader(
+        TriggerReader drlt = new TriggerReader(
                 driver, GamepadKeys.Trigger.LEFT_TRIGGER);
 
-        TriggerReader trdrt = new TriggerReader(
+        TriggerReader drrt = new TriggerReader(
                 driver, GamepadKeys.Trigger.RIGHT_TRIGGER);
 
-        // if(trdrt.isDown())new IncrementPixelDeliveryLevel();
+        // example usage if(drrt.wasJustPressed())new IncrementPixelDeliveryLevel().schedule();
 
 
         driver.getGamepadButton(GamepadKeys.Button.B).whenPressed(new IncrementPixelDeliveryLevel());
 
         driver.getGamepadButton(GamepadKeys.Button.X).whenPressed(new IncrementAprilTagTarget());
 
-        driver.getGamepadButton(GamepadKeys.Button.Y).whenPressed(
+        driver.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER).whileHeld(
                 new SequentialCommandGroup(
                         new DetectAprilTags(this, viss),
                         new ParallelCommandGroup(new RunToAprilTag(drive, this),
                                 new PositionPHArmToPreset(arm, .5)),
                         new IterateClawExtendArmToDistance(phss),
                         new InstantCommand(() -> phss.openClaw()),
+                        new TimeDelay(.5),
                         new InstantCommand(() -> phss.retractClawArm()),
                         new PositionPHArmToPreset(arm, Constants.ArmConstants.armExtensions.HOME.extension)));
 
@@ -122,6 +124,13 @@ public class TeleopOpMode extends CommandOpMode {
 
 
         //Codriver buttons
+
+        TriggerReader cdlt = new TriggerReader(
+                coDriver, GamepadKeys.Trigger.LEFT_TRIGGER);
+
+        TriggerReader cdrt = new TriggerReader(
+                coDriver, GamepadKeys.Trigger.RIGHT_TRIGGER);
+
 
         coDriver.getGamepadButton((GamepadKeys.Button.A)).whenHeld(new IterateClawExtendServo(phss, true));
 
@@ -169,14 +178,11 @@ public class TeleopOpMode extends CommandOpMode {
         telemetry.addData("ArmTgtExten", extension);
         telemetry.addLine();
 
-        Constants.ArmConstants.armExtensions entrykt = Constants.ArmConstants.armExtensions.values()[ActiveMotionValues.getBackboardLevel()];
-        double distance = entry.tagDistance;
-
-        telemetry.addData("TagDistance", distance);
+        telemetry.addData("TagDistance", Constants.DriveConstants.tagOffsetPose.toString());
         telemetry.addLine();
+        telemetry.addData("SensorDistance", phss.getSensorDistanceInches());
         telemetry.update();
 
     }
-
 
 }

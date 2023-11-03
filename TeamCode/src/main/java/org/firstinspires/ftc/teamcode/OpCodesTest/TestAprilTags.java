@@ -36,6 +36,7 @@ import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Commands.Auto.DetectAprilTags;
+import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.Vision_Subsystem;
 import org.openftc.easyopencv.OpenCvWebcam;
 
@@ -56,6 +57,8 @@ public class TestAprilTags extends CommandOpMode {
      * The variable to store our instance of the AprilTag processor.
      */
     private Vision_Subsystem vss;
+
+    private Drive_Subsystem drive;
     private FtcDashboard dashboard;
     private OpenCvWebcam webcam;
 
@@ -67,6 +70,8 @@ public class TestAprilTags extends CommandOpMode {
         telemetry = new MultipleTelemetry(telemetry, dashboard.getTelemetry());
 
         vss = new Vision_Subsystem(this);
+
+        drive=new Drive_Subsystem(this);
 
 
         // Wait for the DS start button to be touched.

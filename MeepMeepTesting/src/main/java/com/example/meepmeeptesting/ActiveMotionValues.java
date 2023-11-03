@@ -50,7 +50,7 @@ public class ActiveMotionValues {
     }
 
     public static void setLineupPose(Pose2d pose) {
-      lineupPose = pose;
+        lineupPose = pose;
     }
 
     private static Pose2d lineupPose = new Pose2d();
@@ -71,7 +71,7 @@ public class ActiveMotionValues {
     }
 
     public static void setStrafeDistance(double dist) {
-      strafeDistance = dist;
+        strafeDistance = dist;
     }
 
     private static double strafeDistance = 0;
@@ -121,7 +121,7 @@ public class ActiveMotionValues {
     }
 
     public static void setRetractPose(Pose2d pose) {
-       retractPose = pose;
+        retractPose = pose;
     }
 
     public static Pose2d getDropOffPose() {
@@ -225,7 +225,6 @@ public class ActiveMotionValues {
     private static Pose2d secondAprilTagPose = new Pose2d();
 
 
-
     private static Pose2d yOffsetPose;
     private static Pose2d xOffsetPose;
     private static double retractDistance = 0;
@@ -248,7 +247,6 @@ public class ActiveMotionValues {
     public boolean HSVRed = false;
 
 
-
     private static Pose2d aprilTagPos2d = new Pose2d();
 
 
@@ -262,7 +260,7 @@ public class ActiveMotionValues {
 
     private static boolean useStageDoor = false;
 
-    private static int  parkType = 0;
+    private static int parkType = 0;
 
     public static void setParkType(int cPark) {
         parkType = cPark;
@@ -289,6 +287,16 @@ public class ActiveMotionValues {
     }
 
     public static Pose2d optionPose = new Pose2d();
+
+    public static boolean getCenterPark() {
+        return centerPark;
+    }
+
+    public static void setCenterPark(boolean park) {
+        centerPark = park;
+    }
+
+    private static boolean centerPark = false;
 
 
 }

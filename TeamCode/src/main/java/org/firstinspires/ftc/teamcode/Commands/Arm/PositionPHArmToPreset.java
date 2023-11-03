@@ -26,7 +26,6 @@ public class PositionPHArmToPreset extends CommandBase {
     public void initialize() {
         arm.loopCountTimer = 0;
         Constants.ArmConstants.armExtensions entry = Constants.ArmConstants.armExtensions.values()[ActiveMotionValues.getBackboardLevel()];
-
         double extension = entry.extension;
     }
 

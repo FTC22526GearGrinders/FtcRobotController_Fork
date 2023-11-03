@@ -73,6 +73,8 @@ public final class Constants {
         public static final double ROTATE_SPEED = .75;
         //  public static final double LATERAL_MULTIPLIER = .7;
 
+        public static final Pose2d tagOffsetPose = new Pose2d(4,0,0);
+
 
     }
 
@@ -128,18 +130,18 @@ public final class Constants {
 
         public enum armExtensions {
 
-            HOME(0, 1.3),
-            LOW(5, 2.4),
-            MID(12, 3.5),
-            HIGH(19, 4.6);
+            HOME(0),
+            LOW(5),
+            MID(12),
+            HIGH(19);
 
             public final double extension;
-            public final double tagDistance;
 
 
-            armExtensions(double extension, double tagDistance) {
+
+            armExtensions(double extension) {
                 this.extension = extension;
-                this.tagDistance = tagDistance;
+
             }
 
 

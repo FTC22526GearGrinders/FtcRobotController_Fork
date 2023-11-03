@@ -4,10 +4,9 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.arcrobotics.ftclib.command.CommandOpMode;
+import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
-import org.firstinspires.ftc.teamcode.Constants;
-import org.firstinspires.ftc.teamcode.FieldConstantsRed;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
 
 
@@ -27,20 +26,20 @@ public class RunToAprilTag extends CommandBase {
 
     Pose2d finalPose = new Pose2d();
 
-
     public RunToAprilTag(Drive_Subsystem drive, CommandOpMode opMode) {
         this.drive = drive;
         myOpMode = opMode;
+        addRequirements(drive);
     }
 
     @Override
     public void initialize() {
 
+
+
         currentRobotPose = ActiveMotionValues.getCurrentRobotPose();
 
-
         finalPose = ActiveMotionValues.getFinalTagPose();
-
 
         tagTraj = drive.drive.trajectoryBuilder(currentRobotPose)
                 .lineToLinearHeading(finalPose)
@@ -67,8 +66,7 @@ public class RunToAprilTag extends CommandBase {
         myOpMode.telemetry.update();
 
 
-
-         drive.drive.update();
+        drive.drive.update();
     }
 
     @Override
