@@ -69,6 +69,14 @@ import java.util.concurrent.TimeUnit;
 public class ConceptAprilTagOptimizeExposure extends LinearOpMode {
 
 
+    boolean thisExpUp = false;
+    boolean thisExpDn = false;
+    boolean thisGainUp = false;
+    boolean thisGainDn = false;
+    boolean lastExpUp = false;
+    boolean lastExpDn = false;
+    boolean lastGainUp = false;
+    boolean lastGainDn = false;
     private VisionPortal visionPortal = null;        // Used to manage the video source.
     private AprilTagProcessor aprilTag;              // Used for managing the AprilTag detection process.
     private int myExposure;
@@ -77,16 +85,6 @@ public class ConceptAprilTagOptimizeExposure extends LinearOpMode {
     private int myGain;
     private int minGain;
     private int maxGain;
-
-    boolean thisExpUp = false;
-    boolean thisExpDn = false;
-    boolean thisGainUp = false;
-    boolean thisGainDn = false;
-
-    boolean lastExpUp = false;
-    boolean lastExpDn = false;
-    boolean lastGainUp = false;
-    boolean lastGainDn = false;
 
     @Override
     public void runOpMode() {
@@ -200,7 +198,7 @@ public class ConceptAprilTagOptimizeExposure extends LinearOpMode {
                 exposureControl.setMode(ExposureControl.Mode.Manual);
                 sleep(50);
             }
-            exposureControl.setExposure((long) exposureMS, TimeUnit.MILLISECONDS);
+            exposureControl.setExposure(exposureMS, TimeUnit.MILLISECONDS);
             sleep(20);
 
             // Set Gain.

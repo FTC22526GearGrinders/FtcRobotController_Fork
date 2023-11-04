@@ -33,6 +33,8 @@ public class RunTrussSDCenterTape extends CommandBase {
 
                   .lineToLinearHeading(ActiveMotionValues.getDropOffPose())
 
+                    .UNSTABLE_addTemporalMarkerOffset(.5,()-> phss.dropPixel())
+
                     .waitSeconds(.5)
 
                     .lineToLinearHeading(ActiveMotionValues.getRetractPose())

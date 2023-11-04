@@ -34,6 +34,7 @@ package org.firstinspires.ftc.teamcode.OpModes_Auto;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.ConditionalCommand;
+import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -41,16 +42,15 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.CV.SpikeTapePipelineBlue;
 import org.firstinspires.ftc.teamcode.Commands.Arm.PositionPHArm;
+import org.firstinspires.ftc.teamcode.Commands.Arm.PositionPHArmToPreset;
 import org.firstinspires.ftc.teamcode.Commands.Auto.DetectAprilTags;
 import org.firstinspires.ftc.teamcode.Commands.Auto.LookForTeamProp;
 import org.firstinspires.ftc.teamcode.Commands.Auto.SelectAndRunTrajectory;
 import org.firstinspires.ftc.teamcode.Commands.Auto.SelectMotionValuesBlue;
-import org.firstinspires.ftc.teamcode.Commands.Drive.MoveToPark;
 import org.firstinspires.ftc.teamcode.Commands.Drive.RunToAprilTag;
-import org.firstinspires.ftc.teamcode.Commands.PixelHandler.IterateClawExtendServo;
-import org.firstinspires.ftc.teamcode.Commands.PixelHandler.PlacePixelOnBB;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Commands.Utils.DoNothing;
+import org.firstinspires.ftc.teamcode.Commands.Utils.TimeDelay;
 import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.Subsystems.ArmSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
@@ -150,7 +150,6 @@ public class AutoSelectAndRunBlue extends CommandOpMode {
             telemetry.addLine();
             telemetry.addData("Center Park Selected B to Change", centerPark);
             telemetry.addLine();
-
 
 
             if (!bbStart) {
@@ -275,6 +274,7 @@ public class AutoSelectAndRunBlue extends CommandOpMode {
         waitForStart();
 
         ActiveMotionValues.setBackboardLevel(1);
+
         new SequentialCommandGroup(
 
                 new LookForTeamProp(this, webcam).withTimeout(8),
@@ -282,33 +282,35 @@ public class AutoSelectAndRunBlue extends CommandOpMode {
                 new SelectMotionValuesBlue(),
 
                 new SelectAndRunTrajectory(drive, phss).withTimeout(10),
+
                 new ConditionalCommand(
 
                         new SequentialCommandGroup(
 
                                 new DetectAprilTags(this, vss),
 
-                                new RunToAprilTag(drive, this)),
-
-                        new MoveToPark(drive), () -> bbStart || secondPixel),
-
-
-                new ConditionalCommand(
-
-                        new SequentialCommandGroup(
+                                new RunToAprilTag(drive, this),
 
                                 new PositionPHArm(arm, Constants.ArmConstants.armExtensions.LOW.extension, .5),
 
-                                new IterateClawExtendServo(phss, true),
+                                new InstantCommand(() -> phss.openClaw()),
 
-                                new PlacePixelOnBB(phss),
+                                new TimeDelay(.5),
 
                                 new ParallelCommandGroup(
-                                        new PositionPHArm(arm, Constants.ArmConstants.armExtensions.HOME.extension, 5),
-                                        new IterateClawExtendServo(phss, false),
-                                        new MoveToPark(drive))),
 
-                        new DoNothing(), () -> ActiveMotionValues.getBBStart())).schedule();
+                                        new InstantCommand(() -> phss.closeClaw()),
+
+                                        new InstantCommand(() -> phss.retractClawArm())),
+
+                                new PositionPHArmToPreset(arm, Constants.ArmConstants.armExtensions.HOME.extension)),
+
+
+                        new DoNothing(), () -> ActiveMotionValues.getBBStart()
+
+                        || !ActiveMotionValues.getBBStart() && ActiveMotionValues.getSecondPixel()))
+
+                .schedule();
 
     }
 

@@ -1,8 +1,8 @@
 package org.firstinspires.ftc.teamcode.OpCodesSetupAndTune;
 
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants.MAX_ACCEL;
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants.MAX_VEL;
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants.RUN_USING_ENCODER;
+import static org.firstinspires.ftc.teamcode.Constants.DriveConstants.MAX_ACCEL;
+import static org.firstinspires.ftc.teamcode.Constants.DriveConstants.MAX_VEL;
+import static org.firstinspires.ftc.teamcode.Constants.DriveConstants.RUN_USING_ENCODER;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
@@ -49,15 +49,9 @@ public class ManualFeedforwardTuner extends LinearOpMode {
     public static PIDCoefficients ffTune = new PIDCoefficients(0.02, 0.005, 0.08);//kv,ka,ks
 
 
-    private FtcDashboard dashboard = FtcDashboard.getInstance();
+    private final FtcDashboard dashboard = FtcDashboard.getInstance();
 
     private SampleMecanumDrive drive;
-
-    enum Mode {
-        DRIVER_MODE,
-        TUNING_MODE
-    }
-
     private Mode mode;
 
     private static MotionProfile generateProfile(boolean movingForward) {
@@ -152,5 +146,10 @@ public class ManualFeedforwardTuner extends LinearOpMode {
 
             telemetry.update();
         }
+    }
+
+    enum Mode {
+        DRIVER_MODE,
+        TUNING_MODE
     }
 }

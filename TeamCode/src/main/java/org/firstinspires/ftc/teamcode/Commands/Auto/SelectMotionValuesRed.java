@@ -64,7 +64,7 @@ public class SelectMotionValuesRed extends CommandBase {
                 ActiveMotionValues.setActTag(4);
 
                 ActiveMotionValues.setPreTagPose(FieldConstantsRed.getActiveTagPose(ActiveMotionValues.getActTag())
-                        .plus(FieldConstantsRed.AprilTagConstants.tagStrafeOffsetPose));
+                        .plus(FieldConstantsRed.AprilTagConstants.tagLookAheadPose));
 
 
                 if (ActiveMotionValues.getCenterPark())

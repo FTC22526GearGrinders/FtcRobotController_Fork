@@ -24,8 +24,6 @@ public class PixelHandlerSubsystem extends SubsystemBase {
     private CommandOpMode myOpMode = null;
 
 
-    private double currentClawArmPosition;
-
 
     public PixelHandlerSubsystem(CommandOpMode opMode) {
         myOpMode = opMode;
@@ -44,9 +42,9 @@ public class PixelHandlerSubsystem extends SubsystemBase {
 
         clawExtend.setDirection(Servo.Direction.FORWARD);
 
-        retractClawArml();
+        extendClawArm();
 
-        currentClawArmPosition = Constants.PixelHandlerConstants.CLAW_ARM_RETRACT_POSITION;
+
 
         // Get a reference to our sensor object. It's recommended to use NormalizedColorSensor over
         // ColorSensor, because NormalizedColorSensor consistently gives values between 0 and 1, while
@@ -98,12 +96,11 @@ public class PixelHandlerSubsystem extends SubsystemBase {
         clawExtend.setPosition(position);
     }
 
-    public double getLastPosition() {
-        return currentClawArmPosition;
-    }
+
 
     public void extendClawArm() {
         setClawArmExtendPosition(Constants.PixelHandlerConstants.CLAW_ARM_EXTEND_POSITION);
+
     }
 
     public void retractClawArml() {
@@ -131,27 +128,6 @@ public class PixelHandlerSubsystem extends SubsystemBase {
             clawExtend.setDirection(Servo.Direction.REVERSE);
     }
 
-    public double getCurrentClawArmPosition() {
-        return currentClawArmPosition;
-    }
-
-    public void setCurrentClawArmPosition(double position) {
-        this.currentClawArmPosition = position;
-    }
-
-    public void iterateExtendClawArm(double increment) {
-        currentClawArmPosition += increment;
-        if (currentClawArmPosition > Constants.PixelHandlerConstants.CLAW_ARM_EXTEND_POSITION)
-            currentClawArmPosition = Constants.PixelHandlerConstants.CLAW_ARM_EXTEND_POSITION;
-        setClawArmExtendPosition(currentClawArmPosition);
-    }
-
-    public void iterateRetractArm(double increment) {
-        currentClawArmPosition -= increment;
-        if (currentClawArmPosition < Constants.PixelHandlerConstants.CLAW_ARM_RETRACT_POSITION)
-            currentClawArmPosition = Constants.PixelHandlerConstants.CLAW_ARM_RETRACT_POSITION;
-        setClawArmExtendPosition(currentClawArmPosition);
-    }
 
     public void retractClawArm() {
         clawExtend.setPosition(Constants.PixelHandlerConstants.CLAW_ARM_RETRACT_POSITION);
@@ -176,7 +152,6 @@ public class PixelHandlerSubsystem extends SubsystemBase {
 
     public void showTelemetry(Telemetry telemetry) {
         telemetry.addData("Sensor Inches", getSensorDistanceInches());
-        telemetry.addData("CurrentExtPosition", getCurrentClawArmPosition());
         telemetry.update();
     }
 

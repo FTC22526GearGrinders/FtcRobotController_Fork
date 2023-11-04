@@ -30,13 +30,13 @@ public class RunTrussSDLRTape extends CommandBase {
 
                 (ActiveMotionValues.getBBStart() && ActiveMotionValues.getLcrpos() == 1
 
-                        || !ActiveMotionValues.getBBStart() && ActiveMotionValues.getLcrpos() == 3);
+                        || !ActiveMotionValues.getBBStart() && ActiveMotionValues.getLcrpos() == 13);
 
         boolean trussSideTapeBlue = !ActiveMotionValues.getRedAlliance() &&
 
                 (ActiveMotionValues.getBBStart() && ActiveMotionValues.getLcrpos() == 3
 
-                        || !ActiveMotionValues.getBBStart() && ActiveMotionValues.getLcrpos() == 1);
+                        || !ActiveMotionValues.getBBStart() && ActiveMotionValues.getLcrpos() == 11);
 
         boolean trussSideTape = trussSideTapeRed || trussSideTapeBlue;
 
@@ -47,6 +47,8 @@ public class RunTrussSDLRTape extends CommandBase {
                 trussSDTraj = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
 
                         .lineToLinearHeading(ActiveMotionValues.getDropOffPose())
+
+                        .UNSTABLE_addTemporalMarkerOffset(.5,()-> phss.dropPixel())
 
                         .waitSeconds(.5)
 
@@ -71,6 +73,8 @@ public class RunTrussSDLRTape extends CommandBase {
 
                         .lineToLinearHeading(ActiveMotionValues.getDropOffPose())
 
+                        .UNSTABLE_addTemporalMarkerOffset(.5,()-> phss.dropPixel())
+
                         .waitSeconds(.5)
 
                         .lineToLinearHeading(ActiveMotionValues.getRetractPose())
@@ -93,6 +97,8 @@ public class RunTrussSDLRTape extends CommandBase {
                 trussSDTraj = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
 
                         .lineToLinearHeading(ActiveMotionValues.getDropOffPose())
+
+                        .UNSTABLE_addTemporalMarkerOffset(.5,()-> phss.dropPixel())
 
                         .waitSeconds(.5)
 
@@ -118,6 +124,8 @@ public class RunTrussSDLRTape extends CommandBase {
                         .lineToLinearHeading(ActiveMotionValues.getAdvancePose())
 
                         .lineToLinearHeading(ActiveMotionValues.getDropOffPose())
+
+                        .UNSTABLE_addTemporalMarkerOffset(.5,()-> phss.dropPixel())
 
                         .waitSeconds(.5)
 

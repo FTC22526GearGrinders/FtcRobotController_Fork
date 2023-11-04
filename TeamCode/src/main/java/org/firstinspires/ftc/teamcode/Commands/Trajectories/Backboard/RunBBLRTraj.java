@@ -23,11 +23,22 @@ public class RunBBLRTraj extends CommandBase {
 
     @Override
     public void initialize() {
-        boolean trussSideTape = ActiveMotionValues.getRedAlliance() &&
+        boolean trussSideTapeRed = ActiveMotionValues.getRedAlliance() &&
 
                 (ActiveMotionValues.getBBStart() && ActiveMotionValues.getLcrpos() == 1
 
-                        || !ActiveMotionValues.getBBStart() && ActiveMotionValues.getLcrpos() == 3);
+                        || !ActiveMotionValues.getBBStart() && ActiveMotionValues.getLcrpos() == 13);
+
+
+
+
+        boolean trussSideTapeBlue = !ActiveMotionValues.getRedAlliance() &&
+
+                (ActiveMotionValues.getBBStart() && ActiveMotionValues.getLcrpos() == 3
+
+                        || !ActiveMotionValues.getBBStart() && ActiveMotionValues.getLcrpos() == 11);
+
+        boolean trussSideTape = trussSideTapeRed || trussSideTapeBlue;
         /**
          * Use th 5 step center for stage door selection
          * <p>
@@ -39,6 +50,8 @@ public class RunBBLRTraj extends CommandBase {
             backboardLeftRight = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
 
                     .lineToLinearHeading(ActiveMotionValues.getDropOffPose())
+
+                    .UNSTABLE_addTemporalMarkerOffset(.5,()-> phss.dropPixel())
 
                     .waitSeconds(.5)
 

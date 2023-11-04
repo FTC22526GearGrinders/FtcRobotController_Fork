@@ -40,7 +40,7 @@ public final class FieldConstantsRed {
         static final double atagAngle = 0;
 
 
-        public static final Pose2d tagLookAheadPose = new Pose2d(14 + Constants.RobotConstants.length / 2, 0, Math.toRadians(180));
+        public static final Pose2d tagLookAheadPose = new Pose2d(14 + Constants.RobotConstants.length / 2, 0, Math.toRadians(0));
 
         public static final Pose2d tagStrafeOffsetPose = new Pose2d(-60.25 + 36, 0, 0);
 
@@ -109,9 +109,9 @@ public final class FieldConstantsRed {
 
 
         public static final Pose2d startPose = new Pose2d(-36, -(Constants.FieldConstants.length
-                - Constants.RobotConstants.length) / 2, Math.toRadians(90));
+                - Constants.RobotConstants.length) / 2, startangle);
 
-        public static final Pose2d advancePose = new Pose2d(-48, -48, Math.toRadians(90));
+        public static final Pose2d advancePose = new Pose2d(-48, -48,startangle);
         public static final Pose2d rightTapeMid = new Pose2d(-24.5, -30);
         public static final Pose2d centerTapeMid = new Pose2d(-36, -24.5);
         public static final Pose2d leftTapeMid = new Pose2d(-47.5, -30);

@@ -47,7 +47,7 @@ public class DetectAprilTags extends CommandBase {
                 if (detection.id == n) {
                     ActiveMotionValues.setAprilTagSeen(true);
 
-                    Pose2d camPose = new Pose2d(detection.ftcPose.y, detection.ftcPose.x, Math.toRadians(detection.ftcPose.yaw));
+                    Pose2d camPose = new Pose2d(detection.ftcPose.y, detection.ftcPose.x);//, Math.toRadians(detection.ftcPose.yaw));
 
                     Pose2d tagPose = FieldConstantsRed.getActiveTagPose(ActiveMotionValues.getActTag());
 
@@ -59,7 +59,7 @@ public class DetectAprilTags extends CommandBase {
 
                     Pose2d tagOffsetPose = Constants.DriveConstants.tagOffsetPose;
 
-                    Pose2d finalTagPose = robotPoseAtTag.minus(tagOffsetPose);
+                    Pose2d finalTagPose = tagPose.minus(tagOffsetPose);
 
                     ActiveMotionValues.setFinalTagPose(finalTagPose);
 

@@ -42,6 +42,8 @@ public class ArmSubsystem extends SubsystemBase {
 
         armEncoder.setDirection(Motor.Direction.FORWARD);
 
+
+
         armEncoder.setDistancePerPulse( 1/Constants.ArmConstants.ENCODER_COUNTS_PER_INCH);
 
         controller.setTolerance(Constants.ArmConstants.POSITION_TOLERANCE_INCHES);

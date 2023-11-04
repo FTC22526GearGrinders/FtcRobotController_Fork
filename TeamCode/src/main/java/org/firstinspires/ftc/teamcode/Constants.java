@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
+import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 
 public final class Constants {
 
@@ -36,8 +38,14 @@ public final class Constants {
 
 
     public static final class DriveConstants {
+
+        public static final boolean RUN_USING_ENCODER = false;
         public static final double MAX_MOTOR_RPM = 312;
         public static final double MOTOR_GEAR_RATIO = 13.7;
+
+        //    public static double encoderTicksToInches(double ticks) {
+//        return WHEEL_RADIUS * 2 * Math.PI * GEAR_RATIO * ticks / TICKS_PER_REV;
+//    }
 
         public static final double GEARBOX_RATIO = 1;
         public static final double WHEEL_DIAMETER_INCH = 4;
@@ -50,10 +58,25 @@ public final class Constants {
         public static final double ENCODER_COUNTS_PER_WHEEL_REV = 537.7;//1:1 RATIO
         public static final double WHEEL_CIRCUMFERENCE_INCH = Math.PI * WHEEL_DIAMETER_INCH;//12.57
         public static final double INCHES_PER_ENCODER_COUNT = WHEEL_CIRCUMFERENCE_INCH / ENCODER_COUNTS_PER_WHEEL_REV;//.0234
-        public static final double MAX_IPM = MAX_MOTOR_RPM * WHEEL_CIRCUMFERENCE_INCH;// 312 *12.57/00 = 60 IPS
+        public static final double MAX_IPM = MAX_MOTOR_RPM * WHEEL_CIRCUMFERENCE_INCH / 60;// 312 *12.57/00 = 60 IPS
+
+        public static double MAX_VEL = MAX_IPM *.8;
+        public static double MAX_ACCEL = 30;
+        public static double MAX_ANG_VEL = Math.toRadians(60);
+        public static double MAX_ANG_ACCEL = Math.toRadians(60);
+        public static double TRAJ_VEL = 20;
+        public static double TRAJ_ACCEL = 20;
+        public static double TRAJ_ANG_VEL = Math.toRadians(40);
+        public static double TRAJ_ANG_ACCEL = Math.toRadians(40);
+
+        //     */
+        public static double kV = .01;
+        public static double kA = 0.0005;
+        public static double kStatic = 0.08;
+
         public static final double BATTERY_VOLTS = 12;
 
-        public static final double kV = BATTERY_VOLTS / MAX_IPM;//12/60 = .2 MAX THEORETICAL VALUE
+        //public static final double kV = BATTERY_VOLTS / MAX_IPM;//12/60 = .2 MAX THEORETICAL VALUE
         public static final double ENCODER_COUNTS_PER_MOTOR_REV = 537.7;
 
         public static final double POSITION_Kp = .03;
@@ -73,20 +96,34 @@ public final class Constants {
         public static final double ROTATE_SPEED = .75;
         //  public static final double LATERAL_MULTIPLIER = .7;
 
-        public static final Pose2d tagOffsetPose = new Pose2d(4,0,0);
+        public static final Pose2d tagOffsetPose = new Pose2d(4, 0, 0);
 
+        public static RevHubOrientationOnRobot.LogoFacingDirection LOGO_FACING_DIR =
+                RevHubOrientationOnRobot.LogoFacingDirection.UP;
+        public static RevHubOrientationOnRobot.UsbFacingDirection USB_FACING_DIR =
+                RevHubOrientationOnRobot.UsbFacingDirection.FORWARD;
+
+
+        public static double encoderTicksToInches(double ticks) {
+            return WHEEL_DIAMETER_INCH * Math.PI * MOTOR_GEAR_RATIO * ticks / ENCODER_COUNTS_PER_MOTOR_REV;
+
+        }
+
+        public static double rpmToVelocity(double rpm) {
+            return rpm * MOTOR_GEAR_RATIO * 2 * Math.PI * WHEEL_DIAMETER_INCH / 2 / 60.0;
+        }
 
     }
 
 
     public static final class PixelHandlerConstants {
-        public static final double CLAW_CLOSE_POSITION = .74;
-        public static final double CLAW_OPEN_POSITION = .20;
+        public static final double CLAW_CLOSE_POSITION = .39;
+        public static final double CLAW_OPEN_POSITION = .51;
         public static final double DROP_OPEN_POSITION = 0;
         public static final double DROP_CLOSED_POSITION = .7;
 
-        public static final double CLAW_ARM_EXTEND_POSITION = .90;
-        public static final double CLAW_ARM_RETRACT_POSITION = .10;
+        public static final double CLAW_ARM_EXTEND_POSITION = .95;
+        public static final double CLAW_ARM_RETRACT_POSITION = .60;
 
 
         public static final double CLAW_ARM_DROP_DISTANCE = .5;
@@ -101,22 +138,22 @@ public final class Constants {
 
         public static final double ENCODER_COUNTS_PER_MOTOR_REV = 384.5;
 
-        public static final double GEARING_RATIO = .16667;// motor revs per inch
+        public static final double GEARING_RATIO = 4.72;// motor revs per inch
 
-        public static final double ENCODER_COUNTS_PER_INCH = ENCODER_COUNTS_PER_MOTOR_REV * GEARING_RATIO;
+        public static final double ENCODER_COUNTS_PER_INCH = ENCODER_COUNTS_PER_MOTOR_REV / GEARING_RATIO;
 
         public static final double MOTOR_REVS_PER_INCH = GEARING_RATIO;
 
         public static final double MAX_INCHES_PER_SECOND = MAX_MOTOR_RPSEC / GEARING_RATIO;
         public static final double POSITION_TOLERANCE_INCHES = .5;
-        public static final double UPPER_POSITION_LIMIT = 35.00;
+        public static final double UPPER_POSITION_LIMIT = 27.00;
 
         public static final int LOWER_POSITION_LIMIT = -1;
 
 
         public static final double JOG_UP_POWER = +.5;
 
-        public static final double JOG_DOWN_POWER = -.3;
+        public static final double JOG_DOWN_POWER = -.5;
 
 
         public static double kP = .25;
@@ -136,7 +173,6 @@ public final class Constants {
             HIGH(19);
 
             public final double extension;
-
 
 
             armExtensions(double extension) {

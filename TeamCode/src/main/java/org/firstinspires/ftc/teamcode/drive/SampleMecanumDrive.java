@@ -1,12 +1,14 @@
 package org.firstinspires.ftc.teamcode.drive;
 
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants.MAX_ACCEL;
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants.MAX_ANG_ACCEL;
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants.MAX_ANG_VEL;
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants.MAX_VEL;
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants.MOTOR_VELO_PID;
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants.RUN_USING_ENCODER;
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants.encoderTicksToInches;
+import static org.firstinspires.ftc.teamcode.Constants.DriveConstants.MAX_ACCEL;
+import static org.firstinspires.ftc.teamcode.Constants.DriveConstants.MAX_ANG_ACCEL;
+import static org.firstinspires.ftc.teamcode.Constants.DriveConstants.MAX_ANG_VEL;
+import static org.firstinspires.ftc.teamcode.Constants.DriveConstants.MAX_VEL;
+import static org.firstinspires.ftc.teamcode.Constants.DriveConstants.TRAJ_ACCEL;
+import static org.firstinspires.ftc.teamcode.Constants.DriveConstants.TRAJ_ANG_ACCEL;
+import static org.firstinspires.ftc.teamcode.Constants.DriveConstants.TRAJ_ANG_VEL;
+import static org.firstinspires.ftc.teamcode.Constants.DriveConstants.TRAJ_VEL;
+import static org.firstinspires.ftc.teamcode.Constants.DriveConstants.encoderTicksToInches;
 
 import androidx.annotation.NonNull;
 
@@ -58,11 +60,12 @@ public class SampleMecanumDrive extends MecanumDrive {
 
     public static double LATERAL_MULTIPLIER = 1.3953488 * .92;
 
-    private static double kV = DriveConstants.kV;
+    private static double kV = Constants.DriveConstants.kV;
 
-    private static double kA = DriveConstants.kA;
 
-    private static double kStatic = DriveConstants.kStatic;
+    private static double kA = Constants.DriveConstants.kA;
+
+    private static double kStatic = Constants.DriveConstants.kStatic;
 
 
     private static double WHEEL_BASE = Constants.DriveConstants.WHEELBASE;
@@ -76,8 +79,8 @@ public class SampleMecanumDrive extends MecanumDrive {
     private TrajectorySequenceRunner trajectorySequenceRunner;
 
 
-    private static final TrajectoryVelocityConstraint VEL_CONSTRAINT = getVelocityConstraint(MAX_VEL, MAX_ANG_VEL, TRACK_WIDTH);
-    private static final TrajectoryAccelerationConstraint ACCEL_CONSTRAINT = getAccelerationConstraint(MAX_ACCEL);
+    private static final TrajectoryVelocityConstraint VEL_CONSTRAINT = getVelocityConstraint(TRAJ_VEL,TRAJ_ACCEL, TRACK_WIDTH);
+    private static final TrajectoryAccelerationConstraint ACCEL_CONSTRAINT = getAccelerationConstraint(TRAJ_ACCEL);
 
     private TrajectoryFollower follower;
 
@@ -114,7 +117,7 @@ public class SampleMecanumDrive extends MecanumDrive {
         // TODO: adjust the names of the following hardware devices to match your configuration
         imu = hardwareMap.get(IMU.class, "imu");
         IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
-                DriveConstants.LOGO_FACING_DIR, DriveConstants.USB_FACING_DIR));
+               Constants. DriveConstants.LOGO_FACING_DIR,Constants. DriveConstants.USB_FACING_DIR));
         imu.initialize(parameters);
 
         leftFront = hardwareMap.get(DcMotorEx.class, "left front");
@@ -133,15 +136,12 @@ public class SampleMecanumDrive extends MecanumDrive {
             motor.setMotorType(motorConfigurationType);
         }
 
-        if (RUN_USING_ENCODER) {
+        if (Constants.DriveConstants.RUN_USING_ENCODER) {
             setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
 
         setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        if (RUN_USING_ENCODER && MOTOR_VELO_PID != null) {
-            setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, MOTOR_VELO_PID);
-        }
 
         // TODO: reverse any motors using DcMotor.setDirection()
 
@@ -176,7 +176,7 @@ public class SampleMecanumDrive extends MecanumDrive {
         return new TrajectorySequenceBuilder(
                 startPose,
                 VEL_CONSTRAINT, ACCEL_CONSTRAINT,
-                MAX_ANG_VEL, MAX_ANG_ACCEL
+                TRAJ_ANG_VEL, TRAJ_ANG_ACCEL
         );
     }
 

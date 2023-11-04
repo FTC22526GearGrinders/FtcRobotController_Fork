@@ -19,8 +19,6 @@ import org.firstinspires.ftc.teamcode.Commands.Auto.IncrementAprilTagTarget;
 import org.firstinspires.ftc.teamcode.Commands.Auto.IncrementPixelDeliveryLevel;
 import org.firstinspires.ftc.teamcode.Commands.Drive.JogDrive;
 import org.firstinspires.ftc.teamcode.Commands.Drive.RunToAprilTag;
-import org.firstinspires.ftc.teamcode.Commands.PixelHandler.IterateClawExtendArmToDistance;
-import org.firstinspires.ftc.teamcode.Commands.PixelHandler.IterateClawExtendServo;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Commands.Utils.TimeDelay;
 import org.firstinspires.ftc.teamcode.Constants;
@@ -97,7 +95,6 @@ public class TeleopOpMode extends CommandOpMode {
                         new DetectAprilTags(this, viss),
                         new ParallelCommandGroup(new RunToAprilTag(drive, this),
                                 new PositionPHArmToPreset(arm, .5)),
-                        new IterateClawExtendArmToDistance(phss),
                         new InstantCommand(() -> phss.openClaw()),
                         new TimeDelay(.5),
                         new InstantCommand(() -> phss.retractClawArm()),
@@ -109,7 +106,7 @@ public class TeleopOpMode extends CommandOpMode {
 
         driver.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT).whenPressed(drive.drive::toggleFieldCentric);
 
-        driver.getGamepadButton(GamepadKeys.Button.DPAD_LEFT).whenPressed(new IterateClawExtendArmToDistance(phss));
+        //driver.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
 
         driver.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenHeld(new JogArm(arm, true));
 
@@ -132,18 +129,20 @@ public class TeleopOpMode extends CommandOpMode {
                 coDriver, GamepadKeys.Trigger.RIGHT_TRIGGER);
 
 
-        coDriver.getGamepadButton((GamepadKeys.Button.A)).whenHeld(new IterateClawExtendServo(phss, true));
+      //  coDriver.getGamepadButton((GamepadKeys.Button.A))
 
-        coDriver.getGamepadButton((GamepadKeys.Button.B)).whenHeld(new IterateClawExtendServo(phss, false));
+      //  coDriver.getGamepadButton((GamepadKeys.Button.B))
 
         coDriver.getGamepadButton((GamepadKeys.Button.DPAD_LEFT)).whenPressed(phss::extendClawArm);
 
         coDriver.getGamepadButton((GamepadKeys.Button.DPAD_RIGHT)).whenPressed(phss::retractClawArml);
 
 
-//        coDriver.getGamepadButton(GamepadKeys.Button.DPAD_UP)
-//
-//        coDriver.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
+       coDriver.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenPressed(phss::openClaw);
+
+
+//ph
+       coDriver.getGamepadButton(GamepadKeys.Button.DPAD_DOWN).whenPressed(phss::closeClaw);
 
         coDriver.getGamepadButton((GamepadKeys.Button.X)).whenPressed(new RunToAprilTag(drive, this));
 
@@ -165,23 +164,23 @@ public class TeleopOpMode extends CommandOpMode {
 
         // drive.showtelemetry(telemetry);
 
-        //  arm.showTelemetry(telemetry);
+          arm.showTelemetry(telemetry);
 
         // phss.showTelemetry(telemetry);
 
-        telemetry.addData("Atag Num", ActiveMotionValues.getActTag());
-        telemetry.addLine();
-        telemetry.addData("Atag Base", ActiveMotionValues.getBackboardLevel());
-        Constants.ArmConstants.armExtensions entry = Constants.ArmConstants.armExtensions.values()[ActiveMotionValues.getBackboardLevel()];
-
-        double extension = entry.extension;
-        telemetry.addData("ArmTgtExten", extension);
-        telemetry.addLine();
-
-        telemetry.addData("TagDistance", Constants.DriveConstants.tagOffsetPose.toString());
-        telemetry.addLine();
-        telemetry.addData("SensorDistance", phss.getSensorDistanceInches());
-        telemetry.update();
+//        telemetry.addData("Atag Num", ActiveMotionValues.getActTag());
+//        telemetry.addLine();
+//        telemetry.addData("Atag Base", ActiveMotionValues.getBackboardLevel());
+//        Constants.ArmConstants.armExtensions entry = Constants.ArmConstants.armExtensions.values()[ActiveMotionValues.getBackboardLevel()];
+//
+//        double extension = entry.extension;
+//        telemetry.addData("ArmTgtExten", extension);
+//        telemetry.addLine();
+//
+//        telemetry.addData("TagDistance", Constants.DriveConstants.tagOffsetPose.toString());
+//        telemetry.addLine();
+//        telemetry.addData("SensorDistance", phss.getSensorDistanceInches());
+//        telemetry.update();
 
     }
 
