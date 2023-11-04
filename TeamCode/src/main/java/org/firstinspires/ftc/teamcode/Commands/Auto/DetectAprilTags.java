@@ -24,10 +24,14 @@ public class DetectAprilTags extends CommandBase {
 
     private final Vision_Subsystem vss;
 
-    public DetectAprilTags(CommandOpMode opMode, Vision_Subsystem vss) {
+    private boolean noEnd;
+
+    public DetectAprilTags(CommandOpMode opMode, Vision_Subsystem vss, boolean noEnd) {
         this.vss = vss;
 
         myOpMode = opMode;
+
+        this.noEnd = noEnd;
     }
 
     @Override
@@ -107,6 +111,6 @@ public class DetectAprilTags extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return ActiveMotionValues.getAprilTagSeen();
+        return !noEnd && ActiveMotionValues.getAprilTagSeen();
     }
 }

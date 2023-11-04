@@ -287,7 +287,7 @@ public class AutoSelectAndRunBlue extends CommandOpMode {
 
                         new SequentialCommandGroup(
 
-                                new DetectAprilTags(this, vss),
+                                new DetectAprilTags(this, vss,false),
 
                                 new RunToAprilTag(drive, this),
 

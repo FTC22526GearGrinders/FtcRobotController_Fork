@@ -78,7 +78,7 @@ public class TestAprilTags extends CommandOpMode {
         telemetry.addData("DS preview on/off", "3 dots, Camera Stream");
         telemetry.update();
 
-        new DetectAprilTags(this, vss).schedule();
+        new DetectAprilTags(this, vss, true).schedule();
 
     }
 

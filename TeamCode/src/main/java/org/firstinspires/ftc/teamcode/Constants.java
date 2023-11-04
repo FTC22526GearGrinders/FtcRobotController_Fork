@@ -53,8 +53,6 @@ public final class Constants {
         public static final double WHEELBASE = 10.5;//front yo back
 
         public static final double TRACKWIDTH = 14.5;//acress width
-
-
         public static final double ENCODER_COUNTS_PER_WHEEL_REV = 537.7;//1:1 RATIO
         public static final double WHEEL_CIRCUMFERENCE_INCH = Math.PI * WHEEL_DIAMETER_INCH;//12.57
         public static final double INCHES_PER_ENCODER_COUNT = WHEEL_CIRCUMFERENCE_INCH / ENCODER_COUNTS_PER_WHEEL_REV;//.0234

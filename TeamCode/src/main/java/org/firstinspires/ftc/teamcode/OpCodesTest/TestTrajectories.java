@@ -11,9 +11,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Commands.Auto.DetectAprilTags;
 import org.firstinspires.ftc.teamcode.Commands.Auto.SelectAndRunTrajectory;
 import org.firstinspires.ftc.teamcode.Commands.Auto.SelectMotionValuesRed;
-import org.firstinspires.ftc.teamcode.Commands.Drive.RunToAprilTag;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
-import org.firstinspires.ftc.teamcode.Commands.Utils.DoNothing;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.PixelHandlerSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.Vision_Subsystem;
@@ -65,11 +63,11 @@ public class TestTrajectories extends CommandOpMode {
                         , new SelectMotionValuesRed(), () -> redAlliance),
 
 
-                new SelectAndRunTrajectory(drive, phss),
-                new DetectAprilTags(this, vss),
-                new ConditionalCommand(
-                        new RunToAprilTag(drive, this),
-                        new DoNothing(), () -> ActiveMotionValues.getAprilTagSeen())).schedule();
+                new SelectAndRunTrajectory(drive, phss)).schedule();
+               // new DetectAprilTags(this, vss, false)).schedule();
+//                new ConditionalCommand(
+//                        new RunToAprilTag(drive, this),
+//                        new DoNothing(), () -> ActiveMotionValues.getAprilTagSeen())).schedule();
     }
 
     // Put run blocks here.

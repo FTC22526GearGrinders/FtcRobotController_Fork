@@ -29,9 +29,6 @@ public class RunBBLRTraj extends CommandBase {
 
                         || !ActiveMotionValues.getBBStart() && ActiveMotionValues.getLcrpos() == 13);
 
-
-
-
         boolean trussSideTapeBlue = !ActiveMotionValues.getRedAlliance() &&
 
                 (ActiveMotionValues.getBBStart() && ActiveMotionValues.getLcrpos() == 3
@@ -76,7 +73,6 @@ public class RunBBLRTraj extends CommandBase {
                     .waitSeconds(1.)
 
                     .lineToLinearHeading(ActiveMotionValues.getRetractPose())
-
 
                     .lineToLinearHeading(ActiveMotionValues.getPreTagPose())
 
