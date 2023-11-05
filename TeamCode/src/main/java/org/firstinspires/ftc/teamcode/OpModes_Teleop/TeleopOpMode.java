@@ -92,9 +92,11 @@ public class TeleopOpMode extends CommandOpMode {
 
         driver.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER).whileHeld(
                 new SequentialCommandGroup(
-                        new DetectAprilTags(this, viss),
-                        new ParallelCommandGroup(new RunToAprilTag(drive, this),
+                        new DetectAprilTags(this, viss,false),
+                        new ParallelCommandGroup(
+                                new RunToAprilTag(drive, this),
                                 new PositionPHArmToPreset(arm, .5)),
+
                         new InstantCommand(() -> phss.openClaw()),
                         new TimeDelay(.5),
                         new InstantCommand(() -> phss.retractClawArm()),

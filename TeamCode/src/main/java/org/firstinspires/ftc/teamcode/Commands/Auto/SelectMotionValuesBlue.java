@@ -4,6 +4,7 @@ package org.firstinspires.ftc.teamcode.Commands.Auto;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.arcrobotics.ftclib.command.CommandBase;
 
+import org.checkerframework.checker.units.qual.A;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.FieldConstantsBlue;
 
@@ -27,6 +28,8 @@ public class SelectMotionValuesBlue extends CommandBase {
     public SelectMotionValuesBlue() {
         bbstart = ActiveMotionValues.getBBStart();
         lcr = ActiveMotionValues.getLcrpos();
+        ActiveMotionValues.setStrafeDistance(0);
+        ActiveMotionValues.setAdvancePose(new Pose2d());
 
         if (lcr < 1 || lcr > 3) lcr = 1;
 
@@ -51,16 +54,12 @@ public class SelectMotionValuesBlue extends CommandBase {
 
                 ActiveMotionValues.setStartPose(FieldConstantsBlue.XPYP.startPos);//start pose
 
-
-                ActiveMotionValues.setAdvancePose(FieldConstantsBlue.XPYP.advancePose);
-
-
                 ActiveMotionValues.setDropOffPose(FieldConstantsBlue.XPYP.leftDropPose);
 
 
                 ActiveMotionValues.setRetractPose(FieldConstantsBlue.XPYP.leftRetractPose);
 
-                ActiveMotionValues.setActTag(4);
+                ActiveMotionValues.setActTag(1);
 
                 ActiveMotionValues.setPreTagPose(FieldConstantsBlue.getActiveTagPose(ActiveMotionValues.getActTag())
                         .plus(FieldConstantsBlue.AprilTagConstants.tagStrafeOffsetPose));
@@ -96,7 +95,7 @@ public class SelectMotionValuesBlue extends CommandBase {
 
                 ActiveMotionValues.setRetractPose(FieldConstantsBlue.XPYP.centerRetractPose);
 
-                ActiveMotionValues.setActTag(5);
+                ActiveMotionValues.setActTag(2);
 
 
                 ActiveMotionValues.setPreTagPose(FieldConstantsBlue.getActiveTagPose(ActiveMotionValues.getActTag())
@@ -125,13 +124,17 @@ public class SelectMotionValuesBlue extends CommandBase {
                 ActiveMotionValues.setStartPose(FieldConstantsBlue.XPYP.startPos);//start pose
 
 
+                ActiveMotionValues.setAdvancePose(FieldConstantsBlue.XPYP.advancePose);
+
+
+
                 ActiveMotionValues.setDropOffPose(FieldConstantsBlue.XPYP.rightDropPose);
 
 
                 ActiveMotionValues.setRetractPose(FieldConstantsBlue.XPYP.rightRetractPose);
 
 
-                ActiveMotionValues.setActTag(6);
+                ActiveMotionValues.setActTag(3);
 
                 ActiveMotionValues.setPreTagPose(FieldConstantsBlue.getActiveTagPose(ActiveMotionValues.getActTag())
                         .minus(FieldConstantsBlue.AprilTagConstants.tagLookAheadPose));
@@ -242,9 +245,9 @@ public class SelectMotionValuesBlue extends CommandBase {
 
         if (useTruss) {
 
-            if (lcr == 11) ActiveMotionValues.setStrafeDistance(11.5);
+            if (lcr == 11) ActiveMotionValues.setStrafeDistance(6);
 
-            if (lcr == 13) ActiveMotionValues.setStrafeDistance(11.5);
+            if (lcr == 13) ActiveMotionValues.setStrafeDistance(6);
 
 
             ActiveMotionValues.setTrussSDLineUpPose(FieldConstantsBlue.nearTrussLineUpPose);
@@ -266,17 +269,17 @@ public class SelectMotionValuesBlue extends CommandBase {
         if (useStageDoor) {
 
             if (lcr == 11) {
-                ActiveMotionValues.setStrafeDistance(-11.5);
+                ActiveMotionValues.setStrafeDistance(-5.3);
                 ActiveMotionValues.setTrussSDLineUpPose((FieldConstantsBlue.stageDoorLineUpPose13));
             }
             if (lcr == 12) {
-                ActiveMotionValues.setStrafeDistance(11.5);
+                ActiveMotionValues.setStrafeDistance(5.5);
                 ActiveMotionValues.setTrussSDLineUpPose((FieldConstantsBlue.stageDoorLineUpPose2));
             }
 
 
             if (lcr == 13) {
-                ActiveMotionValues.setStrafeDistance(11.5);
+                ActiveMotionValues.setStrafeDistance(5.5);
                 ActiveMotionValues.setTrussSDLineUpPose((FieldConstantsBlue.stageDoorLineUpPose13));
             }
 

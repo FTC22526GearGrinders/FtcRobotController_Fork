@@ -27,6 +27,8 @@ public class SelectMotionValuesRed extends CommandBase {
     public SelectMotionValuesRed() {
         bbstart = ActiveMotionValues.getBBStart();
         lcr = ActiveMotionValues.getLcrpos();
+        ActiveMotionValues.setStrafeDistance(0);
+        ActiveMotionValues.setAdvancePose(new Pose2d());
 
         if (lcr < 1 || lcr > 3) lcr = 1;
 
@@ -58,13 +60,15 @@ public class SelectMotionValuesRed extends CommandBase {
                 ActiveMotionValues.setDropOffPose(FieldConstantsRed.XPYM.leftDropPose);
 
 
-                ActiveMotionValues.setRetractPose(FieldConstantsRed.XPYM.leftRetractPose);
+                ActiveMotionValues.setRetractPose(FieldConstantsRed.XPYM.leftTrussRetractPose);
+
+                ActiveMotionValues.setStrafeDistance(-11.5);
 
 
                 ActiveMotionValues.setActTag(4);
 
                 ActiveMotionValues.setPreTagPose(FieldConstantsRed.getActiveTagPose(ActiveMotionValues.getActTag())
-                        .plus(FieldConstantsRed.AprilTagConstants.tagLookAheadPose));
+                        .minus(FieldConstantsRed.AprilTagConstants.tagLookAheadPose));
 
 
                 if (ActiveMotionValues.getCenterPark())
@@ -235,9 +239,9 @@ public class SelectMotionValuesRed extends CommandBase {
 
         if (useTruss) {
 
-            if (lcr == 11) ActiveMotionValues.setStrafeDistance(11.5 / 2);
+            if (lcr == 11) ActiveMotionValues.setStrafeDistance(-11.5);
 
-            if (lcr == 13) ActiveMotionValues.setStrafeDistance(11.5 / 2);
+            if (lcr == 13) ActiveMotionValues.setStrafeDistance(11.5);
 
 
             ActiveMotionValues.setTrussSDLineUpPose(FieldConstantsRed.nearTrussLineUpPose);
@@ -259,15 +263,15 @@ public class SelectMotionValuesRed extends CommandBase {
         if (useStageDoor) {
 
             if (lcr == 11) {
-                ActiveMotionValues.setStrafeDistance(-11.5);
+                ActiveMotionValues.setStrafeDistance(11.5);
                 ActiveMotionValues.setTrussSDLineUpPose((FieldConstantsRed.stageDoorLineUpPose13));
             }
             if (lcr == 12) {
-                ActiveMotionValues.setStrafeDistance(11.5);
+                ActiveMotionValues.setStrafeDistance(-11.5);
                 ActiveMotionValues.setTrussSDLineUpPose((FieldConstantsRed.stageDoorLineUpPose2));
             }
             if (lcr == 13) {
-                ActiveMotionValues.setStrafeDistance(11.5 / 2);
+                ActiveMotionValues.setStrafeDistance(-11.5);
                 ActiveMotionValues.setTrussSDLineUpPose((FieldConstantsRed.stageDoorLineUpPose13));
             }
 

@@ -40,7 +40,8 @@ public final class FieldConstantsRed {
         static final double atagAngle = 0;
 
 
-        public static final Pose2d tagLookAheadPose = new Pose2d(14 + Constants.RobotConstants.length / 2, 0, Math.toRadians(0));
+        //public static final Pose2d tagLookAheadPose = new Pose2d(14 + Constants.RobotConstants.length / 2, 0, Math.toRadians(0));
+        public static final Pose2d tagLookAheadPose = new Pose2d();
 
         public static final Pose2d tagStrafeOffsetPose = new Pose2d(-60.25 + 36, 0, 0);
 
@@ -54,17 +55,15 @@ public final class FieldConstantsRed {
     }
 
     public static Pose2d getActiveTagPose(int num) {
-        int sel = num;
+        int sel = num - 3;
         switch (sel) {
             case 0:
+                return FieldConstantsRed.AprilTagConstants.atag4;
             case 1:
+                return FieldConstantsRed.AprilTagConstants.atag4;
             case 2:
-                return FieldConstantsRed.AprilTagConstants.atag4;
-            case 4:
-                return FieldConstantsRed.AprilTagConstants.atag4;
-            case 5:
                 return FieldConstantsRed.AprilTagConstants.atag5;
-            case 6:
+            case 3:
                 return FieldConstantsRed.AprilTagConstants.atag6;
             default:
                 return FieldConstantsRed.AprilTagConstants.atag4;
@@ -94,12 +93,13 @@ public final class FieldConstantsRed {
                 .plus(Constants.RobotConstants.pixelDropPose);
 
         public static final Pose2d retPose = new Pose2d(0, -4);
-
-        public static final Pose2d leftRetractPose = leftDropPose.plus(retPose);
-        public static final Pose2d centerRetractPose = centerDropPose.plus(retPose);
-        public static final Pose2d rightRetractPose = rightDropPose.plus(retPose);
+        public static final Pose2d retCPose = new Pose2d(0, -8);
 
 
+        public static final Pose2d leftRetractPose = leftDropPose.plus(retCPose);
+        public static final Pose2d leftTrussRetractPose = leftDropPose.plus(retPose);
+        public static final Pose2d centerRetractPose = centerDropPose.plus(retCPose);
+        public static final Pose2d rightRetractPose = rightDropPose.plus(retCPose);
     }
 
     public static final class XMYM {
@@ -111,7 +111,7 @@ public final class FieldConstantsRed {
         public static final Pose2d startPose = new Pose2d(-36, -(Constants.FieldConstants.length
                 - Constants.RobotConstants.length) / 2, startangle);
 
-        public static final Pose2d advancePose = new Pose2d(-48, -48,startangle);
+        public static final Pose2d advancePose = new Pose2d(-48, -48, startangle);
         public static final Pose2d rightTapeMid = new Pose2d(-24.5, -30);
         public static final Pose2d centerTapeMid = new Pose2d(-36, -24.5);
         public static final Pose2d leftTapeMid = new Pose2d(-47.5, -30);
@@ -124,7 +124,7 @@ public final class FieldConstantsRed {
                 centerTapeMid.getY(), startangle)
                 .plus(Constants.RobotConstants.pixelDropPose);
         public static final Pose2d rightDropPose = new Pose2d(rightTapeMid.getX(),
-                rightTapeMid.getY() + Constants.TapeConstants.tapeLength / 4,startangle)
+                rightTapeMid.getY() + Constants.TapeConstants.tapeLength / 4, startangle)
                 .plus(Constants.RobotConstants.pixelDropPose);
 
         public static final Pose2d retPose = new Pose2d(0, -4);
@@ -133,6 +133,8 @@ public final class FieldConstantsRed {
         public static final Pose2d centerRetractPose = centerDropPose.plus(retPose);
         public static final Pose2d rightRetractPose = rightDropPose.plus(retPose);
 
+        private static final Pose2d lrStafeByPose = new Pose2d(11.5, 0);
 
+        public static final Pose2d lrStrafePose = leftRetractPose.plus(lrStafeByPose);
     }
 }

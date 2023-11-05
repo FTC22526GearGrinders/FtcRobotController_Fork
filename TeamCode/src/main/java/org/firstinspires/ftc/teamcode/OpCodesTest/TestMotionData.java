@@ -5,12 +5,9 @@ import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
-import com.arcrobotics.ftclib.command.ConditionalCommand;
-import com.arcrobotics.ftclib.command.SequentialCommandGroup;
-import com.arcrobotics.ftclib.command.WaitCommand;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.Commands.Auto.SelectMotionValuesBlue;
 import org.firstinspires.ftc.teamcode.Commands.Auto.SelectMotionValuesRed;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 
@@ -25,9 +22,9 @@ public class TestMotionData extends CommandOpMode {
     boolean buttonLocked = false;
 
 
-    boolean redAlliance = false;
+    boolean redAlliance = true;
 
-    boolean bbStart = false;
+    boolean bbStart = true;
 
     boolean useStageDoor = false;
 
@@ -51,9 +48,10 @@ public class TestMotionData extends CommandOpMode {
         boolean currentB = false;
         boolean currentLB = false;
         boolean currentRB = false;
+        boolean currentStart = false;
 
 
-        while (opModeInInit() && !isStopRequested()) {
+        while (opModeInInit() && !isStopRequested() && !currentStart) {
 
             currentX = gamepad1.x;
             currentY = gamepad1.y;
@@ -61,6 +59,7 @@ public class TestMotionData extends CommandOpMode {
             currentB = gamepad1.b;
             currentLB = gamepad1.left_bumper;
             currentRB = gamepad1.right_bumper;
+            currentStart = gamepad1.start;
 
 
             if (buttonLocked) {
@@ -121,7 +120,7 @@ public class TestMotionData extends CommandOpMode {
 
             telemetry.addData("Second Pixel Selected - RB to Change", secondPixel);
             telemetry.addLine();
-            telemetry.addData("Press Play To Continue", "");
+            telemetry.addData("Press Play to Continue","");
 
 
             telemetry.update();
@@ -138,13 +137,9 @@ public class TestMotionData extends CommandOpMode {
 
         waitForStart();
 
-        new SequentialCommandGroup(
+        if (redAlliance) new SelectMotionValuesRed().schedule();
 
-                new ConditionalCommand(new SelectMotionValuesRed()
-
-                        , new SelectMotionValuesRed(), () -> redAlliance),
-
-                new WaitCommand(60000)).schedule();
+        else new SelectMotionValuesBlue().schedule();
 
 
     }
@@ -152,8 +147,6 @@ public class TestMotionData extends CommandOpMode {
 
     // Put run blocks here.
     public void run() {
-
-        waitForStart();
 
 
         telemetry.addLine();
@@ -185,11 +178,7 @@ public class TestMotionData extends CommandOpMode {
         telemetry.addData("ParkPose", ActiveMotionValues.getParkPose().toString());
 
 
-
         telemetry.addLine();
-
-
-
 
 
         telemetry.addData("Atag", ActiveMotionValues.getActTag());

@@ -25,15 +25,12 @@ public class RunBBLRTraj extends CommandBase {
     public void initialize() {
         boolean trussSideTapeRed = ActiveMotionValues.getRedAlliance() &&
 
-                (ActiveMotionValues.getBBStart() && ActiveMotionValues.getLcrpos() == 1
-
-                        || !ActiveMotionValues.getBBStart() && ActiveMotionValues.getLcrpos() == 13);
+                ActiveMotionValues.getBBStart() && ActiveMotionValues.getLcrpos() == 1;
 
         boolean trussSideTapeBlue = !ActiveMotionValues.getRedAlliance() &&
 
-                (ActiveMotionValues.getBBStart() && ActiveMotionValues.getLcrpos() == 3
+                ActiveMotionValues.getBBStart() && ActiveMotionValues.getLcrpos() == 3;
 
-                        || !ActiveMotionValues.getBBStart() && ActiveMotionValues.getLcrpos() == 11);
 
         boolean trussSideTape = trussSideTapeRed || trussSideTapeBlue;
         /**
@@ -42,13 +39,13 @@ public class RunBBLRTraj extends CommandBase {
          * It has the pixel delivery after the first step
          */
 
-        if(!trussSideTape) {
+        if (!trussSideTape) {
 
             backboardLeftRight = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
 
                     .lineToLinearHeading(ActiveMotionValues.getDropOffPose())
 
-                    .UNSTABLE_addTemporalMarkerOffset(.5,()-> phss.dropPixel())
+                    .UNSTABLE_addTemporalMarkerOffset(.5, () -> phss.dropPixel())
 
                     .waitSeconds(.5)
 
@@ -58,9 +55,7 @@ public class RunBBLRTraj extends CommandBase {
 
 
                     .build();
-        }
-
-        else{
+        } else {
 
             backboardLeftRight = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
 
@@ -68,21 +63,18 @@ public class RunBBLRTraj extends CommandBase {
 
                     .lineToLinearHeading(ActiveMotionValues.getDropOffPose())
 
-                    .UNSTABLE_addTemporalMarkerOffset(.5,()-> phss.dropPixel())
+                    .UNSTABLE_addTemporalMarkerOffset(.5, () -> phss.dropPixel())
 
                     .waitSeconds(1.)
 
                     .lineToLinearHeading(ActiveMotionValues.getRetractPose())
 
+                    .strafeLeft(ActiveMotionValues.getStrafeDistance())
+
                     .lineToLinearHeading(ActiveMotionValues.getPreTagPose())
 
 
                     .build();
-
-
-
-
-
 
 
         }
