@@ -19,11 +19,11 @@ public final class FieldConstantsBlue {
     public static Pose2d nearOptionPose = new Pose2d(36, 60, startAngle);
     public static Pose2d centerOptionPose = new Pose2d(36, 12, startAngle);
 
-    public static Pose2d slideToNearParkPose = new Pose2d(50, 60, Math.toRadians(0));
+    public static Pose2d slideToNearParkPose = new Pose2d(50, 60,startAngle);
 
-    public static Pose2d slideToCenterParkPose = new Pose2d(50, 14, Math.toRadians(0));
+    public static Pose2d slideToCenterParkPose = new Pose2d(50, 14, startAngle);
 
-    public static Pose2d nearTrussLineUpPose = new Pose2d(-36, 60);
+    public static Pose2d nearTrussLineUpPose = new Pose2d(-36, 60,startAngle);
 
     public static Pose2d nearParkPose = new Pose2d(60, 60,startAngle);
     public static Pose2d centerParkPose = new Pose2d(60, 12,startAngle);
@@ -33,15 +33,16 @@ public final class FieldConstantsBlue {
         static final double atagAngle = 0;
 
 
-        public static final Pose2d tagLookAheadPose = new Pose2d(14 + Constants.RobotConstants.length / 2, 0, Math.toRadians(0));
+      //  public static final Pose2d tagLookAheadPose = new Pose2d(14 , 0, Math.toRadians(0));
 
+        public static final Pose2d tagLookAheadPose = new Pose2d(14 + Constants.RobotConstants.length / 2, 0, Math.toRadians(0));
 
         public static final Pose2d tagStrafeOffsetPose = new Pose2d(-60.25 + 36, 0, 0);
 
 
-        public static final Pose2d atag1 = new Pose2d(60.25, 41.41, Math.toRadians(atagAngle));
-        public static final Pose2d atag2 = new Pose2d(60.25, 35.41, Math.toRadians(atagAngle));
-        public static final Pose2d atag3 = new Pose2d(60.25, 29.41, Math.toRadians(atagAngle));
+        public static final Pose2d atag1 = new Pose2d(60.25, 42, Math.toRadians(atagAngle));
+        public static final Pose2d atag2 = new Pose2d(60.25, 36, Math.toRadians(atagAngle));
+        public static final Pose2d atag3 = new Pose2d(60.25, 30, Math.toRadians(atagAngle));
 
 
     }
@@ -90,8 +91,8 @@ public final class FieldConstantsBlue {
                 rightTapeMid.getY() - Constants.TapeConstants.tapeLength / 4, startAngle)
                 .minus(Constants.RobotConstants.pixelDropPose);
 
-        public static final Pose2d retPose = new Pose2d(0, -4);
-        public static final Pose2d retCPose = new Pose2d(0, -8);
+        public static final Pose2d retPose = new Pose2d(0, 4);
+        public static final Pose2d retCPose = new Pose2d(0, 8);
 
         public static final Pose2d leftRetractPose = leftDropPose.plus(retCPose);
         public static final Pose2d centerRetractPose = centerDropPose.plus(retCPose);

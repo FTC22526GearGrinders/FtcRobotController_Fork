@@ -162,11 +162,11 @@ public class TeleopOpMode extends CommandOpMode {
 
         poseEstimate = drive.drive.getPoseEstimate();
 
-        //   drive.drive.showTelemetry(telemetry);
+           drive.drive.showTelemetry(telemetry);
 
         // drive.showtelemetry(telemetry);
 
-          arm.showTelemetry(telemetry);
+         // arm.showTelemetry(telemetry);
 
         // phss.showTelemetry(telemetry);
 

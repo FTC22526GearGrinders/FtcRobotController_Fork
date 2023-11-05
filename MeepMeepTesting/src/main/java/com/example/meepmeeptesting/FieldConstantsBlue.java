@@ -48,9 +48,9 @@ public final class FieldConstantsBlue {
         public static final Pose2d tagStrafeOffsetPose = new Pose2d(-60.25 + 36, 0, 0);
 
 
-        public static final Pose2d atag1 = new Pose2d(60.25, 41.41);
-        public static final Pose2d atag2 = new Pose2d(60.25, 35.41);
-        public static final Pose2d atag3 = new Pose2d(60.25, 29.41);
+        public static final Pose2d atag1 = new Pose2d(60.25, 42);
+        public static final Pose2d atag2 = new Pose2d(60.25, 36);
+        public static final Pose2d atag3 = new Pose2d(60.25, 30);
 
 
     }
@@ -94,7 +94,8 @@ public final class FieldConstantsBlue {
         public static final Pose2d leftDropPose = new Pose2d(leftTapeMid.getX(), leftTapeMid.getY()
                 + Constants.TapeConstants.tapeLength / 4, startAngle)
                 .minus(Constants.RobotConstants.pixelDropPose);
-        public static final Pose2d centerDropPose = new Pose2d(centerTapeMid.getX(), centerTapeMid.getY(), startAngle)
+        public static final Pose2d centerDropPose = new Pose2d(centerTapeMid.getX(),
+                centerTapeMid.getY(), startAngle)
                 .minus(Constants.RobotConstants.pixelDropPose);
         public static final Pose2d rightDropPose = new Pose2d(rightTapeMid.getX(), rightTapeMid.getY()
                 - Constants.TapeConstants.tapeLength / 4, startAngle)

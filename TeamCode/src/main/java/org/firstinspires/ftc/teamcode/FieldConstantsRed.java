@@ -11,7 +11,7 @@ public final class FieldConstantsRed {
 
     public static Pose2d slideToCenterParkPose = new Pose2d(50, -14);
 
-    public static Pose2d nearParkPose = new Pose2d(60, -60,startangle);
+    public static Pose2d nearParkPose = new Pose2d(50, -60,startangle);
 
     public static Pose2d nearOptionPose = new Pose2d(36, -60, startangle);
 
@@ -37,8 +37,8 @@ public final class FieldConstantsRed {
         static final double atagAngle = 0;
 
 
-        //public static final Pose2d tagLookAheadPose = new Pose2d(14 + Constants.RobotConstants.length / 2, 0, Math.toRadians(0));
-        public static final Pose2d tagLookAheadPose = new Pose2d();
+        public static final Pose2d tagLookAheadPose = new Pose2d(14 + Constants.RobotConstants.length / 2, 0, Math.toRadians(0));
+
 
         public static final Pose2d tagStrafeOffsetPose = new Pose2d(-60.25 + 36, 0, 0);
 

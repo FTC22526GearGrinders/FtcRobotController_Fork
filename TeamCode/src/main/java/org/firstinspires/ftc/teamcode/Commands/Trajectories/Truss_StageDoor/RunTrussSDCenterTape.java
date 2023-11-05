@@ -39,6 +39,8 @@ public class RunTrussSDCenterTape extends CommandBase {
 
                     .lineToLinearHeading(ActiveMotionValues.getRetractPose())
 
+                 //   .strafeLeft(ActiveMotionValues.getStrafeDistance())
+
                     .lineToLinearHeading(ActiveMotionValues.getTrussSDLineUpPose())
 
                     .lineToLinearHeading(ActiveMotionValues.getOptionStopPose())

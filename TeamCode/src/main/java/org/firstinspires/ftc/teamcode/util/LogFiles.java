@@ -51,7 +51,7 @@ public final class LogFiles {
         public boolean runUsingEncoder = Constants.DriveConstants.RUN_USING_ENCODER;
 
         public double wheelRadius = Constants.DriveConstants.WHEEL_DIAMETER_INCH / 2;
-        public double gearRatio = Constants.DriveConstants.MOTOR_GEAR_RATIO;
+        public double gearRatio = Constants.DriveConstants.GEARBOX_RATIO;
         public double trackWidth = Constants.DriveConstants.TRACKWIDTH;
         public double kV = Constants.DriveConstants.kV;
         public double kA = Constants.DriveConstants.kA;

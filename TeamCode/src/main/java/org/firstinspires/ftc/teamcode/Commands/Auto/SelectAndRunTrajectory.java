@@ -49,7 +49,7 @@ public class SelectAndRunTrajectory extends CommandBase {
 
         }
 
-        if (!bbstart && !useSD) {
+        if (!bbstart) {
             if (lcr == 1 || lcr == 3)
                 new RunTrussSDLRTape(drive, phss).schedule();
             if(lcr==2)

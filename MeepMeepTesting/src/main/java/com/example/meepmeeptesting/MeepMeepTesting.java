@@ -14,9 +14,9 @@ public class MeepMeepTesting {
 
         boolean redAlliance = false;
 
-        boolean bbstart = false;//aaset to false for start on stack side of truss
+        boolean bbstart = true;//aaset to false for start on stack side of truss
 
-        int lcr = 1;//left tape ==1, center tape = 2, right tape = 3 from robot view
+        int lcr = 2;//left tape ==1, center tape = 2, right tape = 3 from robot view
 
         if (lcr < 1 || lcr > 3) lcr = 2;
 
@@ -68,7 +68,7 @@ public class MeepMeepTesting {
                         drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
 
 //
-                                .lineToLinearHeading(ActiveMotionValues.getAdvancePose())
+                      //          .lineToLinearHeading(ActiveMotionValues.getAdvancePose())
 
                                 .lineToLinearHeading(ActiveMotionValues.getDropOffPose())
 
@@ -77,19 +77,19 @@ public class MeepMeepTesting {
                                 .lineToLinearHeading(ActiveMotionValues.getRetractPose())
 
 //
-                               .strafeLeft(ActiveMotionValues.getStrafeDistance())
+                         //      .strafeLeft(ActiveMotionValues.getStrafeDistance())
 //
 //
-                               .lineToLinearHeading(ActiveMotionValues.getTrussSDLineUpPose())
+                          //     .lineToLinearHeading(ActiveMotionValues.getTrussSDLineUpPose())
 //
-                               .lineToLinearHeading(ActiveMotionValues.getOptionStopPose())
+                          //     .lineToLinearHeading(ActiveMotionValues.getOptionStopPose())
 
 
                              //   .waitSeconds(.1)
 
-                               .lineToLinearHeading(ActiveMotionValues.getOptionTargetPose())
+                            //   .lineToLinearHeading(ActiveMotionValues.getOptionTargetPose())
 
-                             //  .lineToLinearHeading(ActiveMotionValues.getPreTagPose())
+                               .lineToLinearHeading(ActiveMotionValues.getPreTagPose())
 
 
 

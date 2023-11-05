@@ -4,7 +4,6 @@ package org.firstinspires.ftc.teamcode.Commands.Auto;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.arcrobotics.ftclib.command.CommandBase;
 
-import org.checkerframework.checker.units.qual.A;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.FieldConstantsBlue;
 
@@ -61,7 +60,7 @@ public class SelectMotionValuesBlue extends CommandBase {
                 ActiveMotionValues.setActTag(1);
 
                 ActiveMotionValues.setPreTagPose(FieldConstantsBlue.getActiveTagPose(ActiveMotionValues.getActTag())
-                        .plus(FieldConstantsBlue.AprilTagConstants.tagStrafeOffsetPose));
+                        .minus(FieldConstantsBlue.AprilTagConstants.tagLookAheadPose));
 
 
                 if (ActiveMotionValues.getCenterPark())
@@ -124,7 +123,6 @@ public class SelectMotionValuesBlue extends CommandBase {
 
 
                 ActiveMotionValues.setAdvancePose(FieldConstantsBlue.XPYP.advancePose);
-
 
 
                 ActiveMotionValues.setDropOffPose(FieldConstantsBlue.XPYP.rightDropPose);
@@ -256,7 +254,7 @@ public class SelectMotionValuesBlue extends CommandBase {
 
             if (!secondPixel)
 
-            ActiveMotionValues.setOptionTargetPose(FieldConstantsBlue.nearParkPose);
+                ActiveMotionValues.setOptionTargetPose(FieldConstantsBlue.nearParkPose);
 
 
             else {

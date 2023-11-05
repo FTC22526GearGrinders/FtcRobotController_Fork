@@ -121,7 +121,7 @@ public class TestMotionData extends CommandOpMode {
 
             telemetry.addData("Second Pixel Selected - RB to Change", secondPixel);
             telemetry.addLine();
-            telemetry.addData("Press Play to Continue","");
+            telemetry.addData("Press Play to Continue", "");
 
 
             telemetry.update();
@@ -170,29 +170,25 @@ public class TestMotionData extends CommandOpMode {
         telemetry.addData("RetractPose", ActiveMotionValues.getRetractPose().toString());
         telemetry.addData("StrafeDistance", ActiveMotionValues.getStrafeDistance());
         telemetry.addLine();
-        if(ActiveMotionValues.getBBStart())
-        telemetry.addData("PreTagPose", ActiveMotionValues.getPreTagPose().toString());
+        if (ActiveMotionValues.getBBStart())
+            telemetry.addData("PreTagPose", ActiveMotionValues.getPreTagPose().toString());
 
         telemetry.addLine();
 
-        if(!ActiveMotionValues.getBBStart()) {
+        if (!ActiveMotionValues.getBBStart()) {
             telemetry.addData("TrussSDPose", ActiveMotionValues.getTrussSDLineUpPose().toString());
 
             telemetry.addData("OptStopPose", ActiveMotionValues.getOptionStopPose().toString());
             telemetry.addLine();
-
-            telemetry.addData("OptTagPose",
-                    FieldConstantsBlue.getActiveTagPose(ActiveMotionValues.getActTag())
-                    .plus(FieldConstantsBlue.AprilTagConstants.tagStrafeOffsetPose));
+            if (ActiveMotionValues.getSecondPixel())
+                telemetry.addData("OptTagPose",
+                        FieldConstantsBlue.getActiveTagPose(ActiveMotionValues.getActTag())
+                                .plus(FieldConstantsBlue.AprilTagConstants.tagStrafeOffsetPose));
 
             telemetry.addData("OptTgtPose", ActiveMotionValues.getOptionTargetPose().toString());
 
             telemetry.addData("Atag", ActiveMotionValues.getActTag());
             telemetry.addLine();
-
-
-
-
 
 
         }

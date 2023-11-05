@@ -16,7 +16,7 @@ public final class Constants {
 
         static final double camToCenterX = 6;
         static final double camToCenterY = 6;
-        public static Pose2d pixelDropPose = new Pose2d(0, -(RobotConstants.length / 2 + 1), 0);
+        public static Pose2d pixelDropPose = new Pose2d(0, -RobotConstants.length / 2 + 1, 0);
 
 
         public static Pose2d kCameraToRobot = new Pose2d(RobotConstants.length / 2, 0);
@@ -41,7 +41,7 @@ public final class Constants {
 
         public static final boolean RUN_USING_ENCODER = false;
         public static final double MAX_MOTOR_RPM = 312;
-        public static final double MOTOR_GEAR_RATIO = 13.7;
+       // public static final double MOTOR_GEAR_RATIO = 19.2;
 
         //    public static double encoderTicksToInches(double ticks) {
 //        return WHEEL_RADIUS * 2 * Math.PI * GEAR_RATIO * ticks / TICKS_PER_REV;
@@ -56,14 +56,16 @@ public final class Constants {
         public static final double ENCODER_COUNTS_PER_WHEEL_REV = 537.7;//1:1 RATIO
         public static final double WHEEL_CIRCUMFERENCE_INCH = Math.PI * WHEEL_DIAMETER_INCH;//12.57
         public static final double INCHES_PER_ENCODER_COUNT = WHEEL_CIRCUMFERENCE_INCH / ENCODER_COUNTS_PER_WHEEL_REV;//.0234
-        public static final double MAX_IPM = MAX_MOTOR_RPM * WHEEL_CIRCUMFERENCE_INCH / 60;// 312 *12.57/00 = 60 IPS
+        public static final double MAX_IPM = MAX_MOTOR_RPM * WHEEL_CIRCUMFERENCE_INCH;// 312 *12.57 = 3900 IPM
 
-        public static double MAX_VEL = MAX_IPM *.8;
+        public static final double MAX_IPS =MAX_IPM/60;//65 IPS
+
+        public static double MAX_VEL = MAX_IPS *.8;
         public static double MAX_ACCEL = 30;
         public static double MAX_ANG_VEL = Math.toRadians(60);
         public static double MAX_ANG_ACCEL = Math.toRadians(60);
-        public static double TRAJ_VEL = 20;
-        public static double TRAJ_ACCEL = 20;
+        public static double TRAJ_VEL = 30;
+        public static double TRAJ_ACCEL = 30;
         public static double TRAJ_ANG_VEL = Math.toRadians(40);
         public static double TRAJ_ANG_ACCEL = Math.toRadians(40);
 
@@ -103,12 +105,12 @@ public final class Constants {
 
 
         public static double encoderTicksToInches(double ticks) {
-            return WHEEL_DIAMETER_INCH * Math.PI * MOTOR_GEAR_RATIO * ticks / ENCODER_COUNTS_PER_MOTOR_REV;
+            return WHEEL_DIAMETER_INCH * Math.PI * GEARBOX_RATIO * ticks / ENCODER_COUNTS_PER_MOTOR_REV;
 
         }
 
         public static double rpmToVelocity(double rpm) {
-            return rpm * MOTOR_GEAR_RATIO * 2 * Math.PI * WHEEL_DIAMETER_INCH / 2 / 60.0;
+            return rpm * GEARBOX_RATIO * 2 * Math.PI * WHEEL_DIAMETER_INCH / 2 / 60.0;
         }
 
     }

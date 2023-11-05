@@ -45,7 +45,7 @@ public class RunBBCenterTraj extends CommandBase {
 
                 .lineToLinearHeading(ActiveMotionValues.getDropOffPose())
 
-                .UNSTABLE_addTemporalMarkerOffset(.5,()-> phss.dropPixel())
+                .UNSTABLE_addTemporalMarkerOffset(1,()-> phss.dropPixel())
 
                 .lineToLinearHeading(ActiveMotionValues.getRetractPose())
 

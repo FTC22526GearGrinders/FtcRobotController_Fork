@@ -27,10 +27,10 @@ public class RunTrussSDLRTape extends CommandBase {
         boolean stageDoor = ActiveMotionValues.getUseStageDoor();
 
         boolean trussSideTapeRed = ActiveMotionValues.getRedAlliance() &&
-                ActiveMotionValues.getLcrpos() == 13;
+                ActiveMotionValues.getLcrpos() == 3;
 
         boolean trussSideTapeBlue = !ActiveMotionValues.getRedAlliance() &&
-                ActiveMotionValues.getLcrpos() == 11;
+                ActiveMotionValues.getLcrpos() == 1;
 
         boolean trussSideTape = trussSideTapeRed || trussSideTapeBlue;
 
