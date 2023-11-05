@@ -5,9 +5,7 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 
 public final class FieldConstantsRed {
 
-    public static Pose2d clearForSecondPixelTruss = new Pose2d(24, -60);
-    public static Pose2d clearForSecondPixelSD = new Pose2d(24, 12);
-
+    public static double startangle = Math.toRadians(-90);
 
     public static Pose2d slideToNearParkPose = new Pose2d(50, -60);
 
@@ -15,19 +13,18 @@ public final class FieldConstantsRed {
 
     public static Pose2d nearParkPose = new Pose2d(60, -60);
 
-    public static Pose2d nearOptionPose = new Pose2d(36, -60);
-    public static Pose2d centerOptionPose = new Pose2d(36, -12);
+    public static Pose2d nearOptionPose = new Pose2d(36, -60, startangle);
 
-    public static Pose2d stageDoorLineUpPose13 = new Pose2d(-36, -12);
+    public static Pose2d centerOptionPose = new Pose2d(36, -12,startangle);
 
-    public static Pose2d stageDoorLineUpPose2 = new Pose2d(-48, -12);
+    public static Pose2d stageDoorLineUpPose13 = new Pose2d(-36, -12,startangle);
+
+    public static Pose2d stageDoorLineUpPose2 = new Pose2d(-48, -12,startangle);
 
 
-    public static Pose2d nearTrussLineUpPose = new Pose2d(-36, -60, Math.toRadians(0));
+    public static Pose2d nearTrussLineUpPose = new Pose2d(-36, -60, startangle);
 
     public static Pose2d centerParkPose = new Pose2d(50, -12, Math.toRadians(0));
-
-    public static double startangle = Math.toRadians(-90);
 
 
     public static final class AprilTagConstants {

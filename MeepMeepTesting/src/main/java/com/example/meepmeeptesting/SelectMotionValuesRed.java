@@ -8,11 +8,6 @@ public class SelectMotionValuesRed {
 
     /*
      *
-     *
-     * See SelectMotionsBlue for explanations of these values
-     *
-     *
-     *
      * */
 
 
@@ -24,6 +19,8 @@ public class SelectMotionValuesRed {
     public SelectMotionValuesRed() {
         bbstart = ActiveMotionValues.getBBStart();
         lcr = ActiveMotionValues.getLcrpos();
+        ActiveMotionValues.setStrafeDistance(0);
+        ActiveMotionValues.setAdvancePose(new Pose2d());
 
         if (lcr < 1 || lcr > 3) lcr = 1;
 
@@ -55,21 +52,23 @@ public class SelectMotionValuesRed {
                 ActiveMotionValues.setDropOffPose(FieldConstantsRed.XPYM.leftDropPose);
 
 
-                ActiveMotionValues.setRetractPose(FieldConstantsRed.XPYM.leftRetractPose);
+                ActiveMotionValues.setRetractPose(FieldConstantsRed.XPYM.leftTrussRetractPose);
 
+                ActiveMotionValues.setStrafeDistance(11.5);
 
-//                ActiveMotionValues.setStrafePose(FieldConstantsRed.XPYM.lrStrafePose);
 
                 ActiveMotionValues.setActTag(4);
 
                 ActiveMotionValues.setPreTagPose(FieldConstantsRed.getActiveTagPose(ActiveMotionValues.getActTag())
-                        .plus(FieldConstantsRed.AprilTagConstants.tagStrafeOffsetPose));
+                        .minus(FieldConstantsRed.AprilTagConstants.tagLookAheadPose));
 
 
-                if (ActiveMotionValues.getParkTyoe()==1)
+                if (ActiveMotionValues.getCenterPark())
+
                     ActiveMotionValues.setParkPose(FieldConstantsRed.slideToCenterParkPose);
 
-                if (ActiveMotionValues.getParkTyoe()==2)
+                else
+
                     ActiveMotionValues.setParkPose(FieldConstantsRed.slideToNearParkPose);
 
 
@@ -158,11 +157,9 @@ public class SelectMotionValuesRed {
 
                 ActiveMotionValues.setStartPose(FieldConstantsRed.XMYM.startPose);//start pose
 
-
                 ActiveMotionValues.setDropOffPose(FieldConstantsRed.XMYM.leftDropPose);
 
                 ActiveMotionValues.setRetractPose(FieldConstantsRed.XMYM.leftRetractPose);
-
 
                 ActiveMotionValues.setActTag(4);
 
@@ -213,7 +210,6 @@ public class SelectMotionValuesRed {
 
                 ActiveMotionValues.setRetractPose(FieldConstantsRed.XMYM.rightRetractPose);
 
-
                 ActiveMotionValues.setActTag(6);
 
                 setOptions();
@@ -232,33 +228,24 @@ public class SelectMotionValuesRed {
 
         boolean useTruss = !useStageDoor;
 
-        if (ActiveMotionValues.getCenterPark())
-
-            ActiveMotionValues.setParkPose(FieldConstantsRed.slideToCenterParkPose);
-        else
-            ActiveMotionValues.setParkPose(FieldConstantsRed.slideToNearParkPose);
-
-
         if (useTruss) {
 
-            if (lcr == 11) ActiveMotionValues.setStrafeDistance(-11.5);
+            if (lcr == 11) ActiveMotionValues.setStrafeDistance(11.5);
 
-            if (lcr == 13) ActiveMotionValues.setStrafeDistance(11.5);
+            if (lcr == 13) ActiveMotionValues.setStrafeDistance(-11.5);
 
 
             ActiveMotionValues.setTrussSDLineUpPose(FieldConstantsRed.nearTrussLineUpPose);
 
-            ActiveMotionValues.setOptionStopPose(FieldConstantsRed.nearLookForAprilTagPose);
+            ActiveMotionValues.setOptionStopPose(FieldConstantsRed.nearOptionPose);
 
             if (!secondPixel)
 
-                ActiveMotionValues.setParkPose(FieldConstantsRed.nearParkPose);
+                ActiveMotionValues.setOptionTargetPose(FieldConstantsRed.nearParkPose);
 
             else {
 
-
-
-                ActiveMotionValues.setSecondAprilTagPose(FieldConstantsRed.getActiveTagPose(ActiveMotionValues.getActTag())
+                ActiveMotionValues.setOptionTargetPose(FieldConstantsRed.getActiveTagPose(ActiveMotionValues.getActTag())
                         .plus(FieldConstantsRed.AprilTagConstants.tagStrafeOffsetPose));
 
             }
@@ -267,35 +254,26 @@ public class SelectMotionValuesRed {
         if (useStageDoor) {
 
             if (lcr == 11) {
-                ActiveMotionValues.setStrafeDistance(-11.5 );
-                ActiveMotionValues.setTrussSDLineUpPose(FieldConstantsRed.stageDoorLineUpPose13);
+                ActiveMotionValues.setStrafeDistance(11.5);
+                ActiveMotionValues.setTrussSDLineUpPose((FieldConstantsRed.stageDoorLineUpPose13));
             }
             if (lcr == 12) {
-                ActiveMotionValues.setStrafeDistance(11.5);
+                ActiveMotionValues.setStrafeDistance(-11.5);
                 ActiveMotionValues.setTrussSDLineUpPose((FieldConstantsRed.stageDoorLineUpPose2));
             }
-
-
             if (lcr == 13) {
-                ActiveMotionValues.setStrafeDistance(11.5);
-                ActiveMotionValues.setTrussSDLineUpPose(FieldConstantsRed.stageDoorLineUpPose13);
+                ActiveMotionValues.setStrafeDistance(-11.5);
+                ActiveMotionValues.setTrussSDLineUpPose((FieldConstantsRed.stageDoorLineUpPose13));
             }
 
-            ActiveMotionValues.setOptionStopPose(FieldConstantsRed.centerLookForAprilTagPose);
+            ActiveMotionValues.setOptionStopPose(FieldConstantsRed.centerOptionPose);
 
             if (!secondPixel)
-
-                ActiveMotionValues.setParkPose(FieldConstantsRed.centerParkPose);
-
+                ActiveMotionValues.setOptionTargetPose(FieldConstantsRed.centerParkPose);
             else {
-
-                ActiveMotionValues.setSecondAprilTagPose(FieldConstantsRed.getActiveTagPose(ActiveMotionValues.getActTag())
+                ActiveMotionValues.setOptionTargetPose(FieldConstantsRed.getActiveTagPose(ActiveMotionValues.getActTag())
                         .plus(FieldConstantsRed.AprilTagConstants.tagStrafeOffsetPose));
-
-
             }
-
         }
     }
 }
-

@@ -62,7 +62,7 @@ public class SelectMotionValuesRed extends CommandBase {
 
                 ActiveMotionValues.setRetractPose(FieldConstantsRed.XPYM.leftTrussRetractPose);
 
-                ActiveMotionValues.setStrafeDistance(-11.5);
+                ActiveMotionValues.setStrafeDistance(11.5);
 
 
                 ActiveMotionValues.setActTag(4);
@@ -218,7 +218,6 @@ public class SelectMotionValuesRed extends CommandBase {
 
                 ActiveMotionValues.setRetractPose(FieldConstantsRed.XMYM.rightRetractPose);
 
-
                 ActiveMotionValues.setActTag(6);
 
                 setOptions();
@@ -239,9 +238,9 @@ public class SelectMotionValuesRed extends CommandBase {
 
         if (useTruss) {
 
-            if (lcr == 11) ActiveMotionValues.setStrafeDistance(-11.5);
+            if (lcr == 11) ActiveMotionValues.setStrafeDistance(11.5);
 
-            if (lcr == 13) ActiveMotionValues.setStrafeDistance(11.5);
+            if (lcr == 13) ActiveMotionValues.setStrafeDistance(-11.5);
 
 
             ActiveMotionValues.setTrussSDLineUpPose(FieldConstantsRed.nearTrussLineUpPose);

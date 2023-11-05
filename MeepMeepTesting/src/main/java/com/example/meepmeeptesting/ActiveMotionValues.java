@@ -94,6 +94,18 @@ public class ActiveMotionValues {
     }
 
 
+    private static Pose2d optionTargetPose = new Pose2d();
+
+    public static void setOptionTargetPose(Pose2d opt) {
+        optionTargetPose = opt;
+    }
+
+    public static Pose2d getOptionTargetPose() {
+        return optionTargetPose;
+    }
+
+
+
     private static boolean secondPixel = false;
 
     public static void setSecondPixel(boolean secPixel) {
@@ -278,15 +290,15 @@ public class ActiveMotionValues {
         return useStageDoor;
     }
 
-    public static Pose2d getOptionPose() {
-        return optionPose;
-    }
-
-    public static void setOptionPose(Pose2d pose) {
-        optionPose = pose;
-    }
-
-    public static Pose2d optionPose = new Pose2d();
+//    public static Pose2d getOptionPose() {
+//        return optionPose;
+//    }
+//
+//    public static void setOptionPose(Pose2d pose) {
+//        optionPose = pose;
+//    }
+//
+//    public static Pose2d optionPose = new Pose2d();
 
     public static boolean getCenterPark() {
         return centerPark;

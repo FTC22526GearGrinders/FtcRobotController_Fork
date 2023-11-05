@@ -20,7 +20,7 @@ public class MeepMeepTesting {
 
         if (lcr < 1 || lcr > 3) lcr = 2;
 
-        boolean useStageDoor = true;
+        boolean useStageDoor = false;
 
         boolean truss = !useStageDoor;
 
@@ -66,7 +66,7 @@ public class MeepMeepTesting {
                         drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
 
 //
-                                //  .lineToLinearHeading(ActiveMotionValues.getAdvancePose())
+                              //  .lineToLinearHeading(ActiveMotionValues.getAdvancePose())
 
                                 .lineToLinearHeading(ActiveMotionValues.getDropOffPose())
 
@@ -75,18 +75,20 @@ public class MeepMeepTesting {
                                 .lineToLinearHeading(ActiveMotionValues.getRetractPose())
 
 //
-                                .strafeLeft(ActiveMotionValues.getStrafeDistance())
+                               .strafeLeft(ActiveMotionValues.getStrafeDistance())
 //
 //
-                                .lineToLinearHeading(ActiveMotionValues.getTrussSDLineUpPose())
+                               .lineToLinearHeading(ActiveMotionValues.getTrussSDLineUpPose())
 //
-                                .lineToLinearHeading(ActiveMotionValues.getOptionStopPose())
+                               .lineToLinearHeading(ActiveMotionValues.getOptionStopPose())
 
-                              //  .turn(Math.toRadians(130))
 
                                 .waitSeconds(.1)
 
-                                .lineToLinearHeading(ActiveMotionValues.getOptionPose())
+                                .lineToLinearHeading(ActiveMotionValues.getOptionTargetPose())
+
+                              // .lineToLinearHeading(ActiveMotionValues.getPreTagPose())
+
 
 
                                 .build());

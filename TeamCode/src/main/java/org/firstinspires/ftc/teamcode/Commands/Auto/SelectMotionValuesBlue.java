@@ -56,7 +56,6 @@ public class SelectMotionValuesBlue extends CommandBase {
 
                 ActiveMotionValues.setDropOffPose(FieldConstantsBlue.XPYP.leftDropPose);
 
-
                 ActiveMotionValues.setRetractPose(FieldConstantsBlue.XPYP.leftRetractPose);
 
                 ActiveMotionValues.setActTag(1);
@@ -133,6 +132,7 @@ public class SelectMotionValuesBlue extends CommandBase {
 
                 ActiveMotionValues.setRetractPose(FieldConstantsBlue.XPYP.rightRetractPose);
 
+                ActiveMotionValues.setStrafeDistance(-11.5);
 
                 ActiveMotionValues.setActTag(3);
 
@@ -245,9 +245,9 @@ public class SelectMotionValuesBlue extends CommandBase {
 
         if (useTruss) {
 
-            if (lcr == 11) ActiveMotionValues.setStrafeDistance(6);
+            if (lcr == 11) ActiveMotionValues.setStrafeDistance(11.5);
 
-            if (lcr == 13) ActiveMotionValues.setStrafeDistance(6);
+            if (lcr == 13) ActiveMotionValues.setStrafeDistance(-11.5);
 
 
             ActiveMotionValues.setTrussSDLineUpPose(FieldConstantsBlue.nearTrussLineUpPose);
@@ -269,17 +269,17 @@ public class SelectMotionValuesBlue extends CommandBase {
         if (useStageDoor) {
 
             if (lcr == 11) {
-                ActiveMotionValues.setStrafeDistance(-5.3);
+                ActiveMotionValues.setStrafeDistance(-11.5);
                 ActiveMotionValues.setTrussSDLineUpPose((FieldConstantsBlue.stageDoorLineUpPose13));
             }
             if (lcr == 12) {
-                ActiveMotionValues.setStrafeDistance(5.5);
+                ActiveMotionValues.setStrafeDistance(11.5);
                 ActiveMotionValues.setTrussSDLineUpPose((FieldConstantsBlue.stageDoorLineUpPose2));
             }
 
 
             if (lcr == 13) {
-                ActiveMotionValues.setStrafeDistance(5.5);
+                ActiveMotionValues.setStrafeDistance(11.5);
                 ActiveMotionValues.setTrussSDLineUpPose((FieldConstantsBlue.stageDoorLineUpPose13));
             }
 
