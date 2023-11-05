@@ -277,7 +277,6 @@ public class SelectMotionValuesBlue extends CommandBase {
                 ActiveMotionValues.setTrussSDLineUpPose((FieldConstantsBlue.stageDoorLineUpPose2));
             }
 
-
             if (lcr == 13) {
                 ActiveMotionValues.setStrafeDistance(11.5);
                 ActiveMotionValues.setTrussSDLineUpPose((FieldConstantsBlue.stageDoorLineUpPose13));
@@ -286,11 +285,11 @@ public class SelectMotionValuesBlue extends CommandBase {
             ActiveMotionValues.setOptionStopPose(FieldConstantsBlue.centerOptionPose);
 
             if (!secondPixel)
-
                 ActiveMotionValues.setOptionTargetPose(FieldConstantsBlue.centerParkPose);
             else {
-                ActiveMotionValues.setOptionTargetPose(ActiveMotionValues.getActiveTagPose()
+                ActiveMotionValues.setOptionTargetPose(FieldConstantsBlue.getActiveTagPose(ActiveMotionValues.getActTag())
                         .plus(FieldConstantsBlue.AprilTagConstants.tagStrafeOffsetPose));
+
             }
 
         }

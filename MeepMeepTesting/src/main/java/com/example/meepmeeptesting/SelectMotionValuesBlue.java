@@ -268,7 +268,7 @@ public class SelectMotionValuesBlue {
         if (useStageDoor) {
 
             if (lcr == 11) {
-                ActiveMotionValues.setStrafeDistance(-11.5);
+                ActiveMotionValues.setStrafeDistance(11.5);
                 ActiveMotionValues.setTrussSDLineUpPose((FieldConstantsBlue.stageDoorLineUpPose13));
             }
             if (lcr == 12) {
@@ -285,10 +285,9 @@ public class SelectMotionValuesBlue {
             ActiveMotionValues.setOptionStopPose(FieldConstantsBlue.centerOptionPose);
 
             if (!secondPixel)
-
                 ActiveMotionValues.setOptionTargetPose(FieldConstantsBlue.centerParkPose);
             else {
-                ActiveMotionValues.setOptionTargetPose(ActiveMotionValues.getActiveTagPose()
+                ActiveMotionValues.setOptionTargetPose(FieldConstantsBlue.getActiveTagPose(ActiveMotionValues.getActTag())
                         .plus(FieldConstantsBlue.AprilTagConstants.tagStrafeOffsetPose));
             }
 

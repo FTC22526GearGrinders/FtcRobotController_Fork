@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.Commands.Auto.SelectMotionValuesBlue;
 import org.firstinspires.ftc.teamcode.Commands.Auto.SelectMotionValuesRed;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
+import org.firstinspires.ftc.teamcode.FieldConstantsBlue;
 
 @Config
 @TeleOp(name = "Auto: Values", group = "Test")
@@ -167,25 +168,34 @@ public class TestMotionData extends CommandOpMode {
         telemetry.addLine();
         telemetry.addData("DropOffPose", ActiveMotionValues.getDropOffPose().toString());
         telemetry.addData("RetractPose", ActiveMotionValues.getRetractPose().toString());
-        telemetry.addLine();
-        telemetry.addData("PreTagPose", ActiveMotionValues.getPreTagPose().toString());
         telemetry.addData("StrafeDistance", ActiveMotionValues.getStrafeDistance());
         telemetry.addLine();
-        telemetry.addData("TrussSDPose", ActiveMotionValues.getTrussSDLineUpPose().toString());
-        telemetry.addData("Strafe2AtagPose", ActiveMotionValues.getOptionStopPose().toString());
-        telemetry.addLine();
-        telemetry.addData("SecondAtagPose", ActiveMotionValues.getSecondAprilTagPose().toString());
-        telemetry.addData("ParkPose", ActiveMotionValues.getParkPose().toString());
-
+        if(ActiveMotionValues.getBBStart())
+        telemetry.addData("PreTagPose", ActiveMotionValues.getPreTagPose().toString());
 
         telemetry.addLine();
 
+        if(!ActiveMotionValues.getBBStart()) {
+            telemetry.addData("TrussSDPose", ActiveMotionValues.getTrussSDLineUpPose().toString());
 
-        telemetry.addData("Atag", ActiveMotionValues.getActTag());
+            telemetry.addData("OptStopPose", ActiveMotionValues.getOptionStopPose().toString());
+            telemetry.addLine();
 
-        telemetry.addData("ATStrafePose", ActiveMotionValues.getOptionStopPose().toString());
+            telemetry.addData("OptTagPose",
+                    FieldConstantsBlue.getActiveTagPose(ActiveMotionValues.getActTag())
+                    .plus(FieldConstantsBlue.AprilTagConstants.tagStrafeOffsetPose));
 
-        telemetry.addData("ParkPose", ActiveMotionValues.getPreTagPose().toString());
+            telemetry.addData("OptTgtPose", ActiveMotionValues.getOptionTargetPose().toString());
+
+            telemetry.addData("Atag", ActiveMotionValues.getActTag());
+            telemetry.addLine();
+
+
+
+
+
+
+        }
 
 
         telemetry.update();

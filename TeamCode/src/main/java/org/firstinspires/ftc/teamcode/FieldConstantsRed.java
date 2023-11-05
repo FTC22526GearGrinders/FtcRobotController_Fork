@@ -11,7 +11,7 @@ public final class FieldConstantsRed {
 
     public static Pose2d slideToCenterParkPose = new Pose2d(50, -14);
 
-    public static Pose2d nearParkPose = new Pose2d(60, -60);
+    public static Pose2d nearParkPose = new Pose2d(60, -60,startangle);
 
     public static Pose2d nearOptionPose = new Pose2d(36, -60, startangle);
 
@@ -24,7 +24,7 @@ public final class FieldConstantsRed {
 
     public static Pose2d nearTrussLineUpPose = new Pose2d(-36, -60, startangle);
 
-    public static Pose2d centerParkPose = new Pose2d(50, -12, Math.toRadians(0));
+    public static Pose2d centerParkPose = new Pose2d(50, -12,startangle);
 
 
     public static final class AprilTagConstants {
