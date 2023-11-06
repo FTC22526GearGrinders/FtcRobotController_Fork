@@ -71,11 +71,13 @@ public class SelectMotionValuesRed extends CommandBase {
                         .minus(FieldConstantsRed.AprilTagConstants.tagLookAheadPose));
 
 
+                ActiveMotionValues.setParkPose(new Pose2d());
+
                 if (ActiveMotionValues.getCenterPark())
 
                     ActiveMotionValues.setParkPose(FieldConstantsRed.centerParkPose);
 
-                else
+                if (ActiveMotionValues.getNearPark())
 
                     ActiveMotionValues.setParkPose(FieldConstantsRed.nearParkPose);
 
@@ -108,12 +110,13 @@ public class SelectMotionValuesRed extends CommandBase {
                 ActiveMotionValues.setPreTagPose(FieldConstantsRed.getActiveTagPose(ActiveMotionValues.getActTag())
                         .minus(FieldConstantsRed.AprilTagConstants.tagLookAheadPose));
 
+                ActiveMotionValues.setParkPose(new Pose2d());
 
                 if (ActiveMotionValues.getCenterPark())
 
                     ActiveMotionValues.setParkPose(FieldConstantsRed.centerParkPose);
 
-                else
+                if (ActiveMotionValues.getNearPark())
 
                     ActiveMotionValues.setParkPose(FieldConstantsRed.nearParkPose);
 
@@ -142,14 +145,15 @@ public class SelectMotionValuesRed extends CommandBase {
                 ActiveMotionValues.setPreTagPose(FieldConstantsRed.getActiveTagPose(ActiveMotionValues.getActTag())
                         .minus(FieldConstantsRed.AprilTagConstants.tagLookAheadPose));
 
+                ActiveMotionValues.setParkPose(new Pose2d());
+
                 if (ActiveMotionValues.getCenterPark())
 
                     ActiveMotionValues.setParkPose(FieldConstantsRed.centerParkPose);
 
-                else
+                if (ActiveMotionValues.getNearPark())
 
                     ActiveMotionValues.setParkPose(FieldConstantsRed.nearParkPose);
-
 
                 break;
 

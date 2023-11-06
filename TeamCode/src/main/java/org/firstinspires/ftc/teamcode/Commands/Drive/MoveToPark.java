@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Commands.Drive;
 
+import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.arcrobotics.ftclib.command.CommandBase;
 
@@ -43,6 +44,8 @@ public class MoveToPark extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return Thread.currentThread().isInterrupted() || !drive.drive.isBusy();
+
+        return Thread.currentThread().isInterrupted() || !drive.drive.isBusy() || ActiveMotionValues.getParkPose() == new Pose2d();
+
     }
 }

@@ -242,6 +242,16 @@ public class ActiveMotionValues {
         return centerPark;
     }
 
+    private static boolean nearPark = false;
+
+    public static void setNearPark(boolean nPark) {
+        nearPark = nPark;
+    }
+
+    public static boolean getNearPark() {
+        return nearPark;
+    }
+
     public static void setUseStageDoor(boolean useStDoor) {
         useStageDoor = useStDoor;
     }

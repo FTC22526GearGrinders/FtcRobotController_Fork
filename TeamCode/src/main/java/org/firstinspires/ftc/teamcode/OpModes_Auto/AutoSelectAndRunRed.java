@@ -47,6 +47,7 @@ import org.firstinspires.ftc.teamcode.Commands.Auto.DetectAprilTags;
 import org.firstinspires.ftc.teamcode.Commands.Auto.LookForTeamProp;
 import org.firstinspires.ftc.teamcode.Commands.Auto.SelectAndRunTrajectory;
 import org.firstinspires.ftc.teamcode.Commands.Auto.SelectMotionValuesRed;
+import org.firstinspires.ftc.teamcode.Commands.Drive.MoveToPark;
 import org.firstinspires.ftc.teamcode.Commands.Drive.RunToAprilTag;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Commands.Utils.DoNothing;
@@ -69,7 +70,8 @@ public class AutoSelectAndRunRed extends CommandOpMode {
     boolean buttonLocked = false;
     boolean redAlliance = true;
     boolean bbStart = true;
-    boolean centerPark = true;
+    boolean centerPark = false;
+    boolean nearPark = false;
     boolean secondPixel = false;
     boolean useStageDoor = false;
     SpikeTapePipelineRed sptopR = null;
@@ -90,9 +92,9 @@ public class AutoSelectAndRunRed extends CommandOpMode {
         boolean currentB = false;
         boolean currentLB = false;
         boolean currentRB = false;
+        boolean currentStart = false;
 
-
-        while (!currentLB && opModeInInit() && !isStopRequested()) {
+        while (!currentStart && opModeInInit() && !isStopRequested()) {
 
             currentX = gamepad1.x;
             currentY = gamepad1.y;
@@ -100,7 +102,7 @@ public class AutoSelectAndRunRed extends CommandOpMode {
             currentB = gamepad1.b;
             currentLB = gamepad1.left_bumper;
             currentRB = gamepad1.right_bumper;
-
+            currentStart = gamepad1.start;
 
             if (buttonLocked) {
 
@@ -119,6 +121,9 @@ public class AutoSelectAndRunRed extends CommandOpMode {
                     useStageDoor = !useStageDoor;
                 }
 
+                if (currentLB) {
+                    nearPark = !nearPark;
+                }
 
             }
 
@@ -130,15 +135,16 @@ public class AutoSelectAndRunRed extends CommandOpMode {
 
             boolean lbReleased = !currentLB;
             boolean rbReleased = !currentRB;
+            boolean startReleased = !currentStart;
 
-
-            buttonLocked = xReleased && yReleased && aReleased && bReleased && lbReleased && rbReleased;
+            buttonLocked = xReleased && yReleased && aReleased && bReleased && lbReleased && rbReleased && startReleased;
 
             telemetry.addData("BB Start Selected A to Change", bbStart);
             telemetry.addLine();
             telemetry.addData("Center Park Selected B to Change", centerPark);
             telemetry.addLine();
-
+            telemetry.addData("Near Park Selected - Left Bumper to Change", nearPark);
+            telemetry.addLine();
             if (!bbStart) {
                 telemetry.addData("Second Pixel Selected RB to Change", secondPixel);
                 telemetry.addLine();
@@ -146,7 +152,7 @@ public class AutoSelectAndRunRed extends CommandOpMode {
                 telemetry.addLine();
             }
 
-            telemetry.addData("Press Left Bumper To Confirm", "");
+            telemetry.addData("Press Start To Confirm", "");
 
             telemetry.update();
 
@@ -164,7 +170,7 @@ public class AutoSelectAndRunRed extends CommandOpMode {
 
         if (centerPark)
             telemetry.addData("You Have Chosen Center Park", "");
-        else
+        if (nearPark)
             telemetry.addData("You Have Chosen Near Park", "");
         telemetry.addLine();
 
@@ -185,8 +191,12 @@ public class AutoSelectAndRunRed extends CommandOpMode {
             if (secondPixel)
 
                 telemetry.addData("You Have Chosen Second Pixel", "");
-            else
-                telemetry.addData("You Have Chosen One Pixel Only", "");
+
+            if (!secondPixel && !useStageDoor)
+                telemetry.addData("You Have Chosen Near Park", "");
+
+            if (!secondPixel && useStageDoor)
+                telemetry.addData("You Have Chosen Center Park", "");
         }
         telemetry.addLine();
 
@@ -276,7 +286,7 @@ public class AutoSelectAndRunRed extends CommandOpMode {
 
                         new SequentialCommandGroup(
 
-                                new DetectAprilTags(this, vss,false),
+                                new DetectAprilTags(this, vss, false),
 
                                 new RunToAprilTag(drive, this),
 
@@ -292,9 +302,10 @@ public class AutoSelectAndRunRed extends CommandOpMode {
 
                                         new InstantCommand(() -> phss.retractClawArm())),
 
-                                new PositionPHArmToPreset(arm, Constants.ArmConstants.armExtensions.HOME.extension)),
+                                new PositionPHArmToPreset(arm, Constants.ArmConstants.armExtensions.HOME.extension),
 
-
+                                new ConditionalCommand(new MoveToPark(drive), new DoNothing(),
+                                        () -> (ActiveMotionValues.getNearPark() || ActiveMotionValues.getCenterPark()))),
                         new DoNothing(), () -> ActiveMotionValues.getBBStart()
 
                         || !ActiveMotionValues.getBBStart() && ActiveMotionValues.getSecondPixel()))

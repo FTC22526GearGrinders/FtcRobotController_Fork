@@ -31,6 +31,8 @@ public class TestMotionData extends CommandOpMode {
 
     boolean centerPark = false;
 
+    boolean nearPark = false;
+
     boolean secondPixel = false;
 
     int lcr = 1;
@@ -52,7 +54,7 @@ public class TestMotionData extends CommandOpMode {
         boolean currentStart = false;
 
 
-        while (opModeInInit() && !isStopRequested() && !currentStart) {
+        while (opModeInInit() && !isStopRequested()) {
 
             currentX = gamepad1.x;
             currentY = gamepad1.y;
@@ -92,6 +94,10 @@ public class TestMotionData extends CommandOpMode {
                     if (lcr > 3) lcr = 1;
                 }
 
+                if(currentStart){
+                    nearPark=!nearPark;
+                }
+
 
             }
 
@@ -116,9 +122,10 @@ public class TestMotionData extends CommandOpMode {
             telemetry.addLine();
             telemetry.addData("Center Park Selected - B to Change", centerPark);
             telemetry.addLine();
+            telemetry.addData("Near Park Selected - Start to Change", nearPark);
+            telemetry.addLine();
             telemetry.addData("Stage Door Selected - Y to Change", useStageDoor);
             telemetry.addLine();
-
             telemetry.addData("Second Pixel Selected - RB to Change", secondPixel);
             telemetry.addLine();
             telemetry.addData("Press Play to Continue", "");
@@ -134,6 +141,8 @@ public class TestMotionData extends CommandOpMode {
 
         ActiveMotionValues.setUseStageDoor(useStageDoor);
         ActiveMotionValues.setCenterPark(centerPark);
+        ActiveMotionValues.setNearPark(nearPark);
+
         ActiveMotionValues.setSecondPixel(secondPixel);
 
         waitForStart();
@@ -154,6 +163,8 @@ public class TestMotionData extends CommandOpMode {
         telemetry.addData("RedAlliance", ActiveMotionValues.getRedAlliance());
         telemetry.addData("BB Start", ActiveMotionValues.getBBStart());
         telemetry.addData("CenterPark", ActiveMotionValues.getCenterPark());
+        telemetry.addData("NearPark", ActiveMotionValues.getNearPark());
+
         telemetry.addData("LCR", ActiveMotionValues.getLcrpos());
 
 
