@@ -1,9 +1,7 @@
 package org.firstinspires.ftc.teamcode.drive;
 
-import static org.firstinspires.ftc.teamcode.Constants.DriveConstants.MAX_ACCEL;
-import static org.firstinspires.ftc.teamcode.Constants.DriveConstants.MAX_ANG_ACCEL;
-import static org.firstinspires.ftc.teamcode.Constants.DriveConstants.MAX_ANG_VEL;
-import static org.firstinspires.ftc.teamcode.Constants.DriveConstants.MAX_VEL;
+import static org.firstinspires.ftc.teamcode.Constants.DriveConstants.MOTOR_VELO_PID;
+import static org.firstinspires.ftc.teamcode.Constants.DriveConstants.RUN_USING_ENCODER;
 import static org.firstinspires.ftc.teamcode.Constants.DriveConstants.TRAJ_ACCEL;
 import static org.firstinspires.ftc.teamcode.Constants.DriveConstants.TRAJ_ANG_ACCEL;
 import static org.firstinspires.ftc.teamcode.Constants.DriveConstants.TRAJ_ANG_VEL;
@@ -58,14 +56,14 @@ public class SampleMecanumDrive extends MecanumDrive {
     public static PIDCoefficients TRANSLATIONAL_PID = new PIDCoefficients(6.9, 0, 0);
     public static PIDCoefficients HEADING_PID = new PIDCoefficients(7.5, 0, 0);
 
-    public static double LATERAL_MULTIPLIER = 1.3953488 * .92;
+    public static final double LATERAL_MULTIPLIER = 1.3953488 * .92;
 
-    private static double kV = Constants.DriveConstants.kV;
+    private static final double kV = Constants.DriveConstants.kV;
 
 
-    private static double kA = Constants.DriveConstants.kA;
+    private static final double kA = Constants.DriveConstants.kA;
 
-    private static double kStatic = Constants.DriveConstants.kStatic;
+    private static final double kStatic = Constants.DriveConstants.kStatic;
 
 
     private static double WHEEL_BASE = Constants.DriveConstants.WHEELBASE;
@@ -79,7 +77,7 @@ public class SampleMecanumDrive extends MecanumDrive {
     private TrajectorySequenceRunner trajectorySequenceRunner;
 
 
-    private static final TrajectoryVelocityConstraint VEL_CONSTRAINT = getVelocityConstraint(TRAJ_VEL,TRAJ_ACCEL, TRACK_WIDTH);
+    private static final TrajectoryVelocityConstraint VEL_CONSTRAINT = getVelocityConstraint(TRAJ_VEL, TRAJ_ACCEL, TRACK_WIDTH);
     private static final TrajectoryAccelerationConstraint ACCEL_CONSTRAINT = getAccelerationConstraint(TRAJ_ACCEL);
 
     private TrajectoryFollower follower;
@@ -117,7 +115,7 @@ public class SampleMecanumDrive extends MecanumDrive {
         // TODO: adjust the names of the following hardware devices to match your configuration
         imu = hardwareMap.get(IMU.class, "imu");
         IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
-               Constants. DriveConstants.LOGO_FACING_DIR,Constants. DriveConstants.USB_FACING_DIR));
+                Constants.DriveConstants.LOGO_FACING_DIR, Constants.DriveConstants.USB_FACING_DIR));
         imu.initialize(parameters);
 
         leftFront = hardwareMap.get(DcMotorEx.class, "left front");
@@ -136,11 +134,16 @@ public class SampleMecanumDrive extends MecanumDrive {
             motor.setMotorType(motorConfigurationType);
         }
 
-        if (Constants.DriveConstants.RUN_USING_ENCODER) {
+        if (RUN_USING_ENCODER) {
             setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
 
         setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        if (RUN_USING_ENCODER && MOTOR_VELO_PID != null) {
+            setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, MOTOR_VELO_PID);
+        }
+
 
 
         // TODO: reverse any motors using DcMotor.setDirection()

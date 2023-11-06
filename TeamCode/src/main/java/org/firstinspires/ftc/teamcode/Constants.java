@@ -37,15 +37,18 @@ public final class Constants {
     public static final class DriveConstants {
 
         public static final boolean RUN_USING_ENCODER = false;
+
+
+
         public static final double MAX_MOTOR_RPM = 312;
 
 
         public static final double GEARBOX_RATIO = 1;
         public static final double WHEEL_DIAMETER_INCH = 4;
 
-        public static final double WHEELBASE = 10.5;//front to back
+        public static final double WHEELBASE = 10.5;//distance between pairs of wheels on the same side of the robot
 
-        public static final double TRACKWIDTH = 14.5;//across width
+        public static final double TRACKWIDTH = 19;// from code sourec seemed to work better measured is 14.5;//lateral distance between pairs of wheels on different sides of the robot
         public static final double ENCODER_COUNTS_PER_WHEEL_REV = 537.7;//1:1 RATIO
         public static final double WHEEL_CIRCUMFERENCE_INCH = Math.PI * WHEEL_DIAMETER_INCH;//12.57
         public static final double INCHES_PER_ENCODER_COUNT = WHEEL_CIRCUMFERENCE_INCH / ENCODER_COUNTS_PER_WHEEL_REV;//.0234
@@ -62,10 +65,16 @@ public final class Constants {
         public static double TRAJ_ANG_VEL = Math.toRadians(40);
         public static double TRAJ_ANG_ACCEL = Math.toRadians(40);
 
+        public static PIDFCoefficients MOTOR_VELO_PID = new PIDFCoefficients(.1,0,0,0);
+
+        public static double getMotorVelocityF(double ticksPerSecond) {
+            // see https://docs.google.com/document/d/1tyWrXDfMidwYyP_5H4mZyVgaEswhOC35gvdmP-V-5hA/edit#heading=h.61g9ixenznbx
+            return 32767 / ticksPerSecond;
+        }
         //     */
-        public static double kV = .01;//12 volts/60 ips = .02 max
-        public static double kA = 0.0005;
-        public static double kStatic = 0.08;
+        public static double kV = .014;//12 volts/60 ips = .02 max
+        public static double kA =0.0022;// 0.0005;
+        public static double kStatic = 0.022;//0.08;
 
 
 //        public static double kV =  0.0140;

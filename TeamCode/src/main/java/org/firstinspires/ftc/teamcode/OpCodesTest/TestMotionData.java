@@ -43,12 +43,12 @@ public class TestMotionData extends CommandOpMode {
 
         telemetry = new MultipleTelemetry(telemetry, dashboard.getTelemetry());
 
-        boolean currentX = false;
-        boolean currentY = false;
-        boolean currentA = false;
-        boolean currentB = false;
-        boolean currentLB = false;
-        boolean currentRB = false;
+        boolean currentX;
+        boolean currentY;
+        boolean currentA;
+        boolean currentB;
+        boolean currentLB;
+        boolean currentRB;
         boolean currentStart = false;
 
 
@@ -103,9 +103,9 @@ public class TestMotionData extends CommandOpMode {
 
             boolean lbReleased = !currentLB;
             boolean rbReleased = !currentRB;
+            boolean startReleased = !currentStart;
 
-
-            buttonLocked = xReleased && yReleased && aReleased && bReleased && lbReleased && rbReleased;
+            buttonLocked = xReleased && yReleased && aReleased && bReleased && lbReleased && rbReleased && startReleased;
 
 
             telemetry.addData("Red Alliance Selected- X to Change", redAlliance);
