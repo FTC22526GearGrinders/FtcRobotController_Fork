@@ -33,26 +33,12 @@ package org.firstinspires.ftc.teamcode.OpModes_Auto;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
-import com.arcrobotics.ftclib.command.ConditionalCommand;
-import com.arcrobotics.ftclib.command.InstantCommand;
-import com.arcrobotics.ftclib.command.ParallelCommandGroup;
-import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.CV.SpikeTapePipelineRed;
-import org.firstinspires.ftc.teamcode.Commands.Arm.PositionPHArm;
-import org.firstinspires.ftc.teamcode.Commands.Arm.PositionPHArmToPreset;
-import org.firstinspires.ftc.teamcode.Commands.Auto.DetectAprilTags;
-import org.firstinspires.ftc.teamcode.Commands.Auto.LookForTeamProp;
-import org.firstinspires.ftc.teamcode.Commands.Auto.SelectAndRunTrajectory;
-import org.firstinspires.ftc.teamcode.Commands.Auto.SelectMotionValuesRed;
-import org.firstinspires.ftc.teamcode.Commands.Drive.MoveToPark;
-import org.firstinspires.ftc.teamcode.Commands.Drive.RunToAprilTag;
+import org.firstinspires.ftc.teamcode.Commands.Auto.AutoActionsSequences;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
-import org.firstinspires.ftc.teamcode.Commands.Utils.DoNothing;
-import org.firstinspires.ftc.teamcode.Commands.Utils.TimeDelay;
-import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.Subsystems.ArmSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.PixelHandlerSubsystem;
@@ -272,46 +258,7 @@ public class AutoSelectAndRunRed extends CommandOpMode {
             }
         });
         waitForStart();
-        ActiveMotionValues.setBackboardLevel(1);
-        new SequentialCommandGroup(
-
-                new LookForTeamProp(this, webcam).withTimeout(8),
-
-                new SelectMotionValuesRed(),
-
-
-                new SelectAndRunTrajectory(drive, phss).withTimeout(10),
-
-                new ConditionalCommand(
-
-                        new SequentialCommandGroup(
-
-                                new DetectAprilTags(this, vss, false),
-
-                                new RunToAprilTag(drive, this),
-
-                                new PositionPHArm(arm, Constants.ArmConstants.armExtensions.LOW.extension, .5),
-
-                                new InstantCommand(() -> phss.openClaw()),
-
-                                new TimeDelay(.5),
-
-                                new ParallelCommandGroup(
-
-                                        new InstantCommand(() -> phss.closeClaw()),
-
-                                        new InstantCommand(() -> phss.retractClawArm())),
-
-                                new PositionPHArmToPreset(arm, Constants.ArmConstants.armExtensions.HOME.extension),
-
-                                new ConditionalCommand(new MoveToPark(drive), new DoNothing(),
-                                        () -> (ActiveMotionValues.getNearPark() || ActiveMotionValues.getCenterPark()))),
-                        new DoNothing(), () -> ActiveMotionValues.getBBStart()
-
-                        || !ActiveMotionValues.getBBStart() && ActiveMotionValues.getSecondPixel()))
-
-                .schedule();
-
+        new AutoActionsSequences(this, drive, phss, arm, vss, webcam).schedule();
     }
 
     public void run() {
