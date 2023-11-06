@@ -12,11 +12,11 @@ public class MeepMeepTesting {
     public static void main(String[] args) {
 
 
-        boolean redAlliance = false;
+        boolean redAlliance = true;
 
-        boolean bbstart = true;//aaset to false for start on stack side of truss
+        boolean bbstart = false;//aaset to false for start on stack side of truss
 
-        int lcr = 2;//left tape ==1, center tape = 2, right tape = 3 from robot view
+        int lcr = 3;//left tape ==1, center tape = 2, right tape = 3 from robot view
 
         if (lcr < 1 || lcr > 3) lcr = 2;
 
@@ -24,10 +24,9 @@ public class MeepMeepTesting {
 
         boolean truss = !useStageDoor;
 
-        int parkType =0;
+        int parkType = 0;
 
         boolean secondPixel = true;
-
 
 
         ActiveMotionValues.setRedAlliance(redAlliance);
@@ -68,7 +67,7 @@ public class MeepMeepTesting {
                         drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
 
 //
-                      //          .lineToLinearHeading(ActiveMotionValues.getAdvancePose())
+                                .lineToLinearHeading(ActiveMotionValues.getAdvancePose())
 
                                 .lineToLinearHeading(ActiveMotionValues.getDropOffPose())
 
@@ -77,20 +76,19 @@ public class MeepMeepTesting {
                                 .lineToLinearHeading(ActiveMotionValues.getRetractPose())
 
 //
-                         //      .strafeLeft(ActiveMotionValues.getStrafeDistance())
+                                .strafeLeft(ActiveMotionValues.getStrafeDistance())
 //
 //
-                          //     .lineToLinearHeading(ActiveMotionValues.getTrussSDLineUpPose())
+                                .lineToLinearHeading(ActiveMotionValues.getTrussSDLineUpPose())
 //
-                          //     .lineToLinearHeading(ActiveMotionValues.getOptionStopPose())
+                                .lineToLinearHeading(ActiveMotionValues.getOptionStopPose())
 
 
-                             //   .waitSeconds(.1)
+                                //   .waitSeconds(.1)
 
-                            //   .lineToLinearHeading(ActiveMotionValues.getOptionTargetPose())
+                                .lineToLinearHeading(ActiveMotionValues.getOptionTargetPose())
 
-                               .lineToLinearHeading(ActiveMotionValues.getPreTagPose())
-
+                                //   .lineToLinearHeading(ActiveMotionValues.getPreTagPose())
 
 
                                 .build());

@@ -18,15 +18,9 @@ public class SelectMotionValuesBlue extends CommandBase {
      *
      * */
 
-
-    private final boolean bbstart;
-
-    private int lcr;
-
-
     public SelectMotionValuesBlue() {
-        bbstart = ActiveMotionValues.getBBStart();
-        lcr = ActiveMotionValues.getLcrpos();
+    boolean    bbstart = ActiveMotionValues.getBBStart();
+    int    lcr = ActiveMotionValues.getLcrpos();
         ActiveMotionValues.setStrafeDistance(0);
         ActiveMotionValues.setAdvancePose(new Pose2d());
 
@@ -65,11 +59,11 @@ public class SelectMotionValuesBlue extends CommandBase {
 
                 if (ActiveMotionValues.getCenterPark())
 
-                    ActiveMotionValues.setParkPose(FieldConstantsBlue.slideToCenterParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsBlue.centerParkPose);
 
                 else
 
-                    ActiveMotionValues.setParkPose(FieldConstantsBlue.slideToNearParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsBlue.nearParkPose);
 
                 break;
 
@@ -102,11 +96,11 @@ public class SelectMotionValuesBlue extends CommandBase {
 
                 if (ActiveMotionValues.getCenterPark())
 
-                    ActiveMotionValues.setParkPose(FieldConstantsBlue.slideToCenterParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsBlue.centerParkPose);
 
                 else
 
-                    ActiveMotionValues.setParkPose(FieldConstantsBlue.slideToNearParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsBlue.nearParkPose);
 
 
                 break;
@@ -139,11 +133,11 @@ public class SelectMotionValuesBlue extends CommandBase {
 
                 if (ActiveMotionValues.getCenterPark())
 
-                    ActiveMotionValues.setParkPose(FieldConstantsBlue.slideToCenterParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsBlue.centerParkPose);
 
                 else
 
-                    ActiveMotionValues.setParkPose(FieldConstantsBlue.slideToNearParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsBlue.nearParkPose);
 
 
                 break;
@@ -228,17 +222,19 @@ public class SelectMotionValuesBlue extends CommandBase {
     private void setOptions() {
 
         int lcr = ActiveMotionValues.getLcrpos() + 10;
-        boolean centerTape = lcr == 12;
         boolean useStageDoor = ActiveMotionValues.getUseStageDoor();
         boolean secondPixel = ActiveMotionValues.getSecondPixel();
+        ActiveMotionValues.setStrafeDistance(0);
+        ActiveMotionValues.setAdvancePose(new Pose2d());
+        ActiveMotionValues.setParkPose(new Pose2d());
 
         boolean useTruss = !useStageDoor;
 
         if (ActiveMotionValues.getCenterPark())
 
-            ActiveMotionValues.setParkPose(FieldConstantsBlue.slideToCenterParkPose);
+            ActiveMotionValues.setParkPose(FieldConstantsBlue.centerParkPose);
         else
-            ActiveMotionValues.setParkPose(FieldConstantsBlue.slideToNearParkPose);
+            ActiveMotionValues.setParkPose(FieldConstantsBlue.nearParkPose);
 
 
         if (useTruss) {

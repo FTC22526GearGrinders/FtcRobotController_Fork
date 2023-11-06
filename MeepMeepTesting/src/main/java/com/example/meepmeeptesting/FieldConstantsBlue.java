@@ -12,22 +12,20 @@ public final class FieldConstantsBlue {
 
     public static final double startAngle = Math.toRadians(90);
 
-    public static Pose2d farBackstagePark = new Pose2d(60, 12, startAngle);// 'near' to drivers
-
-    public static Pose2d nearParkPose = new Pose2d(60, 60, startAngle);
+    public static Pose2d nearParkPose = new Pose2d(50, 60, startAngle);
 
 
     public static Pose2d stageDoorLineUpPose13 = new Pose2d(-36, 12, startAngle);
 
     public static Pose2d stageDoorLineUpPose2 = new Pose2d(-48, 12, startAngle);
 
-    public static Pose2d nearOptionStopPose = new Pose2d(36, 60, startAngle);
+    public static Pose2d nearOptionStopPose = new Pose2d(42, 60, startAngle);
     public static Pose2d centerOptionStopPose1 = new Pose2d(31, 12, startAngle);
     public static Pose2d centerOptionStopPose2 = new Pose2d(20, 12, startAngle);
     public static Pose2d centerOptionStopPose3 = new Pose2d(15, 12, startAngle);
 
-    public static Pose2d nearOptionPose = new Pose2d(36, 60, startAngle);
-    public static Pose2d centerOptionPose = new Pose2d(36, 12, startAngle);
+    public static Pose2d nearOptionPose = new Pose2d(42, 60, startAngle);
+    public static Pose2d centerOptionPose = new Pose2d(42, 12, startAngle);
 
     public static Pose2d nearTrussLineUpPose = new Pose2d(-36, 60, startAngle);
 
@@ -37,12 +35,12 @@ public final class FieldConstantsBlue {
 
     public static Pose2d nearTrussLineUPose = new Pose2d(-36, 60, Math.toRadians(0));
 
-    public static Pose2d centerParkPose = new Pose2d(60, 12, Math.toRadians(90));
+    public static Pose2d centerParkPose = new Pose2d(50, 12, Math.toRadians(0));
 
 
     public static final class AprilTagConstants {
 
-        public static final Pose2d tagLookAheadPose = new Pose2d(14, 0, Math.toRadians(0));
+        public static final Pose2d tagLookAheadPose = new Pose2d(4 + Constants.RobotConstants.length / 2, 0, Math.toRadians(0));
 
 
         public static final Pose2d tagStrafeOffsetPose = new Pose2d(-60.25 + 36, 0, 0);

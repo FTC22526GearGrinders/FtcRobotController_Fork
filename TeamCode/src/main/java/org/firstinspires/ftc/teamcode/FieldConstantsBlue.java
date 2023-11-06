@@ -14,28 +14,26 @@ public final class FieldConstantsBlue {
 
     public static Pose2d stageDoorLineUpPose13 = new Pose2d(-36, 12, startAngle);
 
-    public static Pose2d stageDoorLineUpPose2 = new Pose2d(-48, 12,startAngle);
+    public static Pose2d stageDoorLineUpPose2 = new Pose2d(-48, 12, startAngle);
 
-    public static Pose2d nearOptionPose = new Pose2d(36, 60, startAngle);
-    public static Pose2d centerOptionPose = new Pose2d(36, 12, startAngle);
+    public static Pose2d nearOptionPose = new Pose2d(42, 60, startAngle);
+    public static Pose2d centerOptionPose = new Pose2d(42, 12, startAngle);
 
-    public static Pose2d slideToNearParkPose = new Pose2d(50, 60,startAngle);
 
-    public static Pose2d slideToCenterParkPose = new Pose2d(50, 14, startAngle);
+    public static Pose2d nearParkPose = new Pose2d(50, 60, startAngle);
+    public static Pose2d centerParkPose = new Pose2d(50, 12, startAngle);
 
-    public static Pose2d nearTrussLineUpPose = new Pose2d(-36, 60,startAngle);
+    public static Pose2d nearTrussLineUpPose = new Pose2d(-36, 60, startAngle);
 
-    public static Pose2d nearParkPose = new Pose2d(60, 60,startAngle);
-    public static Pose2d centerParkPose = new Pose2d(60, 12,startAngle);
 
     public static final class AprilTagConstants {
 
         static final double atagAngle = 0;
 
 
-      //  public static final Pose2d tagLookAheadPose = new Pose2d(14 , 0, Math.toRadians(0));
+        //  public static final Pose2d tagLookAheadPose = new Pose2d(14 , 0, Math.toRadians(0));
 
-        public static final Pose2d tagLookAheadPose = new Pose2d(14 + Constants.RobotConstants.length / 2, 0, Math.toRadians(0));
+        public static final Pose2d tagLookAheadPose = new Pose2d(4 + Constants.RobotConstants.length / 2, 0, Math.toRadians(0));
 
         public static final Pose2d tagStrafeOffsetPose = new Pose2d(-60.25 + 36, 0, 0);
 
@@ -48,8 +46,8 @@ public final class FieldConstantsBlue {
     }
 
     public static Pose2d getActiveTagPose(int num) {
-        int sel = num;
-        switch (sel) {
+
+        switch (num) {
             case 0:
                 return AprilTagConstants.atag1;
 
@@ -130,7 +128,6 @@ public final class FieldConstantsBlue {
         public static final Pose2d leftRetractPose = leftDropPose.plus(retPose);
         public static final Pose2d centerRetractPose = centerDropPose.plus(retPose);
         public static final Pose2d rightRetractPose = rightDropPose.plus(retPose);
-
 
 
     }

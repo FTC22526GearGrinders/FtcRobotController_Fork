@@ -44,7 +44,7 @@ public class RunTrussSDLRTape extends CommandBase {
 
                         .UNSTABLE_addTemporalMarkerOffset(.5, () -> phss.dropPixel())
 
-                        .waitSeconds(.5)
+                        .waitSeconds(1)
 
                         .lineToLinearHeading(ActiveMotionValues.getRetractPose())
 
@@ -69,7 +69,7 @@ public class RunTrussSDLRTape extends CommandBase {
 
                         .UNSTABLE_addTemporalMarkerOffset(.5, () -> phss.dropPixel())
 
-                        .waitSeconds(.5)
+                        .waitSeconds(1)
 
                         .lineToLinearHeading(ActiveMotionValues.getRetractPose())
 
@@ -94,7 +94,7 @@ public class RunTrussSDLRTape extends CommandBase {
 
                         .UNSTABLE_addTemporalMarkerOffset(.5, () -> phss.dropPixel())
 
-                        .waitSeconds(.5)
+                        .waitSeconds(1)
 
                         .lineToLinearHeading(ActiveMotionValues.getRetractPose())
 
@@ -121,7 +121,7 @@ public class RunTrussSDLRTape extends CommandBase {
 
                         .UNSTABLE_addTemporalMarkerOffset(.5, () -> phss.dropPixel())
 
-                        .waitSeconds(.5)
+                        .waitSeconds(1)
 
                         .lineToLinearHeading(ActiveMotionValues.getRetractPose())
 

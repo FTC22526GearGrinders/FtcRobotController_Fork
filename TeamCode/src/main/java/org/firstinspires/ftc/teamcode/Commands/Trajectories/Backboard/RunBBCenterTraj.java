@@ -42,7 +42,6 @@ public class RunBBCenterTraj extends CommandBase {
                 // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
 
 
-
                 .lineToLinearHeading(ActiveMotionValues.getDropOffPose())
 
                 .UNSTABLE_addTemporalMarkerOffset(1,()-> phss.dropPixel())

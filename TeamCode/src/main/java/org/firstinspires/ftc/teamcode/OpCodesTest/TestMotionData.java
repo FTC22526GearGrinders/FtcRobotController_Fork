@@ -23,7 +23,7 @@ public class TestMotionData extends CommandOpMode {
     boolean buttonLocked = false;
 
 
-    boolean redAlliance = true;
+    boolean redAlliance = false;
 
     boolean bbStart = true;
 

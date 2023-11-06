@@ -9,8 +9,8 @@ import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
 
 public class RunBBLRTraj extends CommandBase {
-    private Drive_Subsystem drive;
-    private PixelHandlerSubsystem phss;
+    private final Drive_Subsystem drive;
+    private final PixelHandlerSubsystem phss;
 
     private TrajectorySequence backboardLeftRight;
 
@@ -23,6 +23,7 @@ public class RunBBLRTraj extends CommandBase {
 
     @Override
     public void initialize() {
+
         boolean trussSideTapeRed = ActiveMotionValues.getRedAlliance() &&
 
                 ActiveMotionValues.getBBStart() && ActiveMotionValues.getLcrpos() == 1;
@@ -33,6 +34,7 @@ public class RunBBLRTraj extends CommandBase {
 
 
         boolean trussSideTape = trussSideTapeRed || trussSideTapeBlue;
+
         /**
          * Use th 5 step center for stage door selection
          * <p>
@@ -47,7 +49,7 @@ public class RunBBLRTraj extends CommandBase {
 
                     .UNSTABLE_addTemporalMarkerOffset(.5, () -> phss.dropPixel())
 
-                    .waitSeconds(.5)
+                    .waitSeconds(1)
 
                     .lineToLinearHeading(ActiveMotionValues.getRetractPose())
 

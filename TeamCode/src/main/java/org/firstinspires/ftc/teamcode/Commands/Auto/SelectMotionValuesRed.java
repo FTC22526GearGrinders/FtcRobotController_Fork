@@ -29,13 +29,13 @@ public class SelectMotionValuesRed extends CommandBase {
         lcr = ActiveMotionValues.getLcrpos();
         ActiveMotionValues.setStrafeDistance(0);
         ActiveMotionValues.setAdvancePose(new Pose2d());
+        ActiveMotionValues.setParkPose(new Pose2d());
 
         if (lcr < 1 || lcr > 3) lcr = 1;
 
         int motionSelected = lcr;
 
         if (!bbstart) motionSelected += 10;
-
 
         switch (motionSelected) {
 
@@ -73,11 +73,11 @@ public class SelectMotionValuesRed extends CommandBase {
 
                 if (ActiveMotionValues.getCenterPark())
 
-                    ActiveMotionValues.setParkPose(FieldConstantsRed.slideToCenterParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsRed.centerParkPose);
 
                 else
 
-                    ActiveMotionValues.setParkPose(FieldConstantsRed.slideToNearParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsRed.nearParkPose);
 
 
                 break;
@@ -111,11 +111,11 @@ public class SelectMotionValuesRed extends CommandBase {
 
                 if (ActiveMotionValues.getCenterPark())
 
-                    ActiveMotionValues.setParkPose(FieldConstantsRed.slideToCenterParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsRed.centerParkPose);
 
                 else
 
-                    ActiveMotionValues.setParkPose(FieldConstantsRed.slideToNearParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsRed.nearParkPose);
 
 
                 break;
@@ -144,11 +144,11 @@ public class SelectMotionValuesRed extends CommandBase {
 
                 if (ActiveMotionValues.getCenterPark())
 
-                    ActiveMotionValues.setParkPose(FieldConstantsRed.slideToCenterParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsRed.centerParkPose);
 
                 else
 
-                    ActiveMotionValues.setParkPose(FieldConstantsRed.slideToNearParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsRed.nearParkPose);
 
 
                 break;

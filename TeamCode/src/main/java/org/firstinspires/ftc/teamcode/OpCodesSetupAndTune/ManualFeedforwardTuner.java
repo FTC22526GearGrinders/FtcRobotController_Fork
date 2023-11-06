@@ -42,11 +42,11 @@ import java.util.Objects;
  */
 @Config
 @Autonomous(group = "drive")
-@Disabled
+//@Disabled
 public class ManualFeedforwardTuner extends LinearOpMode {
     public static double DISTANCE = 72; // in
 
-    public static PIDCoefficients ffTune = new PIDCoefficients(0.02, 0.005, 0.08);//kv,ka,ks
+    public static PIDCoefficients ffTune = new PIDCoefficients(0.1, 0.005, 0.08);//kv,ka,ks
 
 
     private final FtcDashboard dashboard = FtcDashboard.getInstance();

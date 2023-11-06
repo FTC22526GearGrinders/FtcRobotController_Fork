@@ -12,10 +12,7 @@ public final class Constants {
         static final double height = 13;
         static final double width = 16;
 
-        public static final Pose2d robotPose = new Pose2d(length / 2, width / 2);
 
-        static final double camToCenterX = 6;
-        static final double camToCenterY = 6;
         public static Pose2d pixelDropPose = new Pose2d(0, -RobotConstants.length / 2 + 1, 0);
 
 
@@ -41,18 +38,14 @@ public final class Constants {
 
         public static final boolean RUN_USING_ENCODER = false;
         public static final double MAX_MOTOR_RPM = 312;
-       // public static final double MOTOR_GEAR_RATIO = 19.2;
 
-        //    public static double encoderTicksToInches(double ticks) {
-//        return WHEEL_RADIUS * 2 * Math.PI * GEAR_RATIO * ticks / TICKS_PER_REV;
-//    }
 
         public static final double GEARBOX_RATIO = 1;
         public static final double WHEEL_DIAMETER_INCH = 4;
 
-        public static final double WHEELBASE = 10.5;//front yo back
+        public static final double WHEELBASE = 10.5;//front to back
 
-        public static final double TRACKWIDTH = 14.5;//acress width
+        public static final double TRACKWIDTH = 14.5;//across width
         public static final double ENCODER_COUNTS_PER_WHEEL_REV = 537.7;//1:1 RATIO
         public static final double WHEEL_CIRCUMFERENCE_INCH = Math.PI * WHEEL_DIAMETER_INCH;//12.57
         public static final double INCHES_PER_ENCODER_COUNT = WHEEL_CIRCUMFERENCE_INCH / ENCODER_COUNTS_PER_WHEEL_REV;//.0234
@@ -70,31 +63,20 @@ public final class Constants {
         public static double TRAJ_ANG_ACCEL = Math.toRadians(40);
 
         //     */
-        public static double kV = .01;
+        public static double kV = .01;//12 volts/60 ips = .02 max
         public static double kA = 0.0005;
         public static double kStatic = 0.08;
+
+
+//        public static double kV =  0.0140;
+//        public static double kA = 0.0022;
+//        public static double kStatic = 0.022;
 
         public static final double BATTERY_VOLTS = 12;
 
         //public static final double kV = BATTERY_VOLTS / MAX_IPM;//12/60 = .2 MAX THEORETICAL VALUE
         public static final double ENCODER_COUNTS_PER_MOTOR_REV = 537.7;
 
-        public static final double POSITION_Kp = .03;
-        public static final double POSITION_Ki = 0;
-        public static final double POSITION_Kd = 0;
-        public static final double POSITION_TOLERANCE = 1;
-
-        public static final double ROTATE_Kp = .022;
-        public static final double ROTATE_Ki = 0;
-        public static final double ROTATE_Kd = 0;
-
-        public static final double ROTATE_TOLERANCE = 2;
-
-        public static final double MOVE_STRAIGHT_Kp = .01;
-
-        public static final double POSITION_POWER = .5;
-        public static final double ROTATE_SPEED = .75;
-        //  public static final double LATERAL_MULTIPLIER = .7;
 
         public static final Pose2d tagOffsetPose = new Pose2d(4, 0, 0);
 

@@ -76,14 +76,6 @@ public class ActiveMotionValues {
         trussSDLineUpPose = lineUpPose;
     }
 
-//    public static Pose2d getStrafePose() {
-//        return strafePose;
-//    }
-//
-//    public static void setStrafePose(Pose2d pose) {
-//        strafePose = pose;
-//    }
-
     public static Pose2d getOptionStopPose() {
         return optionStopPose;
     }
@@ -121,21 +113,6 @@ public class ActiveMotionValues {
     }
 
     private static Pose2d preTagPose = new Pose2d();
-
-
-   private static Pose2d activeAprilTagPose = new Pose2d();
-//
-//
-//    public static Pose2d getSecondAprilTagPose() {
-//        return secondAprilTagPose;
-//    }
-//
-//    public static void setSecondAprilTagPose(Pose2d pose) {
-//        ActiveMotionValues.secondAprilTagPose = pose;
-//    }
-
-   // private static Pose2d secondAprilTagPose = new Pose2d();
-
 
     public static Pose2d getStartPose() {
         return startPose;
@@ -186,43 +163,16 @@ public class ActiveMotionValues {
 
     private static Pose2d dropOffPose = new Pose2d();
 
-
-//    public static Pose2d getTagLookAheadPose() {
-//        return tagLookAheadPose;
-//    }
-//
-//    public static void setTagLookAheadPose(Pose2d tagLAPose) {
-//        tagLookAheadPose = tagLAPose;
-//    }
-
-    public static void setActiveTagPose(Pose2d pose) {
-        activeAprilTagPose = pose;
-    }
-
-
-    public static Pose2d getActiveTagPose() {
-        return activeAprilTagPose;
-    }
-
-
     public static void setYOffsetPose(Pose2d yOff) {
         yOffsetPose = yOff;
     }
 
     public static Pose2d getYOffsetPose() {
-        return xOffsetPose;
+        return yOffsetPose;
     }
 
     public static void setXOffsetPose(Pose2d xOff) {
         xOffsetPose = xOff;
-    }
-
-    public static double getRetractDistance() {
-        return retractDistance;
-    }
-
-    public static void setRetractDistance(double distance) {
-        retractDistance = distance;
     }
 
     public static boolean getRedAlliance() {
@@ -266,17 +216,8 @@ public class ActiveMotionValues {
     }
 
 
-    //private static double xFirstPoint;
-
-    private static double xSecondPoint;
-
-
-    private static double ySecondPoint;
-
-    private static Pose2d tagLookAheadPose = new Pose2d();
     private static Pose2d yOffsetPose;
     private static Pose2d xOffsetPose;
-    private static double retractDistance = 0;
 
 
     //auto running
@@ -288,33 +229,6 @@ public class ActiveMotionValues {
     private static int lcrpos = 2;
 
     private static int actTag = 5;
-
-    public double HSVAreaL = 0;
-    public double HSVAreaC = 0;
-    public double HSVAreaR = 0;
-
-    public boolean HSVRed = false;
-
-    // private static AprilTagPoseFtc tagPoseFtc;
-
-    private static Pose2d aprilTagPos2d = new Pose2d();
-
-//    public static void setPoseFromTag(AprilTagPoseFtc ftcPose) {
-//        tagPoseFtc = ftcPose;
-//    }
-//
-//    public static AprilTagPoseFtc getPoseFromTag() {
-//        return tagPoseFtc;
-//    }
-
-    public static void setTagPose2d(Pose2d tagPose2d) {
-        aprilTagPos2d = tagPose2d;
-    }
-
-    public static Pose2d getAprilTagPos2d() {
-        return aprilTagPos2d;
-    }
-
 
     private static boolean useStageDoor = false;
 
@@ -356,15 +270,6 @@ public class ActiveMotionValues {
         return endAutoPose;
     }
 
-    public static boolean getLeftPark() {
-        return leftPark;
-    }
-
-    public static void setParkInPlace(boolean park) {
-        ActiveMotionValues.leftPark = park;
-    }
-
-    private static boolean leftPark = false;
 
 
 }
