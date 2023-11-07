@@ -49,23 +49,23 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvWebcam;
 
 
-@Autonomous(name = "Auto: Select-RED", group = "Auto")
+@Autonomous(name = "Auto: Select-RED NON BB Start", group = "Auto")
 //@Disabled
 public class AutoSelectAndRunRed extends CommandOpMode {
 
-    boolean buttonLocked = false;
-    boolean redAlliance = true;
-    boolean bbStart = true;
-    boolean centerPark = false;
-    boolean nearPark = false;
-    boolean secondPixel = false;
-    boolean useStageDoor = false;
-    SpikeTapePipelineRed sptopR = null;
     private Drive_Subsystem drive;
+
     private OpenCvWebcam webcam;//
-    private Vision_Subsystem vss;
+
     private PixelHandlerSubsystem phss;
+
     private ArmSubsystem arm;
+
+    private Vision_Subsystem vss;
+    boolean buttonLocked = false;
+    boolean useStageDoor = false;
+    boolean secondPixel = true;
+    SpikeTapePipelineRed sptopR = null;
 
     @Override
     public void initialize() {
@@ -80,7 +80,7 @@ public class AutoSelectAndRunRed extends CommandOpMode {
         boolean currentRB = false;
         boolean currentStart = false;
 
-        while (!currentStart && opModeInInit() && !isStopRequested()) {
+        while (!currentLB && opModeInInit() && !isStopRequested()) {
 
             currentX = gamepad1.x;
             currentY = gamepad1.y;
@@ -92,25 +92,14 @@ public class AutoSelectAndRunRed extends CommandOpMode {
 
             if (buttonLocked) {
 
-                if (currentA) {
-                    bbStart = !bbStart;
-                }
 
                 if (currentB) {
-                    centerPark = !centerPark;
-                }
-                if (currentRB) {
-                    secondPixel = !secondPixel;
-                }
-
-                if (currentA) {
                     useStageDoor = !useStageDoor;
                 }
 
-                if (currentLB) {
-                    nearPark = !nearPark;
+                if (currentA) {
+                    secondPixel = !secondPixel;
                 }
-
             }
 
             boolean xReleased = !currentX;
@@ -125,68 +114,39 @@ public class AutoSelectAndRunRed extends CommandOpMode {
 
             buttonLocked = xReleased && yReleased && aReleased && bReleased && lbReleased && rbReleased && startReleased;
 
-            telemetry.addData("BB Start Selected A to Change", bbStart);
+            telemetry.addData("You Have Chosen RED Alliance  NON BB Start", "");
             telemetry.addLine();
-            telemetry.addData("Center Park Selected B to Change", centerPark);
+            telemetry.addData("Second Pixel Selected A to Change", secondPixel);
             telemetry.addLine();
-            telemetry.addData("Near Park Selected - Left Bumper to Change", nearPark);
+            telemetry.addData("Stage Door Selected B to Change", useStageDoor);
             telemetry.addLine();
-            if (!bbStart) {
-                telemetry.addData("Second Pixel Selected RB to Change", secondPixel);
-                telemetry.addLine();
-                telemetry.addData("Stage Door Selected Y to Change", useStageDoor);
-                telemetry.addLine();
-            }
 
-            telemetry.addData("Press Start To Confirm", "");
+
+            telemetry.addData("Press Left Bumper To Continue", "");
+            telemetry.addLine();
+            telemetry.addData("DO NOT PRESS PLAY AT THIS TIME", "");
 
             telemetry.update();
 
         }
 
-        telemetry.addData("You Have Chosen RED Alliance", "");
+        telemetry.addData("You Have Chosen RED Alliance  NON BB Start", "");
 
         telemetry.addLine();
 
-        if (bbStart)
+        if (useStageDoor)
 
-            telemetry.addData("You Have Chosen BB Start", "");
+            telemetry.addData("You Have Chosen Stage Door", "");
         else
-            telemetry.addData("You Have Chosen Non BB Start", "");
+            telemetry.addData("You Have Chosen Near Truss", "");
 
-        if (centerPark)
-            telemetry.addData("You Have Chosen Center Park", "");
-        if (nearPark)
-            telemetry.addData("You Have Chosen Near Park", "");
         telemetry.addLine();
 
-        if (!bbStart) {
-
-
-            telemetry.addLine();
-
-            if (useStageDoor)
-
-                telemetry.addData("You Have Chosen Stage Door", "");
-            else
-                telemetry.addData("You Have Chosen Near Truss", "");
-
-            telemetry.addLine();
-
-
-            if (secondPixel)
-
-                telemetry.addData("You Have Chosen Second Pixel", "");
-
-            if (!secondPixel && !useStageDoor)
-                telemetry.addData("You Have Chosen Near Park", "");
-
-            if (!secondPixel && useStageDoor)
-                telemetry.addData("You Have Chosen Center Park", "");
-        }
+        if (secondPixel)
+            telemetry.addData("You Have Chosen Second Pixel", "");
+        else
+            telemetry.addData("You Did Not Choose Second Pixel", "");
         telemetry.addLine();
-
-
         telemetry.addData("Reselect Opmode to Change", "");
         telemetry.addLine();
 
@@ -195,12 +155,15 @@ public class AutoSelectAndRunRed extends CommandOpMode {
         telemetry.update();
 
 
-        ActiveMotionValues.setRedAlliance(redAlliance);
-        ActiveMotionValues.setBBStart(bbStart);
+        ActiveMotionValues.setRedAlliance(true);
+        ActiveMotionValues.setBBStart(false);
+        ActiveMotionValues.setCenterPark(false);
+        ActiveMotionValues.setNearPark(false);
+
         ActiveMotionValues.setUseStageDoor(useStageDoor);
-        ActiveMotionValues.setCenterPark(centerPark);
         ActiveMotionValues.setSecondPixel(secondPixel);
 
+        waitForStart();
 
         drive = new Drive_Subsystem(this);
 
@@ -238,14 +201,9 @@ public class AutoSelectAndRunRed extends CommandOpMode {
                 //start streaming the camera
                 webcam.startStreaming(640, 480, OpenCvCameraRotation.UPRIGHT);
 
-
                 sptopR = new SpikeTapePipelineRed();
 
                 webcam.setPipeline(sptopR);
-
-
-                //if you are using dashboard, update dashboard camera view
-                //     FtcDashboard.getInstance().startCameraStream(webcam, 5);
 
 
             }
@@ -257,8 +215,11 @@ public class AutoSelectAndRunRed extends CommandOpMode {
                  */
             }
         });
+
         waitForStart();
+
         new AutoActionsSequences(this, drive, phss, arm, vss, webcam).schedule();
+
     }
 
     public void run() {

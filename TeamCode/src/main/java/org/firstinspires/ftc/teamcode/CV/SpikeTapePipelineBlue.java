@@ -36,16 +36,18 @@ public class SpikeTapePipelineBlue extends OpenCvPipeline {
         frameList = new ArrayList<>();
     }
 
+    Mat src=new Mat();
+    Mat dst = new Mat(src.rows(), src.cols(), src.type(), new Scalar(0));
+    Mat blur = new Mat(src.rows(), src.cols(), src.type(), new Scalar(0));
+    Mat hsvMat = new Mat(src.rows(), src.cols(), src.type(), new Scalar(0));
+    Mat filtered = new Mat();
+    Mat inverted = new Mat();
     @Override
     public Mat processFrame(Mat input) {
-        Mat src = input;
+        src = input;
         if (src.empty()) {
             return input;
         }
-        Mat dst = new Mat(src.rows(), src.cols(), src.type(), new Scalar(0));
-        Mat blur = new Mat(src.rows(), src.cols(), src.type(), new Scalar(0));
-        Mat hsvMat = new Mat(src.rows(), src.cols(), src.type(), new Scalar(0));
-        Mat filtered = new Mat();
 
 
         Imgproc.blur(src, blur, new Size(1, 1));
@@ -55,7 +57,7 @@ public class SpikeTapePipelineBlue extends OpenCvPipeline {
         Core.inRange(hsvMat, lower, upper, filtered);
 
 
-        Mat inverted = new Mat();
+
         Core.bitwise_not(filtered, inverted);
         inverted.copyTo(dst);
 

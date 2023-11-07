@@ -49,9 +49,9 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvWebcam;
 
 
-@Autonomous(name = "Auto: Select-BLUE NON BB Start", group = "Auto")
+@Autonomous(name = "Auto: Select-BLUE BBStart", group = "Auto")
 //@Disabled
-public class AutoSelectAndRunBlue extends CommandOpMode {
+public class AutoSelectAndRunBlueBBStart extends CommandOpMode {
 
     private Drive_Subsystem drive;
 
@@ -62,9 +62,14 @@ public class AutoSelectAndRunBlue extends CommandOpMode {
     private ArmSubsystem arm;
 
     private Vision_Subsystem vss;
+
+
     boolean buttonLocked = false;
-    boolean useStageDoor = false;
-    boolean secondPixel = true;
+
+    boolean centerPark = false;
+
+    boolean nearPark = false;
+
     SpikeTapePipelineBlue sptopB = null;
 
     @Override
@@ -92,14 +97,18 @@ public class AutoSelectAndRunBlue extends CommandOpMode {
 
             if (buttonLocked) {
 
-
                 if (currentB) {
-                    useStageDoor = !useStageDoor;
+                    centerPark = !centerPark;
                 }
 
                 if (currentA) {
-                    secondPixel = !secondPixel;
+                    nearPark = !nearPark;
                 }
+
+                if (currentB && centerPark) nearPark = false;
+
+                if (currentA && nearPark) centerPark = false;
+
             }
 
             boolean xReleased = !currentX;
@@ -114,13 +123,13 @@ public class AutoSelectAndRunBlue extends CommandOpMode {
 
             buttonLocked = xReleased && yReleased && aReleased && bReleased && lbReleased && rbReleased && startReleased;
 
-            telemetry.addData("You Have Chosen BLUE Alliance  NON BB Start", "");
+            telemetry.addData("You Have Chosen BLUE Alliance BB Start", "");
             telemetry.addLine();
-            telemetry.addData("Second Pixel Selected A to Change", secondPixel);
+            telemetry.addData("Choose Only One Park","");
+            telemetry.addData("Center Park Selected B to Change", centerPark);
             telemetry.addLine();
-            telemetry.addData("Stage Door Selected B to Change", useStageDoor);
+            telemetry.addData("Near Park Selected - A to Change", nearPark);
             telemetry.addLine();
-
 
             telemetry.addData("Press Left Bumper To Continue", "");
             telemetry.addLine();
@@ -130,38 +139,32 @@ public class AutoSelectAndRunBlue extends CommandOpMode {
 
         }
 
-        telemetry.addData("You Have Chosen BLUE Alliance  NON BB Start", "");
+        telemetry.addData("You Have Chosen BLUE Alliance BB Start", "");
         telemetry.addLine();
+        if (centerPark)
+            telemetry.addData("You Have Chosen Center Park", "");
 
+        if (nearPark)
+            telemetry.addData("You Have Chosen Near Park", "");
 
-        if (useStageDoor)
-
-            telemetry.addData("You Have Chosen Stage Door", "");
-        else
-            telemetry.addData("You Have Chosen Near Truss", "");
-
-        telemetry.addLine();
-
-        if (secondPixel)
-            telemetry.addData("You Have Chosen Second Pixel", "");
-        else
-            telemetry.addData("You Did Not Choose Second Pixel", "");
+        if (!centerPark && !nearPark)
+            telemetry.addData("You Have Chosen Park In Place", "");
         telemetry.addLine();
         telemetry.addData("Reselect Opmode to Change", "");
         telemetry.addLine();
-
         telemetry.addData(" Press Play When Told to Start Match", "");
 
         telemetry.update();
 
 
         ActiveMotionValues.setRedAlliance(false);
-        ActiveMotionValues.setBBStart(false);
-        ActiveMotionValues.setCenterPark(false);
-        ActiveMotionValues.setNearPark(false);
+        ActiveMotionValues.setBBStart(true);
+        ActiveMotionValues.setUseStageDoor(false);
+        ActiveMotionValues.setSecondPixel(false);
 
-        ActiveMotionValues.setUseStageDoor(useStageDoor);
-        ActiveMotionValues.setSecondPixel(secondPixel);
+        ActiveMotionValues.setCenterPark(centerPark);
+        ActiveMotionValues.setNearPark(nearPark);
+
 
         waitForStart();
 
@@ -215,7 +218,6 @@ public class AutoSelectAndRunBlue extends CommandOpMode {
                  */
             }
         });
-
         waitForStart();
 
         new AutoActionsSequences(this, drive, phss, arm, vss, webcam).schedule();
