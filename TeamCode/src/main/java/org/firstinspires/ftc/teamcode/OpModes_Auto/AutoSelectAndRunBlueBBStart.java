@@ -125,7 +125,7 @@ public class AutoSelectAndRunBlueBBStart extends CommandOpMode {
 
             telemetry.addData("You Have Chosen BLUE Alliance BB Start", "");
             telemetry.addLine();
-            telemetry.addData("Choose Only One Park","");
+            telemetry.addData("Choose Neither -  or Only One Park","");
             telemetry.addData("Center Park Selected B to Change", centerPark);
             telemetry.addLine();
             telemetry.addData("Near Park Selected - A to Change", nearPark);

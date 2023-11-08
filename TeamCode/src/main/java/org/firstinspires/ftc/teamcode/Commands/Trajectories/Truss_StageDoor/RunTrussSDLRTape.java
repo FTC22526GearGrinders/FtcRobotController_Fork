@@ -9,8 +9,8 @@ import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
 
 public class RunTrussSDLRTape extends CommandBase {
-    private Drive_Subsystem drive;
-    private PixelHandlerSubsystem phss;
+    private final Drive_Subsystem drive;
+    private final PixelHandlerSubsystem phss;
 
     private TrajectorySequence trussSDTraj;
 
