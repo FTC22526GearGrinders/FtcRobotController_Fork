@@ -50,47 +50,8 @@ public class LookForTeamElement extends CommandOpMode {
 
     public void initialize() {
 
-        boolean currentX = false;
-        boolean currentLB = false;
 
-        while (!currentLB && opModeInInit() && !isStopRequested()) {
-
-            currentX = gamepad1.x;
-            currentLB = gamepad1.left_bumper;
-
-
-            if (buttonLocked) {
-
-                if (currentX) {
-                    redAlliance = !redAlliance;
-                }
-
-
-            }
-
-            boolean xReleased = !currentX;
-            boolean lbReleased = !currentLB;
-
-
-            buttonLocked = xReleased && lbReleased;
-
-            telemetry.addData(" RED Selected Press X to Change Alliance", redAlliance);
-            telemetry.addLine();
-
-            telemetry.addData("Press Left Bumper To Confirm","");
-            telemetry.update();
-
-        }
-        if (redAlliance)
-            telemetry.addData("You Have Chosen RED Alliance", "");
-        else
-            telemetry.addData("You Have Chosen BLUE Alliance", "");
-
-        telemetry.addLine();
-
-        ActiveMotionValues.setRedAlliance(redAlliance);
-
-        webcam = OpenCvCameraFactory.getInstance().createWebcam(this.hardwareMap.get(WebcamName.class, "Webcam 1"));
+        webcam = OpenCvCameraFactory.getInstance().createWebcam(this.hardwareMap.get(WebcamName.class, "Webcam 2"));
 
         dashboard = FtcDashboard.getInstance();
 

@@ -25,6 +25,10 @@ import org.openftc.easyopencv.OpenCvWebcam;
  * */
 public class LookForTeamProp extends CommandBase {
 
+    public static int leftBorder = 100;
+
+    public static int rightBorder = 250;
+
     SpikeTapePipelineRed sptopR = null;
 
     SpikeTapePipelineBlue sptopB = null;

@@ -59,7 +59,6 @@ public class DetectAprilTags extends CommandBase {
 
                     Pose2d currentRobotPose = camFieldPose.minus(Constants.RobotConstants.kCameraToRobot);
 
-                    Pose2d robotPoseAtTag = tagPose.minus(Constants.RobotConstants.kCameraToRobot);
 
                     Pose2d tagOffsetPose = Constants.DriveConstants.tagOffsetPose;
 
@@ -81,8 +80,7 @@ public class DetectAprilTags extends CommandBase {
 
                     myOpMode.telemetry.addData("CurrRobotPose", currentRobotPose.toString());
                     myOpMode.telemetry.addLine();
-                    myOpMode.telemetry.addData("RobotPoseAtTag", robotPoseAtTag.toString());
-                    myOpMode.telemetry.addLine();
+
                     myOpMode.telemetry.addData("TagDistPose", tagOffsetPose.toString());
                     myOpMode.telemetry.addLine();
                     myOpMode.telemetry.addData("FinalPose", finalTagPose.toString());

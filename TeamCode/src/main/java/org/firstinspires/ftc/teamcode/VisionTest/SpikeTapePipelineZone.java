@@ -188,7 +188,7 @@ public class SpikeTapePipelineZone extends OpenCvPipeline {
             frameList.remove(0);
         }
 
-        return src;
+        return filtered;
 
 
     }

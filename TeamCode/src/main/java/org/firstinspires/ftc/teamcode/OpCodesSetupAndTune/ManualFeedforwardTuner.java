@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.OpCodesSetupAndTune;
 
-import static org.firstinspires.ftc.teamcode.Constants.DriveConstants.MAX_ACCEL;
-import static org.firstinspires.ftc.teamcode.Constants.DriveConstants.MAX_VEL;
 import static org.firstinspires.ftc.teamcode.Constants.DriveConstants.RUN_USING_ENCODER;
 
 import com.acmerobotics.dashboard.FtcDashboard;
@@ -14,9 +12,7 @@ import com.acmerobotics.roadrunner.profile.MotionProfileGenerator;
 import com.acmerobotics.roadrunner.profile.MotionState;
 import com.acmerobotics.roadrunner.util.NanoClock;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.PIDCoefficients;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 import com.qualcomm.robotcore.util.RobotLog;
 
@@ -44,11 +40,12 @@ import java.util.Objects;
 @Autonomous(group = "drive")
 //@Disabled
 public class ManualFeedforwardTuner extends LinearOpMode {
-    public static double DISTANCE = 72; // in
+    public static double DISTANCE = 48; // in
 
-    public static PIDCoefficients ffTune = new PIDCoefficients(0.1, 0.005, 0.08);//kv,ka,ks
-
-
+    // public static PIDCoefficients ffTune = new PIDCoefficients(0.1, 0.005, 0.08);//kv,ka,ks
+    public static double kV = .1;
+    public static double kA = 0;
+    public static double kS = .02;
     private final FtcDashboard dashboard = FtcDashboard.getInstance();
 
     private SampleMecanumDrive drive;
@@ -57,7 +54,7 @@ public class ManualFeedforwardTuner extends LinearOpMode {
     private static MotionProfile generateProfile(boolean movingForward) {
         MotionState start = new MotionState(movingForward ? 0 : DISTANCE, 0, 0, 0);
         MotionState goal = new MotionState(movingForward ? DISTANCE : 0, 0, 0, 0);
-        return MotionProfileGenerator.generateSimpleMotionProfile(start, goal, MAX_VEL, MAX_ACCEL);
+        return MotionProfileGenerator.generateSimpleMotionProfile(start, goal, 20, 20);
     }
 
     @Override
@@ -111,7 +108,7 @@ public class ManualFeedforwardTuner extends LinearOpMode {
 
                     MotionState motionState = activeProfile.get(profileTime);
 //                    double targetPower = Kinematics.calculateMotorFeedforward(motionState.getV(), motionState.getA(), kV, kA, kStatic);
-                    double targetPower = Kinematics.calculateMotorFeedforward(motionState.getV(), motionState.getA(), ffTune.p, ffTune.d, ffTune.i);
+                    double targetPower = Kinematics.calculateMotorFeedforward(motionState.getV(), motionState.getA(), kV, kA, kS);
 
                     final double NOMINAL_VOLTAGE = 12.0;
                     final double voltage = voltageSensor.getVoltage();
@@ -125,6 +122,9 @@ public class ManualFeedforwardTuner extends LinearOpMode {
                     telemetry.addData("targetVelocity", motionState.getV());
                     telemetry.addData("measuredVelocity", currentVelo);
                     telemetry.addData("error", motionState.getV() - currentVelo);
+                    telemetry.addData("FLPos", drive.getLeftFrontPosn());
+                    telemetry.addData("PoseEst", drive.getPoseEstimate().toString());
+
                     break;
                 case DRIVER_MODE:
                     if (gamepad1.b) {

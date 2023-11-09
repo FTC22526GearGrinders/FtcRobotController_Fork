@@ -39,7 +39,6 @@ public final class Constants {
         public static final boolean RUN_USING_ENCODER = false;
 
 
-
         public static final double MAX_MOTOR_RPM = 312;
 
 
@@ -48,32 +47,33 @@ public final class Constants {
 
         public static final double WHEELBASE = 10.5;//distance between pairs of wheels on the same side of the robot
 
-        public static final double TRACKWIDTH = 19;// from code sourec seemed to work better measured is 14.5;//lateral distance between pairs of wheels on different sides of the robot
+        public static final double TRACKWIDTH = 17;// from code sourec seemed to work better measured is 14.5;//lateral distance between pairs of wheels on different sides of the robot
         public static final double ENCODER_COUNTS_PER_WHEEL_REV = 537.7;//1:1 RATIO
         public static final double WHEEL_CIRCUMFERENCE_INCH = Math.PI * WHEEL_DIAMETER_INCH;//12.57
         public static final double INCHES_PER_ENCODER_COUNT = WHEEL_CIRCUMFERENCE_INCH / ENCODER_COUNTS_PER_WHEEL_REV;//.0234
         public static final double MAX_IPM = MAX_MOTOR_RPM * WHEEL_CIRCUMFERENCE_INCH;// 312 *12.57 = 3900 IPM
 
-        public static final double MAX_IPS =MAX_IPM/60;//65 IPS
+        public static final double MAX_IPS = MAX_IPM / 60;//65 IPS
 
-        public static double MAX_VEL = MAX_IPS *.8;
+        public static double MAX_VEL = MAX_IPS * .8;
         public static double MAX_ACCEL = 30;
         public static double MAX_ANG_VEL = Math.toRadians(60);
         public static double MAX_ANG_ACCEL = Math.toRadians(60);
-        public static double TRAJ_VEL = 30;
-        public static double TRAJ_ACCEL = 30;
+        public static double TRAJ_VEL = 40;
+        public static double TRAJ_ACCEL = 40;
         public static double TRAJ_ANG_VEL = Math.toRadians(40);
         public static double TRAJ_ANG_ACCEL = Math.toRadians(40);
 
-        public static PIDFCoefficients MOTOR_VELO_PID = new PIDFCoefficients(.1,0,0,0);
+        public static PIDFCoefficients MOTOR_VELO_PID = new PIDFCoefficients(.1, 0, 0, 0);
 
         public static double getMotorVelocityF(double ticksPerSecond) {
             // see https://docs.google.com/document/d/1tyWrXDfMidwYyP_5H4mZyVgaEswhOC35gvdmP-V-5hA/edit#heading=h.61g9ixenznbx
             return 32767 / ticksPerSecond;
         }
+
         //     */
-        public static double kV = .014;//12 volts/60 ips = .02 max
-        public static double kA =0.0022;// 0.0005;
+        public static double kV = .0171;//12 volts/60 ips = .02 max
+        public static double kA = 0.002;// 0.0005;
         public static double kStatic = 0.022;//0.08;
 
 
@@ -87,7 +87,7 @@ public final class Constants {
         public static final double ENCODER_COUNTS_PER_MOTOR_REV = 537.7;
 
 
-        public static final Pose2d tagOffsetPose = new Pose2d(4, 0, 0);
+        public static final Pose2d tagOffsetPose = new Pose2d(RobotConstants.length / 2 + 2, 0, 0);
 
         public static RevHubOrientationOnRobot.LogoFacingDirection LOGO_FACING_DIR =
                 RevHubOrientationOnRobot.LogoFacingDirection.UP;

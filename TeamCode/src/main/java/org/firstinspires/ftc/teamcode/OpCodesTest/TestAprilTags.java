@@ -60,7 +60,6 @@ public class TestAprilTags extends CommandOpMode {
 
     private Drive_Subsystem drive;
     private FtcDashboard dashboard;
-    private OpenCvWebcam webcam;
 
     @Override
     public void initialize() {

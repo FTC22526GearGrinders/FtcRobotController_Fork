@@ -33,11 +33,13 @@ package org.firstinspires.ftc.teamcode.OpModes_Auto;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
+import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.CV.SpikeTapePipelineRed;
 import org.firstinspires.ftc.teamcode.Commands.Auto.AutoActionsSequences;
+import org.firstinspires.ftc.teamcode.Commands.Auto.SelectMotionValuesRed;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Subsystems.ArmSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
@@ -74,7 +76,8 @@ public class AutoSelectAndRunRedBBStart extends CommandOpMode {
 
     @Override
     public void initialize() {
-        webcam = OpenCvCameraFactory.getInstance().createWebcam(this.hardwareMap.get(WebcamName.class, "Webcam 1"));
+
+        webcam = OpenCvCameraFactory.getInstance().createWebcam(this.hardwareMap.get(WebcamName.class, "Webcam 2"));
 
 
         boolean currentX = false;
@@ -220,7 +223,11 @@ public class AutoSelectAndRunRedBBStart extends CommandOpMode {
         });
         waitForStart();
 
-        new AutoActionsSequences(this, drive, phss, arm, vss, webcam).schedule();
+        new SequentialCommandGroup(
+
+                new SelectMotionValuesRed(),
+
+                new AutoActionsSequences(this, drive, phss, arm, vss, webcam)).schedule();
 
     }
 
