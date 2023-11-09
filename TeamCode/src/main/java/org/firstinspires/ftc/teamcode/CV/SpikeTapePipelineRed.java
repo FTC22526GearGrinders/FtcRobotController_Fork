@@ -74,7 +74,11 @@ public class SpikeTapePipelineRed extends OpenCvPipeline {
 
         int imgHeight = input.height();
 
-        if (maskTop > maskBottom + 10) maskTop = 1;
+        if (maskTop > imgHeight / 2) maskTop = imgHeight / 2;
+
+        if (maskBottom < imgHeight * 3 / 4) maskBottom = imgHeight * 3 / 4;
+
+        if (maskBottom > imgHeight) maskBottom = imgHeight;
 
 
         Point a = new Point(0, maskTop);

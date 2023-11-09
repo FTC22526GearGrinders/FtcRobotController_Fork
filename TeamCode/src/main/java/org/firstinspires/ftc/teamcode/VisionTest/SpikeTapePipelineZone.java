@@ -30,19 +30,24 @@ public class SpikeTapePipelineZone extends OpenCvPipeline {
     private int numContours;
     private int usableContours;
 
+    Scalar lower = new Scalar(0, 20, 0);
+    Scalar upper = new Scalar(50, 255, 255);
 
-    public Scalar lower = new Scalar(0, 20, 0);
-    public Scalar upper = new Scalar(50, 255, 255);
 
-    int maxLeft = 80;
+//    public Scalar lower = new Scalar(0, 20, 0);
+//    public Scalar upper = new Scalar(50, 255, 255);
 
-    public static int left = 80;
+//    int maxLeft = 80;
+//     int left = 101;
+//     int right = 166;
+//     int maskTop = 100;
+//     int maskBottom = 180;
 
-    public static int right = 220;
-
-    public static int maskTop = 0;
-
-    public static int maskBottom = 150;
+    public int maxLeft = 80;
+    public int left = 101;
+    public int right = 166;
+    public int maskTop = 100;
+    public int maskBottom = 180;
 
     Mat src = new Mat();
     Mat dst = new Mat(src.rows(), src.cols(), src.type(), new Scalar(0));
@@ -80,12 +85,10 @@ public class SpikeTapePipelineZone extends OpenCvPipeline {
         telemetry.addData("HWidth", imgWidth);
 
 
-        int maxmid = 170;
-        int macRight = imgWidth - 1;
         Point leftTop = new Point(left, 0);
-        Point leftBottom = new Point(left, imgHeight - 10);
+        Point leftBottom = new Point(left, imgHeight);
         Point rightTop = new Point(right, 0);
-        Point rightBottom = new Point(right, imgHeight - 10);
+        Point rightBottom = new Point(right, imgHeight);
 
         Imgproc.line(src, leftTop, leftBottom, new Scalar(128, 128, 128), 3);
 
@@ -100,7 +103,11 @@ public class SpikeTapePipelineZone extends OpenCvPipeline {
 
         Imgproc.line(src, leftBottom, rightBottom, new Scalar(128, 128, 128), 3);
 
-        if (maskTop > maskBottom + 10) maskTop = 1;
+        if (maskTop > imgHeight / 2) maskTop = imgHeight / 2;
+
+        if (maskBottom < imgHeight * 3 / 4) maskBottom = imgHeight * 3 / 4;
+
+        if (maskBottom > imgHeight) maskBottom = imgHeight;
 
         Point a = new Point(0, maskTop);
         Point b = new Point(imgWidth, maskBottom);
@@ -121,8 +128,8 @@ public class SpikeTapePipelineZone extends OpenCvPipeline {
         Core.inRange(hsvMat, lower, upper, filtered);
 
 
-        Core.bitwise_not(filtered, inverted);
-        inverted.copyTo(dst);
+//        Core.bitwise_not(filtered, inverted);
+//        inverted.copyTo(filtered);
 
 
         List<MatOfPoint> contours = new ArrayList<>();
@@ -172,10 +179,9 @@ public class SpikeTapePipelineZone extends OpenCvPipeline {
             Point points[] = new Point[4];
 
             temp.points(points);
+
             Scalar color = new Scalar(128, 128, 128);
 
-            //            Imgproc.putText(filtered, String.valueOf(i), new Point(temp.center.x + 20, temp.center.y), 7, Imgproc.FONT_HERSHEY_PLAIN,
-//                    color, 1);
 
             new Scalar(255, 0, 0);
         }
@@ -196,6 +202,9 @@ public class SpikeTapePipelineZone extends OpenCvPipeline {
             if (rrxval.get(0) > right) lcr = 3;
 
 
+            telemetry.addData("LCR", lcr);
+
+
             for (int i = 0; i < rr.size(); i++) {
                 telemetry.addData("Area " + String.valueOf(i), rrAreas.get(i));
                 telemetry.addData("X " + String.valueOf(i), rrxval.get(i));
@@ -211,16 +220,14 @@ public class SpikeTapePipelineZone extends OpenCvPipeline {
         telemetry.addData("AreasSize", rrAreas.size());
 
 
-        telemetry.addData("LCR", lcr);
-
         telemetry.update();
 
         if (frameList.size() > 5) {
             frameList.remove(0);
         }
 
-        return filtered;
-
+        //return filtered;
+        return src;
 
     }
 
