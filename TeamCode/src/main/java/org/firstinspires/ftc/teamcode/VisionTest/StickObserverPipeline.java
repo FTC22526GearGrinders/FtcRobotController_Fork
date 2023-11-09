@@ -32,7 +32,7 @@ public class StickObserverPipeline extends OpenCvPipeline {
         Mat mat = new Mat();
 
         //mat turns into HSV value
-        Imgproc.cvtColor(input, mat, Imgproc.COLOR_RGB2HSV);
+        Imgproc.cvtColor(input, mat, Imgproc.COLOR_BGR2HSV);
         if (mat.empty()) {
             return input;
         }

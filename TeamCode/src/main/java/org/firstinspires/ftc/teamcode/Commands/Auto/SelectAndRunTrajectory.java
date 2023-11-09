@@ -40,20 +40,20 @@ public class SelectAndRunTrajectory extends CommandBase {
         if (bbstart) {
 
 
-            if (lcr == 2) new RunBBCenterTraj(drive, phss).schedule();
+            if (lcr == 2) new RunBBCenterTraj(drive, phss).withTimeout(5000).schedule();
 
             if (lcr == 1 || lcr == 3)
 
-                new RunBBLRTraj(drive, phss).schedule();
+                new RunBBLRTraj(drive, phss).withTimeout(5000).schedule();
 
 
         }
 
         if (!bbstart) {
             if (lcr == 1 || lcr == 3)
-                new RunTrussSDLRTape(drive, phss).schedule();
+                new RunTrussSDLRTape(drive, phss).withTimeout(5000).schedule();
             if(lcr==2)
-                new RunTrussSDCenterTape(drive,phss).schedule();
+                new RunTrussSDCenterTape(drive,phss).withTimeout(5000).schedule();
         }
 
     }
