@@ -76,7 +76,7 @@ public class TestAprilTags extends CommandOpMode {
         // Wait for the DS start button to be touched.
         telemetry.addData("DS preview on/off", "3 dots, Camera Stream");
         telemetry.update();
-
+waitForStart();
         new DetectAprilTags(this, vss, true).schedule();
 
     }

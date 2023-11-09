@@ -30,18 +30,17 @@ public class SpikeTapePipelineBlue extends OpenCvPipeline {
     private int usableContours;
 
 
-    public Scalar lower = new Scalar(0, 20, 0);
-    public Scalar upper = new Scalar(50, 255, 255);
+    Scalar lower = new Scalar(0, 20, 0);
+    Scalar upper = new Scalar(50, 255, 255);
 
-    int maxLeft = 80;
 
-    public static int left = 80;
+    static int left = 80;
 
-    public static int right = 220;
+    static int right = 220;
 
-    public static int maskTop = 0;
+    static int maskTop = 0;
 
-    public static int maskBottom = 50;
+    static int maskBottom = 50;
 
     Mat src = new Mat();
     Mat dst = new Mat(src.rows(), src.cols(), src.type(), new Scalar(0));
@@ -74,18 +73,39 @@ public class SpikeTapePipelineBlue extends OpenCvPipeline {
 
         int imgHeight = input.height();
 
+        //left and right lines
+        if (left > (int) (imgWidth * .4)) left = (int) (imgWidth * .4);
+
+        if (right < (int) (imgWidth * .6)) right = (int) (imgWidth * .6);
+
+        Point leftTop = new Point(left, 0);
+        Point leftBottom = new Point(left, imgHeight);
+        Point rightTop = new Point(right, 0);
+        Point rightBottom = new Point(right, imgHeight);
+
+        Imgproc.line(src, leftTop, leftBottom, new Scalar(128, 128, 0), 3);
+
+        Imgproc.line(src, rightTop, rightBottom, new Scalar(128, 128, 128), 3);
+
+
+        leftTop = new Point(0, 0);
+        rightTop = new Point(0, 0);
+
+        leftBottom = new Point(0, maskBottom);
+        rightBottom = new Point(imgWidth, maskBottom);
+
+
         if (maskTop > imgHeight / 2) maskTop = imgHeight / 2;
 
         if (maskBottom < imgHeight * 3 / 4) maskBottom = imgHeight * 3 / 4;
 
         if (maskBottom > imgHeight) maskBottom = imgHeight;
 
-
-        Point a = new Point(0, maskTop);
+        Point t = new Point(0, maskTop);
 
         Point b = new Point(imgWidth, maskBottom);
 
-        Rect roi = new Rect(a, b);
+        Rect roi = new Rect(t, b);
 
         cropped = src.submat(roi);
 

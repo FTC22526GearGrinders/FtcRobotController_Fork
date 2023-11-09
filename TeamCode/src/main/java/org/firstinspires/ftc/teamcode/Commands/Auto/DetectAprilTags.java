@@ -5,6 +5,7 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 
+import org.apache.commons.math3.util.IterationListener;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.FieldConstantsRed;
@@ -25,6 +26,7 @@ public class DetectAprilTags extends CommandBase {
     private final Vision_Subsystem vss;
 
     private boolean noEnd;
+    private int tst;
 
     public DetectAprilTags(CommandOpMode opMode, Vision_Subsystem vss, boolean noEnd) {
         this.vss = vss;
@@ -36,7 +38,10 @@ public class DetectAprilTags extends CommandBase {
 
     @Override
     public void initialize() {
+
         n = ActiveMotionValues.getActTag();
+        vss.enableAprilTagProcessor(true);
+
     }
 
     @Override
@@ -51,7 +56,7 @@ public class DetectAprilTags extends CommandBase {
                 if (detection.id == n) {
                     ActiveMotionValues.setAprilTagSeen(true);
 
-                    Pose2d camPose = new Pose2d(detection.ftcPose.y, detection.ftcPose.x);//, Math.toRadians(detection.ftcPose.yaw));
+                    Pose2d camPose = new Pose2d(detection.ftcPose.y, detection.ftcPose.x, Math.toRadians(detection.ftcPose.yaw));
 
                     Pose2d tagPose = FieldConstantsRed.getActiveTagPose(ActiveMotionValues.getActTag());
 
@@ -86,7 +91,6 @@ public class DetectAprilTags extends CommandBase {
                     myOpMode.telemetry.addData("FinalPose", finalTagPose.toString());
                     myOpMode.telemetry.addLine();
 
-                    myOpMode.telemetry.update();
 
 
                 }
@@ -97,7 +101,8 @@ public class DetectAprilTags extends CommandBase {
 
             int numTagsseen = currentDetections.size();
 
-        }
+        }   myOpMode.telemetry.update();
+
 
     }
 

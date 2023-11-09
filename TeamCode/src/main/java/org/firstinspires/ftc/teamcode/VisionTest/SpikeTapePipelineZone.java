@@ -30,20 +30,44 @@ public class SpikeTapePipelineZone extends OpenCvPipeline {
     private int numContours;
     private int usableContours;
 
-    Scalar lower = new Scalar(0, 20, 0);
-    Scalar upper = new Scalar(50, 255, 255);
+    /***
+     * Note the doule entries for variables
+     *
+     * Values with public have sliders available for tuning
+     *
+     * Only have the ones being tuned uncommented
+     *
+     * Too many sliders take up too much space so once the values are determined, comment the public entry,
+     * set the other to the value found by slider and uncomment it
+     *
+     *There are 4 sets of tunable entries
+     * Scalars are for color HSV tuning'
+     *
+     * Top and bottom set the upper and lower values of the image - leave enoughh for tolerance in placing robot on field
+     *
+     * Left and right set the zones for LCR determination
+     *
+     *
+     * The scalars need to be set separately for red and blue
+     *
+     * Copy values to red and blue pipelines in the CV package
+     *
+     */
 
 
 //    public Scalar lower = new Scalar(0, 20, 0);
 //    public Scalar upper = new Scalar(50, 255, 255);
 
-//    int maxLeft = 80;
+    Scalar lower = new Scalar(0, 20, 0);
+    Scalar upper = new Scalar(50, 255, 255);
+
+
 //     int left = 101;
 //     int right = 166;
 //     int maskTop = 100;
 //     int maskBottom = 180;
 
-    public int maxLeft = 80;
+
     public int left = 101;
     public int right = 166;
     public int maskTop = 100;
@@ -84,13 +108,17 @@ public class SpikeTapePipelineZone extends OpenCvPipeline {
         telemetry.addData("HEIGHT", imgHeight);
         telemetry.addData("HWidth", imgWidth);
 
+//left and right lines
+        if (left > (int) (imgWidth * .4)) left = (int) (imgWidth * .4);
+
+        if (right < (int) (imgWidth * .6)) right = (int) (imgWidth * .6);
 
         Point leftTop = new Point(left, 0);
         Point leftBottom = new Point(left, imgHeight);
         Point rightTop = new Point(right, 0);
         Point rightBottom = new Point(right, imgHeight);
 
-        Imgproc.line(src, leftTop, leftBottom, new Scalar(128, 128, 128), 3);
+        Imgproc.line(src, leftTop, leftBottom, new Scalar(128, 128, 0), 3);
 
         Imgproc.line(src, rightTop, rightBottom, new Scalar(128, 128, 128), 3);
 
@@ -101,7 +129,6 @@ public class SpikeTapePipelineZone extends OpenCvPipeline {
         leftBottom = new Point(0, maskBottom);
         rightBottom = new Point(imgWidth, maskBottom);
 
-        Imgproc.line(src, leftBottom, rightBottom, new Scalar(128, 128, 128), 3);
 
         if (maskTop > imgHeight / 2) maskTop = imgHeight / 2;
 
@@ -109,17 +136,15 @@ public class SpikeTapePipelineZone extends OpenCvPipeline {
 
         if (maskBottom > imgHeight) maskBottom = imgHeight;
 
-        Point a = new Point(0, maskTop);
+        Point t = new Point(0, maskTop);
+
         Point b = new Point(imgWidth, maskBottom);
 
-        Rect roi = new Rect(a, b);
+        Rect roi = new Rect(t, b);
 
-
-//
         cropped = src.submat(roi);
 
         src = cropped;
-
 
         Imgproc.blur(src, blur, new Size(1, 1));
 
@@ -211,7 +236,7 @@ public class SpikeTapePipelineZone extends OpenCvPipeline {
 
             }
         }
-        // Imgproc.line(src,new Point(100,0),new Point(100,imgHeight-1),new Scalar(128,128,128),6);
+
 
         telemetry.addData("NumCon", numContours);
         telemetry.addData("ValCon", usableContours);

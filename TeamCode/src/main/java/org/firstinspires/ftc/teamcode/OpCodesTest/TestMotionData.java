@@ -166,6 +166,7 @@ public class TestMotionData extends CommandOpMode {
         telemetry.addData("NearPark", ActiveMotionValues.getNearPark());
 
         telemetry.addData("LCR", ActiveMotionValues.getLcrpos());
+        telemetry.addData("TagNum", ActiveMotionValues.getActTag());
 
 
         telemetry.addData("Use SD", ActiveMotionValues.getUseStageDoor());
