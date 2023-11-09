@@ -163,17 +163,6 @@ public class ActiveMotionValues {
 
     private static Pose2d dropOffPose = new Pose2d();
 
-    public static void setYOffsetPose(Pose2d yOff) {
-        yOffsetPose = yOff;
-    }
-
-    public static Pose2d getYOffsetPose() {
-        return yOffsetPose;
-    }
-
-    public static void setXOffsetPose(Pose2d xOff) {
-        xOffsetPose = xOff;
-    }
 
     public static boolean getRedAlliance() {
         return redAlliance;
@@ -214,11 +203,6 @@ public class ActiveMotionValues {
     public static Pose2d getParkPose() {
         return parkPose;
     }
-
-
-    private static Pose2d yOffsetPose;
-    private static Pose2d xOffsetPose;
-
 
     //auto running
     private static boolean redAlliance;
