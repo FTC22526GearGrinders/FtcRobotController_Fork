@@ -19,7 +19,7 @@ import java.util.List;
 
 //for dashboard
 /*@Config*/
-public class SpikeTapePipelineRed extends OpenCvPipeline {
+public class SpikeTapePipeline extends OpenCvPipeline {
 
     //backlog of frames to average out to reduce noise
     ArrayList<double[]> frameList;
@@ -50,20 +50,25 @@ public class SpikeTapePipelineRed extends OpenCvPipeline {
 
     Mat hierarchy = new Mat();
 
-    Mat inverted = new Mat();
-
     Mat cropped = new Mat(src.rows(), src.cols(), src.type(), new Scalar(0));
 
-    Mat mask = new Mat(src.rows(), src.cols(), CvType.CV_8U, Scalar.all(0));
-
-
-    public SpikeTapePipelineRed() {
+    public SpikeTapePipeline(boolean red) {
         frameList = new ArrayList<>();
+
+        lower = new Scalar(1,1,1);
+        upper = new Scalar(2,2,2);
+
+        if (!red) {
+            lower = new Scalar(3,3,3);
+            upper = new Scalar(4,4,4);
+        }
 
     }
 
+
     @Override
     public Mat processFrame(Mat input) {
+
         src = input;
         if (src.empty()) {
             return input;
@@ -83,9 +88,9 @@ public class SpikeTapePipelineRed extends OpenCvPipeline {
         Point rightTop = new Point(right, 0);
         Point rightBottom = new Point(right, imgHeight);
 
-        Imgproc.line(src, leftTop, leftBottom, new Scalar(128, 128, 0), 3);
-
-        Imgproc.line(src, rightTop, rightBottom, new Scalar(128, 128, 128), 3);
+//        Imgproc.line(src, leftTop, leftBottom, new Scalar(128, 128, 0), 3);
+//
+//        Imgproc.line(src, rightTop, rightBottom, new Scalar(128, 128, 128), 3);
 
 
         leftTop = new Point(0, 0);
@@ -109,20 +114,14 @@ public class SpikeTapePipelineRed extends OpenCvPipeline {
 
         cropped = src.submat(roi);
 
-        src = cropped;
-
         new Scalar(255, 0, 0);
 
-
-        Imgproc.blur(src, blur, new Size(1, 1));
+        Imgproc.blur(cropped, blur, new Size(1, 1));
 
         Imgproc.cvtColor(blur, hsvMat, Imgproc.COLOR_BGR2HSV);
 
+
         Core.inRange(hsvMat, lower, upper, filtered);
-
-
-        Core.bitwise_not(filtered, inverted);
-        inverted.copyTo(dst);
 
 
         List<MatOfPoint> contours = new ArrayList<>();

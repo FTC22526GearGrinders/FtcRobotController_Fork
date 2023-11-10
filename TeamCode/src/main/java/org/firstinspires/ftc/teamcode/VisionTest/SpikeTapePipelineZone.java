@@ -55,11 +55,11 @@ public class SpikeTapePipelineZone extends OpenCvPipeline {
      */
 
 
-//    public Scalar lower = new Scalar(0, 20, 0);
-//    public Scalar upper = new Scalar(50, 255, 255);
+    public Scalar lower = new Scalar(0, 20, 0);
+    public Scalar upper = new Scalar(50, 255, 255);
 
-    Scalar lower = new Scalar(0, 20, 0);
-    Scalar upper = new Scalar(50, 255, 255);
+//    Scalar lower = new Scalar(0, 20, 0);
+//    Scalar upper = new Scalar(50, 255, 255);
 
 
 //     int left = 101;
@@ -120,7 +120,7 @@ public class SpikeTapePipelineZone extends OpenCvPipeline {
 
         Imgproc.line(src, leftTop, leftBottom, new Scalar(128, 128, 0), 3);
 
-        Imgproc.line(src, rightTop, rightBottom, new Scalar(128, 128, 128), 3);
+        Imgproc.line(src, rightTop, rightBottom, new Scalar(128, 128, 0), 3);
 
 
         leftTop = new Point(0, 0);
@@ -144,9 +144,7 @@ public class SpikeTapePipelineZone extends OpenCvPipeline {
 
         cropped = src.submat(roi);
 
-        src = cropped;
-
-        Imgproc.blur(src, blur, new Size(1, 1));
+        Imgproc.blur(cropped, blur, new Size(1, 1));
 
         Imgproc.cvtColor(blur, hsvMat, Imgproc.COLOR_BGR2HSV);
 
@@ -237,7 +235,7 @@ public class SpikeTapePipelineZone extends OpenCvPipeline {
             }
         }
 
-
+        telemetry.addData("LCR", lcr);
         telemetry.addData("NumCon", numContours);
         telemetry.addData("ValCon", usableContours);
         telemetry.addData("RRSize", rr.size());
@@ -251,9 +249,10 @@ public class SpikeTapePipelineZone extends OpenCvPipeline {
             frameList.remove(0);
         }
 
-        //return filtered;
-        return src;
 
+       // return src;
+       // return  cropped;
+        return filtered;
     }
 
     void sort(List<Double> rrAreas, List<Double> rrxval) {

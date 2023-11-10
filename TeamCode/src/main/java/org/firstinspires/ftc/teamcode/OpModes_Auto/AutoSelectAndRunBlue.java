@@ -37,7 +37,7 @@ import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.teamcode.CV.SpikeTapePipelineBlue;
+import org.firstinspires.ftc.teamcode.CV.SpikeTapePipeline;
 import org.firstinspires.ftc.teamcode.Commands.Auto.AutoActionsSequences;
 import org.firstinspires.ftc.teamcode.Commands.Auto.SelectMotionValuesBlue;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
@@ -67,7 +67,7 @@ public class AutoSelectAndRunBlue extends CommandOpMode {
     boolean buttonLocked = false;
     boolean useStageDoor = false;
     boolean secondPixel = true;
-    SpikeTapePipelineBlue sptopB = null;
+    SpikeTapePipeline sptop = null;
 
     @Override
     public void initialize() {
@@ -203,9 +203,9 @@ public class AutoSelectAndRunBlue extends CommandOpMode {
                 //start streaming the camera
                 webcam.startStreaming(640, 480, OpenCvCameraRotation.UPRIGHT);
 
-                sptopB = new SpikeTapePipelineBlue();
+                sptop = new SpikeTapePipeline(false);
 
-                webcam.setPipeline(sptopB);
+                webcam.setPipeline(sptop);
 
 
             }

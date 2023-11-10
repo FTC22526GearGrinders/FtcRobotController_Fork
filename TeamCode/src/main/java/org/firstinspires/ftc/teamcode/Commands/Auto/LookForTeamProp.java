@@ -4,8 +4,7 @@ import com.acmerobotics.dashboard.FtcDashboard;
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 
-import org.firstinspires.ftc.teamcode.CV.SpikeTapePipelineBlue;
-import org.firstinspires.ftc.teamcode.CV.SpikeTapePipelineRed;
+import org.firstinspires.ftc.teamcode.CV.SpikeTapePipeline;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraRotation;
@@ -25,13 +24,8 @@ import org.openftc.easyopencv.OpenCvWebcam;
  * */
 public class LookForTeamProp extends CommandBase {
 
-    public static int leftBorder = 100;
+    SpikeTapePipeline sptop = null;
 
-    public static int rightBorder = 250;
-
-    SpikeTapePipelineRed sptopR = null;
-
-    SpikeTapePipelineBlue sptopB = null;
 
     CommandOpMode myOpMode;
 
@@ -77,9 +71,13 @@ public class LookForTeamProp extends CommandBase {
                  * away from the user.
                  */
                 if (ActiveMotionValues.getRedAlliance())
-                    webcam.setPipeline(sptopR);
+                    sptop = new SpikeTapePipeline(true);
+
                 else
-                    webcam.setPipeline(sptopB);
+                    sptop = new SpikeTapePipeline(false);
+
+                webcam.setPipeline(sptop);
+
                 //start streaming the camera
                 webcam.startStreaming(640, 480, OpenCvCameraRotation.UPRIGHT);
 
@@ -101,14 +99,6 @@ public class LookForTeamProp extends CommandBase {
 
         lpctr = 0;
 
-        sptopB = new SpikeTapePipelineBlue();
-
-        sptopR = new SpikeTapePipelineRed();
-
-        if (ActiveMotionValues.getRedAlliance())
-            webcam.setPipeline(sptopR);
-        else
-            webcam.setPipeline(sptopB);
 
     }
 

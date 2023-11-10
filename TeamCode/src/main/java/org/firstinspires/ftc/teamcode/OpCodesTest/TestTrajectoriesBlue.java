@@ -3,13 +3,17 @@ package org.firstinspires.ftc.teamcode.OpCodesTest;
 import com.acmerobotics.dashboard.config.Config;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
+import com.arcrobotics.ftclib.command.ConditionalCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.Commands.Auto.DetectAprilTags;
 import org.firstinspires.ftc.teamcode.Commands.Auto.SelectAndRunTrajectory;
 import org.firstinspires.ftc.teamcode.Commands.Auto.SelectMotionValuesBlue;
+import org.firstinspires.ftc.teamcode.Commands.Drive.RunToAprilTag;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
+import org.firstinspires.ftc.teamcode.Commands.Utils.DoNothing;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.PixelHandlerSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.Vision_Subsystem;
@@ -61,11 +65,11 @@ public class TestTrajectoriesBlue extends CommandOpMode {
                 new SelectMotionValuesBlue(),
 
 
-                new SelectAndRunTrajectory(drive, phss)).schedule();
-        // new DetectAprilTags(this, vss, false)).schedule();
-//                new ConditionalCommand(
-//                        new RunToAprilTag(drive, this),
-//                        new DoNothing(), () -> ActiveMotionValues.getAprilTagSeen())).schedule();
+                new SelectAndRunTrajectory(drive, phss),
+                new DetectAprilTags(this, vss, false),
+                new ConditionalCommand(
+                        new RunToAprilTag(drive, this),
+                        new DoNothing(), () -> ActiveMotionValues.getAprilTagSeen())).schedule();
     }
 
     // Put run blocks here.
