@@ -109,6 +109,8 @@ public class LookForTeamProp extends CommandBase {
 
         myOpMode.telemetry.addData("Streaming", webcam.getFps());
 
+        myOpMode.telemetry.addData("LCR",ActiveMotionValues.getLcrpos());
+
 
         myOpMode.telemetry.update();
 

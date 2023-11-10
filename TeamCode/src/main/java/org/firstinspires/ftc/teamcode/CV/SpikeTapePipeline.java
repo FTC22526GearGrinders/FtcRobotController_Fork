@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.CV;
 
 
+import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
@@ -207,6 +208,10 @@ public class SpikeTapePipeline extends OpenCvPipeline {
             if (rrxval.get(0) > left && rrxval.get(0) < right) lcr = 2;
 
             if (rrxval.get(0) > right) lcr = 3;
+
+            ActiveMotionValues.setLcrpos(lcr);
+
+
 
 
         }
