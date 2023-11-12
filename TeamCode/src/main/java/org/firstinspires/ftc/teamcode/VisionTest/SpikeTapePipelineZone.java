@@ -116,9 +116,9 @@ public class SpikeTapePipelineZone extends OpenCvPipeline {
         Point rightTop = new Point(right, 0);
         Point rightBottom = new Point(right, imgHeight);
 
-        Imgproc.line(src, leftTop, leftBottom, new Scalar(128, 128, 0), 3);
-
-        Imgproc.line(src, rightTop, rightBottom, new Scalar(128, 128, 0), 3);
+//        Imgproc.line(src, leftTop, leftBottom, new Scalar(128, 128, 0), 3);
+//
+//        Imgproc.line(src, rightTop, rightBottom, new Scalar(128, 128, 0), 3);
 
 
         leftTop = new Point(0, 0);
@@ -142,7 +142,7 @@ public class SpikeTapePipelineZone extends OpenCvPipeline {
 
         cropped = src.submat(roi);
 
-        Imgproc.blur(cropped, blur, new Size(1, 1));
+        Imgproc.blur(cropped, blur, new Size(5, 5));
 
         Imgproc.cvtColor(blur, hsvMat, Imgproc.COLOR_BGR2HSV);
 
@@ -250,9 +250,9 @@ public class SpikeTapePipelineZone extends OpenCvPipeline {
         }
 
 
-       // return src;
+        return src;
        // return  cropped;
-        return filtered;
+        //return filtered;
     }
 
     void sort(List<Double> rrAreas, List<Double> rrxval) {

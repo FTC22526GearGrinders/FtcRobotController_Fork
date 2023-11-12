@@ -210,9 +210,9 @@ public class ActiveMotionValues {
     private static boolean bbStart;
 
 
-    private static int lcrpos = 2;
+    private static int lcrpos = 0;
 
-    private static int actTag = 5;
+    private static int actTag = 0;
 
     private static boolean useStageDoor = false;
 

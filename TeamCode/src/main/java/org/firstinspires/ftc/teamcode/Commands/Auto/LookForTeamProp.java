@@ -129,7 +129,7 @@ public class LookForTeamProp extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return false;
+        return false; //ActiveMotionValues.getLcrpos() != 0;
     }
 
 

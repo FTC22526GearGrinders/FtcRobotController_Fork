@@ -29,9 +29,9 @@ public class AutoActionsSequences extends SequentialCommandGroup {
 
                 new SequentialCommandGroup(
 
-                        new LookForTeamProp(opMode, webcam).withTimeout(8),
+                        new LookForTeamProp(opMode, webcam),
 
-                        new SelectAndRunTrajectory(drive, phss).withTimeout(10),
+                        new SelectAndRunTrajectory(drive, phss).withTimeout(10000),
 
                         new ConditionalCommand(
 

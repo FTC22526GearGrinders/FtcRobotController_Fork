@@ -31,17 +31,19 @@ public class SpikeTapePipeline extends OpenCvPipeline {
     private int usableContours;
 
 
-    Scalar lower = new Scalar(0, 20, 0);
-    Scalar upper = new Scalar(50, 255, 255);
+    public static Scalar lower = new Scalar(87, 51, 0);//(80,55,0);//new Scalar(0, 20, 0);
+    public static Scalar upper = new Scalar(153, 255, 255);//(138, 255, 255);//new Scalar(50, 255, 255);
 
 
-    static int left = 80;
+    static int left = 130;
 
-    static int right = 220;
+    static int right = 190;//213;
 
-    int maskTop = 0;
+    int maskTop = 120;
 
-    static int maskBottom = 50;
+    static int maskBottom = 240;
+
+    private int lpctr = 0;
 
     Mat src = new Mat();
     Mat dst = new Mat(src.rows(), src.cols(), src.type(), new Scalar(0));
@@ -56,13 +58,14 @@ public class SpikeTapePipeline extends OpenCvPipeline {
     public SpikeTapePipeline(boolean red) {
         frameList = new ArrayList<>();
 
-        lower = new Scalar(1,1,1);
-        upper = new Scalar(2,2,2);
+        lower = new Scalar(87, 51, 0);//(80,55,0);
+        upper = new Scalar(153, 255, 255);//(138, 255, 255);
 
         if (!red) {
-            lower = new Scalar(3,3,3);
-            upper = new Scalar(4,4,4);
+            lower = new Scalar(0, 103, 72);
+            upper = new Scalar(77, 255, 255);
         }
+        lpctr = 0;
 
     }
 
@@ -89,9 +92,9 @@ public class SpikeTapePipeline extends OpenCvPipeline {
         Point rightTop = new Point(right, 0);
         Point rightBottom = new Point(right, imgHeight);
 
-//        Imgproc.line(src, leftTop, leftBottom, new Scalar(128, 128, 0), 3);
+        //     Imgproc.line(src, leftTop, leftBottom, new Scalar(128, 128, 0), 3);
 //
-//        Imgproc.line(src, rightTop, rightBottom, new Scalar(128, 128, 128), 3);
+        //     Imgproc.line(src, rightTop, rightBottom, new Scalar(128, 128, 128), 3);
 
 
         leftTop = new Point(0, 0);
@@ -203,16 +206,22 @@ public class SpikeTapePipeline extends OpenCvPipeline {
             sort(rrAreas, rrxval);
 
 
-            if (rrxval.get(0) < left) lcr = 1;
-
-            if (rrxval.get(0) > left && rrxval.get(0) < right) lcr = 2;
-
-            if (rrxval.get(0) > right) lcr = 3;
-
+            lcr = 0;
             ActiveMotionValues.setLcrpos(lcr);
 
+            lpctr++;
 
+if(usableContours >= 3) {
 
+    if (rrxval.get(0) < left) lcr = 1;
+
+    if (rrxval.get(0) > left && rrxval.get(0) < right) lcr = 2;
+
+    if (rrxval.get(0) > right) lcr = 3;
+
+    ActiveMotionValues.setLcrpos(lcr);
+
+}
 
         }
 
