@@ -21,15 +21,12 @@
 
 package org.firstinspires.ftc.teamcode.VisionTest;
 
-import static android.os.SystemClock.sleep;
-
-import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
 import org.opencv.core.MatOfPoint2f;
 import org.opencv.core.Point;
-import org.opencv.core.Rect;
 import org.opencv.core.RotatedRect;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
@@ -40,52 +37,38 @@ import java.util.List;
 
 //@Disabled
 public class StageSwitchingPipeline extends OpenCvPipeline {
+    public int redThreshold = 170;
+    public int blueThreshold = 150;
+    public boolean red = true;
+    public int left = 146;
+    public int right = 231;
     Mat yCbCrChan2Mat = new Mat();
     Mat thresholdMat = new Mat();
     Mat contoursOnFrameMat = new Mat();
     List<MatOfPoint> contoursList = new ArrayList<>();
+    List<RotatedRect> rr = new ArrayList<>();
+    List<Double> rrxval = new ArrayList<>();
+    List<Double> rrAreas = new ArrayList<>();
     int numContoursFound;
-
     int usableContours;
-
     int thresh = 0;
-
-    public int redThreshold = 170;
-    public int blueThreshold = 150;
-
-    public boolean red;
-    private int column = 1;
-
-    public int left = 250;
-
-    public int right = 420;
-    int maskTop = 50;
-    int maskBottom = 180;
-    private int imgHeight = 480;
-
-    private int imgWidth = 640;
-
-    double[] areas = {0, 0, 0};
-    double[] xvalues = {0, 0, 0};
-
-    enum Stage {
-        YCbCr_CHAN0,
-        THRESHOLD,
-        CONTOURS_OVERLAYED_ON_FRAME,
-        RAW_IMAGE,
-    }
-
-    // private Stage stageToRenderToViewport = Stage.YCbCr_CHAN2;
-    private Stage stageToRenderToViewport = Stage.CONTOURS_OVERLAYED_ON_FRAME;
-
-
-    private Stage[] stages = Stage.values();
-
     double lastX = 0;
+    int lpctr;
+    Telemetry telemetry;
+    private int column = 1;
+    private final int imgHeight = 240;
+    private final int imgWidth = 320;
 
+    Point leftTop = new Point(left, 0);
+    Point leftBottom = new Point(left, imgHeight);
+    Point rightTop = new Point(right, 0);
+    Point rightBottom = new Point(right, imgHeight);
 
-    public StageSwitchingPipeline(boolean red) {
-        this.red = red;
+    private Stage stageToRenderToViewport = Stage.CONTOURS_OVERLAYED_ON_FRAME;
+    private final Stage[] stages = Stage.values();
+
+    public StageSwitchingPipeline(Telemetry telemetry) {
+        this.telemetry = telemetry;
     }
 
     @Override
@@ -109,27 +92,16 @@ public class StageSwitchingPipeline extends OpenCvPipeline {
     @Override
     public Mat processFrame(Mat input) {
 
-        contoursList.clear();
         Mat src = input;
-        // Imgproc.resize(input, src, new Size(320, 240));
+        if (src.empty()) {
+            return input;
+        }
 
-        Point leftTop = new Point(left, 0);
-        Point leftBottom = new Point(left, imgHeight);
-        Point rightTop = new Point(right, 0);
-        Point rightBottom = new Point(right, imgHeight);
+        lpctr = 0;
 
-        Point t = new Point(0, maskTop);
+        Imgproc.line(src, leftTop, leftBottom, new Scalar(128, 128, 0));
 
-        Point b = new Point(imgWidth, maskBottom);
-
-        Rect roi = new Rect(t, b);
-        sleep(100);
-
-        Mat cropped = src;//src.submat(roi);
-
-        Imgproc.line(input, leftTop, leftBottom, new Scalar(128, 128, 0));
-
-        Imgproc.line(input, rightTop, rightBottom, new Scalar(128, 128, 0));
+        Imgproc.line(src, rightTop, rightBottom, new Scalar(128, 128, 0));
 
         if (!red) {
             column = 2;
@@ -141,32 +113,27 @@ public class StageSwitchingPipeline extends OpenCvPipeline {
         }
 
 
-        Imgproc.cvtColor(cropped, yCbCrChan2Mat, Imgproc.COLOR_RGB2YCrCb);
+        Imgproc.cvtColor(src, yCbCrChan2Mat, Imgproc.COLOR_RGB2YCrCb);
 
         Core.extractChannel(yCbCrChan2Mat, yCbCrChan2Mat, column);
 
         Imgproc.threshold(yCbCrChan2Mat, thresholdMat, thresh, 255, Imgproc.THRESH_BINARY_INV);
 
+        usableContours = 0;
+        contoursList.clear();
+        rr.clear();
+        rrAreas.clear();
+        rrxval.clear();
+
         Imgproc.findContours(thresholdMat, contoursList, new Mat(), Imgproc.RETR_LIST, Imgproc.CHAIN_APPROX_SIMPLE);
 
         numContoursFound = contoursList.size();
 
-        cropped.copyTo(contoursOnFrameMat);
+        src.copyTo(contoursOnFrameMat);
 
         Imgproc.drawContours(contoursOnFrameMat, contoursList, -1, new Scalar(255, 255, 255), 3, -1);
 
-        List<RotatedRect> rr = new ArrayList<>();
 
-        List<Double> rrxval = new ArrayList<>();
-
-        List<Double> rrAreas = new ArrayList<>();
-
-        usableContours = 0;
-        for (int p = 0; p < areas.length; p++) {
-            areas[p] = 0;
-            xvalues[0] = 0;
-
-        }
         MatOfPoint2f approxCurve = new MatOfPoint2f();
 
         //For each contour found
@@ -185,52 +152,65 @@ public class StageSwitchingPipeline extends OpenCvPipeline {
 
 
             //don't use too small or too large (image frame)
-            double smallLimit = 400;
+            double smallLimit = 0;
 
-            double largLimit = 10000;
 
-            double xCloseLimit = 10;
+            double xCloseLimit = 1000;
 
-            if (temp.size.area() > smallLimit && temp.size.area() < largLimit) {
+            if (temp.size.area() > smallLimit) {
 
                 double currentX = temp.center.x;
 
-                if (Math.abs(currentX - lastX) > xCloseLimit) {
+                //  if (Math.abs(currentX - lastX) > xCloseLimit) {
 
-                    rr.add(temp);
+                rr.add(temp);
 
-                    rrAreas.add(temp.size.area());
-                    rrxval.add(temp.center.x);
+                rrAreas.add(temp.size.area());
+                rrxval.add(temp.center.x);
+                usableContours++;
 
-                    areas[usableContours] = rrAreas.get(usableContours);
-                    xvalues[usableContours] = rrxval.get(usableContours);
-                    usableContours++;
-                }
-
-                lastX = currentX;
             }
         }
 
 
         if (usableContours >= 2) {
-
-
             sort(rrAreas, rrxval);
         }
 
         int lcr = 0;
 
-
         if (usableContours >= 1) {
-            int n = 0;
-            if (rrxval.get(n) < left) lcr = 1;
 
-            if (rrxval.get(n) > left && rrxval.get(n) < right) lcr = 2;
+            double temp = getX(1);
+            if (temp < left) lcr = 1;
 
-            if (rrxval.get(n) > right) lcr = 3;
+            if (temp > left && temp < right) lcr = 2;
+
+            if (temp > right) lcr = 3;
         }
-        ActiveMotionValues.setLcrpos(lcr);
 
+        telemetry.addData("LCR", lcr);
+        telemetry.addData("NumCon", numContoursFound);
+        telemetry.addData("ValCon", usableContours);
+        if (!rr.isEmpty())
+            telemetry.addData("RRSize", rr.size());
+        if (!rrxval.isEmpty())
+            telemetry.addData("XVALSize", rrxval.size());
+        if (!rrAreas.isEmpty())
+            telemetry.addData("AreasSize",rrAreas.size());
+
+
+        telemetry.addData("Area0", getArea(0));
+        telemetry.addData("X0", getX(0));
+        telemetry.addData("Area1", getArea(1));
+        telemetry.addData("X1", getX(1));
+        telemetry.addData("Area2", getArea(2));
+        telemetry.addData("X2", getX(2));
+
+
+        telemetry.update();
+
+        lpctr = 0;
         switch (stageToRenderToViewport) {
             case YCbCr_CHAN0: {
                 return yCbCrChan2Mat;
@@ -245,11 +225,11 @@ public class StageSwitchingPipeline extends OpenCvPipeline {
             }
 
             case RAW_IMAGE: {
-                return cropped;
+                return src;
             }
 
             default: {
-                return cropped;
+                return src;
             }
 
         }
@@ -259,11 +239,9 @@ public class StageSwitchingPipeline extends OpenCvPipeline {
         return numContoursFound;
     }
 
-
     public boolean getRedPipeline() {
         return this.red;
     }
-
 
     public void setRedThreshold(int num) {
         redThreshold = num;
@@ -282,13 +260,20 @@ public class StageSwitchingPipeline extends OpenCvPipeline {
     }
 
     public double getArea(int n) {
-        return areas[n];
+        if (rrAreas.isEmpty())
+            return 0;
+        else if (rrAreas.size() > n)
+            return Math.round(rrAreas.get(n));
+        else return 0;
     }
 
     public double getX(int n) {
-        return xvalues[n];
+        if (rrxval.isEmpty())
+            return 0;
+        else if (rrxval.size() > n)
+            return Math.round(rrxval.get(n));
+        else return 0;
     }
-
 
     void sort(List<Double> rrAreas, List<Double> rrxval) {
         int n = rrAreas.size();
@@ -309,5 +294,13 @@ public class StageSwitchingPipeline extends OpenCvPipeline {
             rrAreas.set(j + 1, key);
             rrxval.set(j + 1, temp);
         }
+    }
+
+
+    enum Stage {
+        YCbCr_CHAN0,
+        THRESHOLD,
+        CONTOURS_OVERLAYED_ON_FRAME,
+        RAW_IMAGE,
     }
 }

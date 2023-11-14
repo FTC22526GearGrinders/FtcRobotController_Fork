@@ -42,6 +42,13 @@ public class LookForTeamElement extends CommandOpMode {
     public static int redThreshold = 170;
     public static int blueThreshold = 150;
 
+    public static int left = 146;
+
+    public static int right = 231;
+
+    int lastleft;
+
+    int lastRight;
     int lastBlue;
 
     int lastRed;
@@ -128,20 +135,39 @@ public class LookForTeamElement extends CommandOpMode {
             lastRed = redThreshold;
         }
 
+        if (lastleft != left) {
+            sptop.left = left;
+            lastleft = left;
+        }
+        if (lastRight != right) {
+            sptop.right = right;
+            lastRight = right;
+        }
+
         telemetry.addData("Streaming", webcam.getFps());
+        telemetry.addData("RRAIsempty", sptop.rrAreas.isEmpty());
 
         telemetry.addData("LCR", ActiveMotionValues.getLcrpos());
         telemetry.addData("Red", sptop.getRedPipeline());
         telemetry.addData("BlTh", sptop.blueThreshold);
 
+        telemetry.addData("LCR", sptop.lcr);
+        telemetry.addData("NumCon", sptop.numContoursFound);
+        telemetry.addData("ValCon", sptop.usableContours);
+        if (!sptop.rr.isEmpty())
+            telemetry.addData("RRSize", sptop.rr.size());
+        if (!sptop.rrxval.isEmpty())
+            telemetry.addData("XVALSize", sptop.rrxval.size());
+        if (!sptop.rrAreas.isEmpty())
+            telemetry.addData("AreasSize", sptop.rrAreas.size());
+
+        telemetry.addData("area0", sptop.getArea(0));
+        telemetry.addData("X0", sptop.getX(0));
         telemetry.addData("area1", sptop.getArea(1));
         telemetry.addData("X1", sptop.getX(1));
 
         telemetry.addData("area2", sptop.getArea(2));
         telemetry.addData("X2", sptop.getX(2));
-
-        telemetry.addData("area0", sptop.getArea(0));
-        telemetry.addData("X0", sptop.getX(0));
 
 
         if (sptop.getUsableContours() > 1) {
