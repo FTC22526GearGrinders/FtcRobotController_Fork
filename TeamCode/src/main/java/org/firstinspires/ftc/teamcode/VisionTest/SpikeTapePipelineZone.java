@@ -116,9 +116,9 @@ public class SpikeTapePipelineZone extends OpenCvPipeline {
         Point rightTop = new Point(right, 0);
         Point rightBottom = new Point(right, imgHeight);
 
-//        Imgproc.line(src, leftTop, leftBottom, new Scalar(128, 128, 0), 3);
+        Imgproc.line(src, leftTop, leftBottom, new Scalar(128, 128, 0), 1);
 //
-//        Imgproc.line(src, rightTop, rightBottom, new Scalar(128, 128, 0), 3);
+        Imgproc.line(src, rightTop, rightBottom, new Scalar(128, 128, 0), 1);
 
 
         leftTop = new Point(0, 0);
@@ -141,14 +141,16 @@ public class SpikeTapePipelineZone extends OpenCvPipeline {
         Rect roi = new Rect(t, b);
 
         cropped = src.submat(roi);
+        Mat pydn = new Mat();
+        Imgproc.pyrDown(cropped, pydn);
 
-        Imgproc.blur(cropped, blur, new Size(5, 5));
+        Imgproc.blur(pydn, blur, new Size(7, 7));
 
         Imgproc.cvtColor(blur, hsvMat, Imgproc.COLOR_BGR2HSV);
 
         Core.inRange(hsvMat, lower, upper, filtered);
-
-
+        Mat c = new Mat();
+        Imgproc.dilate(filtered, c, new Mat());
 //        Core.bitwise_not(filtered, inverted);
 //        inverted.copyTo(filtered);
 
@@ -156,7 +158,7 @@ public class SpikeTapePipelineZone extends OpenCvPipeline {
         List<MatOfPoint> contours = new ArrayList<>();
 
 
-        Imgproc.findContours(filtered, contours, hierarchy, Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE);
+        Imgproc.findContours(c, contours, hierarchy, Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE);
 //
         numContours = contours.size();
 
@@ -215,7 +217,9 @@ public class SpikeTapePipelineZone extends OpenCvPipeline {
 
             sort(rrAreas, rrxval);
 
+        }
 
+        if (rrAreas.get(0) > 500) {
             if (rrxval.get(0) < left) lcr = 1;
 
             if (rrxval.get(0) > left && rrxval.get(0) < right) lcr = 2;
@@ -249,10 +253,11 @@ public class SpikeTapePipelineZone extends OpenCvPipeline {
             frameList.remove(0);
         }
 
-
-        return src;
-       // return  cropped;
-        //return filtered;
+//return c;
+        // return src;
+        // return  cropped;
+        // return pydn;
+        return filtered;
     }
 
     void sort(List<Double> rrAreas, List<Double> rrxval) {

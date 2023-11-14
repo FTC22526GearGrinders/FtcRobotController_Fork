@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.CV;
 
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.opencv.core.Core;
-import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
 import org.opencv.core.MatOfPoint2f;
@@ -31,17 +30,12 @@ public class SpikeTapePipeline extends OpenCvPipeline {
     private int usableContours;
 
 
-    public static Scalar lower = new Scalar(87, 51, 0);//(80,55,0);//new Scalar(0, 20, 0);
-    public static Scalar upper = new Scalar(153, 255, 255);//(138, 255, 255);//new Scalar(50, 255, 255);
-
-
-    static int left = 130;
-
-    static int right = 190;//213;
-
-    int maskTop = 120;
-
-    static int maskBottom = 240;
+    public Scalar lowerRed = new Scalar(0, 86, 96);
+    public Scalar upperRed = new Scalar(137.4, 255, 255);
+    int left = 128;
+    int right = 217;
+    int maskTop = 92;
+    int maskBottom = 180;
 
     private int lpctr = 0;
 
@@ -55,16 +49,23 @@ public class SpikeTapePipeline extends OpenCvPipeline {
 
     Mat cropped = new Mat(src.rows(), src.cols(), src.type(), new Scalar(0));
 
+
+    public double[] areas = {0, 0, 0,0,0};
+
+    public int imgWidth = 0;
+
+    public int imgHeight = 0;
+
     public SpikeTapePipeline(boolean red) {
         frameList = new ArrayList<>();
 
-        lower = new Scalar(87, 51, 0);//(80,55,0);
-        upper = new Scalar(153, 255, 255);//(138, 255, 255);
+//        lower = new Scalar(87, 51, 0);//(80,55,0);
+//        upper = new Scalar(153, 255, 255);//(138, 255, 255);
 
-        if (!red) {
-            lower = new Scalar(0, 103, 72);
-            upper = new Scalar(77, 255, 255);
-        }
+//        if (!red) {
+//            lower = new Scalar(0, 103, 72);
+//            upper = new Scalar(77, 255, 255);
+//        }
         lpctr = 0;
 
     }
@@ -78,9 +79,15 @@ public class SpikeTapePipeline extends OpenCvPipeline {
             return input;
         }
 
-        int imgWidth = input.width();
+        Imgproc.resize(input, src, new Size(320, 240));
 
-        int imgHeight = input.height();
+        if (!src.empty()) {
+            imgWidth = src.width();
+
+            imgHeight = src.height();
+
+        }
+
 
         //left and right lines
         if (left > (int) (imgWidth * .4)) left = (int) (imgWidth * .4);
@@ -91,11 +98,6 @@ public class SpikeTapePipeline extends OpenCvPipeline {
         Point leftBottom = new Point(left, imgHeight);
         Point rightTop = new Point(right, 0);
         Point rightBottom = new Point(right, imgHeight);
-
-        //     Imgproc.line(src, leftTop, leftBottom, new Scalar(128, 128, 0), 3);
-//
-        //     Imgproc.line(src, rightTop, rightBottom, new Scalar(128, 128, 128), 3);
-
 
         leftTop = new Point(0, 0);
         rightTop = new Point(0, 0);
@@ -120,19 +122,17 @@ public class SpikeTapePipeline extends OpenCvPipeline {
 
         new Scalar(255, 0, 0);
 
-        Imgproc.blur(cropped, blur, new Size(1, 1));
+        Imgproc.blur(cropped, blur, new Size(7, 7));
 
         Imgproc.cvtColor(blur, hsvMat, Imgproc.COLOR_BGR2HSV);
 
-
-        Core.inRange(hsvMat, lower, upper, filtered);
-
+        Core.inRange(hsvMat, lowerRed, upperRed, filtered);
 
         List<MatOfPoint> contours = new ArrayList<>();
 
 
         Imgproc.findContours(filtered, contours, hierarchy, Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE);
-//
+
         numContours = contours.size();
 
         usableContours = 0;
@@ -159,7 +159,7 @@ public class SpikeTapePipeline extends OpenCvPipeline {
 
             RotatedRect temp = Imgproc.minAreaRect(contour2f);
 
-            if (temp.size.area() > 500) {
+         //   if (temp.size.area() > 50) {
 
                 rr.add(temp);
 
@@ -169,59 +169,47 @@ public class SpikeTapePipeline extends OpenCvPipeline {
 
                 usableContours++;
 
-            }
+       //     }
 
 
             Point points[] = new Point[4];
 
             temp.points(points);
+
             Scalar color = new Scalar(128, 128, 128);
-
-//            Point leftTop = new Point( left,0);
-//            Point leftBottom = new Point(left, imgHeight - 10);
-//            Point rightTop = new Point(right, 0);
-//            Point rightBottom = new Point(right, imgHeight - 10);
-//
-//            Imgproc.line(src, leftTop, leftBottom, new Scalar(128, 128, 128), 3);
-//
-//            Imgproc.line(src, rightTop, rightBottom, new Scalar(128, 128, 128), 3);
-//
-//            leftTop = new Point(0, 0);
-//            rightTop = new Point(0, 0);
-//
-//            leftBottom = new Point(0, maskBottom);
-//            rightBottom = new Point(imgWidth, maskBottom);
-//
-//            Imgproc.line(src, leftBottom, rightBottom, new Scalar(128, 128, 128), 3);
-
 
         }
 
 
         //sort rr by area ann save x values
 
-        if (usableContours >= 3) {
+        if (usableContours >1) {
 
 
             sort(rrAreas, rrxval);
 
+            areas[0] = rrAreas.get(0);
+            areas[1] = rrAreas.get(1);
+          //  areas[2] = rrAreas.get(2);
 
             lcr = 0;
+
             ActiveMotionValues.setLcrpos(lcr);
 
             lpctr++;
 
-if(usableContours >= 3) {
 
-    if (rrxval.get(0) < left) lcr = 1;
+            if (usableContours >= 1) {
 
-    if (rrxval.get(0) > left && rrxval.get(0) < right) lcr = 2;
+                if (rrxval.get(0) < left) lcr = 1;
 
-    if (rrxval.get(0) > right) lcr = 3;
+                if (rrxval.get(0) > left && rrxval.get(0) < right) lcr = 2;
 
-    ActiveMotionValues.setLcrpos(lcr);
+                if (rrxval.get(0) > right) lcr = 3;
 
-}
+                ActiveMotionValues.setLcrpos(lcr);
+
+            }
 
         }
 
@@ -230,8 +218,10 @@ if(usableContours >= 3) {
             frameList.remove(0);
         }
 
-        return cropped;
-
+        return filtered;
+        // return src;
+        //return cropped;
+        // return  c;
 
     }
 
@@ -256,6 +246,35 @@ if(usableContours >= 3) {
         }
     }
 
+    public int getImgWidth() {
+        return imgWidth;
+    }
+
+    public int getImgHeight() {
+        return imgHeight;
+    }
+
+    public int getNumContours() {
+        return numContours;
+    }
+
+    public int getUsableContours() {
+        return usableContours;
+    }
+
+    public double getArea(int n) {
+        if (n <= usableContours)
+            return areas[n];
+        else return 0;
+    }
+
+    public String getScalarLo() {
+        return lowerRed.toString();
+    }
+
+    public String getScalarHi() {
+        return upperRed.toString();
+    }
 
 }
 

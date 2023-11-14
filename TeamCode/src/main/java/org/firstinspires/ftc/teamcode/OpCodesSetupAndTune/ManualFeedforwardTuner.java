@@ -45,6 +45,7 @@ public class ManualFeedforwardTuner extends LinearOpMode {
     // public static PIDCoefficients ffTune = new PIDCoefficients(0.1, 0.005, 0.08);//kv,ka,ks
     public static double kV = .1;
     public static double kA = 0;
+
     public static double kS = .02;
     private final FtcDashboard dashboard = FtcDashboard.getInstance();
 

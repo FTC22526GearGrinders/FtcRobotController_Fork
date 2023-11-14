@@ -6,9 +6,10 @@ import com.arcrobotics.ftclib.command.CommandOpMode;
 
 import org.firstinspires.ftc.teamcode.CV.SpikeTapePipeline;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
-import org.openftc.easyopencv.OpenCvCamera;
-import org.openftc.easyopencv.OpenCvCameraRotation;
+import org.openftc.easyopencv.OpenCvPipeline;
 import org.openftc.easyopencv.OpenCvWebcam;
+
+import java.util.Timer;
 
 /*Camera needs to see all 3 spike tapes with enough space to the left, top and right for
  *the area of the prop
@@ -34,86 +35,46 @@ public class LookForTeamProp extends CommandBase {
 
     private OpenCvWebcam webcam;
 
-
+    int lastlcr;
     double lpctr;
 
+    Timer timer = new Timer();
 
-    public LookForTeamProp(CommandOpMode opMode, OpenCvWebcam webcam) {
+    private OpenCvPipeline pl;
+
+    private boolean noEnd;
+
+
+    public LookForTeamProp(CommandOpMode opMode, OpenCvWebcam webcam, boolean noEnd) {
         myOpMode = opMode;
         this.webcam = webcam;
-
+        this.noEnd=noEnd;
     }
 
     @Override
     public void initialize() {
 
-
-        webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
-
-
-            @Override
-
-            public void onOpened() {
-                /*
-                 * Tell the webcam to start streaming images to us! Note that you must make sure
-                 * the resolution you specify is supported by the camera. If it is not, an exception
-                 * will be thrown.
-                 *
-                 * Keep in mind that the SDK's UVC driver (what OpenCvWebcam uses under the hood) only
-                 * supports streaming from the webcam in the uncompressed YUV image format. This means
-                 * that the maximum resolution you can stream at and still get up to 30FPS is 480p (640x480).
-                 * Streaming at e.g. 720p will limit you to up to 10FPS and so on and so forth.
-                 *
-                 * Also, we specify the rotation that the webcam is used in. This is so that the image
-                 * from the camera sensor can be rotated such that it is always displayed with the image upright.
-                 * For a front facing camera, rotation is defined assuming the user is looking at the screen.
-                 * For a rear facing camera or a webcam, rotation is defined assuming the camera is facing
-                 * away from the user.
-                 */
-                if (ActiveMotionValues.getRedAlliance())
-                    sptop = new SpikeTapePipeline(true);
-
-                else
-                    sptop = new SpikeTapePipeline(false);
-
-                webcam.setPipeline(sptop);
-
-                //start streaming the camera
-                webcam.startStreaming(640, 480, OpenCvCameraRotation.UPRIGHT);
-
-
-                //if you are using dashboard, update dashboard camera view
-                FtcDashboard.getInstance().startCameraStream(webcam, 5);
-
-
-            }
-
-            @Override
-            public void onError(int errorCode) {
-                /*
-                 * This will be called if the camera could not be opened
-                 */
-            }
-        });
-
-
-        lpctr = 0;
+        lastlcr = 0;
 
 
     }
 
     @Override
     public void execute() {
+
         lpctr++;
 
+        int currentLCR = ActiveMotionValues.getLcrpos();
 
-        myOpMode.telemetry.addData("Streaming", webcam.getFps());
+        if (currentLCR != 0 && lastlcr == 0)
+            lastlcr = currentLCR;
 
-        myOpMode.telemetry.addData("LCR",ActiveMotionValues.getLcrpos());
-
-
-        myOpMode.telemetry.update();
-
+        if (lastlcr != 0 && lastlcr == currentLCR)
+            lpctr++;
+        else {
+            lastlcr = 0;
+            lpctr = 0;
+        }
 
     }
 
@@ -129,7 +90,7 @@ public class LookForTeamProp extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return false; //ActiveMotionValues.getLcrpos() != 0;
+        return !noEnd &&(lpctr > 5 && ActiveMotionValues.getLcrpos() != 0);
     }
 
 
