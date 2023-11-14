@@ -19,7 +19,7 @@
  * SOFTWARE.
  */
 
-package org.firstinspires.ftc.teamcode.VisionTest;
+package org.firstinspires.ftc.teamcode.CV;
 
 import static android.os.SystemClock.sleep;
 
@@ -39,7 +39,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 //@Disabled
-public class StageSwitchingPipeline extends OpenCvPipeline {
+public class StageSwitchingPipelineFull extends OpenCvPipeline {
     Mat yCbCrChan2Mat = new Mat();
     Mat thresholdMat = new Mat();
     Mat contoursOnFrameMat = new Mat();
@@ -81,10 +81,8 @@ public class StageSwitchingPipeline extends OpenCvPipeline {
 
     private Stage[] stages = Stage.values();
 
-    double lastX = 0;
 
-
-    public StageSwitchingPipeline(boolean red) {
+    public StageSwitchingPipelineFull(boolean red) {
         this.red = red;
     }
 
@@ -184,30 +182,16 @@ public class StageSwitchingPipeline extends OpenCvPipeline {
             RotatedRect temp = Imgproc.minAreaRect(contour2f);
 
 
-            //don't use too small or too large (image frame)
-            double smallLimit = 400;
+            if (temp.size.area() > 400 && temp.size.area() < 10000) {
 
-            double largLimit = 10000;
+                rr.add(temp);
 
-            double xCloseLimit = 10;
+                rrAreas.add(temp.size.area());
+                rrxval.add(temp.center.x);
 
-            if (temp.size.area() > smallLimit && temp.size.area() < largLimit) {
-
-                double currentX = temp.center.x;
-
-                if (Math.abs(currentX - lastX) > xCloseLimit) {
-
-                    rr.add(temp);
-
-                    rrAreas.add(temp.size.area());
-                    rrxval.add(temp.center.x);
-
-                    areas[usableContours] = rrAreas.get(usableContours);
-                    xvalues[usableContours] = rrxval.get(usableContours);
-                    usableContours++;
-                }
-
-                lastX = currentX;
+                areas[usableContours] = rrAreas.get(usableContours);
+                xvalues[usableContours] = rrxval.get(usableContours);
+                usableContours++;
             }
         }
 

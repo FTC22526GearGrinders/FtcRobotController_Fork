@@ -204,7 +204,7 @@ public class AutoSelectAndRunBlueBBStart extends CommandOpMode {
                 //    webcam.setPipeline(stpb);
                 // webcam.setPipeline(stpb);
                 //start streaming the camera
-                webcam.startStreaming(640, 480, OpenCvCameraRotation.UPRIGHT);
+                webcam.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
 
                 sptop = new SpikeTapePipeline(false);
 

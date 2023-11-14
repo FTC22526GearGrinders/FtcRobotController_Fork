@@ -42,6 +42,10 @@ public class LookForTeamElement extends CommandOpMode {
     public static int redThreshold = 170;
     public static int blueThreshold = 150;
 
+    int lastBlue;
+
+    int lastRed;
+
 
     public void initialize() {
 
@@ -54,7 +58,6 @@ public class LookForTeamElement extends CommandOpMode {
 
 
         sptop = new StageSwitchingPipeline(redAlliance);
-
 
 
         telemetry = new MultipleTelemetry(telemetry, dashboard.getTelemetry());
@@ -91,7 +94,7 @@ public class LookForTeamElement extends CommandOpMode {
                 webcam.setPipeline(sptop);
                 // webcam.setPipeline(stpb);
                 //start streaming the camera
-                webcam.startStreaming(640, 480, OpenCvCameraRotation.UPRIGHT);
+                webcam.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
 
                 //if you are using dashboard, update dashboard camera view
 
@@ -109,15 +112,21 @@ public class LookForTeamElement extends CommandOpMode {
 
 
         // new WaitCommand(10000000).schedule();
-        new LookForTeamProp(this, webcam,true).schedule();
+        new LookForTeamProp(this, webcam, true).schedule();
     }
 
     // Put run blocks here.
     public void run() {
 
-        sptop.setBlueThresholed(blueThreshold);
+        if (lastBlue != blueThreshold) {
+            sptop.setBlueThresholed(blueThreshold);
+            lastBlue = blueThreshold;
+        }
 
-        sptop.setRedThreshold(redThreshold);
+        if (lastRed != redThreshold) {
+            sptop.setRedThreshold(redThreshold);
+            lastRed = redThreshold;
+        }
 
         telemetry.addData("Streaming", webcam.getFps());
 
@@ -133,7 +142,6 @@ public class LookForTeamElement extends CommandOpMode {
 
         telemetry.addData("area0", sptop.getArea(0));
         telemetry.addData("X0", sptop.getX(0));
-
 
 
         if (sptop.getUsableContours() > 1) {
