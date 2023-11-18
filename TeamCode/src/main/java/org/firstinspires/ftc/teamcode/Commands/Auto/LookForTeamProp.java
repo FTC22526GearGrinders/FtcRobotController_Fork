@@ -33,9 +33,6 @@ public class LookForTeamProp extends CommandBase {
 
     FtcDashboard dashboard;
 
-
-    private OpenCvWebcam webcam;
-
     int lastlcr;
     int lpctr = 0;
 
@@ -48,11 +45,11 @@ public class LookForTeamProp extends CommandBase {
     private boolean oneShot = false;
 
     private Vision_Subsystem vss;
+    int currentLCR = 0;
 
-
-    public LookForTeamProp(CommandOpMode opMode, OpenCvWebcam webcam, StageSwitchingPipeline sptop, boolean noEnd, Vision_Subsystem vss) {
+    public LookForTeamProp(CommandOpMode opMode, boolean noEnd, Vision_Subsystem vss) {
         myOpMode = opMode;
-        this.webcam = webcam;
+
         this.sptop = sptop;
         this.noEnd = noEnd;
         this.vss = vss;
@@ -61,7 +58,10 @@ public class LookForTeamProp extends CommandBase {
     @Override
     public void initialize() {
 
+        currentLCR = 0;
+
         boolean red = ActiveMotionValues.getRedAlliance();
+
         ActiveMotionValues.setLcrpos(0);
         vss.lpctr = 0;
 
@@ -69,29 +69,33 @@ public class LookForTeamProp extends CommandBase {
         myOpMode.telemetry.addData("LPCTR", vss.lpctr);
 
         myOpMode.telemetry.update();
-
     }
+
 
     @Override
     public void execute() {
 
-        if (webcam.getFps() > 1)
+        if (vss.getCameraOpened()) {
 
-            vss.lpctr++;
+            if (vss.getWebcam().getFps() > 1)
 
-        int currentLCR = sptop.getLCR();
-
-        //  if (lpctr > 500) currentLCR = 3;
-
-        ActiveMotionValues.setLcrpos(currentLCR);
+                vss.lpctr++;
 
 
-        myOpMode.telemetry.addData("Streaming", webcam.getFps());
-        myOpMode.telemetry.addData("RRAIsempty", sptop.rrAreas.isEmpty());
-        myOpMode.telemetry.addData("LPCTR", vss.lpctr);
-        myOpMode.telemetry.addData("LCR",ActiveMotionValues.getLcrpos());
+            currentLCR = vss.getSptop().getLCR();
 
-        myOpMode.telemetry.addData("Red", sptop.getRedPipeline());
+            ActiveMotionValues.setLcrpos(currentLCR);
+
+
+            myOpMode.telemetry.addData("Streaming", vss.getWebcam().getFps());
+            myOpMode.telemetry.addData("RRAIsempty", vss.getSptop().rrAreas.isEmpty());
+            myOpMode.telemetry.addData("LPCTR", vss.lpctr);
+            myOpMode.telemetry.addData("LCR", ActiveMotionValues.getLcrpos());
+
+            myOpMode.telemetry.addData("Red", vss.getSptop().getRedPipeline());
+
+
+        }
         myOpMode.telemetry.addData("LCR", currentLCR);
         myOpMode.telemetry.update();
 

@@ -20,21 +20,16 @@ public class AutoFactory extends CommandBase {
 
     CommandOpMode opMode;
 
-    OpenCvWebcam webcam;
-
-    StageSwitchingPipeline sptop;
 
     Vision_Subsystem vss;
     boolean redAlliance = ActiveMotionValues.getRedAlliance();
 
-    public AutoFactory(CommandOpMode opmode, OpenCvWebcam webcam, StageSwitchingPipeline sptop, Drive_Subsystem drive,
+    public AutoFactory(CommandOpMode opmode, Drive_Subsystem drive,
                        PixelHandlerSubsystem phss, ArmSubsystem arm, Vision_Subsystem vss) {
         this.opMode = opmode;
         this.drive = drive;
         this.phss = phss;
         this.arm = arm;
-        this.webcam = webcam;
-        this.sptop = sptop;
         this.vss = vss;
 
 
@@ -42,11 +37,11 @@ public class AutoFactory extends CommandBase {
 
     public Command getAASRed() {
 
-        return new AutoActionsSequencesRed(opMode, drive, phss, arm, vss, sptop, webcam);
+        return new AutoActionsSequencesRed(opMode, drive, phss, arm, vss);
     }
     public Command getAASBlue() {
 
-        return new AutoActionsSequencesBlue(opMode, drive, phss, arm, vss, sptop, webcam);
+        return new AutoActionsSequencesBlue(opMode, drive, phss, arm, vss);
     }
 
 }

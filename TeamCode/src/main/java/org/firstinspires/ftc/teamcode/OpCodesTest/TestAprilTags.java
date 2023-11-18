@@ -71,14 +71,14 @@ public class TestAprilTags extends CommandOpMode {
 
         drive = new Drive_Subsystem(this);
 
-        vss=new Vision_Subsystem(this);
+        vss = new Vision_Subsystem(this);
 
 
         // Wait for the DS start button to be touched.
         telemetry.addData("DS preview on/off", "3 dots, Camera Stream");
         telemetry.update();
         waitForStart();
-        new DetectAprilTags(this,vss, true).schedule();
+        new DetectAprilTags(this, vss, true).schedule();
 
     }
 

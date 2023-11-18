@@ -119,7 +119,6 @@ public class StageSwitchingPipeline extends OpenCvPipeline {
         }
 
 
-
         sleep(100);
 
 
@@ -260,7 +259,7 @@ public class StageSwitchingPipeline extends OpenCvPipeline {
     public double getArea(int n) {
         if (rrAreas.isEmpty())
             return 0;
-        else if (!rrAreas.isEmpty() && rrAreas.size() > n)
+        else if (!changing && !rrAreas.isEmpty() && rrAreas.size() > n)
             return Math.round(rrAreas.get(n));
         else return 0;
     }
@@ -268,7 +267,7 @@ public class StageSwitchingPipeline extends OpenCvPipeline {
     public double getX(int n) {
         if (rrxval.isEmpty())
             return 0;
-        else if (!rrxval.isEmpty() && rrxval.size() > n)
+        else if (!changing && !rrxval.isEmpty() && rrxval.size() > n)
             return Math.round(rrxval.get(n));
         else return 0;
     }

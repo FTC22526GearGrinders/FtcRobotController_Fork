@@ -35,19 +35,12 @@ import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.teamcode.CV.StageSwitchingPipeline;
 import org.firstinspires.ftc.teamcode.Commands.Auto.AutoFactory;
-import org.firstinspires.ftc.teamcode.Commands.Auto.LookForTeamProp;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Subsystems.ArmSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.PixelHandlerSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.Vision_Subsystem;
-import org.openftc.easyopencv.OpenCvCamera;
-import org.openftc.easyopencv.OpenCvCameraFactory;
-import org.openftc.easyopencv.OpenCvCameraRotation;
-import org.openftc.easyopencv.OpenCvWebcam;
 
 
 @Autonomous(name = "Auto: Select-BLUE BBStart", group = "Auto")
@@ -56,32 +49,21 @@ public class AutoSelectAndRunBlueBBStart extends CommandOpMode {
 
     private Drive_Subsystem drive;
 
-    private OpenCvWebcam webcam;//
-
     private PixelHandlerSubsystem phss;
 
     private ArmSubsystem arm;
 
     private Vision_Subsystem vss;
 
-    private boolean oneShot=false;
-
-    private boolean oneShot1=false;
     boolean buttonLocked = false;
 
     boolean centerPark = false;
 
     boolean nearPark = false;
-
-    public StageSwitchingPipeline sptop = null;
-
     private AutoFactory af;
 
     @Override
     public void initialize() {
-        oneShot=false;
-        oneShot1=false;
-        webcam = OpenCvCameraFactory.getInstance().createWebcam(this.hardwareMap.get(WebcamName.class, "Webcam 2"));
 
 
         boolean currentX = false;
@@ -182,65 +164,23 @@ public class AutoSelectAndRunBlueBBStart extends CommandOpMode {
         vss = new Vision_Subsystem(this);
 
 
-
-        sptop = new StageSwitchingPipeline(false);
-
-        af = new AutoFactory(this, webcam,sptop, drive, phss, arm, vss);
-        webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
-
-
-            @Override
-
-            public void onOpened() {
-                /*
-                 * Tell the webcam to start streaming images to us! Note that you must make sure
-                 * the resolution you specify is supported by the camera. If it is not, an exception
-                 * will be thrown.
-                 *
-                 * Keep in mind that the SDK's UVC driver (what OpenCvWebcam uses under the hood) only
-                 * supports streaming from the webcam in the uncompressed YUV image format. This means
-                 * that the maximum resolution you can stream at and still get up to 30FPS is 480p (640x480).
-                 * Streaming at e.g. 720p will limit you to up to 10FPS and so on and so forth.
-                 *
-                 * Also, we specify the rotation that the webcam is used in. This is so that the image
-                 * from the camera sensor can be rotated such that it is always displayed with the image upright.
-                 * For a front facing camera, rotation is defined assuming the user is looking at the screen.
-                 * For a rear facing camera or a webcam, rotation is defined assuming the camera is facing
-                 * away from the user.
-                 */
-
-                //start streaming the camera
-                webcam.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
-
-
-                webcam.setPipeline(sptop);
-
-
-            }
-
-            @Override
-            public void onError(int errorCode) {
-                /*
-                 * This will be called if the camera could not be opened
-                 */
-
-                telemetry.addData("CAMFAULT", "");
-                telemetry.update();
-            }
-        });
+        af = new AutoFactory(this, drive, phss, arm, vss);
 
     }
 
     @Override
-    public void runOpMode()throws InterruptedException{
+    public void runOpMode() throws InterruptedException {
 
         initialize();
 
         waitForStart();
 
+        if (!vss.getCameraOpened()) vss.openCamera(false);
+
+
         CommandScheduler.getInstance().schedule(af.getAASBlue());
 
-        while (!isStopRequested()&&opModeIsActive()){
+        while (!isStopRequested() && opModeIsActive()) {
 
             run();
 

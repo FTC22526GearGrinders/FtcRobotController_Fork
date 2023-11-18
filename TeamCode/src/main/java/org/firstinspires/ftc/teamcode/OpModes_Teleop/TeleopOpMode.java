@@ -62,7 +62,7 @@ public class TeleopOpMode extends CommandOpMode {
 
         arm = new ArmSubsystem(this);
 
-        vss= new Vision_Subsystem(this);
+        vss = new Vision_Subsystem(this);
 
         dcatss = new DroneCatapultSubsystem(this);
 
@@ -85,15 +85,16 @@ public class TeleopOpMode extends CommandOpMode {
                 driver, GamepadKeys.Trigger.RIGHT_TRIGGER);
 
         // example usage if(drrt.wasJustPressed())new IncrementPixelDeliveryLevel().schedule();
+    }
 
-
+    public void run() {
         driver.getGamepadButton(GamepadKeys.Button.B).whenPressed(new IncrementPixelDeliveryLevel());
 
         driver.getGamepadButton(GamepadKeys.Button.X).whenPressed(new IncrementAprilTagTarget());
 
         driver.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER).whileHeld(
                 new SequentialCommandGroup(
-                        new DetectAprilTags(this, vss,false),
+                        new DetectAprilTags(this, vss, false),
                         new ParallelCommandGroup(
                                 new RunToAprilTag(drive, this),
                                 new PositionPHArmToPreset(arm, .5)),
@@ -149,16 +150,30 @@ public class TeleopOpMode extends CommandOpMode {
 
         coDriver.getGamepadButton((GamepadKeys.Button.X)).whenPressed(new RunToAprilTag(drive, this));
 
+    }
+
+
+    public void runOpMode() throws InterruptedException {
+
+        initialize();
+
+        waitForStart();
+
+        CommandScheduler.getInstance().run();
+
+        while (!isStopRequested() && opModeIsActive()) {
+
+            run();
+
+          showTelemetry();
+
+        }
+        reset();
 
     }
 
 
-    public void run() {
-
-
-        telemetry.update();
-
-        CommandScheduler.getInstance().run();
+    public void showTelemetry() {
 
 
         poseEstimate = drive.drive.getPoseEstimate();

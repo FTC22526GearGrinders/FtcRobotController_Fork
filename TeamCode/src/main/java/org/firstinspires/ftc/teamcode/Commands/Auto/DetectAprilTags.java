@@ -28,6 +28,7 @@ public class DetectAprilTags extends CommandBase {
     private int tst;
 
     public DetectAprilTags(CommandOpMode opMode, Vision_Subsystem vss, boolean noEnd) {
+
         this.vss = vss;
 
         myOpMode = opMode;
