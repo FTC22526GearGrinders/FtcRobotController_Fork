@@ -5,10 +5,9 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 
-import org.apache.commons.math3.util.IterationListener;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Constants;
-import org.firstinspires.ftc.teamcode.FieldConstantsRed;
+import org.firstinspires.ftc.teamcode.FieldConstantsBlue;
 import org.firstinspires.ftc.teamcode.Subsystems.Vision_Subsystem;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 
@@ -42,6 +41,9 @@ public class DetectAprilTags extends CommandBase {
         n = ActiveMotionValues.getActTag();
         vss.enableAprilTagProcessor(true);
 
+        myOpMode.telemetry.addData("DATinit","");
+        myOpMode.telemetry.update();
+
     }
 
     @Override
@@ -58,7 +60,7 @@ public class DetectAprilTags extends CommandBase {
 
                     Pose2d camPose = new Pose2d(detection.ftcPose.y, detection.ftcPose.x, Math.toRadians(detection.ftcPose.yaw));
 
-                    Pose2d tagPose = FieldConstantsRed.getActiveTagPose(ActiveMotionValues.getActTag());
+                    Pose2d tagPose = FieldConstantsBlue.getActiveTagPose(ActiveMotionValues.getActTag());
 
                     Pose2d camFieldPose = tagPose.minus(camPose);
 

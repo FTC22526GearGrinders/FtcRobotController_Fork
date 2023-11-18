@@ -11,7 +11,6 @@ import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.apriltag.AprilTagGameDatabase;
 import org.firstinspires.ftc.vision.apriltag.AprilTagLibrary;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
-import org.firstinspires.ftc.vision.tfod.TfodProcessor;
 
 
 public class Vision_Subsystem extends SubsystemBase {
@@ -23,14 +22,17 @@ public class Vision_Subsystem extends SubsystemBase {
     VisionPortal.Builder myVisionPortalBuilder;
     public VisionPortal myVisionPortal;
 
-    TfodProcessor myTfodProcessor;
 
     public CommandOpMode myOpMode;
+
+    private boolean closeCamera = false;
+
+    public int lpctr;
 
 
     public Vision_Subsystem(CommandOpMode opMode) {
         myOpMode = opMode;
-
+        setCloseCamera(false);
 // Get the AprilTagLibrary for the current season.
         myAprilTagLibrary = AprilTagGameDatabase.getCurrentGameTagLibrary();
 
@@ -40,20 +42,13 @@ public class Vision_Subsystem extends SubsystemBase {
                 .setTagLibrary(myAprilTagLibrary)
                 .setDrawTagID(true)
                 .setDrawTagOutline(true)
-                .setLensIntrinsics( 634.549 , 634.549, 303.319 , 235.933) //C920HD
-              //  .setLensIntrinsics( 634.549, 634.549, 303.319, 235.933)//ms2
-             //   .setLensIntrinsics( 1156.14, 1156.14, 643.32, 371.34)
+                .setLensIntrinsics(634.549, 634.549, 303.319, 235.933) //C920HD
+                //  .setLensIntrinsics( 634.549, 634.549, 303.319, 235.933)//ms2
+                //   .setLensIntrinsics( 1156.14, 1156.14, 643.32, 371.34)
                 .setDrawAxes(true)
                 .setDrawCubeProjection(true)
                 .build();
 
-
-        myTfodProcessor = new TfodProcessor.Builder()
-                .setMaxNumRecognitions(10)
-                .setUseObjectTracker(true)
-                .setTrackerMaxOverlap((float) 0.2)
-                .setTrackerMinSize(16)
-                .build();
 
         myVisionPortalBuilder = new VisionPortal.Builder();
 
@@ -63,7 +58,6 @@ public class Vision_Subsystem extends SubsystemBase {
 // Add the AprilTag Processor to the VisionPortal Builder.
         myVisionPortalBuilder.addProcessor(myAprilTagProcessor);
         // An added Processor is enabled by default.
-        myVisionPortalBuilder.addProcessor(myTfodProcessor);       // An added Processor is enabled by default.
 
 // Optional: set other custom features of the VisionPortal (4 are shown here).
         myVisionPortalBuilder.setCameraResolution(new Size(640, 480));  // Each resolution, for each camera model, needs calibration values for good pose estimation.
@@ -78,9 +72,9 @@ public class Vision_Subsystem extends SubsystemBase {
 
     public void initialize() {
 
-        enableAprilTagProcessor(false);
+        lpctr=0;
 
-        enableTFODProcessor(false);
+        enableAprilTagProcessor(false);
 
 
 //        myOpMode.telemetry.addData("DS preview on/off", "3 dots, Camera Stream");
@@ -97,19 +91,15 @@ public class Vision_Subsystem extends SubsystemBase {
 //        myOpMode.telemetry.addData("bolt0", xy_Bolt[0]);
 //        myOpMode.telemetry.addData("bolt1", xy_Bolt[1]);
 //        myOpMode.telemetry.addData("targ0", xyTarget[0]);
-//        myOpMode.telemetry.addData("targ1", xyTarget[1]);
-//        myOpMode.telemetry.update();
+
     }
 
     public void enableAprilTagProcessor(boolean on) {
         myVisionPortal.setProcessorEnabled(myAprilTagProcessor, on);
     }
 
-    public void enableTFODProcessor(boolean on) {
-        myVisionPortal.setProcessorEnabled(myTfodProcessor, on);
-    }
 
-    public void setAprilTagDecimation(int val){
+    public void setAprilTagDecimation(int val) {
         // Adjust Image Decimation to trade-off detection-range for detection-rate.
         // eg: Some typical detection data using a Logitech C920 WebCam
         // Decimation = 1 ..  Detect 2" Tag from 10 feet away at 10 Frames per second
@@ -121,6 +111,13 @@ public class Vision_Subsystem extends SubsystemBase {
 
     }
 
+    public void setCloseCamera(boolean val) {
+        closeCamera = val;
+    }
+
+    public boolean getCloseCamera() {
+        return closeCamera;
+    }
 }
 
 

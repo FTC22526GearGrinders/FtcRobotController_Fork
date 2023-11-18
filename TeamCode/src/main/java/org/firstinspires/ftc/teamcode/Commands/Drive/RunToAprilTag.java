@@ -36,6 +36,9 @@ public class RunToAprilTag extends CommandBase {
     public void initialize() {
 
 
+        myOpMode.telemetry.addData("RTAinit","");
+        myOpMode.telemetry.update();
+
 
         currentRobotPose = ActiveMotionValues.getCurrentRobotPose();
 

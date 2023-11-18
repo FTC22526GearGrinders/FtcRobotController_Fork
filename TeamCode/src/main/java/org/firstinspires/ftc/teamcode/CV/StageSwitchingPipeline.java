@@ -23,7 +23,6 @@ package org.firstinspires.ftc.teamcode.CV;
 
 import static android.os.SystemClock.sleep;
 
-import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
@@ -71,6 +70,8 @@ public class StageSwitchingPipeline extends OpenCvPipeline {
 
     public int lcr;
 
+    public boolean changing;
+
     public StageSwitchingPipeline(boolean red) {
         this.red = red;
     }
@@ -102,12 +103,6 @@ public class StageSwitchingPipeline extends OpenCvPipeline {
 
     @Override
     public Mat processFrame(Mat input) {
-
-        src = input;
-        if (src.empty()) {
-            return input;
-        }
-
         if (!red) {
             column = 2;
             thresh = blueThreshold;
@@ -118,8 +113,14 @@ public class StageSwitchingPipeline extends OpenCvPipeline {
         }
 
 
-        sleep(100);
+        src = input;
+        if (src.empty()) {
+            return input;
+        }
 
+
+
+        sleep(100);
 
 
         Imgproc.line(src, leftTop, leftBottom, new Scalar(128, 128, 0));
@@ -132,7 +133,7 @@ public class StageSwitchingPipeline extends OpenCvPipeline {
         Core.extractChannel(yCbCrChan2Mat, yCbCrChan2Mat, column);
 
         Imgproc.threshold(yCbCrChan2Mat, thresholdMat, thresh, 255, Imgproc.THRESH_BINARY_INV);
-
+        changing = true;
         usableContours = 0;
         contoursList.clear();
         rr.clear();
@@ -186,7 +187,7 @@ public class StageSwitchingPipeline extends OpenCvPipeline {
         if (usableContours >= 2) {
             sort(rrAreas, rrxval);
         }
-
+        changing = false;
         lcr = 0;
 
 
@@ -201,7 +202,6 @@ public class StageSwitchingPipeline extends OpenCvPipeline {
             if (temp > right) lcr = 3;
         }
 
-        ActiveMotionValues.setLcrpos(lcr);
 
         switch (stageToRenderToViewport) {
             case YCbCr_CHAN0: {
@@ -227,6 +227,9 @@ public class StageSwitchingPipeline extends OpenCvPipeline {
         }
     }
 
+    public int getLCR() {
+        return lcr;
+    }
 
     public int getNumContoursFound() {
         return numContoursFound;
@@ -242,7 +245,7 @@ public class StageSwitchingPipeline extends OpenCvPipeline {
         redThreshold = num;
     }
 
-    public void setBlueThresholed(int num) {
+    public void setBlueThreshold(int num) {
         blueThreshold = num;
     }
 
@@ -257,7 +260,7 @@ public class StageSwitchingPipeline extends OpenCvPipeline {
     public double getArea(int n) {
         if (rrAreas.isEmpty())
             return 0;
-        else if (rrAreas.size() > n)
+        else if (!rrAreas.isEmpty() && rrAreas.size() > n)
             return Math.round(rrAreas.get(n));
         else return 0;
     }
@@ -265,7 +268,7 @@ public class StageSwitchingPipeline extends OpenCvPipeline {
     public double getX(int n) {
         if (rrxval.isEmpty())
             return 0;
-        else if (rrxval.size() > n)
+        else if (!rrxval.isEmpty() && rrxval.size() > n)
             return Math.round(rrxval.get(n));
         else return 0;
     }

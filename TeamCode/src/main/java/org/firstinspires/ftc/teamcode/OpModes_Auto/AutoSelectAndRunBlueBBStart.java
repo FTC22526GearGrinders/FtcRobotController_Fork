@@ -33,13 +33,12 @@ package org.firstinspires.ftc.teamcode.OpModes_Auto;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
-import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.teamcode.CV.SpikeTapePipeline;
-import org.firstinspires.ftc.teamcode.Commands.Auto.AutoActionsSequences;
-import org.firstinspires.ftc.teamcode.Commands.Auto.SelectMotionValuesBlue;
+import org.firstinspires.ftc.teamcode.CV.StageSwitchingPipeline;
+import org.firstinspires.ftc.teamcode.Commands.Auto.AutoFactory;
+import org.firstinspires.ftc.teamcode.Commands.Auto.LookForTeamProp;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Subsystems.ArmSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
@@ -65,18 +64,24 @@ public class AutoSelectAndRunBlueBBStart extends CommandOpMode {
 
     private Vision_Subsystem vss;
 
+    private boolean oneShot=false;
 
+    private boolean oneShot1=false;
     boolean buttonLocked = false;
 
     boolean centerPark = false;
 
     boolean nearPark = false;
 
-    SpikeTapePipeline sptop = null;
+    public StageSwitchingPipeline sptop = null;
+
+    private AutoFactory af;
 
     @Override
     public void initialize() {
-        webcam = OpenCvCameraFactory.getInstance().createWebcam(this.hardwareMap.get(WebcamName.class, "Webcam 1"));
+        oneShot=false;
+        oneShot1=false;
+        webcam = OpenCvCameraFactory.getInstance().createWebcam(this.hardwareMap.get(WebcamName.class, "Webcam 2"));
 
 
         boolean currentX = false;
@@ -127,7 +132,7 @@ public class AutoSelectAndRunBlueBBStart extends CommandOpMode {
 
             telemetry.addData("You Have Chosen BLUE Alliance BB Start", "");
             telemetry.addLine();
-            telemetry.addData("Choose Neither -  or Only One Park","");
+            telemetry.addData("Choose Neither -  or Only One Park", "");
             telemetry.addData("Center Park Selected B to Change", centerPark);
             telemetry.addLine();
             telemetry.addData("Near Park Selected - A to Change", nearPark);
@@ -168,8 +173,6 @@ public class AutoSelectAndRunBlueBBStart extends CommandOpMode {
         ActiveMotionValues.setNearPark(nearPark);
 
 
-        waitForStart();
-
         drive = new Drive_Subsystem(this);
 
         phss = new PixelHandlerSubsystem(this);
@@ -178,6 +181,11 @@ public class AutoSelectAndRunBlueBBStart extends CommandOpMode {
 
         vss = new Vision_Subsystem(this);
 
+
+
+        sptop = new StageSwitchingPipeline(false);
+
+        af = new AutoFactory(this, webcam,sptop, drive, phss, arm, vss);
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
 
 
@@ -201,12 +209,9 @@ public class AutoSelectAndRunBlueBBStart extends CommandOpMode {
                  * away from the user.
                  */
 
-                //    webcam.setPipeline(stpb);
-                // webcam.setPipeline(stpb);
                 //start streaming the camera
                 webcam.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
 
-                sptop = new SpikeTapePipeline(false);
 
                 webcam.setPipeline(sptop);
 
@@ -218,29 +223,32 @@ public class AutoSelectAndRunBlueBBStart extends CommandOpMode {
                 /*
                  * This will be called if the camera could not be opened
                  */
+
+                telemetry.addData("CAMFAULT", "");
+                telemetry.update();
             }
         });
+
+    }
+
+    @Override
+    public void runOpMode()throws InterruptedException{
+
+        initialize();
+
         waitForStart();
 
-        new SequentialCommandGroup(
+        CommandScheduler.getInstance().schedule(af.getAASBlue());
 
-                new SelectMotionValuesBlue(),
+        while (!isStopRequested()&&opModeIsActive()){
 
-                new AutoActionsSequences(this, drive, phss, arm, vss, webcam)).schedule();
+            run();
 
-    }
+            telemetry.update();
 
-    public void run() {
-
-
-        CommandScheduler.getInstance().run();
-
+        }
+        reset();
 
     }
+
 }
-
-
-
-
-
-

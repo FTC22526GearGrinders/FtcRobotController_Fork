@@ -12,6 +12,7 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.CV.StageSwitchingPipeline;
 import org.firstinspires.ftc.teamcode.Commands.Auto.LookForTeamProp;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
+import org.firstinspires.ftc.teamcode.Subsystems.Vision_Subsystem;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
@@ -53,6 +54,8 @@ public class LookForTeamElement extends CommandOpMode {
 
     int lastRed;
 
+    private Vision_Subsystem vss;
+
 
     public void initialize() {
 
@@ -65,6 +68,8 @@ public class LookForTeamElement extends CommandOpMode {
 
 
         sptop = new StageSwitchingPipeline(redAlliance);
+
+        vss=new Vision_Subsystem(this);
 
 
         telemetry = new MultipleTelemetry(telemetry, dashboard.getTelemetry());
@@ -118,15 +123,15 @@ public class LookForTeamElement extends CommandOpMode {
         });
 
 
-        // new WaitCommand(10000000).schedule();
-        new LookForTeamProp(this, webcam, true).schedule();
+        //   new WaitCommand(10000000).schedule();
+        new LookForTeamProp(this, webcam, sptop,true,vss).schedule();
     }
 
     // Put run blocks here.
     public void run() {
 
         if (lastBlue != blueThreshold) {
-            sptop.setBlueThresholed(blueThreshold);
+            sptop.setBlueThreshold(blueThreshold);
             lastBlue = blueThreshold;
         }
 
@@ -147,7 +152,6 @@ public class LookForTeamElement extends CommandOpMode {
         telemetry.addData("Streaming", webcam.getFps());
         telemetry.addData("RRAIsempty", sptop.rrAreas.isEmpty());
 
-        telemetry.addData("LCR", ActiveMotionValues.getLcrpos());
         telemetry.addData("Red", sptop.getRedPipeline());
         telemetry.addData("BlTh", sptop.blueThreshold);
 
@@ -160,14 +164,18 @@ public class LookForTeamElement extends CommandOpMode {
             telemetry.addData("XVALSize", sptop.rrxval.size());
         if (!sptop.rrAreas.isEmpty())
             telemetry.addData("AreasSize", sptop.rrAreas.size());
-
-        telemetry.addData("area0", sptop.getArea(0));
-        telemetry.addData("X0", sptop.getX(0));
-        telemetry.addData("area1", sptop.getArea(1));
-        telemetry.addData("X1", sptop.getX(1));
-
-        telemetry.addData("area2", sptop.getArea(2));
-        telemetry.addData("X2", sptop.getX(2));
+        if (!sptop.changing)
+            telemetry.addData("area0", sptop.getArea(0));
+        if (!sptop.changing)
+            telemetry.addData("X0", sptop.getX(0));
+        if (!sptop.changing)
+            telemetry.addData("area1", sptop.getArea(1));
+        if (!sptop.changing)
+            telemetry.addData("X1", sptop.getX(1));
+        if (!sptop.changing)
+            telemetry.addData("area2", sptop.getArea(2));
+        if (!sptop.changing)
+            telemetry.addData("X2", sptop.getX(2));
 
 
         if (sptop.getUsableContours() > 1) {

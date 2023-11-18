@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.Commands.Auto.SelectMotionValuesBlue;
 import org.firstinspires.ftc.teamcode.Commands.Auto.SelectMotionValuesRed;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
-import org.firstinspires.ftc.teamcode.FieldConstantsBlue;
+import org.firstinspires.ftc.teamcode.FieldConstantsRed;
 
 @Config
 @TeleOp(name = "Auto: Values", group = "Test")
@@ -194,8 +194,8 @@ public class TestMotionData extends CommandOpMode {
             telemetry.addLine();
             if (ActiveMotionValues.getSecondPixel())
                 telemetry.addData("OptTagPose",
-                        FieldConstantsBlue.getActiveTagPose(ActiveMotionValues.getActTag())
-                                .plus(FieldConstantsBlue.AprilTagConstants.tagStrafeOffsetPose));
+                        FieldConstantsRed.getActiveTagPose(ActiveMotionValues.getActTag())
+                                .plus(FieldConstantsRed.AprilTagConstants.tagStrafeOffsetPose));
 
             telemetry.addData("OptTgtPose", ActiveMotionValues.getOptionTargetPose().toString());
 

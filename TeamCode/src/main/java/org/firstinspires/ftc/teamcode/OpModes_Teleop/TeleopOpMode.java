@@ -33,7 +33,6 @@ public class TeleopOpMode extends CommandOpMode {
 
     protected Drive_Subsystem drive;
 
-    protected Vision_Subsystem viss;
 
     protected PixelHandlerSubsystem phss;
 
@@ -42,6 +41,8 @@ public class TeleopOpMode extends CommandOpMode {
     GamepadEx driver;
     GamepadEx coDriver;
     private DroneCatapultSubsystem dcatss;
+
+    private Vision_Subsystem vss;
 
     @Override
     public void initialize() {
@@ -57,11 +58,11 @@ public class TeleopOpMode extends CommandOpMode {
         drive = new Drive_Subsystem(this);
 
 
-        viss = new Vision_Subsystem(this);
-
         phss = new PixelHandlerSubsystem(this);
 
         arm = new ArmSubsystem(this);
+
+        vss= new Vision_Subsystem(this);
 
         dcatss = new DroneCatapultSubsystem(this);
 
@@ -92,7 +93,7 @@ public class TeleopOpMode extends CommandOpMode {
 
         driver.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER).whileHeld(
                 new SequentialCommandGroup(
-                        new DetectAprilTags(this, viss,false),
+                        new DetectAprilTags(this, vss,false),
                         new ParallelCommandGroup(
                                 new RunToAprilTag(drive, this),
                                 new PositionPHArmToPreset(arm, .5)),
@@ -131,20 +132,20 @@ public class TeleopOpMode extends CommandOpMode {
                 coDriver, GamepadKeys.Trigger.RIGHT_TRIGGER);
 
 
-      //  coDriver.getGamepadButton((GamepadKeys.Button.A))
+        //  coDriver.getGamepadButton((GamepadKeys.Button.A))
 
-      //  coDriver.getGamepadButton((GamepadKeys.Button.B))
+        //  coDriver.getGamepadButton((GamepadKeys.Button.B))
 
         coDriver.getGamepadButton((GamepadKeys.Button.DPAD_LEFT)).whenPressed(phss::extendClawArm);
 
         coDriver.getGamepadButton((GamepadKeys.Button.DPAD_RIGHT)).whenPressed(phss::retractClawArml);
 
 
-       coDriver.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenPressed(phss::openClaw);
+        coDriver.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenPressed(phss::openClaw);
 
 
 //ph
-       coDriver.getGamepadButton(GamepadKeys.Button.DPAD_DOWN).whenPressed(phss::closeClaw);
+        coDriver.getGamepadButton(GamepadKeys.Button.DPAD_DOWN).whenPressed(phss::closeClaw);
 
         coDriver.getGamepadButton((GamepadKeys.Button.X)).whenPressed(new RunToAprilTag(drive, this));
 
@@ -162,11 +163,11 @@ public class TeleopOpMode extends CommandOpMode {
 
         poseEstimate = drive.drive.getPoseEstimate();
 
-           drive.drive.showTelemetry(telemetry);
+        drive.drive.showTelemetry(telemetry);
 
         // drive.showtelemetry(telemetry);
 
-         // arm.showTelemetry(telemetry);
+        // arm.showTelemetry(telemetry);
 
         // phss.showTelemetry(telemetry);
 

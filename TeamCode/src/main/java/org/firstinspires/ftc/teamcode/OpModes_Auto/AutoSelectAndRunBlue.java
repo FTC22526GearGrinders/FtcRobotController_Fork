@@ -33,13 +33,11 @@ package org.firstinspires.ftc.teamcode.OpModes_Auto;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
-import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.teamcode.CV.SpikeTapePipeline;
-import org.firstinspires.ftc.teamcode.Commands.Auto.AutoActionsSequences;
-import org.firstinspires.ftc.teamcode.Commands.Auto.SelectMotionValuesBlue;
+import org.firstinspires.ftc.teamcode.CV.StageSwitchingPipeline;
+import org.firstinspires.ftc.teamcode.Commands.Auto.AutoFactory;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Subsystems.ArmSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
@@ -63,15 +61,17 @@ public class AutoSelectAndRunBlue extends CommandOpMode {
 
     private ArmSubsystem arm;
 
+    private AutoFactory af;
+
     private Vision_Subsystem vss;
     boolean buttonLocked = false;
     boolean useStageDoor = false;
     boolean secondPixel = true;
-    SpikeTapePipeline sptop = null;
+    StageSwitchingPipeline sptop = null;
 
     @Override
     public void initialize() {
-        webcam = OpenCvCameraFactory.getInstance().createWebcam(this.hardwareMap.get(WebcamName.class, "Webcam 1"));
+        webcam = OpenCvCameraFactory.getInstance().createWebcam(this.hardwareMap.get(WebcamName.class, "Webcam 2"));
 
 
         boolean currentX = false;
@@ -165,7 +165,7 @@ public class AutoSelectAndRunBlue extends CommandOpMode {
         ActiveMotionValues.setUseStageDoor(useStageDoor);
         ActiveMotionValues.setSecondPixel(secondPixel);
 
-        waitForStart();
+
 
         drive = new Drive_Subsystem(this);
 
@@ -174,6 +174,10 @@ public class AutoSelectAndRunBlue extends CommandOpMode {
         arm = new ArmSubsystem(this);
 
         vss = new Vision_Subsystem(this);
+
+        sptop = new StageSwitchingPipeline(false);
+
+        af = new AutoFactory(this, webcam, sptop,drive, phss, arm, vss);
 
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
 
@@ -203,7 +207,6 @@ public class AutoSelectAndRunBlue extends CommandOpMode {
                 //start streaming the camera
                 webcam.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
 
-                sptop = new SpikeTapePipeline(false);
 
                 webcam.setPipeline(sptop);
 
@@ -218,27 +221,26 @@ public class AutoSelectAndRunBlue extends CommandOpMode {
             }
         });
 
+    }
+
+    @Override
+    public void runOpMode()throws InterruptedException{
+
+        initialize();
+
         waitForStart();
 
-        new SequentialCommandGroup(
+        CommandScheduler.getInstance().schedule(af.getAASBlue());
 
-                new SelectMotionValuesBlue(),
+        while (!isStopRequested()&&opModeIsActive()){
 
-                new AutoActionsSequences(this, drive, phss, arm, vss, webcam)).schedule();
+            run();
 
-    }
+            telemetry.update();
 
-    public void run() {
-
-
-        CommandScheduler.getInstance().run();
-
+        }
+        reset();
 
     }
+
 }
-
-
-
-
-
-

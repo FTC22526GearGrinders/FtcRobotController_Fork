@@ -33,13 +33,11 @@ package org.firstinspires.ftc.teamcode.OpModes_Auto;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
-import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.teamcode.CV.SpikeTapePipeline;
-import org.firstinspires.ftc.teamcode.Commands.Auto.AutoActionsSequences;
-import org.firstinspires.ftc.teamcode.Commands.Auto.SelectMotionValuesRed;
+import org.firstinspires.ftc.teamcode.CV.StageSwitchingPipeline;
+import org.firstinspires.ftc.teamcode.Commands.Auto.AutoFactory;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Subsystems.ArmSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
@@ -65,6 +63,8 @@ public class AutoSelectAndRunRedBBStart extends CommandOpMode {
 
     private Vision_Subsystem vss;
 
+    private AutoFactory af;
+
 
     boolean buttonLocked = false;
 
@@ -72,7 +72,7 @@ public class AutoSelectAndRunRedBBStart extends CommandOpMode {
 
     boolean nearPark = false;
 
-    SpikeTapePipeline sptop = null;
+    StageSwitchingPipeline sptop = null;
 
     @Override
     public void initialize() {
@@ -169,8 +169,6 @@ public class AutoSelectAndRunRedBBStart extends CommandOpMode {
         ActiveMotionValues.setNearPark(nearPark);
 
 
-        waitForStart();
-
         drive = new Drive_Subsystem(this);
 
         phss = new PixelHandlerSubsystem(this);
@@ -179,6 +177,11 @@ public class AutoSelectAndRunRedBBStart extends CommandOpMode {
 
         vss = new Vision_Subsystem(this);
 
+
+
+        sptop = new StageSwitchingPipeline(true);
+
+        af = new AutoFactory(this, webcam,sptop, drive, phss, arm, vss);
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
 
 
@@ -207,7 +210,7 @@ public class AutoSelectAndRunRedBBStart extends CommandOpMode {
                 //start streaming the camera
                 webcam.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
 
-                sptop = new SpikeTapePipeline(true);
+
 
                 webcam.setPipeline(sptop);
 
@@ -220,27 +223,27 @@ public class AutoSelectAndRunRedBBStart extends CommandOpMode {
                  */
             }
         });
+
+    }
+
+    @Override
+    public void runOpMode()throws InterruptedException{
+
+        initialize();
+
         waitForStart();
 
-        new SequentialCommandGroup(
+        CommandScheduler.getInstance().schedule(af.getAASRed());
 
-                new SelectMotionValuesRed(),
+        while (!isStopRequested()&&opModeIsActive()){
 
-                new AutoActionsSequences(this, drive, phss, arm, vss, webcam)).schedule();
+            run();
 
-    }
+            telemetry.update();
 
-    public void run() {
-
-
-        CommandScheduler.getInstance().run();
-
+        }
+        reset();
 
     }
+
 }
-
-
-
-
-
-

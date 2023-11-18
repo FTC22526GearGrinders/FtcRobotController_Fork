@@ -21,7 +21,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Vision_Subsystem;
 @Config
 @TeleOp(name = "Teleop Main Test Traj Red", group = "Test")
 
-public class TestTrajectoriesRed extends CommandOpMode {
+public class TestTrajectories extends CommandOpMode {
     boolean redAlliance = true;
 
     boolean backBoardStart = true;
@@ -61,10 +61,8 @@ public class TestTrajectoriesRed extends CommandOpMode {
 
         new SequentialCommandGroup(
                 new SelectMotionValuesRed(),
-
-
-                new SelectAndRunTrajectory(drive, phss),
-                new DetectAprilTags(this, vss, false),
+                new SelectAndRunTrajectory(this ,drive, phss),
+                new DetectAprilTags(this, vss,false),
                 new ConditionalCommand(
                         new RunToAprilTag(drive, this),
                         new DoNothing(), () -> ActiveMotionValues.getAprilTagSeen())).schedule();

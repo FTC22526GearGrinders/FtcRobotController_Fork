@@ -38,7 +38,6 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.Commands.Auto.DetectAprilTags;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.Vision_Subsystem;
-import org.openftc.easyopencv.OpenCvWebcam;
 
 /*
  * This OpMode illustrates the basics of AprilTag recognition and pose estimation, using
@@ -56,10 +55,12 @@ public class TestAprilTags extends CommandOpMode {
     /**
      * The variable to store our instance of the AprilTag processor.
      */
-    private Vision_Subsystem vss;
+
 
     private Drive_Subsystem drive;
     private FtcDashboard dashboard;
+
+    private Vision_Subsystem vss;
 
     @Override
     public void initialize() {
@@ -68,16 +69,16 @@ public class TestAprilTags extends CommandOpMode {
 
         telemetry = new MultipleTelemetry(telemetry, dashboard.getTelemetry());
 
-        vss = new Vision_Subsystem(this);
+        drive = new Drive_Subsystem(this);
 
-        drive=new Drive_Subsystem(this);
+        vss=new Vision_Subsystem(this);
 
 
         // Wait for the DS start button to be touched.
         telemetry.addData("DS preview on/off", "3 dots, Camera Stream");
         telemetry.update();
-waitForStart();
-        new DetectAprilTags(this, vss, true).schedule();
+        waitForStart();
+        new DetectAprilTags(this,vss, true).schedule();
 
     }
 

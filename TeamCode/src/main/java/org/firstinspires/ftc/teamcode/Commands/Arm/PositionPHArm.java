@@ -24,6 +24,7 @@ public class PositionPHArm extends CommandBase {
 
     @Override
     public void initialize() {
+
         arm.loopCountTimer = 0;
         arm.targetInches = extension;
     }
