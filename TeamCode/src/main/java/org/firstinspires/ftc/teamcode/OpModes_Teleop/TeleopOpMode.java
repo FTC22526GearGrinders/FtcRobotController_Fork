@@ -20,6 +20,7 @@ import org.firstinspires.ftc.teamcode.Commands.Auto.IncrementPixelDeliveryLevel;
 import org.firstinspires.ftc.teamcode.Commands.Drive.JogDrive;
 import org.firstinspires.ftc.teamcode.Commands.Drive.RunToAprilTag;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
+import org.firstinspires.ftc.teamcode.Commands.Utils.LogAutoSettings;
 import org.firstinspires.ftc.teamcode.Commands.Utils.TimeDelay;
 import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.Subsystems.ArmSubsystem;
@@ -43,6 +44,8 @@ public class TeleopOpMode extends CommandOpMode {
     private DroneCatapultSubsystem dcatss;
 
     private Vision_Subsystem vss;
+
+    private int tst;
 
     @Override
     public void initialize() {
@@ -75,7 +78,7 @@ public class TeleopOpMode extends CommandOpMode {
         else ActiveMotionValues.setBaseTag(1);
 
 
-//        driver.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
+
 
 
         TriggerReader drlt = new TriggerReader(
@@ -85,16 +88,19 @@ public class TeleopOpMode extends CommandOpMode {
                 driver, GamepadKeys.Trigger.RIGHT_TRIGGER);
 
         // example usage if(drrt.wasJustPressed())new IncrementPixelDeliveryLevel().schedule();
-    }
 
-    public void run() {
+
+        driver.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenPressed(
+                new LogAutoSettings(this));
+
+
         driver.getGamepadButton(GamepadKeys.Button.B).whenPressed(new IncrementPixelDeliveryLevel());
 
         driver.getGamepadButton(GamepadKeys.Button.X).whenPressed(new IncrementAprilTagTarget());
 
         driver.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER).whileHeld(
                 new SequentialCommandGroup(
-                        new DetectAprilTags(this, vss, false),
+                        new DetectAprilTags(this, vss, true),
                         new ParallelCommandGroup(
                                 new RunToAprilTag(drive, this),
                                 new PositionPHArmToPreset(arm, .5)),
@@ -159,13 +165,13 @@ public class TeleopOpMode extends CommandOpMode {
 
         waitForStart();
 
-        CommandScheduler.getInstance().run();
+//        CommandScheduler.getInstance().run();
 
         while (!isStopRequested() && opModeIsActive()) {
 
             run();
 
-          showTelemetry();
+            showTelemetry();
 
         }
         reset();
@@ -174,11 +180,12 @@ public class TeleopOpMode extends CommandOpMode {
 
 
     public void showTelemetry() {
-
-
+//
+//telemetry.addData("TST",tst++);
+//telemetry.update();
         poseEstimate = drive.drive.getPoseEstimate();
 
-        drive.drive.showTelemetry(telemetry);
+       // drive.drive.showTelemetry(telemetry);
 
         // drive.showtelemetry(telemetry);
 

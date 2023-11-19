@@ -63,10 +63,6 @@ public class LookForTeamElement extends CommandOpMode {
         vss = new Vision_Subsystem(this);
 
 
-        telemetry = new MultipleTelemetry(telemetry, dashboard.getTelemetry());
-
-        FtcDashboard.getInstance().startCameraStream(vss.getWebcam(), 5);
-
     }
 
 
@@ -79,13 +75,13 @@ public class LookForTeamElement extends CommandOpMode {
 
         if (!vss.getCameraOpened()) vss.openCamera(false);
 
+        telemetry = new MultipleTelemetry(telemetry, dashboard.getTelemetry());
 
-//        //if you are using dashboard, update dashboard camera view
-//        if (vss.getCameraOpened())
-//
-//            FtcDashboard.getInstance().startCameraStream(vss.getWebcam(), 5);
+        FtcDashboard.getInstance().startCameraStream(vss.getWebcam(), 5);
 
-        CommandScheduler.getInstance().schedule(new LookForTeamProp(this,false,vss));
+        vss.setUseDashboard(true);
+
+        CommandScheduler.getInstance().schedule(new LookForTeamProp(this, false, vss));
 
 
         while (!isStopRequested() && opModeIsActive()) {
@@ -100,9 +96,10 @@ public class LookForTeamElement extends CommandOpMode {
     }
 
 
-
     // Put run blocks here.
     public void run() {
+
+        if (vss.getCameraOpened() && isStopRequested()) vss.closeCamera();
 
         if (lastBlue != blueThreshold) {
             sptop.setBlueThreshold(blueThreshold);

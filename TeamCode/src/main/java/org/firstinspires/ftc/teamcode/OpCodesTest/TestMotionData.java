@@ -19,7 +19,6 @@ public class TestMotionData extends CommandOpMode {
 
     FtcDashboard dashboard;
 
-
     boolean buttonLocked = false;
 
 

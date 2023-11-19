@@ -30,12 +30,13 @@
 package org.firstinspires.ftc.teamcode.OpCodesTest;
 
 import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.Commands.Auto.DetectAprilTags;
+import org.firstinspires.ftc.teamcode.Commands.OpenCVAprilTag;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.Vision_Subsystem;
 
@@ -46,9 +47,10 @@ import org.firstinspires.ftc.teamcode.Subsystems.Vision_Subsystem;
  * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list.
  */
-@TeleOp(name = "Auto: Test AprilTag ", group = "Test")
+@Config
+@TeleOp(name = "Auto: Test AprilTag OPENCV ", group = "Test")
 //Disabled
-public class TestAprilTags extends CommandOpMode {
+public class TestAprilTagsOpenCV extends CommandOpMode {
 
     private static final boolean USE_WEBCAM = true;  // true for webcam, false for phone camera
 
@@ -65,30 +67,48 @@ public class TestAprilTags extends CommandOpMode {
     @Override
     public void initialize() {
 
-        dashboard = FtcDashboard.getInstance();
-
-        telemetry = new MultipleTelemetry(telemetry, dashboard.getTelemetry());
 
         drive = new Drive_Subsystem(this);
 
         vss = new Vision_Subsystem(this);
 
-        vss.buildAprilTagProcessor();
+        dashboard = FtcDashboard.getInstance();
+
         // Wait for the DS start button to be touched.
-        telemetry.addData("DS preview on/off", "3 dots, Camera Stream");
+
         telemetry.update();
+
         waitForStart();
-        new DetectAprilTags(this, vss, true).schedule();
+
 
     }
 
+    @Override
+    public void runOpMode() throws InterruptedException {
 
-    public void run() {
+        initialize();
+
+        waitForStart();
+
+        telemetry = new MultipleTelemetry(telemetry, dashboard.getTelemetry());
+
+//        FtcDashboard.getInstance().startCameraStream(vss.getWebcam(), 5);
+
+        //vss.setUseDashboard(true);
 
 
-        CommandScheduler.getInstance().run();
+        CommandScheduler.getInstance().schedule(new OpenCVAprilTag(this, 30));
+
+
+        while (!isStopRequested() && opModeIsActive()) {
+
+            run();
+
+            telemetry.update();
+
+        }
+        reset();
 
     }
 
-
-}   // end class
+}

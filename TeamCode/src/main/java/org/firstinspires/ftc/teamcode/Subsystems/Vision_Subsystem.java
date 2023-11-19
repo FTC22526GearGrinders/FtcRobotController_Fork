@@ -31,7 +31,11 @@ public class Vision_Subsystem extends SubsystemBase {
 
     public CommandOpMode myOpMode;
 
-    boolean camereaOpened;
+    private boolean useDashboard;
+
+    private boolean cameraOpened;
+
+    private boolean cameraClosed;
 
     StageSwitchingPipeline sptop = null;
     public int lpctr;
@@ -43,41 +47,8 @@ public class Vision_Subsystem extends SubsystemBase {
 // Get the AprilTagLibrary for the current season.
         myAprilTagLibrary = AprilTagGameDatabase.getCurrentGameTagLibrary();
 
-
-        myAprilTagProcessor = AprilTagProcessor.easyCreateWithDefaults();
-        myAprilTagProcessor = new AprilTagProcessor.Builder()
-                .setTagLibrary(myAprilTagLibrary)
-                .setDrawTagID(true)
-                .setDrawTagOutline(true)
-                .setLensIntrinsics(634.549, 634.549, 303.319, 235.933) //C920HD
-                //  .setLensIntrinsics( 634.549, 634.549, 303.319, 235.933)//ms2
-                //   .setLensIntrinsics( 1156.14, 1156.14, 643.32, 371.34)
-                .setDrawAxes(true)
-                .setDrawCubeProjection(true)
-                .build();
-
-
-        myVisionPortalBuilder = new VisionPortal.Builder();
-
-// Specify the camera to be used for this VisionPortal.
-        myVisionPortalBuilder.setCamera(myOpMode.hardwareMap.get(WebcamName.class, "Webcam 1"));      // Other choices are: RC phone camera and "switchable camera name".
-
-// Add the AprilTag Processor to the VisionPortal Builder.
-        myVisionPortalBuilder.addProcessor(myAprilTagProcessor);
-        // An added Processor is enabled by default.
-
-// Optional: set other custom features of the VisionPortal (4 are shown here).
-        myVisionPortalBuilder.setCameraResolution(new Size(640, 480));  // Each resolution, for each camera model, needs calibration values for good pose estimation.
-        myVisionPortalBuilder.setStreamFormat(VisionPortal.StreamFormat.YUY2);  // MJPEG format uses less bandwidth than the default YUY2.
-
-        myVisionPortalBuilder.setAutoStopLiveView(true);     // Automatically stop LiveView (RC preview) when all vision processors are disabled.
-
-// Create a VisionPortal by calling build()
-        myVisionPortal = myVisionPortalBuilder.build();
-
     }
-
-    public void initialize() {
+     public void initialize() {
 
         lpctr = 0;
 
@@ -118,6 +89,41 @@ public class Vision_Subsystem extends SubsystemBase {
 
     }
 
+    public void buildAprilTagProcessor() {
+
+
+        myAprilTagProcessor = AprilTagProcessor.easyCreateWithDefaults();
+        myAprilTagProcessor = new AprilTagProcessor.Builder()
+                .setTagLibrary(myAprilTagLibrary)
+                .setDrawTagID(true)
+                .setDrawTagOutline(true)
+                .setLensIntrinsics(634.549, 634.549, 303.319, 235.933) //C920HD
+                //  .setLensIntrinsics( 634.549, 634.549, 303.319, 235.933)//ms2
+                //   .setLensIntrinsics( 1156.14, 1156.14, 643.32, 371.34)
+                .setDrawAxes(true)
+                .setDrawCubeProjection(true)
+                .build();
+
+
+        myVisionPortalBuilder = new VisionPortal.Builder();
+
+// Specify the camera to be used for this VisionPortal.
+        myVisionPortalBuilder.setCamera(myOpMode.hardwareMap.get(WebcamName.class, "Webcam 1"));      // Other choices are: RC phone camera and "switchable camera name".
+
+// Add the AprilTag Processor to the VisionPortal Builder.
+        myVisionPortalBuilder.addProcessor(myAprilTagProcessor);
+        // An added Processor is enabled by default.
+
+// Optional: set other custom features of the VisionPortal (4 are shown here).
+        myVisionPortalBuilder.setCameraResolution(new Size(640, 480));  // Each resolution, for each camera model, needs calibration values for good pose estimation.
+        myVisionPortalBuilder.setStreamFormat(VisionPortal.StreamFormat.YUY2);  // MJPEG format uses less bandwidth than the default YUY2.
+
+        myVisionPortalBuilder.setAutoStopLiveView(true);     // Automatically stop LiveView (RC preview) when all vision processors are disabled.
+
+// Create a VisionPortal by calling build()
+        myVisionPortal = myVisionPortalBuilder.build();
+    }
+
     public boolean openCamera(boolean red) {
 
         sptop = new StageSwitchingPipeline(red);
@@ -155,7 +161,8 @@ public class Vision_Subsystem extends SubsystemBase {
 
                 webcam.setPipeline(sptop);
 
-                camereaOpened = true;
+                cameraOpened = true;
+                cameraClosed = false;
             }
 
             @Override
@@ -165,18 +172,35 @@ public class Vision_Subsystem extends SubsystemBase {
                  */
             }
         });
-        return camereaOpened;
+        return cameraOpened;
     }
 
-    public boolean getCameraOpened(){
-        return camereaOpened;
+    public boolean closeCamera() {
+
+        webcam.closeCameraDeviceAsync(new OpenCvCamera.AsyncCameraCloseListener() {
+            @Override
+            public void onClose() {
+                cameraOpened = false;
+                cameraClosed = true;
+            }
+        });
+
+        return cameraClosed;
+    }
+
+    public boolean getCameraOpened() {
+        return cameraOpened;
+    }
+
+    public void setUseDashboard(boolean use) {
+        useDashboard = use;
     }
 
     public OpenCvWebcam getWebcam() {
         return webcam;
     }
 
-    public StageSwitchingPipeline getSptop(){
+    public StageSwitchingPipeline getSptop() {
         return sptop;
     }
 }
