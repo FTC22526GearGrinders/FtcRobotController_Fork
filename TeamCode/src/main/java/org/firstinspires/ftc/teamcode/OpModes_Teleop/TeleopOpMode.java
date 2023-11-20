@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.OpModes_Teleop;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.arcrobotics.ftclib.command.CommandOpMode;
-import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
@@ -15,10 +14,11 @@ import org.firstinspires.ftc.teamcode.Commands.Arm.JogArm;
 import org.firstinspires.ftc.teamcode.Commands.Arm.PositionPHArm;
 import org.firstinspires.ftc.teamcode.Commands.Arm.PositionPHArmToPreset;
 import org.firstinspires.ftc.teamcode.Commands.Auto.DetectAprilTags;
-import org.firstinspires.ftc.teamcode.Commands.Auto.IncrementAprilTagTarget;
-import org.firstinspires.ftc.teamcode.Commands.Auto.IncrementPixelDeliveryLevel;
 import org.firstinspires.ftc.teamcode.Commands.Drive.JogDrive;
 import org.firstinspires.ftc.teamcode.Commands.Drive.RunToAprilTag;
+import org.firstinspires.ftc.teamcode.Commands.Trajectories.Backboard.BuildBBCenterTraj;
+import org.firstinspires.ftc.teamcode.Commands.Trajectories.LogTrajectory;
+import org.firstinspires.ftc.teamcode.Commands.Trajectories.RunTrajSequence;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Commands.Utils.LogAutoSettings;
 import org.firstinspires.ftc.teamcode.Commands.Utils.TimeDelay;
@@ -78,9 +78,6 @@ public class TeleopOpMode extends CommandOpMode {
         else ActiveMotionValues.setBaseTag(1);
 
 
-
-
-
         TriggerReader drlt = new TriggerReader(
                 driver, GamepadKeys.Trigger.LEFT_TRIGGER);
 
@@ -89,14 +86,23 @@ public class TeleopOpMode extends CommandOpMode {
 
         // example usage if(drrt.wasJustPressed())new IncrementPixelDeliveryLevel().schedule();
 
+        driver.getGamepadButton(GamepadKeys.Button.B).whenPressed(
+                new BuildBBCenterTraj(drive, phss, this));
+
+        driver.getGamepadButton(GamepadKeys.Button.X).whenPressed(
+//                new ParallelCommandGroup(
+//                        new RunTrajSequence(drive, this),
+                       new LogTrajectory(drive, this));
+               // new LogAutoSettings(this));//
+
 
         driver.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenPressed(
                 new LogAutoSettings(this));
 
 
-        driver.getGamepadButton(GamepadKeys.Button.B).whenPressed(new IncrementPixelDeliveryLevel());
-
-        driver.getGamepadButton(GamepadKeys.Button.X).whenPressed(new IncrementAprilTagTarget());
+//        driver.getGamepadButton(GamepadKeys.Button.B).whenPressed(new IncrementPixelDeliveryLevel());
+//
+//        driver.getGamepadButton(GamepadKeys.Button.X).whenPressed(new IncrementAprilTagTarget());
 
         driver.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER).whileHeld(
                 new SequentialCommandGroup(
@@ -185,9 +191,9 @@ public class TeleopOpMode extends CommandOpMode {
 //telemetry.update();
         poseEstimate = drive.drive.getPoseEstimate();
 
-       // drive.drive.showTelemetry(telemetry);
+        // drive.drive.showTelemetry(telemetry);
 
-        // drive.showtelemetry(telemetry);
+      //   drive.showtelemetry(telemetry);
 
         // arm.showTelemetry(telemetry);
 

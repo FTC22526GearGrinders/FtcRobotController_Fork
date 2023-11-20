@@ -95,7 +95,7 @@ public class W_Datalogger_v05 {
         String logFilePath = String.format("%s/FIRST/data/", Environment.getExternalStorageDirectory().getAbsolutePath());
 
         String directoryPath = logFilePath;//  = "/sdcard/FIRST/java/src/Datalogs";
-        String filePath         = directoryPath + "/" + fileName + ".csv";
+        String filePath         = directoryPath + "/" + fileName;
 
         // src and any subfolder contents appear in OnBot Java (left side).
         // .txt files allow data display in OBJ.  Download as .csv files.

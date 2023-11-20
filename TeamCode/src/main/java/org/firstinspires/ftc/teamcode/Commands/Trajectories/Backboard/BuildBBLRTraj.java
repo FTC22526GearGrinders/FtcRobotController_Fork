@@ -77,10 +77,6 @@ public class BuildBBLRTraj extends CommandBase {
                     .build();
 
             drive.trajName = "BBLeftRight";
-            drive.trajSize = drive.currentTrajSeq.size();
-            drive.trajDuration = drive.currentTrajSeq.duration();
-            drive.trsjStartPose = drive.currentTrajSeq.start();
-            drive.trajEndPose = drive.currentTrajSeq.end();
         }
 
         drive.drive.setPoseEstimate(ActiveMotionValues.getStartPose());

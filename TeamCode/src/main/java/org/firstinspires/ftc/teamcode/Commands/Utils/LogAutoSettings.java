@@ -6,6 +6,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.W_Datalogger_v05;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 public class LogAutoSettings extends CommandBase {
 
@@ -31,6 +34,8 @@ public class LogAutoSettings extends CommandBase {
     public void initialize() {
         logged = false;
         lpctr = 0;
+        String out = new SimpleDateFormat("yyyy-MM-dd hh-mm-ss").format(new Date());
+        datalogFilename += out + ".txt";
         avDL = new W_Datalogger_v05(datalogFilename);
         // Instantiate datalog timer.
         dataTimer = new ElapsedTime(ElapsedTime.Resolution.MILLISECONDS);
@@ -62,8 +67,8 @@ public class LogAutoSettings extends CommandBase {
         String e = ActiveMotionValues.getAdvancePose().toString();
         String f = ActiveMotionValues.getDropOffPose().toString();
         lpctr++;
-opMode.telemetry.addData("STRPOSE",ActiveMotionValues.getStartPose().toString());
-opMode.telemetry.update();
+        opMode.telemetry.addData("STRPOSE", ActiveMotionValues.getStartPose().toString());
+        opMode.telemetry.update();
         if (lpctr == 5) {
 
             avDL.addField(a);

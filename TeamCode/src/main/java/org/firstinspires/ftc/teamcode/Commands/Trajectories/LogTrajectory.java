@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Commands.Utils;
+package org.firstinspires.ftc.teamcode.Commands.Trajectories;
 
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.arcrobotics.ftclib.command.CommandOpMode;
@@ -6,6 +6,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
 import org.firstinspires.ftc.teamcode.W_Datalogger_v05;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 public class LogTrajectory extends CommandBase {
@@ -20,24 +23,19 @@ public class LogTrajectory extends CommandBase {
 
     ElapsedTime logTimer;// timer object
 
-    int logInterval = 50;               // target interval in milliseconds
+    int logInterval = 60;               // target interval in milliseconds
 
     boolean logged = false;
 
+    boolean headersWritten = false;
+
     int lpctr;
 
-    int s;
-    double d;
-    String startPose;
+    boolean writeRunning = false;
 
-    String endPose;
-
-
-
-
-    public LogTrajectory(Drive_Subsystem drive,CommandOpMode opMode) {
+    public LogTrajectory(Drive_Subsystem drive, CommandOpMode opMode) {
         this.opMode = opMode;
-        this.drive=drive;
+        this.drive = drive;
     }
 
     @Override
@@ -45,16 +43,19 @@ public class LogTrajectory extends CommandBase {
 
         opMode.telemetry.addData("Log Started", "");
         opMode.telemetry.update();
-        datalogFilename = drive.trajName;
+
+        String out = new SimpleDateFormat("yyyy-MM-dd hh-mm-ss").format(new Date());
+        datalogFilename = drive.trajName + out + ".txt";
+        tsDL = new W_Datalogger_v05(datalogFilename);
 
         logged = false;
         lpctr = 0;
-        tsDL = new W_Datalogger_v05(datalogFilename);
+
+
         // Instantiate datalog timer.
         dataTimer = new ElapsedTime(ElapsedTime.Resolution.MILLISECONDS);
-        logTimer = new ElapsedTime(ElapsedTime.Resolution.MILLISECONDS);
+        logTimer = new ElapsedTime(ElapsedTime.Resolution.SECONDS);
 
-        drive = new Drive_Subsystem(opMode);
 
         tsDL.addField("Total Time");
         tsDL.addField("Num Segments");
@@ -68,49 +69,55 @@ public class LogTrajectory extends CommandBase {
         tsDL.firstLine();                        // end first line (row)
 
         dataTimer.reset();
+
         logTimer.reset();
 
-        d = drive.trajDuration;
-        s = drive.trajSize;
-        startPose = drive.trsjStartPose.toString();
-        startPose = startPose.replace(",", "_");
-        endPose = drive.trajEndPose.toString();
-        endPose = endPose.replace(",", "_");
 
     }
 
     @Override
     public void execute() {
 
-        opMode.telemetry.addData("Time", logTimer.seconds());
-        opMode.telemetry.update();
-
-        // dataTimer.reset();
-
-        if (lpctr == 0 && dataTimer.time() > logInterval) {
-            tsDL.addField(d);
-            tsDL.addField(s);
-            tsDL.addField(startPose);
-            tsDL.addField(endPose);
-            lpctr = 1;
-            dataTimer.reset();
-        }
-
-        if (lpctr == 0 && dataTimer.time() > logInterval) {
+        if (headersWritten && dataTimer.time() > logInterval) {
+            writeRunning = true;
+            tsDL.addField(","+","+","+",");
             tsDL.addField(drive.drive.getTrajectoryRunning());
             tsDL.addField(drive.drive.getPoseEstimate().getX());
             tsDL.addField(drive.drive.getPoseEstimate().getY());
             tsDL.addField(drive.drive.getPoseEstimate().getHeading());
             tsDL.newLine();
             dataTimer.reset();
+            writeRunning = false;
+            lpctr += 1;
         }
 
-        logged = logTimer.seconds() > drive.trajDuration / 4 && !drive.drive.getTrajectoryRunning();
+        if (!headersWritten) {
+            writeRunning = true;
+            double d = drive.currentTrajSeq.duration();
+            int s = drive.currentTrajSeq.size();
+            String startPose = drive.currentTrajSeq.start().toString();
+            startPose = startPose.replace(",", "_");
+            String endPose = drive.currentTrajSeq.end().toString();
+            endPose = endPose.replace(",", "_");
+            tsDL.addField(d);
+            tsDL.addField(s);
+            tsDL.addField(startPose);
+            tsDL.addField(endPose);
+            tsDL.newLine();
+            headersWritten = true;
+            writeRunning = false;
+            dataTimer.reset();
+        }
+
+
+        logged = !writeRunning && lpctr >= 3;
     }
 
     @Override
     public void end(boolean interrupted) {
         tsDL.closeDataLogger();
+        opMode.telemetry.addData("Log Ended", "");
+        opMode.telemetry.update();
     }
 
     @Override

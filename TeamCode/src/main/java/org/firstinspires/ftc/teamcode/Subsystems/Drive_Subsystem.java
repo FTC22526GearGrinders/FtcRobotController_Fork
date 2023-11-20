@@ -13,12 +13,8 @@ import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 public class Drive_Subsystem extends SubsystemBase {
     public boolean fieldCentric;
 
-    public TrajectorySequence currentTrajSeq=null;
+    public TrajectorySequence currentTrajSeq = null;
     public String trajName;
-    public int trajSize;
-    public double trajDuration;
-    public Pose2d trsjStartPose;
-    public Pose2d trajEndPose;
 
 
     private ElapsedTime runtime = new ElapsedTime();

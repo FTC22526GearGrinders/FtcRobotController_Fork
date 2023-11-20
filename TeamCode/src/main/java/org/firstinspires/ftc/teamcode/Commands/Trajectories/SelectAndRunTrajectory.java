@@ -1,17 +1,17 @@
-package org.firstinspires.ftc.teamcode.Commands.Auto;
+package org.firstinspires.ftc.teamcode.Commands.Trajectories;
 
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.arcrobotics.ftclib.command.CommandOpMode;
+import com.arcrobotics.ftclib.command.ConditionalCommand;
 import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 
 import org.firstinspires.ftc.teamcode.Commands.Trajectories.Backboard.BuildBBCenterTraj;
 import org.firstinspires.ftc.teamcode.Commands.Trajectories.Backboard.BuildBBLRTraj;
-import org.firstinspires.ftc.teamcode.Commands.Trajectories.RunTrajSequence;
 import org.firstinspires.ftc.teamcode.Commands.Trajectories.Truss_StageDoor.BuildTrussSDCenterTape;
 import org.firstinspires.ftc.teamcode.Commands.Trajectories.Truss_StageDoor.BuildTrussSDLRTape;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
-import org.firstinspires.ftc.teamcode.Commands.Utils.LogTrajectory;
+import org.firstinspires.ftc.teamcode.Commands.Utils.DoNothing;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.PixelHandlerSubsystem;
 
@@ -20,12 +20,14 @@ public class SelectAndRunTrajectory extends CommandBase {
     private final Drive_Subsystem drive;
     private final PixelHandlerSubsystem phss;
 
-    private CommandOpMode opmode;
+    private final CommandOpMode opmode;
     boolean bbstart = false;
     boolean useSD = false;
 
     boolean secondPixel = false;
     int lcr = 0;
+
+    boolean logTrajectory = true;
 
     public SelectAndRunTrajectory(CommandOpMode opMode, Drive_Subsystem drive, PixelHandlerSubsystem phss) {
         this.drive = drive;
@@ -53,10 +55,13 @@ public class SelectAndRunTrajectory extends CommandBase {
 
             if (lcr == 2)
                 new SequentialCommandGroup(
-                        new BuildBBCenterTraj(drive, phss),
+                        new BuildBBCenterTraj(drive, phss, opmode),
                         new ParallelCommandGroup(
                                 new RunTrajSequence(drive, opmode),
-                                new LogTrajectory(drive, opmode)));
+                                new ConditionalCommand(
+                                        new LogTrajectory(drive, opmode),
+                                        new DoNothing(),
+                                        () -> logTrajectory)));
 
 
             if (lcr == 1 || lcr == 3)
@@ -64,8 +69,10 @@ public class SelectAndRunTrajectory extends CommandBase {
                         new BuildBBLRTraj(drive, phss),
                         new ParallelCommandGroup(
                                 new RunTrajSequence(drive, opmode),
-                                new LogTrajectory(drive, opmode)));
-
+                                new ConditionalCommand(
+                                        new LogTrajectory(drive, opmode),
+                                        new DoNothing(),
+                                        () -> logTrajectory)));
         }
 
         if (!bbstart) {
@@ -74,15 +81,20 @@ public class SelectAndRunTrajectory extends CommandBase {
                         new BuildTrussSDLRTape(drive, phss),
                         new ParallelCommandGroup(
                                 new RunTrajSequence(drive, opmode),
-                                new LogTrajectory(drive, opmode)));
-
+                                new ConditionalCommand(
+                                        new LogTrajectory(drive, opmode),
+                                        new DoNothing(),
+                                        () -> logTrajectory)));
 
             if (lcr == 2)
                 new SequentialCommandGroup(
                         new BuildTrussSDCenterTape(drive, phss),
                         new ParallelCommandGroup(
                                 new RunTrajSequence(drive, opmode),
-                                new LogTrajectory(drive, opmode)));
+                                new ConditionalCommand(
+                                        new LogTrajectory(drive, opmode),
+                                        new DoNothing(),
+                                        () -> logTrajectory)));
         }
 
     }

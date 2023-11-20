@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Commands.Trajectories.Backboard;
 
 import com.arcrobotics.ftclib.command.CommandBase;
+import com.arcrobotics.ftclib.command.CommandOpMode;
 
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
@@ -11,9 +12,12 @@ public class BuildBBCenterTraj extends CommandBase {
     private Drive_Subsystem drive;
     private PixelHandlerSubsystem phss;
 
-    public BuildBBCenterTraj(Drive_Subsystem drive, PixelHandlerSubsystem phss) {
+    private CommandOpMode opMode;
+
+    public BuildBBCenterTraj(Drive_Subsystem drive, PixelHandlerSubsystem phss, CommandOpMode opMode) {
         this.drive = drive;
         this.phss = phss;
+        this.opMode = opMode;
     }
 
     @Override
@@ -43,26 +47,23 @@ public class BuildBBCenterTraj extends CommandBase {
 
                 .build();
 
-
         drive.trajName = "BBCenter";
-        drive.trajSize = drive.currentTrajSeq.size();
-        drive.trajDuration = drive.currentTrajSeq.duration();
-        drive.trsjStartPose = drive.currentTrajSeq.start();
-        drive.trajEndPose = drive.currentTrajSeq.end();
 
     }
 
     @Override
     public void execute() {
+        opMode.telemetry.addData("BBCT Init", ""); opMode.telemetry.update();
     }
 
     @Override
     public void end(boolean interrupted) {
+        opMode.telemetry.addData("BBCT End", ""); opMode.telemetry.update();
     }
 
     @Override
     public boolean isFinished() {
-        return true;
+        return  drive.trajName == "BBCenter";
     }
 
 }
