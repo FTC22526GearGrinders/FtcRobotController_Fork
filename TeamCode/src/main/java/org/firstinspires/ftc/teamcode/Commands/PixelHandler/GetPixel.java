@@ -3,11 +3,12 @@ package org.firstinspires.ftc.teamcode.Commands.PixelHandler;
 import com.arcrobotics.ftclib.command.CommandBase;
 
 
-public class GetPixelsFromIntake extends CommandBase {
+public class GetPixel extends CommandBase {
 
+    private boolean leftGripper;
 
-    public GetPixelsFromIntake() {
-
+    public GetPixel(boolean leftGripper) {
+        this.leftGripper = leftGripper;
     }
 
     @Override

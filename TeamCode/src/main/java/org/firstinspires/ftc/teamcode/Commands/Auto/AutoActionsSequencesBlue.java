@@ -34,10 +34,7 @@ public class AutoActionsSequencesBlue extends SequentialCommandGroup {
 
                         new SelectMotionValuesBlue(),
 
-                        // new ShowAutoValues(opMode, vss)));
-
-
-                        new SelectAndRunTrajectory(opMode, drive, phss).withTimeout(10000),
+                        new SelectAndRunTrajectory(opMode, drive, phss),
 
                         new ConditionalCommand(
 
@@ -47,28 +44,32 @@ public class AutoActionsSequencesBlue extends SequentialCommandGroup {
 
                                         new RunToAprilTag(drive, opMode),
 
-                                        new PositionPHArm(arm, Constants.ArmConstants.armExtensions.LOW.extension, .5),
+                                        new ParallelCommandGroup(
 
-                                        new InstantCommand(() -> phss.openClaw()),
+                                                new PositionPHArm(arm, Constants.ArmConstants.armExtensions.LOW.extension, .5),
+
+                                                new InstantCommand(() -> phss.turnGrippersToDeliver())),
+
+                                        new InstantCommand(() -> phss.openBothGrippers()),
 
                                         new TimeDelay(.5),
 
                                         new ParallelCommandGroup(
 
-                                                new InstantCommand(() -> phss.closeClaw()),
+                                                new InstantCommand(() -> phss.closeBothGrippers()),
 
-                                                new InstantCommand(() -> phss.retractClawArm())),
 
-                                        new PositionPHArmToPreset(arm, Constants.ArmConstants.armExtensions.HOME.extension),
+                                                new PositionPHArmToPreset(arm, Constants.ArmConstants.armExtensions.HOME.extension),
 
-                                        new ConditionalCommand(new MoveToPark(drive), new DoNothing(),
-                                                () -> (ActiveMotionValues.getNearPark() || ActiveMotionValues.getCenterPark()))),
+                                                new ConditionalCommand(new MoveToPark(drive),
+                                                        new DoNothing(),
+                                                        () -> (ActiveMotionValues.getNearPark()
+                                                                || ActiveMotionValues.getCenterPark())))),
 
 
                                 new DoNothing(), () -> ActiveMotionValues.getBBStart()
 
-                                || !ActiveMotionValues.getBBStart() && ActiveMotionValues.getSecondPixel())))
-        ;
+                                || !ActiveMotionValues.getBBStart() && ActiveMotionValues.getSecondPixel())));
 
 
     }

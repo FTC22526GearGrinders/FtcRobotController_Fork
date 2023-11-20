@@ -30,7 +30,6 @@ public final class Constants {
 
         public static final double tapeWidth = 1;
         public static final double tapeLength = 12;
-        static final double gapBetweenTapeY = 20;
     }
 
 
@@ -113,11 +112,12 @@ public final class Constants {
         public static final double DROP_OPEN_POSITION = 0;
         public static final double DROP_CLOSED_POSITION = .7;
 
-        public static final double CLAW_ARM_EXTEND_POSITION = .95;
-        public static final double CLAW_ARM_RETRACT_POSITION = .60;
-
-
-        public static final double CLAW_ARM_DROP_DISTANCE = .5;
+        public static final double LEFT_GRIPPER_OPEN_POSITION =.6;
+        public static final double LEFT_GRIPPER_CLOSED_POSITION = .6;
+        public static final double RIGHT_GRIPPER_OPEN_POSITION = .6;
+        public static final double RIGHT_GRIPPER_CLOSED_POSITION = .5;
+        public static final double TURN_DELIVER_POSITION = .2;
+        public static final double TURN_PICKUP_POSITION = .5;
     }
 
     public static final class ArmConstants {

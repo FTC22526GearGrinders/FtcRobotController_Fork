@@ -17,13 +17,31 @@ public class LogAutoSettings extends CommandBase {
 
     private final CommandOpMode opMode;
 
+    boolean headersWritten = false;
 
+    boolean dataWritten = false;
     ElapsedTime dataTimer;              // timer object
     int logInterval = 50;               // target interval in milliseconds
 
     boolean logged = false;
 
+    boolean valuesSet = false;
+
     int lpctr;
+
+    String a;
+    int b;
+    boolean c;
+    String d;
+
+    String e;
+
+    String f;
+
+    String g;
+
+    String h;
+
 
     public LogAutoSettings(CommandOpMode opMode) {
         this.opMode = opMode;
@@ -39,37 +57,17 @@ public class LogAutoSettings extends CommandBase {
         avDL = new W_Datalogger_v05(datalogFilename);
         // Instantiate datalog timer.
         dataTimer = new ElapsedTime(ElapsedTime.Resolution.MILLISECONDS);
-
-        avDL.addField("Red Alliance");
-        avDL.addField("LCR");
-        avDL.addField("Start Position");
-        avDL.addField("Start Pose X");
-        avDL.addField("Start Pose Y");
-        avDL.addField("Start Pose DEG");
-
-
-        avDL.addField("Advance Pose");
-        avDL.addField("Drop Pose");
-
-        avDL.addField("Retract Pose");
-        avDL.addField("Pre Tag Pose");
-        avDL.addField("Act Tag");
-        avDL.firstLine();
         dataTimer.reset();
+        opMode.telemetry.addData("LogAutoInit", "");
+        opMode.telemetry.update();
+
     }
 
     @Override
     public void execute() {
-        boolean a = ActiveMotionValues.getRedAlliance();
-        int b = ActiveMotionValues.getLcrpos();
-        boolean c = ActiveMotionValues.getBBStart();
-        String d = ActiveMotionValues.getStartPose().toString();
-        String e = ActiveMotionValues.getAdvancePose().toString();
-        String f = ActiveMotionValues.getDropOffPose().toString();
-        lpctr++;
-        opMode.telemetry.addData("STRPOSE", ActiveMotionValues.getStartPose().toString());
-        opMode.telemetry.update();
-        if (lpctr == 5) {
+
+
+        if (headersWritten && valuesSet && !dataWritten) {
 
             avDL.addField(a);
             avDL.addField(b);
@@ -77,14 +75,56 @@ public class LogAutoSettings extends CommandBase {
             avDL.addField(d);
             avDL.addField(e);
             avDL.addField(f);
-//            avDL.addField(ActiveMotionValues.getRetractPose().toString());
-//            avDL.addField(ActiveMotionValues.getPreTagPose().toString());
-//            avDL.addField(ActiveMotionValues.getActTag());
+            avDL.addField(g);
+            avDL.addField(h);
             avDL.newLine();
-
-
+            dataTimer.reset();
+            dataWritten = true;
         }
-        if (lpctr == 8) logged = true;
+
+        if (!headersWritten && !valuesSet) {
+            a = ActiveMotionValues.getRedAlliance() ? "true" : "false";
+            int b = ActiveMotionValues.getLcrpos();
+            c = ActiveMotionValues.getBBStart();
+            d = ActiveMotionValues.getStartPose().toString();
+            d = d.replace(",", "-");
+            e = ActiveMotionValues.getAdvancePose().toString();
+            e = e.replace(",", "-");
+            f = ActiveMotionValues.getDropOffPose().toString();
+            f = f.replace(",", "-");
+            g = ActiveMotionValues.getRetractPose().toString();
+            g = g.replace(",", "-");
+            h = ActiveMotionValues.getPreTagPose().toString();
+            h = h.replace(",", "-");
+            valuesSet = true;
+            dataTimer.reset();
+        }
+
+        if (!headersWritten) {
+
+            avDL.addField("Red Alliance");
+            avDL.addField("LCR");
+            avDL.addField("Start Position");
+            avDL.addField("Start Pose X");
+            avDL.addField("Start Pose Y");
+            avDL.addField("Start Pose DEG");//f
+
+            avDL.addField("Advance Pose");
+            avDL.addField("Drop Pose");
+
+            avDL.addField("Retract Pose");
+            avDL.addField("Pre Tag Pose");
+            avDL.addField("Act Tag");
+
+            avDL.addField("SDTruss");
+            avDL.addField("SDTrussPose");
+            avDL.addField("OptStopPose");
+            avDL.addField("OptionTargetPose");
+            headersWritten = true;
+            avDL.firstLine();
+            dataTimer.reset();
+        }
+
     }
 
     @Override
@@ -94,7 +134,7 @@ public class LogAutoSettings extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return logged;
+        return dataWritten && dataTimer.time() > logInterval;
     }
 
 

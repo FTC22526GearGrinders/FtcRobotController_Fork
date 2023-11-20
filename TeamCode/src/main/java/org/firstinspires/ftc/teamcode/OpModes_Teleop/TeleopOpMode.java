@@ -14,13 +14,14 @@ import org.firstinspires.ftc.teamcode.Commands.Arm.JogArm;
 import org.firstinspires.ftc.teamcode.Commands.Arm.PositionPHArm;
 import org.firstinspires.ftc.teamcode.Commands.Arm.PositionPHArmToPreset;
 import org.firstinspires.ftc.teamcode.Commands.Auto.DetectAprilTags;
+import org.firstinspires.ftc.teamcode.Commands.Auto.SelectMotionValuesBlue;
 import org.firstinspires.ftc.teamcode.Commands.Drive.JogDrive;
 import org.firstinspires.ftc.teamcode.Commands.Drive.RunToAprilTag;
 import org.firstinspires.ftc.teamcode.Commands.Trajectories.Backboard.BuildBBCenterTraj;
 import org.firstinspires.ftc.teamcode.Commands.Trajectories.LogTrajectory;
-import org.firstinspires.ftc.teamcode.Commands.Trajectories.RunTrajSequence;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Commands.Utils.LogAutoSettings;
+import org.firstinspires.ftc.teamcode.Commands.Utils.RandomLCR;
 import org.firstinspires.ftc.teamcode.Commands.Utils.TimeDelay;
 import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.Subsystems.ArmSubsystem;
@@ -92,8 +93,8 @@ public class TeleopOpMode extends CommandOpMode {
         driver.getGamepadButton(GamepadKeys.Button.X).whenPressed(
 //                new ParallelCommandGroup(
 //                        new RunTrajSequence(drive, this),
-                       new LogTrajectory(drive, this));
-               // new LogAutoSettings(this));//
+                new LogTrajectory(drive, this));
+        // new LogAutoSettings(this));//
 
 
         driver.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenPressed(
@@ -111,9 +112,9 @@ public class TeleopOpMode extends CommandOpMode {
                                 new RunToAprilTag(drive, this),
                                 new PositionPHArmToPreset(arm, .5)),
 
-                        new InstantCommand(() -> phss.openClaw()),
+                        new InstantCommand(() -> phss.openBothGrippers()),
                         new TimeDelay(.5),
-                        new InstantCommand(() -> phss.retractClawArm()),
+                        new InstantCommand(() -> phss.turnGrippersToPickup()),
                         new PositionPHArmToPreset(arm, Constants.ArmConstants.armExtensions.HOME.extension)));
 
         driver.getGamepadButton(GamepadKeys.Button.START).whenPressed(() -> ActiveMotionValues.setBackboardLevel(1))
@@ -122,7 +123,10 @@ public class TeleopOpMode extends CommandOpMode {
 
         driver.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT).whenPressed(drive.drive::toggleFieldCentric);
 
-        //driver.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
+        driver.getGamepadButton(GamepadKeys.Button.DPAD_LEFT).whenPressed(
+
+                        new LogAutoSettings(this));
+
 
         driver.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenHeld(new JogArm(arm, true));
 
@@ -149,16 +153,16 @@ public class TeleopOpMode extends CommandOpMode {
 
         //  coDriver.getGamepadButton((GamepadKeys.Button.B))
 
-        coDriver.getGamepadButton((GamepadKeys.Button.DPAD_LEFT)).whenPressed(phss::extendClawArm);
+        coDriver.getGamepadButton((GamepadKeys.Button.DPAD_LEFT)).whenPressed(phss::turnGrippersToPickup);
 
-        coDriver.getGamepadButton((GamepadKeys.Button.DPAD_RIGHT)).whenPressed(phss::retractClawArml);
+        coDriver.getGamepadButton((GamepadKeys.Button.DPAD_RIGHT)).whenPressed(phss::turnGrippersToDeliver);
 
 
-        coDriver.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenPressed(phss::openClaw);
+        coDriver.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenPressed(phss::openBothGrippers);
 
 
 //ph
-        coDriver.getGamepadButton(GamepadKeys.Button.DPAD_DOWN).whenPressed(phss::closeClaw);
+        coDriver.getGamepadButton(GamepadKeys.Button.DPAD_DOWN).whenPressed(phss::closeBothGrippers);
 
         coDriver.getGamepadButton((GamepadKeys.Button.X)).whenPressed(new RunToAprilTag(drive, this));
 
@@ -193,7 +197,7 @@ public class TeleopOpMode extends CommandOpMode {
 
         // drive.drive.showTelemetry(telemetry);
 
-      //   drive.showtelemetry(telemetry);
+        //   drive.showtelemetry(telemetry);
 
         // arm.showTelemetry(telemetry);
 

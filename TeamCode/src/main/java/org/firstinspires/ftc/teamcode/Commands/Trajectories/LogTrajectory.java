@@ -65,6 +65,7 @@ public class LogTrajectory extends CommandBase {
         tsDL.addField("Robot X");
         tsDL.addField("Robot Y");
         tsDL.addField("Robot Heading");
+        tsDL.addField("Pose Velocity");
 
         tsDL.firstLine();                        // end first line (row)
 
@@ -85,6 +86,7 @@ public class LogTrajectory extends CommandBase {
             tsDL.addField(drive.drive.getPoseEstimate().getX());
             tsDL.addField(drive.drive.getPoseEstimate().getY());
             tsDL.addField(drive.drive.getPoseEstimate().getHeading());
+            tsDL.addField(drive.drive.getExternalHeadingVelocity());
             tsDL.newLine();
             dataTimer.reset();
             writeRunning = false;

@@ -13,6 +13,8 @@ import org.firstinspires.ftc.teamcode.Commands.Drive.RunToAprilTag;
 import org.firstinspires.ftc.teamcode.Commands.Trajectories.SelectAndRunTrajectory;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Commands.Utils.DoNothing;
+import org.firstinspires.ftc.teamcode.Commands.Utils.LogAutoSettings;
+import org.firstinspires.ftc.teamcode.Commands.Utils.RandomLCR;
 import org.firstinspires.ftc.teamcode.Commands.Utils.TimeDelay;
 import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.Subsystems.ArmSubsystem;
@@ -23,19 +25,20 @@ import org.firstinspires.ftc.teamcode.Subsystems.Vision_Subsystem;
 public class AutoActionsSequencesRed extends SequentialCommandGroup {
 
     public AutoActionsSequencesRed(CommandOpMode opMode, Drive_Subsystem drive, PixelHandlerSubsystem phss,
-                                   ArmSubsystem arm, Vision_Subsystem vss) {
+                                    ArmSubsystem arm, Vision_Subsystem vss) {
         ActiveMotionValues.setBackboardLevel(1);
 
         addCommands(
 
                 new SequentialCommandGroup(
 
-                        new LookForTeamProp(opMode, false, vss),
+                       // new LookForTeamProp(opMode, false, vss),
+
+                        new RandomLCR(),
 
                         new SelectMotionValuesRed(),
 
-                        // new ShowAutoValues(opMode,vss)));
-
+                        new LogAutoSettings(opMode),
 
                         new SelectAndRunTrajectory(opMode, drive, phss).withTimeout(10000),
 
@@ -47,28 +50,32 @@ public class AutoActionsSequencesRed extends SequentialCommandGroup {
 
                                         new RunToAprilTag(drive, opMode),
 
-                                        new PositionPHArm(arm, Constants.ArmConstants.armExtensions.LOW.extension, .5),
+                                        new ParallelCommandGroup(
 
-                                        new InstantCommand(() -> phss.openClaw()),
+                                                new PositionPHArm(arm, Constants.ArmConstants.armExtensions.LOW.extension, .5),
+
+                                                new InstantCommand(() -> phss.turnGrippersToDeliver())),
+
+                                        new InstantCommand(() -> phss.openBothGrippers()),
 
                                         new TimeDelay(.5),
 
                                         new ParallelCommandGroup(
 
-                                                new InstantCommand(() -> phss.closeClaw()),
+                                                new InstantCommand(() -> phss.closeBothGrippers()),
 
-                                                new InstantCommand(() -> phss.retractClawArm())),
 
-                                        new PositionPHArmToPreset(arm, Constants.ArmConstants.armExtensions.HOME.extension),
+                                                new PositionPHArmToPreset(arm, Constants.ArmConstants.armExtensions.HOME.extension),
 
-                                        new ConditionalCommand(new MoveToPark(drive), new DoNothing(),
-                                                () -> (ActiveMotionValues.getNearPark() || ActiveMotionValues.getCenterPark()))),
+                                                new ConditionalCommand(new MoveToPark(drive),
+                                                        new DoNothing(),
+                                                        () -> (ActiveMotionValues.getNearPark()
+                                                                || ActiveMotionValues.getCenterPark())))),
 
 
                                 new DoNothing(), () -> ActiveMotionValues.getBBStart()
 
-                                || !ActiveMotionValues.getBBStart() && ActiveMotionValues.getSecondPixel())))
-        ;
+                                || !ActiveMotionValues.getBBStart() && ActiveMotionValues.getSecondPixel())));
 
 
     }
