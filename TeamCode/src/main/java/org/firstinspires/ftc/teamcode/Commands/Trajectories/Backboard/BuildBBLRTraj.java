@@ -5,18 +5,16 @@ import com.arcrobotics.ftclib.command.CommandBase;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.PixelHandlerSubsystem;
-import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
 
-public class RunBBLRTraj extends CommandBase {
+public class BuildBBLRTraj extends CommandBase {
     private final Drive_Subsystem drive;
     private final PixelHandlerSubsystem phss;
 
-    private TrajectorySequence backboardLeftRight;
 
     private int numberPoints;
 
-    public RunBBLRTraj(Drive_Subsystem drive, PixelHandlerSubsystem phss) {
+    public BuildBBLRTraj(Drive_Subsystem drive, PixelHandlerSubsystem phss) {
         this.drive = drive;
         this.phss = phss;
     }
@@ -43,7 +41,7 @@ public class RunBBLRTraj extends CommandBase {
 
         if (!trussSideTape) {
 
-            backboardLeftRight = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
+            drive.currentTrajSeq = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
 
                     .lineToLinearHeading(ActiveMotionValues.getDropOffPose())
 
@@ -60,7 +58,7 @@ public class RunBBLRTraj extends CommandBase {
 
         } else {
 
-            backboardLeftRight = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
+            drive.currentTrajSeq = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
 
                     .lineToLinearHeading(ActiveMotionValues.getAdvancePose())
 
@@ -76,15 +74,18 @@ public class RunBBLRTraj extends CommandBase {
 
                     .lineToLinearHeading(ActiveMotionValues.getPreTagPose())
 
-
                     .build();
 
-
+            drive.trajName = "BBLeftRight";
+            drive.trajSize = drive.currentTrajSeq.size();
+            drive.trajDuration = drive.currentTrajSeq.duration();
+            drive.trsjStartPose = drive.currentTrajSeq.start();
+            drive.trajEndPose = drive.currentTrajSeq.end();
         }
 
         drive.drive.setPoseEstimate(ActiveMotionValues.getStartPose());
 
-        drive.drive.followTrajectorySequence(backboardLeftRight);
+        drive.drive.followTrajectorySequence(drive.currentTrajSeq);
     }
 
     @Override

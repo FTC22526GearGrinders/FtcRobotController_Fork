@@ -5,17 +5,14 @@ import com.arcrobotics.ftclib.command.CommandBase;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.PixelHandlerSubsystem;
-import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
 
-public class RunTrussSDLRTape extends CommandBase {
+public class BuildTrussSDLRTape extends CommandBase {
     private final Drive_Subsystem drive;
     private final PixelHandlerSubsystem phss;
 
-    private TrajectorySequence trussSDTraj;
 
-
-    public RunTrussSDLRTape(Drive_Subsystem drive, PixelHandlerSubsystem phss) {
+    public BuildTrussSDLRTape(Drive_Subsystem drive, PixelHandlerSubsystem phss) {
         this.drive = drive;
         this.phss = phss;
 
@@ -38,7 +35,7 @@ public class RunTrussSDLRTape extends CommandBase {
 
             if (!trussSideTape) {
 
-                trussSDTraj = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
+                drive.currentTrajSeq = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
 
                         .lineToLinearHeading(ActiveMotionValues.getDropOffPose())
 
@@ -61,7 +58,7 @@ public class RunTrussSDLRTape extends CommandBase {
 
             if (trussSideTape) {
 
-                trussSDTraj = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
+                drive.currentTrajSeq = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
 
                         .lineToLinearHeading(ActiveMotionValues.getAdvancePose())
 
@@ -88,7 +85,7 @@ public class RunTrussSDLRTape extends CommandBase {
 
             if (!trussSideTape) {
 
-                trussSDTraj = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
+                drive.currentTrajSeq = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
 
                         .lineToLinearHeading(ActiveMotionValues.getDropOffPose())
 
@@ -113,7 +110,7 @@ public class RunTrussSDLRTape extends CommandBase {
 
             if (trussSideTape) {
 
-                trussSDTraj = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
+                drive.currentTrajSeq = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
 
                         .lineToLinearHeading(ActiveMotionValues.getAdvancePose())
 
@@ -139,26 +136,21 @@ public class RunTrussSDLRTape extends CommandBase {
         }
 
 
-        drive.drive.setPoseEstimate(ActiveMotionValues.getStartPose());
-
-        drive.drive.followTrajectorySequence(trussSDTraj);
     }
 
     @Override
     public void execute() {
-        drive.drive.update();
+
     }
 
     @Override
     public void end(boolean interrupted) {
-        if (interrupted) {
-            drive.drive.stop();
-        }
+
     }
 
     @Override
     public boolean isFinished() {
-        return Thread.currentThread().isInterrupted() || !drive.drive.isBusy();
+        return true;
     }
 
 }
