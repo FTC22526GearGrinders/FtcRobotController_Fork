@@ -31,13 +31,11 @@ public class AutoFactory extends CommandBase {
     }
 
     public Command getAASRed() {
-
         return new AutoActionsSequencesRed(opMode, drive, phss, arm, vss);
     }
 
 
     public Command getAASBlue() {
-
         return new AutoActionsSequencesBlue(opMode, drive, phss, arm, vss);
     }
 

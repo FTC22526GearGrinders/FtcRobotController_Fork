@@ -3,15 +3,24 @@ package org.firstinspires.ftc.teamcode.Commands.Auto;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.arcrobotics.ftclib.command.CommandBase;
+import com.arcrobotics.ftclib.command.CommandOpMode;
+import com.arcrobotics.ftclib.command.ConditionalCommand;
 
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.FieldConstantsRed;
 
 public class SelectMotionValuesRed extends CommandBase {
 
+private CommandOpMode opMode;
+    public SelectMotionValuesRed(CommandOpMode opMode) {
+        this.opMode=opMode;
+    }
+
 
     @Override
     public void initialize() {
+        opMode.telemetry.addData("RED","");
+        opMode.telemetry.update();
     }
 
     @Override

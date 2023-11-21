@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.OpModes_Teleop;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.arcrobotics.ftclib.command.CommandOpMode;
+import com.arcrobotics.ftclib.command.ConditionalCommand;
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
@@ -9,9 +10,12 @@ import com.arcrobotics.ftclib.gamepad.TriggerReader;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Commands.Arm.JogArm;
+import org.firstinspires.ftc.teamcode.Commands.Auto.SelectMotionValuesBlue;
+import org.firstinspires.ftc.teamcode.Commands.Auto.SelectMotionValuesRed;
 import org.firstinspires.ftc.teamcode.Commands.Drive.JogDrive;
 import org.firstinspires.ftc.teamcode.Commands.PixelHandler.TurnGrippersIncrementalCommand;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
+import org.firstinspires.ftc.teamcode.Commands.Utils.LogAutoSettings;
 import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.Subsystems.ArmSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
@@ -92,10 +96,10 @@ public class TeleopOpMode extends CommandOpMode {
         driver.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whileHeld(
                 new JogArm(arm, gamepad2));
 
-        //driver.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER).whileHeld(
+        //driver.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER).whenPressed(
 
+       // driver.getGamepadButton(GamepadKeys.Button.START).whenPressed(
 
-        //driver.getGamepadButton(GamepadKeys.Button.START).whenPressed(
 
 
         driver.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT).whenPressed(

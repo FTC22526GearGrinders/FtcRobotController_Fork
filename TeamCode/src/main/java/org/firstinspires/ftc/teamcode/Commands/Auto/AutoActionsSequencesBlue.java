@@ -33,7 +33,7 @@ public class AutoActionsSequencesBlue extends SequentialCommandGroup {
 
                         new LookForTeamProp(opMode, false, vss),
 
-                        new SelectMotionValuesBlue(),
+                        new SelectMotionValuesBlue(opMode),
 
                         new LogAutoSettings(opMode),
 

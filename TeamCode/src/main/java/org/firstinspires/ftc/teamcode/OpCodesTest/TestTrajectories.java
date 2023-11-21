@@ -60,7 +60,7 @@ public class TestTrajectories extends CommandOpMode {
         lcr = ActiveMotionValues.getLcrpos();
 
         new SequentialCommandGroup(
-                new SelectMotionValuesRed(),
+                new SelectMotionValuesRed(this),
                 new SelectAndRunTrajectory(this ,drive, phss),
                 new DetectAprilTags(this, vss,false),
                 new ConditionalCommand(

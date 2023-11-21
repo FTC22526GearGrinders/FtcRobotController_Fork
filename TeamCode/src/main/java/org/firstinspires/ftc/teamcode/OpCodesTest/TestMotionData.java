@@ -146,9 +146,9 @@ public class TestMotionData extends CommandOpMode {
 
         waitForStart();
 
-        if (redAlliance) new SelectMotionValuesRed().schedule();
+        if (redAlliance) new SelectMotionValuesRed(this).schedule();
 
-        else new SelectMotionValuesBlue().schedule();
+        else new SelectMotionValuesBlue(this).schedule();
 
 
     }

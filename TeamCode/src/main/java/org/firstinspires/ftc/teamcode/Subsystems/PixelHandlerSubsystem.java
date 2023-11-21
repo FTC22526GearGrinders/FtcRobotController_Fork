@@ -52,8 +52,7 @@ public class PixelHandlerSubsystem extends SubsystemBase {
     @Override
 
     public void periodic() {
-        myOpMode.telemetry.addData("TurnPosition",turnGrippersPosition);
-        myOpMode.telemetry.update();
+
     }
 
 
