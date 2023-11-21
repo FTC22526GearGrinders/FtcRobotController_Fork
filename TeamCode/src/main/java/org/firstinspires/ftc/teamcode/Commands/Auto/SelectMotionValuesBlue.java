@@ -45,6 +45,8 @@ public class SelectMotionValuesBlue extends CommandBase {
 
                 ActiveMotionValues.setStartPose(FieldConstantsBlue.XPYP.startPos);//start pose
 
+                ActiveMotionValues.setAdvancePose(FieldConstantsBlue.XPYP.advancePose);
+
                 ActiveMotionValues.setDropOffPose(FieldConstantsBlue.XPYP.leftDropPose.minus(xyOffsetPose));
 
                 ActiveMotionValues.setRetractPose(FieldConstantsBlue.XPYP.leftRetractPose);
@@ -78,7 +80,6 @@ public class SelectMotionValuesBlue extends CommandBase {
                 //robot moves in Y
 
                 ActiveMotionValues.setStartPose(FieldConstantsBlue.XPYP.startPos);//start pose
-
 
                 ActiveMotionValues.setDropOffPose(FieldConstantsBlue.XPYP.centerDropPose.minus(xyOffsetPose));
 
@@ -122,7 +123,7 @@ public class SelectMotionValuesBlue extends CommandBase {
 
                 ActiveMotionValues.setRetractPose(FieldConstantsBlue.XPYP.rightRetractPose);
 
-                ActiveMotionValues.setStrafeDistance(-11.5);
+                ActiveMotionValues.setAdvancePose(FieldConstantsBlue.XPYP.advancePose);
 
                 ActiveMotionValues.setActTag(3);
 
@@ -151,6 +152,7 @@ public class SelectMotionValuesBlue extends CommandBase {
 
                 ActiveMotionValues.setStartPose(FieldConstantsBlue.XMYP.startPose);//start pose
 
+                ActiveMotionValues.setAdvancePose(FieldConstantsBlue.XMYP.advancePose);
 
                 ActiveMotionValues.setDropOffPose(FieldConstantsBlue.XMYP.leftDropPose.minus(xyOffsetPose));
 

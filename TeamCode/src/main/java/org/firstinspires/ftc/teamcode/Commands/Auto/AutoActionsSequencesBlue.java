@@ -23,14 +23,17 @@ import org.firstinspires.ftc.teamcode.Subsystems.Vision_Subsystem;
 public class AutoActionsSequencesBlue extends SequentialCommandGroup {
 
     public AutoActionsSequencesBlue(CommandOpMode opMode, Drive_Subsystem drive, PixelHandlerSubsystem phss,
-                                    ArmSubsystem arm, Vision_Subsystem vss) {
+                                    ArmSubsystem arm, Vision_Subsystem vss, boolean redAlliance) {
         ActiveMotionValues.setBackboardLevel(1);
+
 
         addCommands(
 
                 new SequentialCommandGroup(
 
                         new LookForTeamProp(opMode, false, vss),
+
+                        new ConditionalCommand(new SelectMotionValuesRed(), new SelectMotionValuesBlue(), () -> redAlliance),
 
                         new SelectMotionValuesBlue(),
 

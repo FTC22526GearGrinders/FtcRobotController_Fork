@@ -12,8 +12,12 @@ public final class Constants {
         static final double height = 13;
         static final double width = 16;
 
-
+        static double gripperXOffset = 4;
         public static Pose2d pixelDropPose = new Pose2d(0, -RobotConstants.length / 2 + 1, 0);
+        public static Pose2d leftGripperPose = new Pose2d(-gripperXOffset, -RobotConstants.length / 2 + 1, 0);
+        public static Pose2d rightGripperPose = new Pose2d(gripperXOffset, -RobotConstants.length / 2 + 1, 0);
+
+        public static Pose2d activeDropOffsetPose = pixelDropPose;
 
 
         public static Pose2d kCameraToRobot = new Pose2d(RobotConstants.length / 2, 2);
@@ -102,22 +106,50 @@ public final class Constants {
         public static double rpmToVelocity(double rpm) {
             return rpm * GEARBOX_RATIO * 2 * Math.PI * WHEEL_DIAMETER_INCH / 2 / 60.0;
         }
-
     }
 
-
     public static final class PixelHandlerConstants {
-        public static final double CLAW_CLOSE_POSITION = .39;
-        public static final double CLAW_OPEN_POSITION = .51;
         public static final double DROP_OPEN_POSITION = 0;
         public static final double DROP_CLOSED_POSITION = .7;
 
-        public static final double LEFT_GRIPPER_OPEN_POSITION =.6;
-        public static final double LEFT_GRIPPER_CLOSED_POSITION = .6;
-        public static final double RIGHT_GRIPPER_OPEN_POSITION = .6;
-        public static final double RIGHT_GRIPPER_CLOSED_POSITION = .5;
-        public static final double TURN_DELIVER_POSITION = .2;
-        public static final double TURN_PICKUP_POSITION = .5;
+        public enum LeftGripperSet {
+            OPEN(.1),//open position
+            MID(.3),//mid
+            CLOSED(.5);//closed
+
+            public final double position;
+
+            LeftGripperSet(double position) {
+                this.position = position;
+            }
+        }
+
+
+        public enum RightGripperSet {
+            OPEN(.1),
+            MID(.3),
+            CLOSED(.5);
+
+            public final double position;
+
+            RightGripperSet(double position) {
+                this.position = position;
+            }
+        }
+
+
+        public enum TurnGripperSet {
+            PICKUP(.1),
+            MID(.3),
+            DELIVER(.5);
+
+            public final double position;
+
+            TurnGripperSet(double position) {
+                this.position = position;
+            }
+        }
+
     }
 
     public static final class ArmConstants {
@@ -157,24 +189,16 @@ public final class Constants {
 
 
         public enum armExtensions {
-
             HOME(0),
             LOW(5),
             MID(12),
             HIGH(19);
-
             public final double extension;
-
 
             armExtensions(double extension) {
                 this.extension = extension;
-
             }
-
-
         }
-
-
     }
 
     public static final class CatapultConstants {

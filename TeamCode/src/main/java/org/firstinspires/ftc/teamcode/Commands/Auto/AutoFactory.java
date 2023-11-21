@@ -31,17 +31,16 @@ public class AutoFactory extends CommandBase {
         this.phss = phss;
         this.arm = arm;
         this.vss = vss;
-
-
     }
 
     public Command getAASRed() {
 
-        return new AutoActionsSequencesRed(opMode, drive, phss, arm, vss);
+        return new AutoActionsSequencesBlue(opMode, drive, phss, arm, vss,true);
+       // return new AutoActionsSequencesRed(opMode, drive, phss, arm, vss);
     }
     public Command getAASBlue() {
 
-        return new AutoActionsSequencesBlue(opMode, drive, phss, arm, vss);
+        return new AutoActionsSequencesBlue(opMode, drive, phss, arm, vss,false);
     }
 
 }

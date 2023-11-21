@@ -5,21 +5,28 @@ import com.arcrobotics.ftclib.command.CommandBase;
 import org.firstinspires.ftc.teamcode.Subsystems.PixelHandlerSubsystem;
 
 
-public class PlacePixelOnBB extends CommandBase {
+public class PixelTapePlacerCommand extends CommandBase {
 
-    private PixelHandlerSubsystem phss;
+    private PixelHandlerSubsystem phsss;
 
-    public PlacePixelOnBB(PixelHandlerSubsystem phss) {
-        this.phss = phss;
+    int cnt;
+
+    public PixelTapePlacerCommand(PixelHandlerSubsystem phss) {
+        this.phsss = phss;
     }
 
     @Override
     public void initialize() {
+
+        phsss.holdPixel();
+        cnt = 0;
+
     }
 
     @Override
     public void execute() {
-
+        phsss.dropPixel();
+        cnt++;
     }
 
     @Override
@@ -29,6 +36,6 @@ public class PlacePixelOnBB extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return true;
+        return cnt > 100;
     }
 }

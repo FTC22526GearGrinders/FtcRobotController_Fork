@@ -30,8 +30,8 @@ public class LogAutoSettings extends CommandBase {
     int lpctr;
 
     String a;
-    int b;
-    boolean c;
+    String b;
+    String c;
     String d;
 
     String e;
@@ -39,9 +39,6 @@ public class LogAutoSettings extends CommandBase {
     String f;
 
     String g;
-
-    String h;
-
 
     public LogAutoSettings(CommandOpMode opMode) {
         this.opMode = opMode;
@@ -75,8 +72,6 @@ public class LogAutoSettings extends CommandBase {
             avDL.addField(d);
             avDL.addField(e);
             avDL.addField(f);
-            avDL.addField(g);
-            avDL.addField(h);
             avDL.newLine();
             dataTimer.reset();
             dataWritten = true;
@@ -84,18 +79,13 @@ public class LogAutoSettings extends CommandBase {
 
         if (!headersWritten && !valuesSet) {
             a = ActiveMotionValues.getRedAlliance() ? "true" : "false";
-            int b = ActiveMotionValues.getLcrpos();
-            c = ActiveMotionValues.getBBStart();
-            d = ActiveMotionValues.getStartPose().toString();
-            d = d.replace(",", "-");
-            e = ActiveMotionValues.getAdvancePose().toString();
-            e = e.replace(",", "-");
-            f = ActiveMotionValues.getDropOffPose().toString();
-            f = f.replace(",", "-");
-            g = ActiveMotionValues.getRetractPose().toString();
-            g = g.replace(",", "-");
-            h = ActiveMotionValues.getPreTagPose().toString();
-            h = h.replace(",", "-");
+            b = ActiveMotionValues.getBBStart() ? "true" : "false";
+            c = ActiveMotionValues.getUseStageDoor() ? "true" : "false";
+            d = ActiveMotionValues.getSecondPixel() ? "true" : "false";
+            e = ActiveMotionValues.getNearPark() ? "true" : "false";
+            f = ActiveMotionValues.getCenterPark() ? "true" : "false";
+
+
             valuesSet = true;
             dataTimer.reset();
         }
@@ -103,23 +93,11 @@ public class LogAutoSettings extends CommandBase {
         if (!headersWritten) {
 
             avDL.addField("Red Alliance");
-            avDL.addField("LCR");
-            avDL.addField("Start Position");
-            avDL.addField("Start Pose X");
-            avDL.addField("Start Pose Y");
-            avDL.addField("Start Pose DEG");//f
-
-            avDL.addField("Advance Pose");
-            avDL.addField("Drop Pose");
-
-            avDL.addField("Retract Pose");
-            avDL.addField("Pre Tag Pose");
-            avDL.addField("Act Tag");
-
-            avDL.addField("SDTruss");
-            avDL.addField("SDTrussPose");
-            avDL.addField("OptStopPose");
-            avDL.addField("OptionTargetPose");
+            avDL.addField("BBStart");
+            avDL.addField("StageDoor");
+            avDL.addField("2nd Pixel");
+            avDL.addField("NearPark");
+            avDL.addField("CenterPark");
             headersWritten = true;
             avDL.firstLine();
             dataTimer.reset();
@@ -130,6 +108,8 @@ public class LogAutoSettings extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         avDL.closeDataLogger();
+        opMode.telemetry.addData("LogAutoEnd", "");
+        opMode.telemetry.update();
     }
 
     @Override

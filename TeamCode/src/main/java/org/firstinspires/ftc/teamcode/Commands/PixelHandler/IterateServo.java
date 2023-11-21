@@ -38,22 +38,22 @@ public class IterateServo extends CommandBase {
 
     @Override
     public void initialize() {
-        if (servo == phss.leftGripper) {
-            MAX_POS = Constants.PixelHandlerConstants.LEFT_GRIPPER_OPEN_POSITION;
-            MIN_POS = Constants.PixelHandlerConstants.LEFT_GRIPPER_CLOSED_POSITION;
-            INCREMENT=.01;
-        }
-        if (servo == phss.rightGripper) {
-            MAX_POS = Constants.PixelHandlerConstants.RIGHT_GRIPPER_OPEN_POSITION;
-            MIN_POS = Constants.PixelHandlerConstants.RIGHT_GRIPPER_CLOSED_POSITION;
-            INCREMENT=.01;
-        }
-
-        if (servo == phss.turnGrippers) {
-            MAX_POS = Constants.PixelHandlerConstants.TURN_DELIVER_POSITION;
-            MIN_POS = Constants.PixelHandlerConstants.TURN_PICKUP_POSITION;
-            INCREMENT=.01;
-        }
+//        if (servo == phss.leftGripper) {
+//            MAX_POS = Constants.PixelHandlerConstants.LEFT_GRIPPER_OPEN_POSITION;
+//            MIN_POS = Constants.PixelHandlerConstants.LEFT_GRIPPER_CLOSED_POSITION;
+//            INCREMENT=.01;
+//        }
+//        if (servo == phss.rightGripper) {
+//            MAX_POS = Constants.PixelHandlerConstants.RIGHT_GRIPPER_OPEN_POSITION;
+//            MIN_POS = Constants.PixelHandlerConstants.RIGHT_GRIPPER_CLOSED_POSITION;
+//            INCREMENT=.01;
+//        }
+//
+//        if (servo == phss.turnGrippers) {
+//            MAX_POS = Constants.PixelHandlerConstants.TURN_DELIVER_POSITION;
+//            MIN_POS = Constants.PixelHandlerConstants.TURN_PICKUP_POSITION;
+//            INCREMENT=.01;
+//        }
 
         double pulsesInTravel = Math.abs(MAX_POS-MIN_POS);
         double cyclesToTravel = pulsesInTravel/INCREMENT;

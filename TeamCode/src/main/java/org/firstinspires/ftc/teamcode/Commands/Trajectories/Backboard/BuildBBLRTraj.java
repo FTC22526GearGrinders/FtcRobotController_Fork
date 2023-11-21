@@ -45,6 +45,10 @@ public class BuildBBLRTraj extends CommandBase {
 
                     .lineToLinearHeading(ActiveMotionValues.getDropOffPose())
 
+                    .lineToLinearHeading(ActiveMotionValues.getAdvancePose())
+
+                    .lineToLinearHeading(ActiveMotionValues.getAdvancePose())
+
                     .UNSTABLE_addTemporalMarkerOffset(.5, () -> phss.dropPixel())
 
                     .waitSeconds(1)
@@ -70,7 +74,7 @@ public class BuildBBLRTraj extends CommandBase {
 
                     .lineToLinearHeading(ActiveMotionValues.getRetractPose())
 
-                    .strafeLeft(ActiveMotionValues.getStrafeDistance())
+                    .lineToLinearHeading(ActiveMotionValues.getAdvancePose())
 
                     .lineToLinearHeading(ActiveMotionValues.getPreTagPose())
 

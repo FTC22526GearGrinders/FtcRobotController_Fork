@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.Commands.Utils;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 
 public class ActiveMotionValues {
-
     public static boolean getAprilTagSeen() {
         return aprilTagSeen;
     }

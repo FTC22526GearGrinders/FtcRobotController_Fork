@@ -49,9 +49,6 @@ public class SelectMotionValuesRed extends CommandBase {
                 Pose2d xyOffsetPose=new Pose2d();
 
 
-
-
-
                 ActiveMotionValues.setStartPose(FieldConstantsRed.XPYM.startPos);//start pose
 
 
@@ -62,8 +59,6 @@ public class SelectMotionValuesRed extends CommandBase {
 
 
                 ActiveMotionValues.setRetractPose(FieldConstantsRed.XPYM.leftTrussRetractPose);
-
-                ActiveMotionValues.setStrafeDistance(11.5);
 
 
                 ActiveMotionValues.setActTag(4);
@@ -133,6 +128,11 @@ public class SelectMotionValuesRed extends CommandBase {
                 ActiveMotionValues.setStartPose(FieldConstantsRed.XPYM.startPos);//start pose
 
 
+
+                ActiveMotionValues.setAdvancePose(FieldConstantsRed.XPYM.advancePose);
+
+
+
                 ActiveMotionValues.setDropOffPose(FieldConstantsRed.XPYM.rightDropPose.minus(xyOffsetPose));
 
 
@@ -164,6 +164,8 @@ public class SelectMotionValuesRed extends CommandBase {
                 xyOffsetPose=new Pose2d();
 
                 ActiveMotionValues.setStartPose(FieldConstantsRed.XMYM.startPose);//start pose
+
+                ActiveMotionValues.setAdvancePose(FieldConstantsRed.XMYM.advancePose);
 
                 ActiveMotionValues.setDropOffPose(FieldConstantsRed.XMYM.leftDropPose.minus(xyOffsetPose));
 
