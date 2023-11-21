@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Commands.PixelHandler;
 
 import com.arcrobotics.ftclib.command.CommandBase;
+import com.arcrobotics.ftclib.command.InstantCommand;
 
 import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.Subsystems.PixelHandlerSubsystem;
@@ -32,6 +33,7 @@ public class TurnGrippersCommand extends CommandBase {
         lpctr++;
 
         phss.positionTurnGripper(value.position);
+        phss.turnGrippersPosition=value.position;
 
     }
 

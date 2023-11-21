@@ -19,7 +19,6 @@ public final class Constants {
 
         public static Pose2d activeDropOffsetPose = pixelDropPose;
 
-
         public static Pose2d kCameraToRobot = new Pose2d(RobotConstants.length / 2, 2);
     }
 
@@ -149,8 +148,22 @@ public final class Constants {
                 this.position = position;
             }
         }
-
     }
+
+    public enum TurnGripperJogSet {
+        LO(.001),
+
+        MED(.01),
+
+        HI(.1);
+
+        public final double increment;
+
+        TurnGripperJogSet(double increment) {
+            this.increment = increment;
+        }
+    }
+
 
     public static final class ArmConstants {
 
@@ -208,4 +221,6 @@ public final class Constants {
 
 
     }
+
 }
+

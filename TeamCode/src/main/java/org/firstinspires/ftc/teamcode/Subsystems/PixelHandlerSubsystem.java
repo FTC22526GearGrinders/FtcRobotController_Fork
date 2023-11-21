@@ -25,6 +25,8 @@ public class PixelHandlerSubsystem extends SubsystemBase {
 
     private CommandOpMode myOpMode = null;
 
+    public double turnGrippersPosition;
+
 
     public PixelHandlerSubsystem(CommandOpMode opMode) {
         myOpMode = opMode;
@@ -50,6 +52,8 @@ public class PixelHandlerSubsystem extends SubsystemBase {
     @Override
 
     public void periodic() {
+        myOpMode.telemetry.addData("TurnPosition",turnGrippersPosition);
+        myOpMode.telemetry.update();
     }
 
 
@@ -110,12 +114,15 @@ public class PixelHandlerSubsystem extends SubsystemBase {
 
     public void turnGrippersToDeliver() {
         turnGrippers.setPosition(Constants.PixelHandlerConstants.TurnGripperSet.DELIVER.position);
+        turnGrippersPosition = Constants.PixelHandlerConstants.TurnGripperSet.DELIVER.position;
     }
     public void turnGrippersToMid() {
         turnGrippers.setPosition(Constants.PixelHandlerConstants.TurnGripperSet.MID.position);
+        turnGrippersPosition = Constants.PixelHandlerConstants.TurnGripperSet.MID.position;
     }
     public void turnGrippersToPickup() {
         turnGrippers.setPosition(Constants.PixelHandlerConstants.TurnGripperSet.PICKUP.position);
+        turnGrippersPosition = Constants.PixelHandlerConstants.TurnGripperSet.PICKUP.position;
     }
 
     public double getSensorDistanceInches() {

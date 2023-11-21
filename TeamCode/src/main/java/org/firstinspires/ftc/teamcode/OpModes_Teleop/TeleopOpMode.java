@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.OpModes_Teleop;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.arcrobotics.ftclib.command.CommandOpMode;
+import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.arcrobotics.ftclib.gamepad.TriggerReader;
@@ -9,6 +10,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Commands.Drive.JogDrive;
 import org.firstinspires.ftc.teamcode.Commands.PixelHandler.LeftGripperCommand;
+import org.firstinspires.ftc.teamcode.Commands.PixelHandler.TurnGrippersCommand;
+import org.firstinspires.ftc.teamcode.Commands.PixelHandler.TurnGrippersIncrementalCommand;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.Subsystems.ArmSubsystem;
@@ -97,17 +100,18 @@ public class TeleopOpMode extends CommandOpMode {
         //driver.getGamepadButton(GamepadKeys.Button.START).whenPressed(
 
 
-        //driver.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT).whenPressed(
+        driver.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT).whenPressed(
+                new TurnGrippersIncrementalCommand(phss,true, Constants.TurnGripperJogSet.HI));
+
+        driver.getGamepadButton(GamepadKeys.Button.DPAD_LEFT).whenPressed(
+                new TurnGrippersIncrementalCommand(phss,false, Constants.TurnGripperJogSet.HI));
+
+                driver.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenPressed(
+                        new InstantCommand(()->phss.turnGrippersToDeliver()));
 
 
-            driver.getGamepadButton(GamepadKeys.Button.DPAD_LEFT).whenPressed(
-                    new LeftGripperCommand(phss, Constants.PixelHandlerConstants.LeftGripperSet.MID));
-
-            driver.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenPressed
-                    (new LeftGripperCommand(phss, Constants.PixelHandlerConstants.LeftGripperSet.OPEN));
-
-            driver.getGamepadButton(GamepadKeys.Button.DPAD_DOWN).whenPressed(
-                    new LeftGripperCommand(phss, Constants.PixelHandlerConstants.LeftGripperSet.CLOSED));
+        driver.getGamepadButton(GamepadKeys.Button.DPAD_DOWN).whenPressed(
+                new InstantCommand(()->phss.turnGrippersToPickup()));
 
 
         // driver.getGamepadButton(GamepadKeys.Button.BACK).whenPressed(
