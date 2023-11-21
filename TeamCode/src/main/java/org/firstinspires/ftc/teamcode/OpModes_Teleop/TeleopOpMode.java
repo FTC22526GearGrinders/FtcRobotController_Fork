@@ -8,6 +8,7 @@ import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.arcrobotics.ftclib.gamepad.TriggerReader;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.Commands.Arm.JogArm;
 import org.firstinspires.ftc.teamcode.Commands.Drive.JogDrive;
 import org.firstinspires.ftc.teamcode.Commands.PixelHandler.TurnGrippersIncrementalCommand;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
@@ -44,9 +45,6 @@ public class TeleopOpMode extends CommandOpMode {
 
         coDriver = new GamepadEx(gamepad2);
 
-
-        //  FtcDashboard.getInstance().getTelemetry();
-
         drive = new Drive_Subsystem(this);
 
 
@@ -81,7 +79,8 @@ public class TeleopOpMode extends CommandOpMode {
 
         // example usage if(drrt.wasJustPressed())new IncrementPixelDeliveryLevel().schedule();
 
-       // driver.getGamepadButton(GamepadKeys.Button.A).whenPressed(
+        driver.getGamepadButton(GamepadKeys.Button.A).whenPressed(
+                new InstantCommand(() -> drive.drive.toggleFieldCentric()));
 
         //       driver.getGamepadButton(GamepadKeys.Button.B).whenPressed(
 
@@ -90,7 +89,8 @@ public class TeleopOpMode extends CommandOpMode {
         //      driver.getGamepadButton(GamepadKeys.Button.Y).whenPressed(
 
 
-        //       driver.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenPressed(
+        driver.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whileHeld(
+                new JogArm(arm, gamepad2));
 
         //driver.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER).whileHeld(
 

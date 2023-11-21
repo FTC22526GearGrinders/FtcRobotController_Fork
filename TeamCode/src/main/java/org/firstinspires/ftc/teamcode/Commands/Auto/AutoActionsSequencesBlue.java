@@ -5,6 +5,7 @@ import com.arcrobotics.ftclib.command.ConditionalCommand;
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
+import com.arcrobotics.ftclib.command.WaitCommand;
 
 import org.firstinspires.ftc.teamcode.Commands.Arm.PositionPHArm;
 import org.firstinspires.ftc.teamcode.Commands.Drive.MoveToPark;
@@ -52,6 +53,8 @@ public class AutoActionsSequencesBlue extends SequentialCommandGroup {
 
                                                 new InstantCommand(() -> phss.turnGrippersToDeliver())),
 
+                                        new WaitCommand(500),
+
                                         new InstantCommand(() -> phss.openBothGrippers()),
 
                                         new TimeDelay(.5),
@@ -59,7 +62,6 @@ public class AutoActionsSequencesBlue extends SequentialCommandGroup {
                                         new ParallelCommandGroup(
 
                                                 new InstantCommand(() -> phss.closeBothGrippers()),
-
 
                                                 new PositionPHArm(arm, Constants.ArmConstants.armPositionInches[0], .5),
 
@@ -69,9 +71,9 @@ public class AutoActionsSequencesBlue extends SequentialCommandGroup {
                                                                 || ActiveMotionValues.getCenterPark())))),
 
 
-                                new DoNothing(), () -> ActiveMotionValues.getBBStart()
+                                new DoNothing(),
 
-                                || !ActiveMotionValues.getBBStart() && ActiveMotionValues.getSecondPixel())));
+                                () -> ActiveMotionValues.getBBStart() || !ActiveMotionValues.getBBStart() && ActiveMotionValues.getSecondPixel())));
 
 
     }
