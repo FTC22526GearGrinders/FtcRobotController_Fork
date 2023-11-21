@@ -9,27 +9,20 @@ import org.firstinspires.ftc.teamcode.FieldConstantsRed;
 
 public class SelectMotionValuesRed extends CommandBase {
 
-    /*
-     *
-     *
-     * See SelectMotionsBlue for explanations of these values
-     *
-     *
-     *
-     * */
 
+    @Override
+    public void initialize() {
+    }
 
-    private final boolean bbstart;
+    @Override
+    public void execute() {
 
-    private int lcr;
-
-
-    public SelectMotionValuesRed() {
-        bbstart = ActiveMotionValues.getBBStart();
-        lcr = ActiveMotionValues.getLcrpos();
+        boolean bbstart = ActiveMotionValues.getBBStart();
+        int lcr = ActiveMotionValues.getLcrpos();
         ActiveMotionValues.setStrafeDistance(0);
         ActiveMotionValues.setAdvancePose(new Pose2d());
         ActiveMotionValues.setParkPose(new Pose2d());
+
 
         if (lcr < 1 || lcr > 3) lcr = 1;
 
@@ -46,7 +39,7 @@ public class SelectMotionValuesRed extends CommandBase {
             case 1://left tape
 
 
-                Pose2d xyOffsetPose=new Pose2d();
+                Pose2d xyOffsetPose = new Pose2d();
 
 
                 ActiveMotionValues.setStartPose(FieldConstantsRed.XPYM.startPos);//start pose
@@ -85,9 +78,7 @@ public class SelectMotionValuesRed extends CommandBase {
             case 2://center straight motion to midddle of center tape
 
 
-                xyOffsetPose=new Pose2d();
-
-
+                xyOffsetPose = new Pose2d();
 
 
                 //robot moves in Y
@@ -123,14 +114,12 @@ public class SelectMotionValuesRed extends CommandBase {
             //******************************************************************************************
             case 3://right ta
 
-                xyOffsetPose=new Pose2d();
+                xyOffsetPose = new Pose2d();
 
                 ActiveMotionValues.setStartPose(FieldConstantsRed.XPYM.startPos);//start pose
 
 
-
                 ActiveMotionValues.setAdvancePose(FieldConstantsRed.XPYM.advancePose);
-
 
 
                 ActiveMotionValues.setDropOffPose(FieldConstantsRed.XPYM.rightDropPose.minus(xyOffsetPose));
@@ -161,7 +150,7 @@ public class SelectMotionValuesRed extends CommandBase {
 
             case 11://left tape
 
-                xyOffsetPose=new Pose2d();
+                xyOffsetPose = new Pose2d();
 
                 ActiveMotionValues.setStartPose(FieldConstantsRed.XMYM.startPose);//start pose
 
@@ -184,7 +173,7 @@ public class SelectMotionValuesRed extends CommandBase {
             case 12://center
 
 
-                xyOffsetPose=new Pose2d();
+                xyOffsetPose = new Pose2d();
 
                 ActiveMotionValues.setStartPose(FieldConstantsRed.XMYM.startPose);//start pose
 
@@ -206,7 +195,7 @@ public class SelectMotionValuesRed extends CommandBase {
 
                 //robot moves in Y
 
-                xyOffsetPose=new Pose2d();
+                xyOffsetPose = new Pose2d();
 
                 ActiveMotionValues.setStartPose(FieldConstantsRed.XMYM.startPose);//start pose
 
@@ -282,6 +271,7 @@ public class SelectMotionValuesRed extends CommandBase {
             }
         }
     }
+
 
     @Override
     public void end(boolean interrupted) {

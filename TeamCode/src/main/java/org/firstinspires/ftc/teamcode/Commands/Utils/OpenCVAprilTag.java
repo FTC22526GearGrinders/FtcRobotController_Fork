@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Commands;
+package org.firstinspires.ftc.teamcode.Commands.Utils;
 
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.arcrobotics.ftclib.command.CommandOpMode;

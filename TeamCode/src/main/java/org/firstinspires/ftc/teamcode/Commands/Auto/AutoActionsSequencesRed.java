@@ -14,7 +14,6 @@ import org.firstinspires.ftc.teamcode.Commands.Trajectories.SelectAndRunTrajecto
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Commands.Utils.DoNothing;
 import org.firstinspires.ftc.teamcode.Commands.Utils.LogAutoSettings;
-import org.firstinspires.ftc.teamcode.Commands.Utils.RandomLCR;
 import org.firstinspires.ftc.teamcode.Commands.Utils.TimeDelay;
 import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.Subsystems.ArmSubsystem;
@@ -25,16 +24,14 @@ import org.firstinspires.ftc.teamcode.Subsystems.Vision_Subsystem;
 public class AutoActionsSequencesRed extends SequentialCommandGroup {
 
     public AutoActionsSequencesRed(CommandOpMode opMode, Drive_Subsystem drive, PixelHandlerSubsystem phss,
-                                    ArmSubsystem arm, Vision_Subsystem vss) {
-        ActiveMotionValues.setBackboardLevel(1);
+                                   ArmSubsystem arm, Vision_Subsystem vss) {
+
 
         addCommands(
 
                 new SequentialCommandGroup(
 
-                       // new LookForTeamProp(opMode, false, vss),
-
-                        new RandomLCR(),
+                        new LookForTeamProp(opMode, false, vss),
 
                         new SelectMotionValuesRed(),
 
@@ -52,7 +49,7 @@ public class AutoActionsSequencesRed extends SequentialCommandGroup {
 
                                         new ParallelCommandGroup(
 
-                                                new PositionPHArm(arm, Constants.ArmConstants.armExtensions.LOW.extension, .5),
+                                                new PositionPHArm(arm, Constants.ArmConstants.armPositionInches[1], .5),
 
                                                 new InstantCommand(() -> phss.turnGrippersToDeliver())),
 
@@ -65,7 +62,7 @@ public class AutoActionsSequencesRed extends SequentialCommandGroup {
                                                 new InstantCommand(() -> phss.closeBothGrippers()),
 
 
-                                                new PositionPHArmToPreset(arm, Constants.ArmConstants.armExtensions.HOME.extension),
+                                                new PositionPHArm(arm, Constants.ArmConstants.armPositionInches[0], .5),
 
                                                 new ConditionalCommand(new MoveToPark(drive),
                                                         new DoNothing(),

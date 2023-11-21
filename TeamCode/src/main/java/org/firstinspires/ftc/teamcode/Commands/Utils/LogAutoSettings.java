@@ -72,6 +72,8 @@ public class LogAutoSettings extends CommandBase {
             avDL.addField(d);
             avDL.addField(e);
             avDL.addField(f);
+            avDL.addField(g);
+
             avDL.newLine();
             dataTimer.reset();
             dataWritten = true;
@@ -84,6 +86,8 @@ public class LogAutoSettings extends CommandBase {
             d = ActiveMotionValues.getSecondPixel() ? "true" : "false";
             e = ActiveMotionValues.getNearPark() ? "true" : "false";
             f = ActiveMotionValues.getCenterPark() ? "true" : "false";
+            g = ActiveMotionValues.getStartPose().toString();
+            g=g.replace(",","_");
 
 
             valuesSet = true;
@@ -98,6 +102,7 @@ public class LogAutoSettings extends CommandBase {
             avDL.addField("2nd Pixel");
             avDL.addField("NearPark");
             avDL.addField("CenterPark");
+            avDL.addField("StartPose");
             headersWritten = true;
             avDL.firstLine();
             dataTimer.reset();

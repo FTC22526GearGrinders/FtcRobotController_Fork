@@ -16,6 +16,8 @@ public class ArmSubsystem extends SubsystemBase {
     public Motor.Encoder armEncoder;
     private final CommandOpMode myOpMode;
     public double targetInches;
+
+    public int armPositionIndex;
     public double holdInches;
     public int loopCountTimer;
     public int holdCountTimer;

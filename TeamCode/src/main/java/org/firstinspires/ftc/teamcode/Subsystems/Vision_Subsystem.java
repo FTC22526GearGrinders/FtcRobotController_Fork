@@ -38,7 +38,7 @@ public class Vision_Subsystem extends SubsystemBase {
     private boolean cameraClosed;
 
     StageSwitchingPipeline sptop = null;
-    public int lpctr;
+
 
 
     public Vision_Subsystem(CommandOpMode opMode) {
@@ -82,9 +82,6 @@ public class Vision_Subsystem extends SubsystemBase {
     }
 
     public void initialize() {
-
-        lpctr = 0;
-
 
         myOpMode.telemetry.addData("DS preview on/off", "3 dots, Camera Stream");
         myOpMode.telemetry.addData("CamNane", myVisionPortal.getCameraState());

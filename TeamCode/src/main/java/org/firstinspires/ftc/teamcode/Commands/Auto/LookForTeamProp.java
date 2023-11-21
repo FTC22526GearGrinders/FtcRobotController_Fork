@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Commands.Auto;
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.arcrobotics.ftclib.command.CommandOpMode;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.CV.StageSwitchingPipeline;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
@@ -27,12 +28,13 @@ public class LookForTeamProp extends CommandBase {
 
     StageSwitchingPipeline sptop = null;
 
+    ElapsedTime endTimer;
+
 
     CommandOpMode myOpMode;
 
     FtcDashboard dashboard;
 
-    int lastlcr;
     int lpctr = 0;
 
     Timer timer = new Timer();
@@ -46,6 +48,11 @@ public class LookForTeamProp extends CommandBase {
     private Vision_Subsystem vss;
     int currentLCR = 0;
 
+    int lastlcr;
+    private int lcrCheckCount;
+
+    private int checklimit = 3;
+
     public LookForTeamProp(CommandOpMode opMode, boolean noEnd, Vision_Subsystem vss) {
         myOpMode = opMode;
 
@@ -56,16 +63,16 @@ public class LookForTeamProp extends CommandBase {
 
     @Override
     public void initialize() {
+        endTimer = new ElapsedTime(ElapsedTime.Resolution.SECONDS);
 
         currentLCR = 0;
 
         boolean red = ActiveMotionValues.getRedAlliance();
 
         ActiveMotionValues.setLcrpos(0);
-        vss.lpctr = 0;
+
 
         myOpMode.telemetry.addData("INIT", "");
-        myOpMode.telemetry.addData("LPCTR", vss.lpctr);
 
         myOpMode.telemetry.update();
     }
@@ -78,39 +85,46 @@ public class LookForTeamProp extends CommandBase {
 
             if (vss.getWebcam().getFps() > 1)
 
-                vss.lpctr++;
-
+                lpctr++;
 
             currentLCR = vss.getSptop().getLCR();
 
-            ActiveMotionValues.setLcrpos(currentLCR);
+            if (currentLCR != 0 && currentLCR == lastlcr) {
+                lcrCheckCount++;
+            }
 
+            if (currentLCR != lastlcr) {
+                lcrCheckCount = 0;
+                currentLCR = lastlcr;
+            }
+
+            if (lcrCheckCount >= checklimit)
+                ActiveMotionValues.setLcrpos(currentLCR);
 
             myOpMode.telemetry.addData("Streaming", vss.getWebcam().getFps());
             myOpMode.telemetry.addData("RRAIsempty", vss.getSptop().rrAreas.isEmpty());
-            myOpMode.telemetry.addData("LPCTR", vss.lpctr);
-            myOpMode.telemetry.addData("LCR", ActiveMotionValues.getLcrpos());
+            myOpMode.telemetry.addData("LPCTR", lpctr);
 
             myOpMode.telemetry.addData("Red", vss.getSptop().getRedPipeline());
 
-
+            ActiveMotionValues.setLcrpos(currentLCR);
         }
         myOpMode.telemetry.addData("LCR", currentLCR);
         myOpMode.telemetry.update();
-
-
     }
-
 
     @Override
     public void end(boolean interrupted) {
+
         myOpMode.telemetry.addData("LFTPEnding", "");
+        myOpMode.telemetry.addData("TimeElapsed", endTimer.seconds());
         myOpMode.telemetry.update();
+        if (currentLCR < 1 || currentLCR > 2) ActiveMotionValues.setLcrpos(2);
     }
 
     @Override
     public boolean isFinished() {
-        return !noEnd && (vss.lpctr > 15000 && ActiveMotionValues.getLcrpos() != 0);
+        return !noEnd && ((lcrCheckCount >= checklimit) || endTimer.seconds() > 5);
     }
 
 

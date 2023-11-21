@@ -4,13 +4,10 @@ import com.arcrobotics.ftclib.command.Command;
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 
-import org.firstinspires.ftc.teamcode.CV.StageSwitchingPipeline;
-import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Subsystems.ArmSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.PixelHandlerSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.Vision_Subsystem;
-import org.openftc.easyopencv.OpenCvWebcam;
 
 public class AutoFactory extends CommandBase {
     Drive_Subsystem drive;
@@ -22,7 +19,7 @@ public class AutoFactory extends CommandBase {
 
 
     Vision_Subsystem vss;
-    boolean redAlliance = ActiveMotionValues.getRedAlliance();
+
 
     public AutoFactory(CommandOpMode opmode, Drive_Subsystem drive,
                        PixelHandlerSubsystem phss, ArmSubsystem arm, Vision_Subsystem vss) {
@@ -35,12 +32,14 @@ public class AutoFactory extends CommandBase {
 
     public Command getAASRed() {
 
-        return new AutoActionsSequencesBlue(opMode, drive, phss, arm, vss,true);
-       // return new AutoActionsSequencesRed(opMode, drive, phss, arm, vss);
+        return new AutoActionsSequencesRed(opMode, drive, phss, arm, vss);
     }
+
+
     public Command getAASBlue() {
 
-        return new AutoActionsSequencesBlue(opMode, drive, phss, arm, vss,false);
+        return new AutoActionsSequencesBlue(opMode, drive, phss, arm, vss);
     }
+
 
 }

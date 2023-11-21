@@ -7,12 +7,12 @@ import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 
 import org.firstinspires.ftc.teamcode.Commands.Arm.PositionPHArm;
-import org.firstinspires.ftc.teamcode.Commands.Arm.PositionPHArmToPreset;
 import org.firstinspires.ftc.teamcode.Commands.Drive.MoveToPark;
 import org.firstinspires.ftc.teamcode.Commands.Drive.RunToAprilTag;
 import org.firstinspires.ftc.teamcode.Commands.Trajectories.SelectAndRunTrajectory;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Commands.Utils.DoNothing;
+import org.firstinspires.ftc.teamcode.Commands.Utils.LogAutoSettings;
 import org.firstinspires.ftc.teamcode.Commands.Utils.TimeDelay;
 import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.Subsystems.ArmSubsystem;
@@ -23,8 +23,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Vision_Subsystem;
 public class AutoActionsSequencesBlue extends SequentialCommandGroup {
 
     public AutoActionsSequencesBlue(CommandOpMode opMode, Drive_Subsystem drive, PixelHandlerSubsystem phss,
-                                    ArmSubsystem arm, Vision_Subsystem vss, boolean redAlliance) {
-        ActiveMotionValues.setBackboardLevel(1);
+                                    ArmSubsystem arm, Vision_Subsystem vss) {
 
 
         addCommands(
@@ -33,9 +32,9 @@ public class AutoActionsSequencesBlue extends SequentialCommandGroup {
 
                         new LookForTeamProp(opMode, false, vss),
 
-                        new ConditionalCommand(new SelectMotionValuesRed(), new SelectMotionValuesBlue(), () -> redAlliance),
-
                         new SelectMotionValuesBlue(),
+
+                        new LogAutoSettings(opMode),
 
                         new SelectAndRunTrajectory(opMode, drive, phss),
 
@@ -49,7 +48,7 @@ public class AutoActionsSequencesBlue extends SequentialCommandGroup {
 
                                         new ParallelCommandGroup(
 
-                                                new PositionPHArm(arm, Constants.ArmConstants.armExtensions.LOW.extension, .5),
+                                                new PositionPHArm(arm, Constants.ArmConstants.armPositionInches[1], .5),
 
                                                 new InstantCommand(() -> phss.turnGrippersToDeliver())),
 
@@ -62,7 +61,7 @@ public class AutoActionsSequencesBlue extends SequentialCommandGroup {
                                                 new InstantCommand(() -> phss.closeBothGrippers()),
 
 
-                                                new PositionPHArmToPreset(arm, Constants.ArmConstants.armExtensions.HOME.extension),
+                                                new PositionPHArm(arm, Constants.ArmConstants.armPositionInches[0], .5),
 
                                                 new ConditionalCommand(new MoveToPark(drive),
                                                         new DoNothing(),

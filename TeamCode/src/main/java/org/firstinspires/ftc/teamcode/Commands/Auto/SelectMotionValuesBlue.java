@@ -18,8 +18,14 @@ public class SelectMotionValuesBlue extends CommandBase {
      *
      *
      * */
+    @Override
+    public void initialize() {
+    }
 
-    public SelectMotionValuesBlue() {
+    @Override
+    public void execute() {
+
+
         boolean bbstart = ActiveMotionValues.getBBStart();
         int lcr = ActiveMotionValues.getLcrpos();
         ActiveMotionValues.setStrafeDistance(0);
@@ -41,7 +47,7 @@ public class SelectMotionValuesBlue extends CommandBase {
             case 1://left tape
 
 
-                Pose2d xyOffsetPose=new Pose2d();
+                Pose2d xyOffsetPose = new Pose2d();
 
                 ActiveMotionValues.setStartPose(FieldConstantsBlue.XPYP.startPos);//start pose
 
@@ -75,7 +81,7 @@ public class SelectMotionValuesBlue extends CommandBase {
             case 2://center straight motion to midddle of center tape
 
 
-                xyOffsetPose=new Pose2d();
+                xyOffsetPose = new Pose2d();
 
                 //robot moves in Y
 
@@ -110,7 +116,7 @@ public class SelectMotionValuesBlue extends CommandBase {
             //******************************************************************************************
             case 3://right ta
 
-                xyOffsetPose=new Pose2d();
+                xyOffsetPose = new Pose2d();
 
                 ActiveMotionValues.setStartPose(FieldConstantsBlue.XPYP.startPos);//start pose
 
@@ -148,7 +154,7 @@ public class SelectMotionValuesBlue extends CommandBase {
 
             case 11://left tape
 
-                xyOffsetPose=new Pose2d();
+                xyOffsetPose = new Pose2d();
 
                 ActiveMotionValues.setStartPose(FieldConstantsBlue.XMYP.startPose);//start pose
 
@@ -171,7 +177,7 @@ public class SelectMotionValuesBlue extends CommandBase {
 
             case 12://center
 
-                xyOffsetPose=new Pose2d();
+                xyOffsetPose = new Pose2d();
 
                 ActiveMotionValues.setStartPose(FieldConstantsBlue.XMYP.startPose);//start pose
 
@@ -193,7 +199,7 @@ public class SelectMotionValuesBlue extends CommandBase {
 
                 //robot moves in Y
 
-                xyOffsetPose=new Pose2d();
+                xyOffsetPose = new Pose2d();
 
 
                 ActiveMotionValues.setStartPose(FieldConstantsBlue.XMYP.startPose);//start pose
@@ -293,4 +299,5 @@ public class SelectMotionValuesBlue extends CommandBase {
     public boolean isFinished() {
         return true;
     }
+
 }

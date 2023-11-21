@@ -191,6 +191,8 @@ public final class Constants {
 
         public static final double JOG_DOWN_POWER = -.5;
 
+        public static double[] armPositionInches = {2, 3, 3.6, 4.3, 6.8, 9};
+
 
         public static double kP = .25;
         public static double kI = 0;
@@ -198,20 +200,6 @@ public final class Constants {
 
         public static double POSITION_Kg;
 
-        public static final int NUMBER_LEVELS = armExtensions.values().length;
-
-
-        public enum armExtensions {
-            HOME(0),
-            LOW(5),
-            MID(12),
-            HIGH(19);
-            public final double extension;
-
-            armExtensions(double extension) {
-                this.extension = extension;
-            }
-        }
     }
 
     public static final class CatapultConstants {
@@ -221,6 +209,7 @@ public final class Constants {
 
 
     }
+
 
 }
 

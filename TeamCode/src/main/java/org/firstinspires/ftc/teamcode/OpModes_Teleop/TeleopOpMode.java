@@ -9,8 +9,6 @@ import com.arcrobotics.ftclib.gamepad.TriggerReader;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Commands.Drive.JogDrive;
-import org.firstinspires.ftc.teamcode.Commands.PixelHandler.LeftGripperCommand;
-import org.firstinspires.ftc.teamcode.Commands.PixelHandler.TurnGrippersCommand;
 import org.firstinspires.ftc.teamcode.Commands.PixelHandler.TurnGrippersIncrementalCommand;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Constants;
@@ -83,7 +81,7 @@ public class TeleopOpMode extends CommandOpMode {
 
         // example usage if(drrt.wasJustPressed())new IncrementPixelDeliveryLevel().schedule();
 
-        //driver.getGamepadButton(GamepadKeys.Button.A).whenPressed(
+       // driver.getGamepadButton(GamepadKeys.Button.A).whenPressed(
 
         //       driver.getGamepadButton(GamepadKeys.Button.B).whenPressed(
 
@@ -101,17 +99,17 @@ public class TeleopOpMode extends CommandOpMode {
 
 
         driver.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT).whenPressed(
-                new TurnGrippersIncrementalCommand(phss,true, Constants.TurnGripperJogSet.HI));
+                new TurnGrippersIncrementalCommand(phss, true, Constants.TurnGripperJogSet.HI));
 
         driver.getGamepadButton(GamepadKeys.Button.DPAD_LEFT).whenPressed(
-                new TurnGrippersIncrementalCommand(phss,false, Constants.TurnGripperJogSet.HI));
+                new TurnGrippersIncrementalCommand(phss, false, Constants.TurnGripperJogSet.HI));
 
-                driver.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenPressed(
-                        new InstantCommand(()->phss.turnGrippersToDeliver()));
+        driver.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenPressed(
+                new InstantCommand(() -> phss.turnGrippersToDeliver()));
 
 
         driver.getGamepadButton(GamepadKeys.Button.DPAD_DOWN).whenPressed(
-                new InstantCommand(()->phss.turnGrippersToPickup()));
+                new InstantCommand(() -> phss.turnGrippersToPickup()));
 
 
         // driver.getGamepadButton(GamepadKeys.Button.BACK).whenPressed(

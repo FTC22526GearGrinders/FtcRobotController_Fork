@@ -37,7 +37,7 @@ import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.Commands.OpenCVAprilTag;
+import org.firstinspires.ftc.teamcode.Commands.Utils.OpenCVAprilTag;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.Vision_Subsystem;
 
