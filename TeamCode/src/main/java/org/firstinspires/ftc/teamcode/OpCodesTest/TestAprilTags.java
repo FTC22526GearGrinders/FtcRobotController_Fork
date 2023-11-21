@@ -73,7 +73,7 @@ public class TestAprilTags extends CommandOpMode {
 
         vss = new Vision_Subsystem(this);
 
-        vss.buildAprilTagProcessor();
+        //vss.buildAprilTagProcessor();
         // Wait for the DS start button to be touched.
         telemetry.addData("DS preview on/off", "3 dots, Camera Stream");
         telemetry.update();

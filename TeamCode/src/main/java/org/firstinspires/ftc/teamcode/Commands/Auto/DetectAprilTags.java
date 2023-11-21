@@ -39,11 +39,13 @@ public class DetectAprilTags extends CommandBase {
     @Override
     public void initialize() {
 
-        n = 1;//ActiveMotionValues.getActTag();
-        vss.enableAprilTagProcessor(true);
 
-        myOpMode.telemetry.addData("DATinit","");
-        myOpMode.telemetry.update();
+        n = ActiveMotionValues.getActTag();
+
+       // vss.enableAprilTagProcessor(true);
+
+//        myOpMode.telemetry.addData("DATinit","");
+//        myOpMode.telemetry.update();
 
     }
 
