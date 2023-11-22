@@ -2,18 +2,58 @@ package com.example.meepmeeptesting;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 
-
 public class ActiveMotionValues {
-
-    public static Pose2d getRobotPose() {
-        return robotPose;
+    public static boolean getAprilTagSeen() {
+        return aprilTagSeen;
     }
 
-    public static void setRobotPose(Pose2d pose) {
-        robotPose = pose;
+    public static void setAprilTagSeen(boolean tagSeen) {
+        aprilTagSeen = tagSeen;
     }
 
-    private static Pose2d robotPose = new Pose2d();
+    private static boolean aprilTagSeen = false;
+
+
+    public static int getBaseTag() {
+        return baseTag;
+    }
+
+    public static void setBaseTag(int tag) {
+        baseTag = tag;
+    }
+
+    private static int baseTag = 1;
+
+    public static Pose2d getFinalTagPose() {
+        return finalTagPose;
+    }
+
+    public static void setFinalTagPose(Pose2d pose) {
+        finalTagPose = pose;
+    }
+
+    private static Pose2d finalTagPose = new Pose2d();
+
+    public static Pose2d getCurrentRobotPose() {
+        return currentRobotPose;
+    }
+
+    public static void setCurrentRobotPose(Pose2d pose) {
+        currentRobotPose = pose;
+    }
+
+    private static Pose2d currentRobotPose = new Pose2d();
+
+
+    public static Pose2d getAutoRobotPose() {
+        return autoRobotPose;
+    }
+
+    public static void setAutoRobotPose(Pose2d pose) {
+        autoRobotPose = pose;
+    }
+
+    private static Pose2d autoRobotPose = new Pose2d();
 
 
     public static Pose2d getTrussSDLineUpPose() {
@@ -24,41 +64,21 @@ public class ActiveMotionValues {
         trussSDLineUpPose = lineUpPose;
     }
 
-//    public static Pose2d getStrafePose() {
-//        return strafePose;
-//    }
-//
-//    public static void setStrafePose(Pose2d pose) {
-//        strafePose = pose;
-//    }
-
     public static Pose2d getOptionStopPose() {
         return optionStopPose;
     }
 
-    public static void setOptionStopPose(Pose2d tagPose) {
-        optionStopPose = tagPose;
+    public static void setOptionStopPose(Pose2d opPose) {
+        optionStopPose = opPose;
     }
 
     private static Pose2d trussSDLineUpPose = new Pose2d();
     private static Pose2d retractPose = new Pose2d();
 
-    private static Pose2d strafePose = new Pose2d();
-
-    public static Pose2d getLineupPose() {
-        return lineupPose;
-    }
-
-    public static void setLineupPose(Pose2d pose) {
-        lineupPose = pose;
-    }
-
-    private static Pose2d lineupPose = new Pose2d();
     private static Pose2d optionStopPose = new Pose2d();
 
 
     private static Pose2d startPose = new Pose2d();
-
 
     private static Pose2d parkPose = new Pose2d();
 
@@ -82,9 +102,6 @@ public class ActiveMotionValues {
 
     private static Pose2d preTagPose = new Pose2d();
 
-
-    private static Pose2d activeAprilTagPose = new Pose2d();
-
     public static Pose2d getStartPose() {
         return startPose;
     }
@@ -92,18 +109,6 @@ public class ActiveMotionValues {
     public static void setStartPose(Pose2d pose) {
         startPose = pose;
     }
-
-
-    private static Pose2d optionTargetPose = new Pose2d();
-
-    public static void setOptionTargetPose(Pose2d opt) {
-        optionTargetPose = opt;
-    }
-
-    public static Pose2d getOptionTargetPose() {
-        return optionTargetPose;
-    }
-
 
 
     private static boolean secondPixel = false;
@@ -146,44 +151,21 @@ public class ActiveMotionValues {
 
     private static Pose2d dropOffPose = new Pose2d();
 
-
-//    public static Pose2d getTagLookAheadPose() {
-//        return tagLookAheadPose;
-//    }
-//
-//    public static void setTagLookAheadPose(Pose2d tagLAPose) {
-//        tagLookAheadPose = tagLAPose;
-//    }
-
-    public static void setActiveTagPose(Pose2d pose) {
-        activeAprilTagPose = pose;
+    public static Pose2d getClearPose() {
+        return clearPose;
     }
 
-
-    public static Pose2d getActiveTagPose() {
-        return activeAprilTagPose;
+    public static void setClearPose(Pose2d pose) {
+        clearPose = pose;
     }
 
+    private static Pose2d clearPose = new Pose2d();
 
-    public static void setYOffsetPose(Pose2d yOff) {
-        yOffsetPose = yOff;
-    }
 
-    public static Pose2d getYOffsetPose() {
-        return xOffsetPose;
-    }
 
-    public static void setXOffsetPose(Pose2d xOff) {
-        xOffsetPose = xOff;
-    }
 
-    public static double getRetractDistance() {
-        return retractDistance;
-    }
 
-    public static void setRetractDistance(double distance) {
-        retractDistance = distance;
-    }
+
 
     public static boolean getRedAlliance() {
         return redAlliance;
@@ -225,61 +207,36 @@ public class ActiveMotionValues {
         return parkPose;
     }
 
-
-    public static Pose2d getSecondAprilTagPose() {
-        return secondAprilTagPose;
-    }
-
-    public static void setSecondAprilTagPose(Pose2d pose) {
-        ActiveMotionValues.secondAprilTagPose = pose;
-    }
-
-    private static Pose2d secondAprilTagPose = new Pose2d();
-
-
-    private static Pose2d yOffsetPose;
-    private static Pose2d xOffsetPose;
-    private static double retractDistance = 0;
-
-
     //auto running
     private static boolean redAlliance;
 
     private static boolean bbStart;
 
 
-    private static int lcrpos = 2;
+    private static int lcrpos = 0;
 
-    private static int actTag = 5;
-
-    public double HSVAreaL = 0;
-    public double HSVAreaC = 0;
-    public double HSVAreaR = 0;
-
-    public boolean HSVRed = false;
-
-
-    private static Pose2d aprilTagPos2d = new Pose2d();
-
-
-    public static void setTagPose2d(Pose2d tagPose2d) {
-        aprilTagPos2d = tagPose2d;
-    }
-
-    public static Pose2d getAprilTagPos2d() {
-        return aprilTagPos2d;
-    }
+    private static int actTag = 0;
 
     private static boolean useStageDoor = false;
 
-    private static int parkType = 0;
+    private static boolean centerPark = false;
 
-    public static void setParkType(int cPark) {
-        parkType = cPark;
+    public static void setCenterPark(boolean cPark) {
+        centerPark = cPark;
     }
 
-    public static int getParkTyoe() {
-        return parkType;
+    public static boolean getCenterPark() {
+        return centerPark;
+    }
+
+    private static boolean nearPark = false;
+
+    public static void setNearPark(boolean nPark) {
+        nearPark = nPark;
+    }
+
+    public static boolean getNearPark() {
+        return nearPark;
     }
 
     public static void setUseStageDoor(boolean useStDoor) {
@@ -290,25 +247,26 @@ public class ActiveMotionValues {
         return useStageDoor;
     }
 
-//    public static Pose2d getOptionPose() {
-//        return optionPose;
-//    }
-//
-//    public static void setOptionPose(Pose2d pose) {
-//        optionPose = pose;
-//    }
-//
-//    public static Pose2d optionPose = new Pose2d();
+    private static Pose2d optionTargetPose = new Pose2d();
 
-    public static boolean getCenterPark() {
-        return centerPark;
+    public static void setOptionTargetPose(Pose2d opt) {
+        optionTargetPose = opt;
     }
 
-    public static void setCenterPark(boolean park) {
-        centerPark = park;
+    public static Pose2d getOptionTargetPose() {
+        return optionTargetPose;
     }
 
-    private static boolean centerPark = false;
+    private static Pose2d endAutoPose = new Pose2d();
+
+    public static void setEndAutoPose(Pose2d opt) {
+        endAutoPose = opt;
+    }
+
+    public static Pose2d getEndAutoPose() {
+        return endAutoPose;
+    }
+
 
 
 }

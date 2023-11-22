@@ -24,7 +24,7 @@ public class TestMotionData extends CommandOpMode {
 
     boolean redAlliance = false;
 
-    boolean bbStart = true;
+    boolean bbStart = false;
 
     boolean useStageDoor = false;
 
@@ -93,8 +93,8 @@ public class TestMotionData extends CommandOpMode {
                     if (lcr > 3) lcr = 1;
                 }
 
-                if(currentStart){
-                    nearPark=!nearPark;
+                if (currentStart) {
+                    nearPark = !nearPark;
                 }
 
 
@@ -144,6 +144,8 @@ public class TestMotionData extends CommandOpMode {
 
         ActiveMotionValues.setSecondPixel(secondPixel);
 
+        if (!bbStart) lcr += 10;
+
         waitForStart();
 
         if (redAlliance) new SelectMotionValuesRed(this).schedule();
@@ -164,7 +166,7 @@ public class TestMotionData extends CommandOpMode {
         telemetry.addData("CenterPark", ActiveMotionValues.getCenterPark());
         telemetry.addData("NearPark", ActiveMotionValues.getNearPark());
 
-        telemetry.addData("LCR", ActiveMotionValues.getLcrpos());
+        telemetry.addData("LCR", lcr);
         telemetry.addData("TagNum", ActiveMotionValues.getActTag());
 
 
@@ -179,7 +181,9 @@ public class TestMotionData extends CommandOpMode {
         telemetry.addLine();
         telemetry.addData("DropOffPose", ActiveMotionValues.getDropOffPose().toString());
         telemetry.addData("RetractPose", ActiveMotionValues.getRetractPose().toString());
-        telemetry.addData("StrafeDistance", ActiveMotionValues.getStrafeDistance());
+        telemetry.addData("ClearPose", ActiveMotionValues.getClearPose().toString());
+
+
         telemetry.addLine();
         if (ActiveMotionValues.getBBStart())
             telemetry.addData("PreTagPose", ActiveMotionValues.getPreTagPose().toString());

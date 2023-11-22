@@ -3,31 +3,23 @@ package com.example.meepmeeptesting;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 
-
 public class SelectMotionValuesRed {
 
-    /*
-     *
-     * */
-
-
-    private final boolean bbstart;
-
-    private int lcr;
-
-
     public SelectMotionValuesRed() {
-        bbstart = ActiveMotionValues.getBBStart();
-        lcr = ActiveMotionValues.getLcrpos();
+        boolean bbstart = ActiveMotionValues.getBBStart();
+        int lcr = ActiveMotionValues.getLcrpos();
         ActiveMotionValues.setStrafeDistance(0);
         ActiveMotionValues.setAdvancePose(new Pose2d());
+        ActiveMotionValues.setClearPose(new Pose2d());
+
+        ActiveMotionValues.setParkPose(new Pose2d());
+
 
         if (lcr < 1 || lcr > 3) lcr = 1;
 
         int motionSelected = lcr;
 
         if (!bbstart) motionSelected += 10;
-
 
         switch (motionSelected) {
 
@@ -38,9 +30,7 @@ public class SelectMotionValuesRed {
             case 1://left tape
 
 
-                ActiveMotionValues.setYOffsetPose(new Pose2d());
-
-                ActiveMotionValues.setXOffsetPose(new Pose2d());
+                Pose2d xyOffsetPose = new Pose2d();
 
 
                 ActiveMotionValues.setStartPose(FieldConstantsRed.XPYM.startPos);//start pose
@@ -49,12 +39,12 @@ public class SelectMotionValuesRed {
                 ActiveMotionValues.setAdvancePose(FieldConstantsRed.XPYM.advancePose);
 
 
-                ActiveMotionValues.setDropOffPose(FieldConstantsRed.XPYM.leftDropPose);
+                ActiveMotionValues.setDropOffPose(FieldConstantsRed.XPYM.leftDropPose.minus(xyOffsetPose));
 
 
-                ActiveMotionValues.setRetractPose(FieldConstantsRed.XPYM.leftTrussRetractPose);
+                ActiveMotionValues.setRetractPose(FieldConstantsRed.XPYM.leftRetractPose);
 
-                ActiveMotionValues.setStrafeDistance(11.5);
+                ActiveMotionValues.setClearPose(FieldConstantsRed.XPYM.clearPose);
 
 
                 ActiveMotionValues.setActTag(4);
@@ -63,13 +53,15 @@ public class SelectMotionValuesRed {
                         .minus(FieldConstantsRed.AprilTagConstants.tagLookAheadPose));
 
 
+                ActiveMotionValues.setParkPose(new Pose2d());
+
                 if (ActiveMotionValues.getCenterPark())
 
-                    ActiveMotionValues.setParkPose(FieldConstantsRed.slideToCenterParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsRed.centerParkPose);
 
-                else
+                if (ActiveMotionValues.getNearPark())
 
-                    ActiveMotionValues.setParkPose(FieldConstantsRed.slideToNearParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsRed.nearParkPose);
 
 
                 break;
@@ -79,9 +71,7 @@ public class SelectMotionValuesRed {
             case 2://center straight motion to midddle of center tape
 
 
-                ActiveMotionValues.setYOffsetPose(new Pose2d());
-
-                ActiveMotionValues.setXOffsetPose(new Pose2d());
+                xyOffsetPose = new Pose2d();
 
 
                 //robot moves in Y
@@ -89,7 +79,7 @@ public class SelectMotionValuesRed {
                 ActiveMotionValues.setStartPose(FieldConstantsRed.XPYM.startPos);//start pose
 
 
-                ActiveMotionValues.setDropOffPose(FieldConstantsRed.XPYM.centerDropPose);
+                ActiveMotionValues.setDropOffPose(FieldConstantsRed.XPYM.centerDropPose.minus(xyOffsetPose));
 
 
                 ActiveMotionValues.setRetractPose(FieldConstantsRed.XPYM.centerRetractPose);
@@ -100,14 +90,15 @@ public class SelectMotionValuesRed {
                 ActiveMotionValues.setPreTagPose(FieldConstantsRed.getActiveTagPose(ActiveMotionValues.getActTag())
                         .minus(FieldConstantsRed.AprilTagConstants.tagLookAheadPose));
 
+                ActiveMotionValues.setParkPose(new Pose2d());
 
                 if (ActiveMotionValues.getCenterPark())
 
-                    ActiveMotionValues.setParkPose(FieldConstantsRed.slideToCenterParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsRed.centerParkPose);
 
-                else
+                if (ActiveMotionValues.getNearPark())
 
-                    ActiveMotionValues.setParkPose(FieldConstantsRed.slideToNearParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsRed.nearParkPose);
 
 
                 break;
@@ -115,15 +106,16 @@ public class SelectMotionValuesRed {
             //******************************************************************************************
             //******************************************************************************************
             case 3://right ta
-                ActiveMotionValues.setYOffsetPose(new Pose2d());
 
-                ActiveMotionValues.setXOffsetPose(new Pose2d());
-
+                xyOffsetPose = new Pose2d();
 
                 ActiveMotionValues.setStartPose(FieldConstantsRed.XPYM.startPos);//start pose
 
 
-                ActiveMotionValues.setDropOffPose(FieldConstantsRed.XPYM.rightDropPose);
+                ActiveMotionValues.setAdvancePose(FieldConstantsRed.XPYM.advancePose);
+
+
+                ActiveMotionValues.setDropOffPose(FieldConstantsRed.XPYM.rightDropPose.minus(xyOffsetPose));
 
 
                 ActiveMotionValues.setRetractPose(FieldConstantsRed.XPYM.rightRetractPose);
@@ -134,14 +126,15 @@ public class SelectMotionValuesRed {
                 ActiveMotionValues.setPreTagPose(FieldConstantsRed.getActiveTagPose(ActiveMotionValues.getActTag())
                         .minus(FieldConstantsRed.AprilTagConstants.tagLookAheadPose));
 
+                ActiveMotionValues.setParkPose(new Pose2d());
+
                 if (ActiveMotionValues.getCenterPark())
 
-                    ActiveMotionValues.setParkPose(FieldConstantsRed.slideToCenterParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsRed.centerParkPose);
 
-                else
+                if (ActiveMotionValues.getNearPark())
 
-                    ActiveMotionValues.setParkPose(FieldConstantsRed.slideToNearParkPose);
-
+                    ActiveMotionValues.setParkPose(FieldConstantsRed.nearParkPose);
 
                 break;
 
@@ -150,16 +143,18 @@ public class SelectMotionValuesRed {
 
             case 11://left tape
 
-                ActiveMotionValues.setYOffsetPose(new Pose2d());
-
-                ActiveMotionValues.setXOffsetPose(new Pose2d());
-
+                xyOffsetPose = new Pose2d();
 
                 ActiveMotionValues.setStartPose(FieldConstantsRed.XMYM.startPose);//start pose
 
-                ActiveMotionValues.setDropOffPose(FieldConstantsRed.XMYM.leftDropPose);
+                ActiveMotionValues.setAdvancePose(FieldConstantsRed.XMYM.advancePose);
+
+                ActiveMotionValues.setDropOffPose(FieldConstantsRed.XMYM.leftDropPose.minus(xyOffsetPose));
 
                 ActiveMotionValues.setRetractPose(FieldConstantsRed.XMYM.leftRetractPose);
+
+                ActiveMotionValues.setClearPose(FieldConstantsRed.XMYM.clearPose);
+
 
                 ActiveMotionValues.setActTag(4);
 
@@ -174,13 +169,11 @@ public class SelectMotionValuesRed {
             case 12://center
 
 
-                ActiveMotionValues.setYOffsetPose(new Pose2d());
-
-                ActiveMotionValues.setXOffsetPose(new Pose2d());
+                xyOffsetPose = new Pose2d();
 
                 ActiveMotionValues.setStartPose(FieldConstantsRed.XMYM.startPose);//start pose
 
-                ActiveMotionValues.setDropOffPose(FieldConstantsRed.XMYM.centerDropPose);
+                ActiveMotionValues.setDropOffPose(FieldConstantsRed.XMYM.centerDropPose.minus(xyOffsetPose));
 
                 ActiveMotionValues.setRetractPose(FieldConstantsRed.XMYM.centerRetractPose);
 
@@ -198,17 +191,17 @@ public class SelectMotionValuesRed {
 
                 //robot moves in Y
 
-                ActiveMotionValues.setYOffsetPose(new Pose2d());
-
-                ActiveMotionValues.setXOffsetPose(new Pose2d());
+                xyOffsetPose = new Pose2d();
 
                 ActiveMotionValues.setStartPose(FieldConstantsRed.XMYM.startPose);//start pose
 
                 ActiveMotionValues.setAdvancePose(FieldConstantsRed.XMYM.advancePose);
 
-                ActiveMotionValues.setDropOffPose(FieldConstantsRed.XMYM.rightDropPose);
+                ActiveMotionValues.setDropOffPose(FieldConstantsRed.XMYM.rightDropPose.minus(xyOffsetPose));
 
                 ActiveMotionValues.setRetractPose(FieldConstantsRed.XMYM.rightRetractPose);
+
+                ActiveMotionValues.setClearPose(FieldConstantsRed.XMYM.clearPose);
 
                 ActiveMotionValues.setActTag(6);
 

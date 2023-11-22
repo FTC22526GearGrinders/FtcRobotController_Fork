@@ -7,7 +7,7 @@ import com.arcrobotics.ftclib.command.CommandOpMode;
 
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.FieldConstantsBlue;
-import org.firstinspires.ftc.teamcode.FieldConstantsRed;
+import org.firstinspires.ftc.teamcode.FieldConstantsBlue;
 
 public class SelectMotionValuesBlue extends CommandBase {
 
@@ -35,11 +35,13 @@ public class SelectMotionValuesBlue extends CommandBase {
     @Override
     public void execute() {
 
-
         boolean bbstart = ActiveMotionValues.getBBStart();
         int lcr = ActiveMotionValues.getLcrpos();
         ActiveMotionValues.setStrafeDistance(0);
         ActiveMotionValues.setAdvancePose(new Pose2d());
+        ActiveMotionValues.setClearPose(new Pose2d());
+        ActiveMotionValues.setParkPose(new Pose2d());
+
 
         if (lcr < 1 || lcr > 3) lcr = 1;
 
@@ -77,11 +79,11 @@ public class SelectMotionValuesBlue extends CommandBase {
 
                 if (ActiveMotionValues.getCenterPark())
 
-                    ActiveMotionValues.setParkPose(FieldConstantsRed.centerParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsBlue.centerParkPose);
 
                 if (ActiveMotionValues.getNearPark())
 
-                    ActiveMotionValues.setParkPose(FieldConstantsRed.nearParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsBlue.nearParkPose);
 
 
                 break;
@@ -113,11 +115,11 @@ public class SelectMotionValuesBlue extends CommandBase {
 
                 if (ActiveMotionValues.getCenterPark())
 
-                    ActiveMotionValues.setParkPose(FieldConstantsRed.centerParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsBlue.centerParkPose);
 
                 if (ActiveMotionValues.getNearPark())
 
-                    ActiveMotionValues.setParkPose(FieldConstantsRed.nearParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsBlue.nearParkPose);
 
 
                 break;
@@ -139,7 +141,7 @@ public class SelectMotionValuesBlue extends CommandBase {
 
                 ActiveMotionValues.setRetractPose(FieldConstantsBlue.XPYP.rightRetractPose);
 
-                ActiveMotionValues.setAdvancePose(FieldConstantsBlue.XPYP.advancePose);
+                ActiveMotionValues.setClearPose(FieldConstantsBlue.XPYP.clearPose);
 
                 ActiveMotionValues.setActTag(3);
 
@@ -150,11 +152,11 @@ public class SelectMotionValuesBlue extends CommandBase {
 
                 if (ActiveMotionValues.getCenterPark())
 
-                    ActiveMotionValues.setParkPose(FieldConstantsRed.centerParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsBlue.centerParkPose);
 
                 if (ActiveMotionValues.getNearPark())
 
-                    ActiveMotionValues.setParkPose(FieldConstantsRed.nearParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsBlue.nearParkPose);
 
 
                 break;
@@ -173,6 +175,8 @@ public class SelectMotionValuesBlue extends CommandBase {
                 ActiveMotionValues.setDropOffPose(FieldConstantsBlue.XMYP.leftDropPose.minus(xyOffsetPose));
 
                 ActiveMotionValues.setRetractPose(FieldConstantsBlue.XMYP.leftRetractPose);
+
+                ActiveMotionValues.setClearPose(FieldConstantsBlue.XMYP.clearPose);
 
 
                 ActiveMotionValues.setActTag(1);
@@ -204,7 +208,7 @@ public class SelectMotionValuesBlue extends CommandBase {
 
             //******************************************************************************************
             //******************************************************************************************
-            case 13://right tape Red
+            case 13://right tape Blue
 
 
                 //robot moves in Y
@@ -219,6 +223,9 @@ public class SelectMotionValuesBlue extends CommandBase {
                 ActiveMotionValues.setDropOffPose(FieldConstantsBlue.XMYP.rightDropPose.minus(xyOffsetPose));
 
                 ActiveMotionValues.setRetractPose(FieldConstantsBlue.XMYP.rightRetractPose);
+
+                ActiveMotionValues.setClearPose(FieldConstantsBlue.XMYP.clearPose);
+
 
 
                 ActiveMotionValues.setActTag(3);
@@ -236,7 +243,6 @@ public class SelectMotionValuesBlue extends CommandBase {
         boolean useStageDoor = ActiveMotionValues.getUseStageDoor();
         boolean secondPixel = ActiveMotionValues.getSecondPixel();
         ActiveMotionValues.setStrafeDistance(0);
-        ActiveMotionValues.setAdvancePose(new Pose2d());
         ActiveMotionValues.setParkPose(new Pose2d());
 
         boolean useTruss = !useStageDoor;

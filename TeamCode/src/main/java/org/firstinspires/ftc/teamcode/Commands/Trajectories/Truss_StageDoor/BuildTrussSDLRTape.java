@@ -33,53 +33,30 @@ public class BuildTrussSDLRTape extends CommandBase {
 
         if (!stageDoor) {
 
-            if (!trussSideTape) {
 
-                drive.currentTrajSeq = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
+            drive.currentTrajSeq = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
 
-                        .lineToLinearHeading(ActiveMotionValues.getDropOffPose())
+                    .lineToLinearHeading(ActiveMotionValues.getDropOffPose())
 
-                        .UNSTABLE_addTemporalMarkerOffset(.5, () -> phss.dropPixel())
+                    .UNSTABLE_addTemporalMarkerOffset(.5, () -> phss.dropPixel())
 
-                        .waitSeconds(1)
+                    .waitSeconds(1)
 
-                        .lineToLinearHeading(ActiveMotionValues.getRetractPose())
+                    .lineToLinearHeading(ActiveMotionValues.getRetractPose())
 
-                        .lineToLinearHeading(ActiveMotionValues.getTrussSDLineUpPose())
+                    .lineToLinearHeading(ActiveMotionValues.getClearPose())
 
-                        .lineToLinearHeading(ActiveMotionValues.getOptionStopPose())
+                    .lineToLinearHeading(ActiveMotionValues.getTrussSDLineUpPose())
 
-                        .lineToLinearHeading(ActiveMotionValues.getOptionTargetPose())
+                    .lineToLinearHeading(ActiveMotionValues.getOptionStopPose())
+
+                    .lineToLinearHeading(ActiveMotionValues.getOptionTargetPose())
 
 
-                        .build();
+                    .build();
 
-            }
-
-            if (trussSideTape) {
-
-                drive.currentTrajSeq = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
-
-                        .lineToLinearHeading(ActiveMotionValues.getAdvancePose())
-
-                        .lineToLinearHeading(ActiveMotionValues.getDropOffPose())
-
-                        .UNSTABLE_addTemporalMarkerOffset(.5, () -> phss.dropPixel())
-
-                        .waitSeconds(1)
-
-                        .lineToLinearHeading(ActiveMotionValues.getRetractPose())
-
-                        .lineToLinearHeading(ActiveMotionValues.getTrussSDLineUpPose())
-
-                        .lineToLinearHeading(ActiveMotionValues.getOptionStopPose())
-
-                        .lineToLinearHeading(ActiveMotionValues.getOptionTargetPose())
-
-                        .build();
-
-            }
         }
+
 
         if (stageDoor) {
 

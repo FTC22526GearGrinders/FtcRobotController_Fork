@@ -16,11 +16,11 @@ public class MeepMeepTesting {
 
         boolean bbstart = false;//aaset to false for start on stack side of truss
 
-        int lcr = 3;//left tape ==1, center tape = 2, right tape = 3 from robot view
+        int lcr = 2;//left tape ==1, center tape = 2, right tape = 3 from robot view
 
-        if (lcr < 1 || lcr > 3) lcr = 2;
+        if (lcr < 0|| lcr > 3) lcr = 2;
 
-        boolean useStageDoor = true;
+        boolean useStageDoor = false;
 
         boolean truss = !useStageDoor;
 
@@ -34,7 +34,7 @@ public class MeepMeepTesting {
         ActiveMotionValues.setBBStart(bbstart);
         ActiveMotionValues.setLcrpos(lcr);
         ActiveMotionValues.setUseStageDoor(useStageDoor);
-        ActiveMotionValues.setParkType(parkType);
+
         ActiveMotionValues.setSecondPixel(secondPixel);
 
 
@@ -47,10 +47,6 @@ public class MeepMeepTesting {
             new SelectMotionValuesBlue();
 
         }
-
-
-//
-
 
         MeepMeep meepMeep = new MeepMeep(800);
 
@@ -67,7 +63,7 @@ public class MeepMeepTesting {
                         drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
 
 //
-                                .lineToLinearHeading(ActiveMotionValues.getAdvancePose())
+                           //     .lineToLinearHeading(ActiveMotionValues.getAdvancePose())
 
                                 .lineToLinearHeading(ActiveMotionValues.getDropOffPose())
 
@@ -75,18 +71,21 @@ public class MeepMeepTesting {
 
                                 .lineToLinearHeading(ActiveMotionValues.getRetractPose())
 
-//
-                                .strafeLeft(ActiveMotionValues.getStrafeDistance())
-//
-//
-                                .lineToLinearHeading(ActiveMotionValues.getTrussSDLineUpPose())
-//
-                                .lineToLinearHeading(ActiveMotionValues.getOptionStopPose())
+                            //   .lineToLinearHeading(ActiveMotionValues.getClearPose())
 
+
+                                //.lineToLinearHeading(ActiveMotionValues.getPreTagPose())
+                                //  .strafeLeft(ActiveMotionValues.getStrafeDistance())
+//
+//
+//                                  .lineToLinearHeading(ActiveMotionValues.getTrussSDLineUpPose())
+////
+//                                  .lineToLinearHeading(ActiveMotionValues.getOptionStopPose())
+//
 
                                 //   .waitSeconds(.1)
 
-                                .lineToLinearHeading(ActiveMotionValues.getOptionTargetPose())
+//                                 .lineToLinearHeading(ActiveMotionValues.getOptionTargetPose())
 
                                 //   .lineToLinearHeading(ActiveMotionValues.getPreTagPose())
 

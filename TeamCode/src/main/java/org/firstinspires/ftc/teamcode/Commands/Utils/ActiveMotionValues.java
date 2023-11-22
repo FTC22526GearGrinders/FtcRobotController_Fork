@@ -151,6 +151,21 @@ public class ActiveMotionValues {
 
     private static Pose2d dropOffPose = new Pose2d();
 
+    public static Pose2d getClearPose() {
+        return clearPose;
+    }
+
+    public static void setClearPose(Pose2d pose) {
+        clearPose = pose;
+    }
+
+    private static Pose2d clearPose = new Pose2d();
+
+
+
+
+
+
 
     public static boolean getRedAlliance() {
         return redAlliance;

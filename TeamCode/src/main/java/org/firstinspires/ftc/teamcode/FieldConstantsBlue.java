@@ -77,10 +77,10 @@ public final class FieldConstantsBlue {
         public static final Pose2d rightTapeMid = new Pose2d(0.5, 30);
 
         public static Pose2d advancePose = new Pose2d(12,
-                leftTapeMid.getY() + Constants.TapeConstants.tapeLength / 4, startAngle)
+                leftTapeMid.getY() - Constants.TapeConstants.tapeLength / 4, startAngle)
                 .minus(Constants.RobotConstants.activeDropOffsetPose);
         public static final Pose2d leftDropPose = new Pose2d(leftTapeMid.getX(),
-                leftTapeMid.getY() + Constants.TapeConstants.tapeLength / 4, startAngle)
+                leftTapeMid.getY() - Constants.TapeConstants.tapeLength / 4, startAngle)
                 .minus(Constants.RobotConstants.activeDropOffsetPose);
         public static final Pose2d centerDropPose = new Pose2d(centerTapeMid.getX(),
                 centerTapeMid.getY(), startAngle)
@@ -95,6 +95,8 @@ public final class FieldConstantsBlue {
         public static final Pose2d leftRetractPose = leftDropPose.plus(retCPose);
         public static final Pose2d centerRetractPose = centerDropPose.plus(retCPose);
         public static final Pose2d rightRetractPose = rightDropPose.plus(retPose);
+
+        public static final Pose2d clearPose = advancePose.plus(retPose);
 
     }
 
@@ -125,16 +127,16 @@ public final class FieldConstantsBlue {
                 centerTapeMid.getY(), startAngle)
                 .plus(Constants.RobotConstants.activeDropOffsetPose);
         public static final Pose2d rightDropPose = new Pose2d(rightTapeMid.getX(),
-                rightTapeMid.getY() - Constants.TapeConstants.tapeLength / 4, startAngle)
+                rightTapeMid.getY() + Constants.TapeConstants.tapeLength / 4, startAngle)
                 .plus(Constants.RobotConstants.activeDropOffsetPose);
 
-        public static final Pose2d retPose = new Pose2d(0, -4);
+        public static final Pose2d retPose = new Pose2d(0, 4);
 
         public static final Pose2d leftRetractPose = leftDropPose.plus(retPose);
         public static final Pose2d centerRetractPose = centerDropPose.plus(retPose);
         public static final Pose2d rightRetractPose = rightDropPose.plus(retPose);
 
-
+        public static final Pose2d clearPose = advancePose.plus(retPose);
     }
 
 

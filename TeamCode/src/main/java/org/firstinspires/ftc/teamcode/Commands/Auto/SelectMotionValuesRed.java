@@ -30,6 +30,8 @@ private CommandOpMode opMode;
         int lcr = ActiveMotionValues.getLcrpos();
         ActiveMotionValues.setStrafeDistance(0);
         ActiveMotionValues.setAdvancePose(new Pose2d());
+        ActiveMotionValues.setClearPose(new Pose2d());
+
         ActiveMotionValues.setParkPose(new Pose2d());
 
 
@@ -60,7 +62,11 @@ private CommandOpMode opMode;
                 ActiveMotionValues.setDropOffPose(FieldConstantsRed.XPYM.leftDropPose.minus(xyOffsetPose));
 
 
-                ActiveMotionValues.setRetractPose(FieldConstantsRed.XPYM.leftTrussRetractPose);
+                ActiveMotionValues.setRetractPose(FieldConstantsRed.XPYM.leftRetractPose);
+
+                ActiveMotionValues.setClearPose(FieldConstantsRed.XPYM.clearPose);
+
+
 
 
                 ActiveMotionValues.setActTag(4);
@@ -137,6 +143,7 @@ private CommandOpMode opMode;
                 ActiveMotionValues.setRetractPose(FieldConstantsRed.XPYM.rightRetractPose);
 
 
+
                 ActiveMotionValues.setActTag(6);
 
                 ActiveMotionValues.setPreTagPose(FieldConstantsRed.getActiveTagPose(ActiveMotionValues.getActTag())
@@ -168,6 +175,9 @@ private CommandOpMode opMode;
                 ActiveMotionValues.setDropOffPose(FieldConstantsRed.XMYM.leftDropPose.minus(xyOffsetPose));
 
                 ActiveMotionValues.setRetractPose(FieldConstantsRed.XMYM.leftRetractPose);
+
+                ActiveMotionValues.setClearPose(FieldConstantsRed.XMYM.clearPose);
+
 
                 ActiveMotionValues.setActTag(4);
 
@@ -213,6 +223,8 @@ private CommandOpMode opMode;
                 ActiveMotionValues.setDropOffPose(FieldConstantsRed.XMYM.rightDropPose.minus(xyOffsetPose));
 
                 ActiveMotionValues.setRetractPose(FieldConstantsRed.XMYM.rightRetractPose);
+
+                ActiveMotionValues.setClearPose(FieldConstantsRed.XMYM.clearPose);
 
                 ActiveMotionValues.setActTag(6);
 
