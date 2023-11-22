@@ -7,7 +7,6 @@ import com.arcrobotics.ftclib.command.CommandOpMode;
 
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.FieldConstantsBlue;
-import org.firstinspires.ftc.teamcode.FieldConstantsBlue;
 
 public class SelectMotionValuesBlue extends CommandBase {
 
@@ -77,13 +76,15 @@ public class SelectMotionValuesBlue extends CommandBase {
 
                 ActiveMotionValues.setParkPose(new Pose2d());
 
+                Pose2d parkPoseOffset = new Pose2d(0, 0, Math.toRadians(-90));
+
                 if (ActiveMotionValues.getCenterPark())
 
-                    ActiveMotionValues.setParkPose(FieldConstantsBlue.centerParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsBlue.centerParkPose.plus(parkPoseOffset));
 
                 if (ActiveMotionValues.getNearPark())
 
-                    ActiveMotionValues.setParkPose(FieldConstantsBlue.nearParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsBlue.nearParkPose.plus(parkPoseOffset));
 
 
                 break;
@@ -113,13 +114,15 @@ public class SelectMotionValuesBlue extends CommandBase {
 
                 ActiveMotionValues.setParkPose(new Pose2d());
 
+                parkPoseOffset = new Pose2d(0, 0, Math.toRadians(-90));
+
                 if (ActiveMotionValues.getCenterPark())
 
-                    ActiveMotionValues.setParkPose(FieldConstantsBlue.centerParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsBlue.centerParkPose.plus(parkPoseOffset));
 
                 if (ActiveMotionValues.getNearPark())
 
-                    ActiveMotionValues.setParkPose(FieldConstantsBlue.nearParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsBlue.nearParkPose.plus(parkPoseOffset));
 
 
                 break;
@@ -149,14 +152,15 @@ public class SelectMotionValuesBlue extends CommandBase {
                         .minus(FieldConstantsBlue.AprilTagConstants.tagLookAheadPose));
 
                 ActiveMotionValues.setParkPose(new Pose2d());
+                parkPoseOffset = new Pose2d(0, 0, Math.toRadians(-90));
 
                 if (ActiveMotionValues.getCenterPark())
 
-                    ActiveMotionValues.setParkPose(FieldConstantsBlue.centerParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsBlue.centerParkPose.plus(parkPoseOffset));
 
                 if (ActiveMotionValues.getNearPark())
 
-                    ActiveMotionValues.setParkPose(FieldConstantsBlue.nearParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsBlue.nearParkPose.plus(parkPoseOffset));
 
 
                 break;
@@ -225,7 +229,6 @@ public class SelectMotionValuesBlue extends CommandBase {
                 ActiveMotionValues.setRetractPose(FieldConstantsBlue.XMYP.rightRetractPose);
 
                 ActiveMotionValues.setClearPose(FieldConstantsBlue.XMYP.clearPose);
-
 
 
                 ActiveMotionValues.setActTag(3);

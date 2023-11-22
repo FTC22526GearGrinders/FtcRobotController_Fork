@@ -77,13 +77,15 @@ private CommandOpMode opMode;
 
                 ActiveMotionValues.setParkPose(new Pose2d());
 
+                Pose2d parkPoseOffset = new Pose2d(0, 0, 90);
+
                 if (ActiveMotionValues.getCenterPark())
 
-                    ActiveMotionValues.setParkPose(FieldConstantsRed.centerParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsRed.centerParkPose.plus(parkPoseOffset));
 
                 if (ActiveMotionValues.getNearPark())
 
-                    ActiveMotionValues.setParkPose(FieldConstantsRed.nearParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsRed.nearParkPose.plus(parkPoseOffset));
 
 
                 break;
@@ -114,13 +116,16 @@ private CommandOpMode opMode;
 
                 ActiveMotionValues.setParkPose(new Pose2d());
 
+                parkPoseOffset = new Pose2d(0, 0, 90);
+
                 if (ActiveMotionValues.getCenterPark())
 
-                    ActiveMotionValues.setParkPose(FieldConstantsRed.centerParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsRed.centerParkPose.plus(parkPoseOffset));
 
                 if (ActiveMotionValues.getNearPark())
 
-                    ActiveMotionValues.setParkPose(FieldConstantsRed.nearParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsRed.nearParkPose.plus(parkPoseOffset));
+
 
 
                 break;
@@ -151,13 +156,16 @@ private CommandOpMode opMode;
 
                 ActiveMotionValues.setParkPose(new Pose2d());
 
+                parkPoseOffset = new Pose2d(0, 0, 90);
+
                 if (ActiveMotionValues.getCenterPark())
 
-                    ActiveMotionValues.setParkPose(FieldConstantsRed.centerParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsRed.centerParkPose.plus(parkPoseOffset));
 
                 if (ActiveMotionValues.getNearPark())
 
-                    ActiveMotionValues.setParkPose(FieldConstantsRed.nearParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsRed.nearParkPose.plus(parkPoseOffset));
+
 
                 break;
 

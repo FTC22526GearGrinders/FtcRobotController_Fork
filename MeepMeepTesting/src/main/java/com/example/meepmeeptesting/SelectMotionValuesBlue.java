@@ -51,13 +51,16 @@ public class SelectMotionValuesBlue {
 
                 ActiveMotionValues.setParkPose(new Pose2d());
 
+                Pose2d parkPoseOffset = new Pose2d(0, 0, Math.toRadians(-90));
+
                 if (ActiveMotionValues.getCenterPark())
 
-                    ActiveMotionValues.setParkPose(FieldConstantsBlue.centerParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsBlue.centerParkPose.plus(parkPoseOffset));
 
                 if (ActiveMotionValues.getNearPark())
 
-                    ActiveMotionValues.setParkPose(FieldConstantsBlue.nearParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsBlue.nearParkPose.plus(parkPoseOffset));
+
 
 
                 break;
@@ -87,13 +90,15 @@ public class SelectMotionValuesBlue {
 
                 ActiveMotionValues.setParkPose(new Pose2d());
 
+                parkPoseOffset = new Pose2d(0, 0, Math.toRadians(-90));
+
                 if (ActiveMotionValues.getCenterPark())
 
-                    ActiveMotionValues.setParkPose(FieldConstantsBlue.centerParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsBlue.centerParkPose.plus(parkPoseOffset));
 
                 if (ActiveMotionValues.getNearPark())
 
-                    ActiveMotionValues.setParkPose(FieldConstantsBlue.nearParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsBlue.nearParkPose.plus(parkPoseOffset));
 
 
                 break;
@@ -124,13 +129,15 @@ public class SelectMotionValuesBlue {
 
                 ActiveMotionValues.setParkPose(new Pose2d());
 
+                parkPoseOffset = new Pose2d(0, 0, Math.toRadians(-90));
+
                 if (ActiveMotionValues.getCenterPark())
 
-                    ActiveMotionValues.setParkPose(FieldConstantsBlue.centerParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsBlue.centerParkPose.plus(parkPoseOffset));
 
                 if (ActiveMotionValues.getNearPark())
 
-                    ActiveMotionValues.setParkPose(FieldConstantsBlue.nearParkPose);
+                    ActiveMotionValues.setParkPose(FieldConstantsBlue.nearParkPose.plus(parkPoseOffset));
 
 
                 break;
