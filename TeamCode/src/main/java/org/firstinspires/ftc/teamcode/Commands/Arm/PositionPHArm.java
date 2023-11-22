@@ -45,9 +45,9 @@ public class PositionPHArm extends CommandBase {
 
         if (minus) temp = -temp;
 
-        arm.armMotor.set(temp);
+        arm.power=temp;
 
-
+        arm.armMotor.set(arm.power);
 
 
     }

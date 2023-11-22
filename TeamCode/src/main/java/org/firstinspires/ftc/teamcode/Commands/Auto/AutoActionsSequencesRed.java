@@ -5,12 +5,14 @@ import com.arcrobotics.ftclib.command.ConditionalCommand;
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
+import com.arcrobotics.ftclib.command.WaitCommand;
 
 import org.firstinspires.ftc.teamcode.Commands.Arm.PositionPHArm;
-import org.firstinspires.ftc.teamcode.Commands.Arm.PositionPHArmToPreset;
 import org.firstinspires.ftc.teamcode.Commands.Drive.MoveToPark;
 import org.firstinspires.ftc.teamcode.Commands.Drive.RunToAprilTag;
-import org.firstinspires.ftc.teamcode.Commands.Trajectories.SelectAndRunTrajectory;
+import org.firstinspires.ftc.teamcode.Commands.Trajectories.RunTrajSequence;
+import org.firstinspires.ftc.teamcode.Commands.Trajectories.SelectAndBuildTrajectory;
+import org.firstinspires.ftc.teamcode.Commands.Trajectories.ShowTrajectoryInfo;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Commands.Utils.DoNothing;
 import org.firstinspires.ftc.teamcode.Commands.Utils.LogAutoSettings;
@@ -37,7 +39,11 @@ public class AutoActionsSequencesRed extends SequentialCommandGroup {
 
                         new LogAutoSettings(opMode),
 
-                        new SelectAndRunTrajectory(opMode, drive, phss).withTimeout(10000),
+                        new SelectAndBuildTrajectory(opMode, drive, phss),
+
+                        new ShowTrajectoryInfo(drive,opMode),
+
+                        new RunTrajSequence(drive,opMode),
 
                         new ConditionalCommand(
 

@@ -4,22 +4,22 @@ package org.firstinspires.ftc.teamcode.Commands.Auto;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.arcrobotics.ftclib.command.CommandOpMode;
-import com.arcrobotics.ftclib.command.ConditionalCommand;
 
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.FieldConstantsRed;
 
 public class SelectMotionValuesRed extends CommandBase {
 
-private CommandOpMode opMode;
+    private CommandOpMode opMode;
+
     public SelectMotionValuesRed(CommandOpMode opMode) {
-        this.opMode=opMode;
+        this.opMode = opMode;
     }
 
 
     @Override
     public void initialize() {
-        opMode.telemetry.addData("RED","");
+        opMode.telemetry.addData("RED", "");
         opMode.telemetry.update();
     }
 
@@ -65,8 +65,6 @@ private CommandOpMode opMode;
                 ActiveMotionValues.setRetractPose(FieldConstantsRed.XPYM.leftRetractPose);
 
                 ActiveMotionValues.setClearPose(FieldConstantsRed.XPYM.clearPose);
-
-
 
 
                 ActiveMotionValues.setActTag(4);
@@ -127,7 +125,6 @@ private CommandOpMode opMode;
                     ActiveMotionValues.setParkPose(FieldConstantsRed.nearParkPose.plus(parkPoseOffset));
 
 
-
                 break;
 
             //******************************************************************************************
@@ -146,7 +143,6 @@ private CommandOpMode opMode;
 
 
                 ActiveMotionValues.setRetractPose(FieldConstantsRed.XPYM.rightRetractPose);
-
 
 
                 ActiveMotionValues.setActTag(6);
@@ -306,7 +302,8 @@ private CommandOpMode opMode;
 
     @Override
     public void end(boolean interrupted) {
-
+        opMode.telemetry.addData("SelectRedRun", "");
+        opMode.telemetry.update();
     }
 
     @Override

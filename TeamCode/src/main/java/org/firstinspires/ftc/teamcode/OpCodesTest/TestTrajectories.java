@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Commands.Auto.DetectAprilTags;
-import org.firstinspires.ftc.teamcode.Commands.Trajectories.SelectAndRunTrajectory;
+import org.firstinspires.ftc.teamcode.Commands.Trajectories.SelectAndBuildTrajectory;
 import org.firstinspires.ftc.teamcode.Commands.Auto.SelectMotionValuesRed;
 import org.firstinspires.ftc.teamcode.Commands.Drive.RunToAprilTag;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
@@ -61,7 +61,7 @@ public class TestTrajectories extends CommandOpMode {
 
         new SequentialCommandGroup(
                 new SelectMotionValuesRed(this),
-                new SelectAndRunTrajectory(this ,drive, phss),
+                new SelectAndBuildTrajectory(this ,drive, phss),
                 new DetectAprilTags(this, vss,false),
                 new ConditionalCommand(
                         new RunToAprilTag(drive, this),

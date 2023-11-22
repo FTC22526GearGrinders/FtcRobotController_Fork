@@ -35,8 +35,6 @@ public class LookForTeamProp extends CommandBase {
 
     FtcDashboard dashboard;
 
-    int lpctr = 0;
-
     Timer timer = new Timer();
 
     private OpenCvPipeline pl;
@@ -50,6 +48,8 @@ public class LookForTeamProp extends CommandBase {
 
     int lastlcr;
     private int lcrCheckCount;
+
+    private boolean waitingForCamera;
 
     private int checklimit = 3;
 
@@ -65,16 +65,14 @@ public class LookForTeamProp extends CommandBase {
     public void initialize() {
         endTimer = new ElapsedTime(ElapsedTime.Resolution.SECONDS);
 
+        waitingForCamera = true;
+
         currentLCR = 0;
 
         boolean red = ActiveMotionValues.getRedAlliance();
 
         ActiveMotionValues.setLcrpos(0);
 
-
-        myOpMode.telemetry.addData("INIT", "");
-
-        myOpMode.telemetry.update();
     }
 
 
@@ -83,9 +81,9 @@ public class LookForTeamProp extends CommandBase {
 
         if (vss.getCameraOpened()) {
 
-            if (vss.getWebcam().getFps() > 1)
-
-                lpctr++;
+            if (vss.getWebcam().getFps() > 1) {
+                waitingForCamera = false;
+            }
 
             currentLCR = vss.getSptop().getLCR();
 
@@ -101,15 +99,16 @@ public class LookForTeamProp extends CommandBase {
             if (lcrCheckCount >= checklimit)
                 ActiveMotionValues.setLcrpos(currentLCR);
 
+
+            myOpMode.telemetry.addData("LookForProp Secs", endTimer.seconds());
             myOpMode.telemetry.addData("Streaming", vss.getWebcam().getFps());
             myOpMode.telemetry.addData("RRAIsempty", vss.getSptop().rrAreas.isEmpty());
-            myOpMode.telemetry.addData("LPCTR", lpctr);
-
+            myOpMode.telemetry.addData("LCR current", currentLCR);
             myOpMode.telemetry.addData("Red", vss.getSptop().getRedPipeline());
 
-            ActiveMotionValues.setLcrpos(currentLCR);
         }
-        myOpMode.telemetry.addData("LCR", currentLCR);
+        myOpMode.telemetry.addData("WaitingForCamera", "");
+
         myOpMode.telemetry.update();
     }
 
@@ -119,12 +118,15 @@ public class LookForTeamProp extends CommandBase {
         myOpMode.telemetry.addData("LFTPEnding", "");
         myOpMode.telemetry.addData("TimeElapsed", endTimer.seconds());
         myOpMode.telemetry.update();
-        if (currentLCR < 1 || currentLCR > 2) ActiveMotionValues.setLcrpos(2);
+        if (currentLCR < 1 || currentLCR > 2) {
+            currentLCR = 2;
+            ActiveMotionValues.setLcrpos(currentLCR);
+        }
     }
 
     @Override
     public boolean isFinished() {
-        return !noEnd && ((lcrCheckCount >= checklimit) || endTimer.seconds() > 5);
+        return !noEnd && endTimer.seconds() > 2 && (lcrCheckCount >= checklimit) || endTimer.seconds() > 5;
     }
 
 

@@ -13,7 +13,9 @@ public class Drive_Subsystem extends SubsystemBase {
     public boolean fieldCentric;
 
     public TrajectorySequence currentTrajSeq = null;
-    public String trajName;
+    public String trajName ="";
+    public String runningTrajName="";
+    public boolean trajectoryBuilt;
 
 
     private ElapsedTime runtime = new ElapsedTime();

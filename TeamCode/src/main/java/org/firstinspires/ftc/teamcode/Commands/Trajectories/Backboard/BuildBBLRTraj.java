@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Commands.Trajectories.Backboard;
 
 import com.arcrobotics.ftclib.command.CommandBase;
+import com.arcrobotics.ftclib.command.CommandOpMode;
 
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
@@ -11,17 +12,23 @@ public class BuildBBLRTraj extends CommandBase {
     private final Drive_Subsystem drive;
     private final PixelHandlerSubsystem phss;
 
-
+    private CommandOpMode opMode;
     private int numberPoints;
 
-    public BuildBBLRTraj(Drive_Subsystem drive, PixelHandlerSubsystem phss) {
+    public BuildBBLRTraj(Drive_Subsystem drive, PixelHandlerSubsystem phss, CommandOpMode opMode) {
         this.drive = drive;
         this.phss = phss;
+        this.opMode=opMode;
     }
 
     @Override
     public void initialize() {
+        drive.trajectoryBuilt = false;
+    }
 
+    @Override
+    public void execute() {
+        ;
         boolean trussSideTapeRed = ActiveMotionValues.getRedAlliance() &&
 
                 ActiveMotionValues.getBBStart() && ActiveMotionValues.getLcrpos() == 1;
@@ -80,27 +87,20 @@ public class BuildBBLRTraj extends CommandBase {
 
             drive.trajName = "BBLeftRight";
         }
-
-        drive.drive.setPoseEstimate(ActiveMotionValues.getStartPose());
-
-        drive.drive.followTrajectorySequence(drive.currentTrajSeq);
-    }
-
-    @Override
-    public void execute() {
-        drive.drive.update();
+        drive.trajectoryBuilt = drive.currentTrajSeq != null;
+        opMode.telemetry.addData("Building BBLR", "");
+        opMode.telemetry.update();
     }
 
     @Override
     public void end(boolean interrupted) {
-        if (interrupted) {
-            drive.drive.stop();
-        }
+
     }
+
 
     @Override
     public boolean isFinished() {
-        return Thread.currentThread().isInterrupted() || !drive.drive.isBusy();
+        return drive.trajectoryBuilt;
     }
 
 }

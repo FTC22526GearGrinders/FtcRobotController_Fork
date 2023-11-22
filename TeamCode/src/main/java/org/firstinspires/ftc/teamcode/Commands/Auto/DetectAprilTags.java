@@ -4,6 +4,7 @@ package org.firstinspires.ftc.teamcode.Commands.Auto;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.arcrobotics.ftclib.command.CommandOpMode;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Constants;
@@ -24,6 +25,8 @@ public class DetectAprilTags extends CommandBase {
 
     private final Vision_Subsystem vss;
 
+    private ElapsedTime et;
+
     private boolean noEnd;
     private int tst;
 
@@ -38,14 +41,10 @@ public class DetectAprilTags extends CommandBase {
 
     @Override
     public void initialize() {
-
+        et = new ElapsedTime();
 
         n = ActiveMotionValues.getActTag();
 
-       // vss.enableAprilTagProcessor(true);
-
-//        myOpMode.telemetry.addData("DATinit","");
-//        myOpMode.telemetry.update();
 
     }
 
@@ -53,6 +52,7 @@ public class DetectAprilTags extends CommandBase {
     public void execute() {
 
         List<AprilTagDetection> currentDetections = vss.myAprilTagProcessor.getDetections();
+        myOpMode.telemetry.addData("LookingForTags","");
         myOpMode.telemetry.addData("# AprilTags Detected", currentDetections.size());
         for (AprilTagDetection detection : currentDetections) {
             if (detection.metadata != null) {
@@ -97,7 +97,6 @@ public class DetectAprilTags extends CommandBase {
                     myOpMode.telemetry.addLine();
 
 
-
                 }
 
             } else {
@@ -106,7 +105,8 @@ public class DetectAprilTags extends CommandBase {
 
             int numTagsseen = currentDetections.size();
 
-        }   myOpMode.telemetry.update();
+        }
+        myOpMode.telemetry.update();
 
 
     }
@@ -119,6 +119,6 @@ public class DetectAprilTags extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return !noEnd && ActiveMotionValues.getAprilTagSeen();
+        return !noEnd && et.seconds() > 5 && ActiveMotionValues.getAprilTagSeen();
     }
 }

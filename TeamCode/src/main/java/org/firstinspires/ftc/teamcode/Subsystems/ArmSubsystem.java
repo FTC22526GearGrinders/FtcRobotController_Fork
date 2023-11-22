@@ -22,6 +22,8 @@ public class ArmSubsystem extends SubsystemBase {
     public int loopCountTimer;
     public int holdCountTimer;
 
+    public double power;
+
     double maxPower = .5;
 
     public PIDController controller = new PIDController(Constants.ArmConstants.kP, Constants.ArmConstants.kI, Constants.ArmConstants.kD);
@@ -40,7 +42,7 @@ public class ArmSubsystem extends SubsystemBase {
         armEncoder.setDirection(Motor.Direction.FORWARD);
 
 
-        armEncoder.setDistancePerPulse( 1/Constants.ArmConstants.ENCODER_COUNTS_PER_INCH);
+        armEncoder.setDistancePerPulse(1 / Constants.ArmConstants.ENCODER_COUNTS_PER_INCH);
 
         controller.setTolerance(Constants.ArmConstants.POSITION_TOLERANCE_INCHES);
 
@@ -52,7 +54,7 @@ public class ArmSubsystem extends SubsystemBase {
     @Override
 
     public void periodic() {
-
+        loopCountTimer++;
     }
 
     public void resetEncoder() {
@@ -68,11 +70,32 @@ public class ArmSubsystem extends SubsystemBase {
         return controller.atSetPoint();
     }
 
+    public void setPositionKp(double kp) {
+        controller.setP(kp);
+    }
+
+    public double getPositionKp() {
+        return controller.getP();
+    }
+
+    public double getPositionKd() {
+        return controller.getD();
+    }
+
+    public void setPower(double power){
+        armMotor.set(power);
+    }
+
+    public double getPower() {
+        return armMotor.get();
+    }
+
+
     public void showTelemetry(Telemetry telemetry) {
 
         telemetry.addData("EncCtsPerInch", Constants.ArmConstants.ENCODER_COUNTS_PER_INCH);
         telemetry.addData("MaxIPS", Constants.ArmConstants.MAX_INCHES_PER_SECOND);
-
+        telemetry.addData("ArmPowerCmd", power);
         telemetry.addData("ArmInches", getPositionInches());
         telemetry.addData("TargetInches", targetInches);
         telemetry.addData("HoldInches", holdInches);

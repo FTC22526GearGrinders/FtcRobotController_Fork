@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Commands.Arm;
 
 import com.arcrobotics.ftclib.command.CommandBase;
+import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.Constants;
@@ -11,10 +12,10 @@ public class JogArm extends CommandBase {
 
     private ArmSubsystem arm;
 
-    private final Gamepad gamepad;
+    private final GamepadEx gamepad;
 
 
-    public JogArm(ArmSubsystem arm, Gamepad gamepad) {
+    public JogArm(ArmSubsystem arm, GamepadEx gamepad) {
         this.arm = arm;
         this.gamepad = gamepad;
         addRequirements(this.arm);
@@ -27,16 +28,16 @@ public class JogArm extends CommandBase {
     @Override
     public void execute() {
 
-        double power = -gamepad.left_stick_y / 4;
+        arm.power = gamepad.getLeftY() / 4;
 
-        if (power > 0 && arm.getPositionInches() < Constants.ArmConstants.UPPER_POSITION_LIMIT
+        if (arm.power > 0 && arm.getPositionInches() < Constants.ArmConstants.UPPER_POSITION_LIMIT
 
-                || power < 0 && arm.getPositionInches() > Constants.ArmConstants.LOWER_POSITION_LIMIT) {
+                || arm.power < 0 && arm.getPositionInches() > Constants.ArmConstants.LOWER_POSITION_LIMIT) {
 
         } else
-            power = 0;
+            arm.power = 0;
 
-        arm.armMotor.set(power);
+        arm.armMotor.set(arm.power);
     }
 
     @Override

@@ -4,7 +4,7 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.arcrobotics.ftclib.command.CommandOpMode;
-import com.qualcomm.robotcore.hardware.Gamepad;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
@@ -19,6 +19,8 @@ public class RunToAprilTag extends CommandBase {
     private Pose2d currentRobotPose;
 
     private CommandOpMode myOpMode;
+
+    private ElapsedTime et;
 
     Pose2d tagDistancePose = new Pose2d();
 
@@ -35,10 +37,10 @@ public class RunToAprilTag extends CommandBase {
     @Override
     public void initialize() {
 
-
-        myOpMode.telemetry.addData("RTAinit","");
+        myOpMode.telemetry.clearAll();
+        myOpMode.telemetry.addData("RunToTagInit", "");
         myOpMode.telemetry.update();
-
+        et = new ElapsedTime();
 
         currentRobotPose = ActiveMotionValues.getCurrentRobotPose();
 
@@ -77,11 +79,15 @@ public class RunToAprilTag extends CommandBase {
         if (interrupted) {
             drive.drive.stop();
         }
+        myOpMode.telemetry.clearAll();
+        myOpMode.telemetry.addData("RunToTagEnd", "");
+        myOpMode.telemetry.update();
+
     }
 
     @Override
     public boolean isFinished() {//return false;
-        return Thread.currentThread().isInterrupted() || !drive.drive.isBusy();
+        return et.seconds() > 5 && Thread.currentThread().isInterrupted() || !drive.drive.isBusy();
     }
 
 }

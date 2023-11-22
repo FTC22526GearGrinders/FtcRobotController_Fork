@@ -45,6 +45,7 @@ public class BuildTrussSDCenterTape extends CommandBase {
                 .build();
 
 
+        drive.trajName = "TSDCenter";
     }
 
     @Override

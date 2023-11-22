@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Commands.Trajectories.Backboard;
 
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.arcrobotics.ftclib.command.CommandOpMode;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
@@ -14,6 +15,8 @@ public class BuildBBCenterTraj extends CommandBase {
 
     private CommandOpMode opMode;
 
+    private ElapsedTime et;
+
     public BuildBBCenterTraj(Drive_Subsystem drive, PixelHandlerSubsystem phss, CommandOpMode opMode) {
         this.drive = drive;
         this.phss = phss;
@@ -22,12 +25,19 @@ public class BuildBBCenterTraj extends CommandBase {
 
     @Override
     public void initialize() {
+        et = new ElapsedTime();
 
+        drive.trajectoryBuilt = false;
+    }
+
+    @Override
+    public void execute() {
 
         /**
          * Use th 5 step center for stage door selection
          * <p>
          * It has the pixel delivery after the first step
+         *
          */
         drive.currentTrajSeq = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
 
@@ -49,21 +59,21 @@ public class BuildBBCenterTraj extends CommandBase {
 
         drive.trajName = "BBCenter";
 
-    }
+        drive.trajectoryBuilt = drive.currentTrajSeq != null;
 
-    @Override
-    public void execute() {
-        opMode.telemetry.addData("BBCT Init", ""); opMode.telemetry.update();
+        opMode.telemetry.addData("Building BBCenter", "");
+        opMode.telemetry.update();
     }
 
     @Override
     public void end(boolean interrupted) {
-        opMode.telemetry.addData("BBCT End", ""); opMode.telemetry.update();
+        opMode.telemetry.addData("End BBCenter Build", "");
+        opMode.telemetry.update();
     }
 
     @Override
     public boolean isFinished() {
-        return  drive.trajName == "BBCenter";
+        return drive.trajectoryBuilt;
     }
 
 }
