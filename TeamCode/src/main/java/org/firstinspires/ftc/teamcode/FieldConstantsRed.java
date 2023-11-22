@@ -11,9 +11,9 @@ public final class FieldConstantsRed {
 
     public static Pose2d centerParkPose = new Pose2d(50, -12, startangle);
 
-    public static Pose2d nearOptionPose = new Pose2d(42, -60, startangle);
+    public static Pose2d nearOptionPose = new Pose2d(36, -60, startangle);
 
-    public static Pose2d centerOptionPose = new Pose2d(42, -12, startangle);
+    public static Pose2d centerOptionPose = new Pose2d(36, -12, startangle);
 
     public static Pose2d stageDoorLineUpPose13 = new Pose2d(-36, -12, startangle);
 

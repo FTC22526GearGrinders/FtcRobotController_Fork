@@ -16,11 +16,11 @@ public class MeepMeepTesting {
 
         boolean bbstart = false;//aaset to false for start on stack side of truss
 
-        int lcr = 2;//left tape ==1, center tape = 2, right tape = 3 from robot view
+        int lcr = 1;//left tape ==1, center tape = 2, right tape = 3 from robot view
 
         if (lcr < 0|| lcr > 3) lcr = 2;
 
-        boolean useStageDoor = false;
+        boolean useStageDoor = true;
 
         boolean truss = !useStageDoor;
 
@@ -63,7 +63,7 @@ public class MeepMeepTesting {
                         drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
 
 //
-                           //     .lineToLinearHeading(ActiveMotionValues.getAdvancePose())
+                               .lineToLinearHeading(ActiveMotionValues.getAdvancePose())
 
                                 .lineToLinearHeading(ActiveMotionValues.getDropOffPose())
 
@@ -71,23 +71,24 @@ public class MeepMeepTesting {
 
                                 .lineToLinearHeading(ActiveMotionValues.getRetractPose())
 
-                            //   .lineToLinearHeading(ActiveMotionValues.getClearPose())
+                     //         .lineToLinearHeading(ActiveMotionValues.getClearPose())
 
 
                                 //.lineToLinearHeading(ActiveMotionValues.getPreTagPose())
-                                //  .strafeLeft(ActiveMotionValues.getStrafeDistance())
+
+                                 .strafeLeft(ActiveMotionValues.getStrafeDistance())
 //
 //
-//                                  .lineToLinearHeading(ActiveMotionValues.getTrussSDLineUpPose())
-////
-//                                  .lineToLinearHeading(ActiveMotionValues.getOptionStopPose())
+                                 .lineToLinearHeading(ActiveMotionValues.getTrussSDLineUpPose())
+
+                                  .lineToLinearHeading(ActiveMotionValues.getOptionStopPose())
 //
 
                                 //   .waitSeconds(.1)
 
-//                                 .lineToLinearHeading(ActiveMotionValues.getOptionTargetPose())
+                                .lineToLinearHeading(ActiveMotionValues.getOptionTargetPose())
 
-                                //   .lineToLinearHeading(ActiveMotionValues.getPreTagPose())
+                           //       .lineToLinearHeading(ActiveMotionValues.getPreTagPose())
 
 
                                 .build());

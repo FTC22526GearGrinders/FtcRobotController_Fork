@@ -16,8 +16,8 @@ public final class FieldConstantsBlue {
 
     public static Pose2d stageDoorLineUpPose2 = new Pose2d(-48, 12, startAngle);
 
-    public static Pose2d nearOptionPose = new Pose2d(42, 60, startAngle);
-    public static Pose2d centerOptionPose = new Pose2d(42, 12, startAngle);
+    public static Pose2d nearOptionPose = new Pose2d(36, 60, startAngle);
+    public static Pose2d centerOptionPose = new Pose2d(36, 12, startAngle);
 
 
     public static Pose2d nearParkPose = new Pose2d(50, 60, startAngle);
@@ -126,8 +126,8 @@ public final class FieldConstantsBlue {
         public static final Pose2d centerDropPose = new Pose2d(centerTapeMid.getX(),
                 centerTapeMid.getY(), startAngle)
                 .plus(Constants.RobotConstants.activeDropOffsetPose);
-        public static final Pose2d rightDropPose = new Pose2d(rightTapeMid.getX(),
-                rightTapeMid.getY() + Constants.TapeConstants.tapeLength / 4, startAngle)
+        public static final Pose2d rightDropPose = new Pose2d(rightTapeMid.getX(), rightTapeMid.getY()
+                + Constants.TapeConstants.tapeLength / 4, startAngle)
                 .plus(Constants.RobotConstants.activeDropOffsetPose);
 
         public static final Pose2d retPose = new Pose2d(0, 4);

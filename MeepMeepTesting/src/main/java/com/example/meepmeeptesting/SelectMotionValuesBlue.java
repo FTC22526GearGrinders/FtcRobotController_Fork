@@ -218,6 +218,9 @@ public class SelectMotionValuesBlue {
         ActiveMotionValues.setStrafeDistance(0);
         ActiveMotionValues.setParkPose(new Pose2d());
 
+        double strafeDistance = -11.5;
+
+
         boolean useTruss = !useStageDoor;
 
         if (ActiveMotionValues.getCenterPark())
@@ -229,9 +232,9 @@ public class SelectMotionValuesBlue {
 
         if (useTruss) {
 
-            if (lcr == 11) ActiveMotionValues.setStrafeDistance(11.5);
+            if (lcr == 11) ActiveMotionValues.setStrafeDistance(strafeDistance);
 
-            if (lcr == 13) ActiveMotionValues.setStrafeDistance(-11.5);
+            if (lcr == 13) ActiveMotionValues.setStrafeDistance(-strafeDistance);
 
 
             ActiveMotionValues.setTrussSDLineUpPose(FieldConstantsBlue.nearTrussLineUpPose);
@@ -253,16 +256,16 @@ public class SelectMotionValuesBlue {
         if (useStageDoor) {
 
             if (lcr == 11) {
-                ActiveMotionValues.setStrafeDistance(-11.5);
+                ActiveMotionValues.setStrafeDistance(-strafeDistance);
                 ActiveMotionValues.setTrussSDLineUpPose((FieldConstantsBlue.stageDoorLineUpPose13));
             }
             if (lcr == 12) {
-                ActiveMotionValues.setStrafeDistance(11.5);
+                ActiveMotionValues.setStrafeDistance(strafeDistance);
                 ActiveMotionValues.setTrussSDLineUpPose((FieldConstantsBlue.stageDoorLineUpPose2));
             }
 
             if (lcr == 13) {
-                ActiveMotionValues.setStrafeDistance(11.5);
+                ActiveMotionValues.setStrafeDistance(strafeDistance);
                 ActiveMotionValues.setTrussSDLineUpPose((FieldConstantsBlue.stageDoorLineUpPose13));
             }
 

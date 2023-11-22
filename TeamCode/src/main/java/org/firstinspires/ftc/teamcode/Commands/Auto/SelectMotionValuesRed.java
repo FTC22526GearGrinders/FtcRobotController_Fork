@@ -244,11 +244,13 @@ private CommandOpMode opMode;
 
         boolean useTruss = !useStageDoor;
 
+        double strafeDistance = 11.5;
+
         if (useTruss) {
 
-            if (lcr == 11) ActiveMotionValues.setStrafeDistance(11.5);
+            if (lcr == 11) ActiveMotionValues.setStrafeDistance(strafeDistance);
 
-            if (lcr == 13) ActiveMotionValues.setStrafeDistance(-11.5);
+            if (lcr == 13) ActiveMotionValues.setStrafeDistance(-strafeDistance);
 
 
             ActiveMotionValues.setTrussSDLineUpPose(FieldConstantsRed.nearTrussLineUpPose);
@@ -270,15 +272,15 @@ private CommandOpMode opMode;
         if (useStageDoor) {
 
             if (lcr == 11) {
-                ActiveMotionValues.setStrafeDistance(11.5);
+                ActiveMotionValues.setStrafeDistance(strafeDistance);
                 ActiveMotionValues.setTrussSDLineUpPose((FieldConstantsRed.stageDoorLineUpPose13));
             }
             if (lcr == 12) {
-                ActiveMotionValues.setStrafeDistance(-11.5);
+                ActiveMotionValues.setStrafeDistance(-strafeDistance);
                 ActiveMotionValues.setTrussSDLineUpPose((FieldConstantsRed.stageDoorLineUpPose2));
             }
             if (lcr == 13) {
-                ActiveMotionValues.setStrafeDistance(-11.5);
+                ActiveMotionValues.setStrafeDistance(-strafeDistance);
                 ActiveMotionValues.setTrussSDLineUpPose((FieldConstantsRed.stageDoorLineUpPose13));
             }
 
