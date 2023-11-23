@@ -52,13 +52,16 @@ public class DetectAprilTags extends CommandBase {
     public void execute() {
 
         List<AprilTagDetection> currentDetections = vss.myAprilTagProcessor.getDetections();
-        myOpMode.telemetry.addData("LookingForTags","");
+        myOpMode.telemetry.addData("Camera FPS", vss.myVisionPortal.getFps());
+        myOpMode.telemetry.addData("LookingForTags", "");
         myOpMode.telemetry.addData("# AprilTags Detected", currentDetections.size());
         for (AprilTagDetection detection : currentDetections) {
             if (detection.metadata != null) {
                 tagsSeen = true;
                 ActiveMotionValues.setAprilTagSeen(false);
+
                 if (detection.id == n) {
+
                     ActiveMotionValues.setAprilTagSeen(true);
 
                     Pose2d camPose = new Pose2d(detection.ftcPose.y, detection.ftcPose.x, Math.toRadians(detection.ftcPose.yaw));
@@ -78,21 +81,17 @@ public class DetectAprilTags extends CommandBase {
 
                     ActiveMotionValues.setCurrentRobotPose(currentRobotPose);
 
-
+                    myOpMode.telemetry.addData("Active Tag", n);
                     myOpMode.telemetry.addData("Tag ID", detection.id);
                     myOpMode.telemetry.addLine();
+
                     myOpMode.telemetry.addData("TagPose", tagPose.toString());
-                    myOpMode.telemetry.addLine();
                     myOpMode.telemetry.addData("CamPose", camPose.toString());
                     myOpMode.telemetry.addLine();
                     myOpMode.telemetry.addData("CamFieldPose", camFieldPose.toString());
-                    myOpMode.telemetry.addLine();
-
                     myOpMode.telemetry.addData("CurrRobotPose", currentRobotPose.toString());
                     myOpMode.telemetry.addLine();
-
                     myOpMode.telemetry.addData("TagDistPose", tagOffsetPose.toString());
-                    myOpMode.telemetry.addLine();
                     myOpMode.telemetry.addData("FinalPose", finalTagPose.toString());
                     myOpMode.telemetry.addLine();
 
@@ -114,11 +113,14 @@ public class DetectAprilTags extends CommandBase {
     @Override
 
     public void end(boolean interrupted) {
+        myOpMode.telemetry.addData("Ending detect Tags", "");
+        myOpMode.telemetry.update();
 
     }
 
     @Override
     public boolean isFinished() {
-        return !noEnd && et.seconds() > 5 && ActiveMotionValues.getAprilTagSeen();
+        return !noEnd && et.seconds() > .5 && ActiveMotionValues.getAprilTagSeen();
+
     }
 }

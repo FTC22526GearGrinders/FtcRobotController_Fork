@@ -12,8 +12,6 @@ public class RunTrajSequence extends CommandBase {
     private Drive_Subsystem drive;
     private CommandOpMode opMode;
 
-    private boolean oneShot;
-
     ElapsedTime et;
 
     public RunTrajSequence(Drive_Subsystem drive, CommandOpMode opMode) {
@@ -25,9 +23,7 @@ public class RunTrajSequence extends CommandBase {
     public void initialize() {
 
         et = new ElapsedTime();
-        oneShot = false;
-        opMode.telemetry.clearAll();
-        opMode.telemetry.addData("Trajstarting","");
+        opMode.telemetry.addData(drive.runningTrajName, " running");
         opMode.telemetry.update();
 
         drive.drive.setPoseEstimate(drive.currentTrajSeq.start());
@@ -52,8 +48,8 @@ public class RunTrajSequence extends CommandBase {
         if (interrupted) {
             drive.drive.stop();
         }
-        opMode.telemetry.clearAll();
-        opMode.telemetry.addData("TrajEnded","");
+
+        opMode.telemetry.addData(drive.runningTrajName," ended");
         opMode.telemetry.update();
 
     }

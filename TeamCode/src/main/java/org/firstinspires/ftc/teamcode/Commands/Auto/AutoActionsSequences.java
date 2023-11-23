@@ -8,13 +8,8 @@ import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 
 import org.firstinspires.ftc.teamcode.Commands.Arm.PositionPHArm;
-import org.firstinspires.ftc.teamcode.Commands.Drive.RunToAprilTag;
-import org.firstinspires.ftc.teamcode.Commands.Trajectories.RunTrajSequence;
-import org.firstinspires.ftc.teamcode.Commands.Trajectories.SelectAndBuildTrajectory;
-import org.firstinspires.ftc.teamcode.Commands.Trajectories.ShowTrajectoryInfo;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Commands.Utils.DoNothing;
-import org.firstinspires.ftc.teamcode.Commands.Utils.TimeDelay;
 import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.Subsystems.ArmSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
@@ -36,21 +31,13 @@ public class AutoActionsSequences extends SequentialCommandGroup {
 
                         af.getAllianceData(opMode, red),
 
-                        //  new LogAutoSettings(opMode),
-
-                        new SelectAndBuildTrajectory(opMode, drive, phss),
-
-                        new ShowTrajectoryInfo(drive, opMode),
-
-                        new RunTrajSequence(drive, opMode),
+                        af.buildAndRunTrajectory(),
 
                         new ConditionalCommand(
 
                                 new SequentialCommandGroup(
 
-                                        new DetectAprilTags(opMode, vss, false),
-
-                                        new RunToAprilTag(drive, opMode),
+                                        af.detectAndMoveToAprilTag(),
 
                                         new ParallelCommandGroup(
 
