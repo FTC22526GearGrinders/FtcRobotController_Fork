@@ -57,7 +57,6 @@ public class AutoSelectAndRunBlue extends CommandOpMode {
     boolean buttonLocked = false;
     boolean useStageDoor = false;
     boolean secondPixel = true;
-    StageSwitchingPipeline sptop = null;
 
     @Override
     public void initialize() {
@@ -163,7 +162,6 @@ public class AutoSelectAndRunBlue extends CommandOpMode {
 
         vss = new Vision_Subsystem(this);
 
-        sptop = new StageSwitchingPipeline(false);
 
         af = new AutoFactory(this, drive, phss, arm, vss);
 

@@ -37,7 +37,7 @@ public class Vision_Subsystem extends SubsystemBase {
 
     private boolean cameraClosed;
 
-    StageSwitchingPipeline sptop = null;
+    public StageSwitchingPipeline sptop = null;
 
 
 
@@ -194,9 +194,6 @@ public class Vision_Subsystem extends SubsystemBase {
         return webcam;
     }
 
-    public StageSwitchingPipeline getSptop() {
-        return sptop;
-    }
 }
 
 

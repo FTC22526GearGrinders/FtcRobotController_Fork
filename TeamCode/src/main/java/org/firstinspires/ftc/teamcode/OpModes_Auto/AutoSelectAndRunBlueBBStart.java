@@ -35,6 +35,7 @@ import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
+import org.firstinspires.ftc.teamcode.CV.StageSwitchingPipeline;
 import org.firstinspires.ftc.teamcode.Commands.Auto.AutoFactory;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Subsystems.ArmSubsystem;
@@ -162,7 +163,6 @@ public class AutoSelectAndRunBlueBBStart extends CommandOpMode {
         arm = new ArmSubsystem(this);
 
         vss = new Vision_Subsystem(this);
-
 
         af = new AutoFactory(this, drive, phss, arm, vss);
 

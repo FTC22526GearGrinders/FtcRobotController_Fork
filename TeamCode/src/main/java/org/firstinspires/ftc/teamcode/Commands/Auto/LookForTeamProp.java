@@ -8,7 +8,6 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.CV.StageSwitchingPipeline;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Subsystems.Vision_Subsystem;
-import org.openftc.easyopencv.OpenCvPipeline;
 
 import java.util.Timer;
 
@@ -37,8 +36,6 @@ public class LookForTeamProp extends CommandBase {
 
     Timer timer = new Timer();
 
-    private OpenCvPipeline pl;
-
     private boolean noEnd;
 
     private boolean oneShot = false;
@@ -55,7 +52,6 @@ public class LookForTeamProp extends CommandBase {
 
     public LookForTeamProp(CommandOpMode opMode, boolean noEnd, Vision_Subsystem vss) {
         myOpMode = opMode;
-
         this.sptop = sptop;
         this.noEnd = noEnd;
         this.vss = vss;
@@ -63,6 +59,8 @@ public class LookForTeamProp extends CommandBase {
 
     @Override
     public void initialize() {
+        sptop = new StageSwitchingPipeline(ActiveMotionValues.getRedAlliance());
+
         endTimer = new ElapsedTime(ElapsedTime.Resolution.SECONDS);
 
         waitingForCamera = true;
@@ -85,7 +83,7 @@ public class LookForTeamProp extends CommandBase {
                 waitingForCamera = false;
             }
 
-            currentLCR = vss.getSptop().getLCR();
+            currentLCR = vss.sptop.getLCR();
 
             if (currentLCR != 0 && currentLCR == lastlcr) {
                 lcrCheckCount++;
@@ -102,9 +100,9 @@ public class LookForTeamProp extends CommandBase {
 
             myOpMode.telemetry.addData("LookForProp Secs", endTimer.seconds());
             myOpMode.telemetry.addData("Streaming", vss.getWebcam().getFps());
-            myOpMode.telemetry.addData("RRAIsempty", vss.getSptop().rrAreas.isEmpty());
+            myOpMode.telemetry.addData("RRAIsempty", vss.sptop.rrAreas.isEmpty());
             myOpMode.telemetry.addData("LCR current", currentLCR);
-            myOpMode.telemetry.addData("Red", vss.getSptop().getRedPipeline());
+            myOpMode.telemetry.addData("Red", vss.sptop.getRedPipeline());
 
         }
         myOpMode.telemetry.addData("WaitingForCamera", "");
@@ -126,7 +124,7 @@ public class LookForTeamProp extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return !noEnd && endTimer.seconds() > 2 && (lcrCheckCount >= checklimit) || endTimer.seconds() > 5;
+        return !noEnd && (endTimer.seconds() > 2 && lcrCheckCount >= checklimit || endTimer.seconds() > 5);
     }
 
 

@@ -4,6 +4,7 @@ import com.arcrobotics.ftclib.command.Command;
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 
+import org.firstinspires.ftc.teamcode.CV.StageSwitchingPipeline;
 import org.firstinspires.ftc.teamcode.Subsystems.ArmSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.PixelHandlerSubsystem;
@@ -28,6 +29,7 @@ public class AutoFactory extends CommandBase {
         this.phss = phss;
         this.arm = arm;
         this.vss = vss;
+
     }
 
     public Command getAASRed() {
@@ -36,7 +38,7 @@ public class AutoFactory extends CommandBase {
 
 
     public Command getAASBlue() {
-        return new AutoActionsSequencesBlue(opMode, drive, phss, arm, vss);
+        return new AutoActionsSequencesBlue(opMode, drive, phss, arm,vss);
     }
 
 

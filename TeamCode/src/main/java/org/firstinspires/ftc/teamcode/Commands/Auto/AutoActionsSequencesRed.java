@@ -5,8 +5,8 @@ import com.arcrobotics.ftclib.command.ConditionalCommand;
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
-import com.arcrobotics.ftclib.command.WaitCommand;
 
+import org.firstinspires.ftc.teamcode.CV.StageSwitchingPipeline;
 import org.firstinspires.ftc.teamcode.Commands.Arm.PositionPHArm;
 import org.firstinspires.ftc.teamcode.Commands.Drive.MoveToPark;
 import org.firstinspires.ftc.teamcode.Commands.Drive.RunToAprilTag;
@@ -41,9 +41,9 @@ public class AutoActionsSequencesRed extends SequentialCommandGroup {
 
                         new SelectAndBuildTrajectory(opMode, drive, phss),
 
-                        new ShowTrajectoryInfo(drive,opMode),
+                        new ShowTrajectoryInfo(drive, opMode),
 
-                        new RunTrajSequence(drive,opMode),
+                        new RunTrajSequence(drive, opMode),
 
                         new ConditionalCommand(
 
