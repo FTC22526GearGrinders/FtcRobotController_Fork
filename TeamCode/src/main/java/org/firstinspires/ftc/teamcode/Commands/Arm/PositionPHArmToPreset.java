@@ -22,7 +22,7 @@ public class PositionPHArmToPreset extends CommandBase {
 
     @Override
     public void initialize() {
-        arm.loopCountTimer = 0;
+
 
     }
 
@@ -38,7 +38,6 @@ public class PositionPHArmToPreset extends CommandBase {
 
         arm.targetInches = Constants.ArmConstants.armPositionInches[index];
 
-        arm.loopCountTimer++;
 
         double output = arm.controller.calculate(
                 arm.getPositionInches(), arm.targetInches);
@@ -64,6 +63,6 @@ public class PositionPHArmToPreset extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return arm.loopCountTimer > 10 && arm.inPosition() || arm.loopCountTimer > 5000;
+        return  arm.inPosition();
     }
 }

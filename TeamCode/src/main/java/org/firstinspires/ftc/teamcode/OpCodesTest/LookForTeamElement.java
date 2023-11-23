@@ -9,7 +9,6 @@ import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Commands.Auto.LookForTeamProp;
-import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Subsystems.Vision_Subsystem;
 
 /**
@@ -36,7 +35,10 @@ public class LookForTeamElement extends CommandOpMode {
     public static int left = 146;
 
     public static int right = 231;
-    public static boolean changeLines = false;
+    public static int changeLinesInt = 0;
+
+    public static int blueRed_0_1 = 0;
+    boolean changeLines;
     boolean lastChangeLines;
 
     int lastleft;
@@ -54,14 +56,10 @@ public class LookForTeamElement extends CommandOpMode {
 
         dashboard = FtcDashboard.getInstance();
 
-        boolean redAlliance = ActiveMotionValues.getRedAlliance();
-
 
         vss = new Vision_Subsystem(this);
 
-
     }
-
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -98,7 +96,13 @@ public class LookForTeamElement extends CommandOpMode {
 
         if (vss.getCameraOpened() && isStopRequested()) vss.closeCamera();
 
-        if (changeLines !=lastChangeLines){
+        changeLines = changeLinesInt != 0;
+
+        if (blueRed_0_1 == 1)
+            vss.sptop.red = true;
+        else vss.sptop.red = false;
+
+        if (changeLines != lastChangeLines) {
             vss.sptop.allowLineChange = changeLines;
             lastChangeLines = changeLines;
         }
@@ -123,15 +127,10 @@ public class LookForTeamElement extends CommandOpMode {
         }
 
         telemetry.addData("Streaming", vss.getWebcam().getFps());
-        telemetry.addData("RRAIsempty", vss.sptop.rrAreas.isEmpty());
-
-
-        telemetry.addData("Red", vss.sptop.getRedPipeline());
-        telemetry.addData("BlTh", vss.sptop.blueThreshold);
-
         telemetry.addData("LCR", vss.sptop.lcr);
         telemetry.addData("NumCon", vss.sptop.numContoursFound);
         telemetry.addData("ValCon", vss.sptop.usableContours);
+        telemetry.addData("Red", vss.sptop.getRedPipeline());
         if (!vss.sptop.rr.isEmpty())
             telemetry.addData("RRSize", vss.sptop.rr.size());
         if (!vss.sptop.rrxval.isEmpty())

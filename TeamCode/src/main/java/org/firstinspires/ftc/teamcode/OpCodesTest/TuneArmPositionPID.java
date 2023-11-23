@@ -7,7 +7,7 @@ import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.PIDCoefficients;
 
-import org.firstinspires.ftc.teamcode.Commands.Arm.PositionPHArm;
+import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.Subsystems.ArmSubsystem;
 
 
@@ -27,12 +27,12 @@ public class TuneArmPositionPID extends CommandOpMode {
     // our DC motor
     ArmSubsystem arm = null;
 
-    public static PIDCoefficients armTunePID = new PIDCoefficients(0, 0, 0);
+    public static PIDCoefficients armTunePID = new PIDCoefficients(0.06, 0, 0);
 
 
     FtcDashboard dashboard;
 
-    public static double TARGET_POSITION = 10;
+    public static double TARGET_INCHES = 0;
 
     double integral = 0;
 
@@ -45,30 +45,56 @@ public class TuneArmPositionPID extends CommandOpMode {
         telemetry = new MultipleTelemetry(telemetry, dashboard.getTelemetry());
     }
 
-    // Put run blocks here.
-    public void run() {
+
+    @Override
+    public void runOpMode() throws InterruptedException {
+
+        initialize();
+
+        waitForStart();
+
+        while (!isStopRequested() && opModeIsActive()) {
+
+            run();
+
+            double output = arm.controller.calculate(
+                    arm.getPositionInches(), TARGET_INCHES);
+
+            double temp = output + Constants.ArmConstants.POSITION_Kg;
+
+            double maxPower = .5;
+
+            boolean minus = temp < 0;
+
+            if (Math.abs(temp) > maxPower) temp = maxPower;
+
+            if (minus) temp = -temp;
+
+            arm.power = temp;
+
+            arm.armMotor.set(arm.power);
+
+            if (armTunePID.p != arm.getPositionKp())
+                arm.setPositionKp(armTunePID.p);
+
+            if (armTunePID.d != arm.getPositionKd())
+                arm.setPositionKp(armTunePID.d);
+
+            telemetry.addData("commandpower", arm.power);
+            telemetry.addData("armtargetinches", arm.targetInches);
+            telemetry.addData("arm current inches", arm.getPositionInches());
+            telemetry.addData("motorpower", arm.getPower());
+
+            telemetry.addData("p", armTunePID.p);
+            telemetry.addData("d", armTunePID.d);
+            telemetry.addData("TP", TARGET_INCHES);
+
+            telemetry.update();
 
 
-        if (TARGET_POSITION != arm.targetInches)
-
-            new PositionPHArm(arm, TARGET_POSITION, .5).schedule();
-
-        if (armTunePID.p != arm.getPositionKp())
-            arm.setPositionKp(armTunePID.p);
-
-        if (armTunePID.d != arm.getPositionKd())
-            arm.setPositionKp(armTunePID.d);
-
-
-        telemetry.addData("power", arm.getPower());
-        telemetry.addData("pos curr", arm.getPositionInches());
-        telemetry.addData("armtargetinches", arm.targetInches);
-        telemetry.addData("p", armTunePID.p);
-        telemetry.addData("d", armTunePID.d);
-        telemetry.addData("TP", TARGET_POSITION);
-
-        telemetry.update();
-
+        }
+        reset();
 
     }
 }
+

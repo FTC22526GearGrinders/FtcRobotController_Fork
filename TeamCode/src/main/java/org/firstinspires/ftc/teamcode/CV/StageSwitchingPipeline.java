@@ -122,10 +122,10 @@ public class StageSwitchingPipeline extends OpenCvPipeline {
 
         sleep(100);
 
-        if(allowLineChange){
+        if (allowLineChange) {
             leftTop = new Point(left, 0);
             leftBottom = new Point(left, imgHeight);
-             rightTop = new Point(right, 0);
+            rightTop = new Point(right, 0);
             rightBottom = new Point(right, imgHeight);
         }
 
@@ -245,8 +245,6 @@ public class StageSwitchingPipeline extends OpenCvPipeline {
     public boolean getRedPipeline() {
         return this.red;
     }
-
-
     public void setRedThreshold(int num) {
         redThreshold = num;
     }

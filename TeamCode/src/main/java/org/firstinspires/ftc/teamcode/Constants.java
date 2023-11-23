@@ -194,11 +194,11 @@ public final class Constants {
         public static double[] armPositionInches = {2, 3, 3.6, 4.3, 6.8, 9};
 
 
-        public static double kP = .25;
+        public static double kP =.06;
         public static double kI = 0;
         public static double kD = 0;
 
-        public static double POSITION_Kg;
+        public static double POSITION_Kg=0;
 
     }
 

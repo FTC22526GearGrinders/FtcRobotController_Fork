@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Commands.Arm;
 
 import com.arcrobotics.ftclib.command.CommandBase;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.Subsystems.ArmSubsystem;
@@ -14,25 +15,27 @@ public class PositionPHArm extends CommandBase {
 
     private double extension;
 
+    ElapsedTime et;
 
     public PositionPHArm(ArmSubsystem arm, double extension, double power) {
         this.arm = arm;
         this.power = power;
         this.extension = extension;
+
         addRequirements(arm);
     }
 
     @Override
     public void initialize() {
 
-        arm.loopCountTimer = 0;
+        et = new ElapsedTime();
+
         arm.targetInches = extension;
     }
 
     @Override
     public void execute() {
 
-        arm.loopCountTimer++;
 
         double output = arm.controller.calculate(
                 arm.getPositionInches(), arm.targetInches);
@@ -45,10 +48,9 @@ public class PositionPHArm extends CommandBase {
 
         if (minus) temp = -temp;
 
-        arm.power=temp;
+        arm.power = temp;
 
-        arm.armMotor.set(arm.power);
-
+        // arm.armMotor.set(arm.power);
 
     }
 
@@ -60,6 +62,10 @@ public class PositionPHArm extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return arm.loopCountTimer > 10 && arm.inPosition() || arm.loopCountTimer > 5000;
+        return et.seconds() > .1 && arm.inPosition() || et.seconds() > 10;
+    }
+
+    public void setTargetInches(double inches){
+        ;
     }
 }

@@ -19,7 +19,6 @@ public class ArmSubsystem extends SubsystemBase {
 
     public int armPositionIndex;
     public double holdInches;
-    public int loopCountTimer;
     public int holdCountTimer;
 
     public double power;
@@ -29,6 +28,7 @@ public class ArmSubsystem extends SubsystemBase {
     public PIDController controller = new PIDController(Constants.ArmConstants.kP, Constants.ArmConstants.kI, Constants.ArmConstants.kD);
 
     public ArmSubsystem(CommandOpMode opMode) {
+
         myOpMode = opMode;
 
         armMotor = new Motor(myOpMode.hardwareMap, "arm motor", Motor.GoBILDA.RPM_435);
@@ -54,7 +54,7 @@ public class ArmSubsystem extends SubsystemBase {
     @Override
 
     public void periodic() {
-        loopCountTimer++;
+
     }
 
     public void resetEncoder() {
@@ -104,7 +104,6 @@ public class ArmSubsystem extends SubsystemBase {
         telemetry.addData("ArmInches", getPositionInches());
         telemetry.addData("ArmVelocity", armEncoder.getRawVelocity());
         telemetry.addData("ArmPower", armMotor.get());
-        telemetry.addData("LoopCtr", loopCountTimer);
         telemetry.addData("HoldCtr", holdCountTimer);
 
 
