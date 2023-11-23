@@ -118,33 +118,33 @@ public class LookForTeamElement extends CommandOpMode {
 
         telemetry.addData("Streaming", vss.getWebcam().getFps());
         telemetry.addData("RRAIsempty", vss.sptop.rrAreas.isEmpty());
-        telemetry.addData("last left", lastleft);
 
 
-//        telemetry.addData("Red", vss.sptop.getRedPipeline());
-//        telemetry.addData("BlTh", vss.sptop.blueThreshold);
-//
-//        telemetry.addData("LCR", vss.sptop.lcr);
-//        telemetry.addData("NumCon", vss.sptop.numContoursFound);
-//        telemetry.addData("ValCon", vss.sptop.usableContours);
-//        if (!vss.sptop.rr.isEmpty())
-//            telemetry.addData("RRSize", vss.sptop.rr.size());
-//        if (!vss.sptop.rrxval.isEmpty())
-//            telemetry.addData("XVALSize", vss.sptop.rrxval.size());
-//        if (!vss.sptop.rrAreas.isEmpty())
-//            telemetry.addData("AreasSize", vss.sptop.rrAreas.size());
-//        if (!vss.sptop.changing)
-//            telemetry.addData("area0", vss.sptop.getArea(0));
-//        if (!vss.sptop.changing)
-//            telemetry.addData("X0", vss.sptop.getX(0));
-//        if (!vss.sptop.changing)
-//            telemetry.addData("area1", vss.sptop.getArea(1));
-//        if (!vss.sptop.changing)
-//            telemetry.addData("X1", vss.sptop.getX(1));
-//        if (!vss.sptop.changing)
-//            telemetry.addData("area2", vss.sptop.getArea(2));
-//        if (!vss.sptop.changing)
-//            telemetry.addData("X2", vss.sptop.getX(2));
+
+        telemetry.addData("Red", vss.sptop.getRedPipeline());
+        telemetry.addData("BlTh", vss.sptop.blueThreshold);
+
+        telemetry.addData("LCR", vss.sptop.lcr);
+        telemetry.addData("NumCon", vss.sptop.numContoursFound);
+        telemetry.addData("ValCon", vss.sptop.usableContours);
+        if (!vss.sptop.rr.isEmpty())
+            telemetry.addData("RRSize", vss.sptop.rr.size());
+        if (!vss.sptop.rrxval.isEmpty())
+            telemetry.addData("XVALSize", vss.sptop.rrxval.size());
+        if (!vss.sptop.rrAreas.isEmpty())
+            telemetry.addData("AreasSize", vss.sptop.rrAreas.size());
+        if (!vss.sptop.changing)
+            telemetry.addData("area0", vss.sptop.getArea(0));
+        if (!vss.sptop.changing)
+            telemetry.addData("X0", vss.sptop.getX(0));
+        if (!vss.sptop.changing)
+            telemetry.addData("area1", vss.sptop.getArea(1));
+        if (!vss.sptop.changing)
+            telemetry.addData("X1", vss.sptop.getX(1));
+        if (!vss.sptop.changing)
+            telemetry.addData("area2", vss.sptop.getArea(2));
+        if (!vss.sptop.changing)
+            telemetry.addData("X2", vss.sptop.getX(2));
 
 
         if (vss.sptop.getUsableContours() > 1) {
