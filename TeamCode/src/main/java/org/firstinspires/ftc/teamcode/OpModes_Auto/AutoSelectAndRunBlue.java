@@ -49,12 +49,8 @@ import org.firstinspires.ftc.teamcode.Subsystems.Vision_Subsystem;
 public class AutoSelectAndRunBlue extends CommandOpMode {
 
     private Drive_Subsystem drive;
-
-
     private PixelHandlerSubsystem phss;
-
     private ArmSubsystem arm;
-
     private AutoFactory af;
 
     private Vision_Subsystem vss;
