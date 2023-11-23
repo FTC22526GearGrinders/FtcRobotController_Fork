@@ -9,8 +9,6 @@ import org.firstinspires.ftc.teamcode.CV.StageSwitchingPipeline;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Subsystems.Vision_Subsystem;
 
-import java.util.Timer;
-
 /*Camera needs to see all 3 spike tapes with enough space to the left, top and right for
  *the area of the prop
  * Tape is 1" wide x 13" long while prop is 3" x 3" x 3"
@@ -34,12 +32,7 @@ public class LookForTeamProp extends CommandBase {
 
     FtcDashboard dashboard;
 
-    Timer timer = new Timer();
-
     private boolean noEnd;
-
-    private boolean oneShot = false;
-
     private Vision_Subsystem vss;
     int currentLCR = 0;
 
@@ -103,6 +96,7 @@ public class LookForTeamProp extends CommandBase {
             myOpMode.telemetry.addData("RRAIsempty", vss.sptop.rrAreas.isEmpty());
             myOpMode.telemetry.addData("LCR current", currentLCR);
             myOpMode.telemetry.addData("Red", vss.sptop.getRedPipeline());
+            myOpMode.telemetry.addData("CheckCount", lcrCheckCount);
 
         }
         myOpMode.telemetry.addData("WaitingForCamera", "");
@@ -116,7 +110,7 @@ public class LookForTeamProp extends CommandBase {
         myOpMode.telemetry.addData("LFTPEnding", "");
         myOpMode.telemetry.addData("TimeElapsed", endTimer.seconds());
         myOpMode.telemetry.update();
-        if (currentLCR < 1 || currentLCR > 2) {
+        if (currentLCR < 1 || currentLCR > 3) {
             currentLCR = 2;
             ActiveMotionValues.setLcrpos(currentLCR);
         }
@@ -124,7 +118,7 @@ public class LookForTeamProp extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return !noEnd && (endTimer.seconds() > 2 && lcrCheckCount >= checklimit || endTimer.seconds() > 5);
+        return !noEnd && (lcrCheckCount >= checklimit && endTimer.seconds() > 2 || endTimer.seconds() > 5);
     }
 
 

@@ -4,6 +4,7 @@ import com.arcrobotics.ftclib.command.CommandBase;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
 
 
@@ -41,6 +42,7 @@ public class ShowTrajectoryInfo extends CommandBase {
         opMode.telemetry.addData("TName", drive.runningTrajName);
         opMode.telemetry.addData("TBuilding", drive.trajectoryBuilding);
         opMode.telemetry.addData("TBuilt", drive.trajectoryBuilt);
+
 
         opMode.telemetry.addData("Size", size);
         opMode.telemetry.addData("ETime", et.seconds());

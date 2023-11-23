@@ -3,8 +3,11 @@ package org.firstinspires.ftc.teamcode.Commands.Auto;
 import com.arcrobotics.ftclib.command.Command;
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.arcrobotics.ftclib.command.CommandOpMode;
+import com.arcrobotics.ftclib.command.ConditionalCommand;
 
-import org.firstinspires.ftc.teamcode.CV.StageSwitchingPipeline;
+import org.firstinspires.ftc.teamcode.Commands.Drive.MoveToPark;
+import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
+import org.firstinspires.ftc.teamcode.Commands.Utils.DoNothing;
 import org.firstinspires.ftc.teamcode.Subsystems.ArmSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.PixelHandlerSubsystem;
@@ -32,13 +35,19 @@ public class AutoFactory extends CommandBase {
 
     }
 
-    public Command getAASRed() {
-        return new AutoActionsSequencesRed(opMode, drive, phss, arm, vss);
+    public Command getAAS() {
+        return new AutoActionsSequences(opMode, drive, phss, arm, vss,this);
     }
 
+    public Command getAllianceData(CommandOpMode opmode, boolean red) {
+        return new ConditionalCommand(new SelectMotionValuesRed(opMode), new SelectMotionValuesBlue(opmode), () -> red);
+    }
 
-    public Command getAASBlue() {
-        return new AutoActionsSequencesBlue(opMode, drive, phss, arm,vss);
+    public Command getMoveToPark(){
+        return new ConditionalCommand(new MoveToPark(drive),
+                new DoNothing(),
+                () -> (ActiveMotionValues.getNearPark()
+                        || ActiveMotionValues.getCenterPark()));
     }
 
 

@@ -36,7 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 //@Disabled
-public class StageSwitchingPipeline extends OpenCvPipeline {
+public class StageSwitchingPipelineTst extends OpenCvPipeline {
     public int redThreshold = 170;
     public int blueThreshold = 150;
     public boolean red = true;
@@ -67,7 +67,7 @@ public class StageSwitchingPipeline extends OpenCvPipeline {
     private Stage stageToRenderToViewport = Stage.CONTOURS_OVERLAYED_ON_FRAME;
     private final Stage[] stages = Stage.values();
 
-    public StageSwitchingPipeline(Telemetry telemetry) {
+    public StageSwitchingPipelineTst(Telemetry telemetry) {
         this.telemetry = telemetry;
     }
 

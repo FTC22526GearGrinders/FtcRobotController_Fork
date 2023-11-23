@@ -178,7 +178,7 @@ public class AutoSelectAndRunBlue extends CommandOpMode {
         if (!vss.getCameraOpened()) vss.openCamera(false);
 
 
-        CommandScheduler.getInstance().schedule(af.getAASBlue());
+        CommandScheduler.getInstance().schedule(af.getAAS());
 
 
         while (!isStopRequested() && opModeIsActive()) {

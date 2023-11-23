@@ -179,7 +179,7 @@ public class AutoSelectAndRunRedBBStart extends CommandOpMode {
 
         if (!vss.getCameraOpened()) vss.openCamera(true);
 
-        CommandScheduler.getInstance().schedule(af.getAASRed());
+        CommandScheduler.getInstance().schedule(af.getAAS());
 
         while (!isStopRequested() && opModeIsActive()) {
 

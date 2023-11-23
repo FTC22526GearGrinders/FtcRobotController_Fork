@@ -7,16 +7,13 @@ import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 
-import org.firstinspires.ftc.teamcode.CV.StageSwitchingPipeline;
 import org.firstinspires.ftc.teamcode.Commands.Arm.PositionPHArm;
-import org.firstinspires.ftc.teamcode.Commands.Drive.MoveToPark;
 import org.firstinspires.ftc.teamcode.Commands.Drive.RunToAprilTag;
 import org.firstinspires.ftc.teamcode.Commands.Trajectories.RunTrajSequence;
 import org.firstinspires.ftc.teamcode.Commands.Trajectories.SelectAndBuildTrajectory;
 import org.firstinspires.ftc.teamcode.Commands.Trajectories.ShowTrajectoryInfo;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Commands.Utils.DoNothing;
-import org.firstinspires.ftc.teamcode.Commands.Utils.LogAutoSettings;
 import org.firstinspires.ftc.teamcode.Commands.Utils.TimeDelay;
 import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.Subsystems.ArmSubsystem;
@@ -24,11 +21,12 @@ import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.PixelHandlerSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.Vision_Subsystem;
 
-public class AutoActionsSequencesBlue extends SequentialCommandGroup {
+public class AutoActionsSequences extends SequentialCommandGroup {
 
-    public AutoActionsSequencesBlue(CommandOpMode opMode, Drive_Subsystem drive, PixelHandlerSubsystem phss,
-                                    ArmSubsystem arm, Vision_Subsystem vss) {
+    public AutoActionsSequences(CommandOpMode opMode, Drive_Subsystem drive, PixelHandlerSubsystem phss,
+                                ArmSubsystem arm, Vision_Subsystem vss, AutoFactory af) {
 
+        boolean red = ActiveMotionValues.getRedAlliance();
 
         addCommands(
 
@@ -36,15 +34,15 @@ public class AutoActionsSequencesBlue extends SequentialCommandGroup {
 
                         new LookForTeamProp(opMode, false, vss),
 
-                        new SelectMotionValuesBlue(opMode),
+                        af.getAllianceData(opMode, red),
 
-                        new LogAutoSettings(opMode),
+                        //  new LogAutoSettings(opMode),
 
                         new SelectAndBuildTrajectory(opMode, drive, phss),
 
-                        new ShowTrajectoryInfo(drive,opMode),
+                        new ShowTrajectoryInfo(drive, opMode),
 
-                        new RunTrajSequence(drive,opMode),
+                        new RunTrajSequence(drive, opMode),
 
                         new ConditionalCommand(
 
@@ -64,7 +62,7 @@ public class AutoActionsSequencesBlue extends SequentialCommandGroup {
 
                                         new InstantCommand(() -> phss.openBothGrippers()),
 
-                                        new TimeDelay(.5),
+                                        new WaitCommand(500),
 
                                         new ParallelCommandGroup(
 
@@ -72,15 +70,12 @@ public class AutoActionsSequencesBlue extends SequentialCommandGroup {
 
                                                 new PositionPHArm(arm, Constants.ArmConstants.armPositionInches[0], .5),
 
-                                                new ConditionalCommand(new MoveToPark(drive),
-                                                        new DoNothing(),
-                                                        () -> (ActiveMotionValues.getNearPark()
-                                                                || ActiveMotionValues.getCenterPark())))),
-
+                                                af.getMoveToPark())),
 
                                 new DoNothing(),
 
-                                () -> ActiveMotionValues.getBBStart() || !ActiveMotionValues.getBBStart() && ActiveMotionValues.getSecondPixel())));
+                                () -> ActiveMotionValues.getBBStart() || !ActiveMotionValues.getBBStart() && ActiveMotionValues.getSecondPixel())))
+        ;
 
 
     }

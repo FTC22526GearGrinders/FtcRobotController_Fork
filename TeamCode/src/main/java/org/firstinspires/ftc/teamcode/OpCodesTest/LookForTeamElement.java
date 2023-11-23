@@ -8,7 +8,6 @@ import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.CV.StageSwitchingPipeline;
 import org.firstinspires.ftc.teamcode.Commands.Auto.LookForTeamProp;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Subsystems.Vision_Subsystem;
@@ -37,6 +36,8 @@ public class LookForTeamElement extends CommandOpMode {
     public static int left = 146;
 
     public static int right = 231;
+    public static boolean changeLines = false;
+    boolean lastChangeLines;
 
     int lastleft;
 
@@ -97,6 +98,11 @@ public class LookForTeamElement extends CommandOpMode {
 
         if (vss.getCameraOpened() && isStopRequested()) vss.closeCamera();
 
+        if (changeLines !=lastChangeLines){
+            vss.sptop.allowLineChange = changeLines;
+            lastChangeLines = changeLines;
+        }
+
         if (lastBlue != blueThreshold) {
             vss.sptop.setBlueThreshold(blueThreshold);
             lastBlue = blueThreshold;
@@ -118,7 +124,6 @@ public class LookForTeamElement extends CommandOpMode {
 
         telemetry.addData("Streaming", vss.getWebcam().getFps());
         telemetry.addData("RRAIsempty", vss.sptop.rrAreas.isEmpty());
-
 
 
         telemetry.addData("Red", vss.sptop.getRedPipeline());

@@ -60,6 +60,8 @@ public class StageSwitchingPipeline extends OpenCvPipeline {
     public boolean red;
     private int column = 1;
 
+    public boolean allowLineChange = false;
+
     public int left = 146;
 
     public int right = 231;
@@ -118,9 +120,14 @@ public class StageSwitchingPipeline extends OpenCvPipeline {
             return input;
         }
 
-
         sleep(100);
 
+        if(allowLineChange){
+            leftTop = new Point(left, 0);
+            leftBottom = new Point(left, imgHeight);
+             rightTop = new Point(right, 0);
+            rightBottom = new Point(right, imgHeight);
+        }
 
         Imgproc.line(src, leftTop, leftBottom, new Scalar(128, 128, 0));
 
