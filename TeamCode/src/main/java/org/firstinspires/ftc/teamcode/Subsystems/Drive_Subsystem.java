@@ -16,7 +16,7 @@ public class Drive_Subsystem extends SubsystemBase {
     public String trajName ="";
     public String runningTrajName="";
     public boolean trajectoryBuilt;
-
+    public boolean trajectoryBuilding;
 
     private ElapsedTime runtime = new ElapsedTime();
 

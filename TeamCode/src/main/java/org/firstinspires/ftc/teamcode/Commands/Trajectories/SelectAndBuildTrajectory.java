@@ -43,7 +43,7 @@ public class SelectAndBuildTrajectory extends CommandBase {
         useSD = ActiveMotionValues.getUseStageDoor();
         lcr = ActiveMotionValues.getLcrpos();
         secondPixel = ActiveMotionValues.getSecondPixel();
-
+        drive.trajectoryBuilding = false;
         runTime = new ElapsedTime();
         opmode.telemetry.addData("SABTinit", "");
         opmode.telemetry.update();
@@ -56,6 +56,7 @@ public class SelectAndBuildTrajectory extends CommandBase {
         if (bbstart && lcr == 2) {
             drive.runningTrajName = "BB Center";
             new BuildBBCenterTraj(drive, phss, opmode).schedule();
+            drive.trajectoryBuilding = true;
             found = true;
         }
 
@@ -63,6 +64,7 @@ public class SelectAndBuildTrajectory extends CommandBase {
         if (bbstart && (lcr == 1 || lcr == 3)) {
             drive.runningTrajName = "BB LR";
             new BuildBBLRTraj(drive, phss,opmode).schedule();
+            drive.trajectoryBuilding = true;
             found = true;
         }
 
@@ -70,17 +72,16 @@ public class SelectAndBuildTrajectory extends CommandBase {
         if (!bbstart && (lcr == 1 || lcr == 3)) {
             drive.runningTrajName = "Not BB Center";
             new BuildTrussSDLRTape(drive, phss).schedule();
+            drive.trajectoryBuilding = true;
             found = true;
         }
 
         if (!bbstart && lcr == 2) {
-
             drive.runningTrajName = "Not BB LR";
-
             new BuildTrussSDCenterTape(drive, phss).schedule();
+            drive.trajectoryBuilding = true;
             found = true;
         }
-
 
     }
 

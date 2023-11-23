@@ -46,6 +46,8 @@ public class BuildTrussSDCenterTape extends CommandBase {
 
 
         drive.trajName = "TSDCenter";
+
+        drive.trajectoryBuilt = drive.currentTrajSeq != null;
     }
 
     @Override
@@ -55,11 +57,12 @@ public class BuildTrussSDCenterTape extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
+        drive.trajectoryBuilding = false;
     }
 
     @Override
     public boolean isFinished() {
-        return true;
+        return drive.trajectoryBuilt;
     }
 
 }

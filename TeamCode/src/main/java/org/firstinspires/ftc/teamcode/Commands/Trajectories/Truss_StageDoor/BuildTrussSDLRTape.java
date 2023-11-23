@@ -113,6 +113,9 @@ public class BuildTrussSDLRTape extends CommandBase {
                 drive.trajName = "TSLDCenter";
 
             }
+
+
+            drive.trajectoryBuilt = drive.currentTrajSeq != null;
         }
 
 
@@ -125,12 +128,12 @@ public class BuildTrussSDLRTape extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-
+        drive.trajectoryBuilding = false;
     }
 
     @Override
     public boolean isFinished() {
-        return true;
+        return drive.trajectoryBuilt;
     }
 
 }

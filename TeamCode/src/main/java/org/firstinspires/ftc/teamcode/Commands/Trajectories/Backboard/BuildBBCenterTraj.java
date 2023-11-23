@@ -67,6 +67,7 @@ public class BuildBBCenterTraj extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
+        drive.trajectoryBuilding = false;
         opMode.telemetry.addData("End BBCenter Build", "");
         opMode.telemetry.update();
     }

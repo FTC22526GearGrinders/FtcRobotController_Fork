@@ -94,12 +94,13 @@ public class BuildBBLRTraj extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-
+        drive.trajectoryBuilding = false;
     }
 
 
     @Override
     public boolean isFinished() {
+
         return drive.trajectoryBuilt;
     }
 
