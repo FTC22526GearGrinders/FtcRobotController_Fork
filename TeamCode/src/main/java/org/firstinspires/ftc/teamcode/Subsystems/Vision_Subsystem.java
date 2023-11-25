@@ -39,8 +39,6 @@ public class Vision_Subsystem extends SubsystemBase {
 
     public StageSwitchingPipeline sptop = null;
 
-
-
     public Vision_Subsystem(CommandOpMode opMode) {
         myOpMode = opMode;
 
@@ -57,7 +55,6 @@ public class Vision_Subsystem extends SubsystemBase {
                 .setDrawAxes(true)
                 .setDrawCubeProjection(true)
                 .build();
-
 
         myVisionPortalBuilder = new VisionPortal.Builder();
 

@@ -2,8 +2,9 @@ package org.firstinspires.ftc.teamcode.Subsystems;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.SubsystemBase;
-import com.arcrobotics.ftclib.controller.PIDController;
+import com.arcrobotics.ftclib.controller.wpilibcontroller.ProfiledPIDController;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
+import com.arcrobotics.ftclib.trajectory.TrapezoidProfile;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Constants;
@@ -12,20 +13,17 @@ public class ArmSubsystem extends SubsystemBase {
 
 
     public Motor armMotor;
-
     public Motor.Encoder armEncoder;
     private final CommandOpMode myOpMode;
     public double targetInches;
 
     public int armPositionIndex;
-    public double holdInches;
-    public int holdCountTimer;
 
     public double power;
 
-    double maxPower = .5;
+    public ProfiledPIDController profController = null;
 
-    public PIDController controller = new PIDController(Constants.ArmConstants.kP, Constants.ArmConstants.kI, Constants.ArmConstants.kD);
+    private int armDeliverLevel;
 
     public ArmSubsystem(CommandOpMode opMode) {
 
@@ -41,13 +39,17 @@ public class ArmSubsystem extends SubsystemBase {
 
         armEncoder.setDirection(Motor.Direction.FORWARD);
 
-
         armEncoder.setDistancePerPulse(1 / Constants.ArmConstants.ENCODER_COUNTS_PER_INCH);
 
-        controller.setTolerance(Constants.ArmConstants.POSITION_TOLERANCE_INCHES);
+        profController = new ProfiledPIDController(
+                Constants.ArmConstants.kP, Constants.ArmConstants.kI, Constants.ArmConstants.kD,
+                new TrapezoidProfile.Constraints(Constants.ArmConstants.MAX_VEL, Constants.ArmConstants.MAX_ACCEL));
+
+        profController.setTolerance(Constants.ArmConstants.POSITION_TOLERANCE_INCHES);
+
+        profController.reset(0);
 
         resetEncoder();
-
     }
 
 
@@ -55,6 +57,28 @@ public class ArmSubsystem extends SubsystemBase {
 
     public void periodic() {
 
+    }
+
+    public void setTargetInches(double inches) {
+        targetInches = inches;
+    }
+
+    public void setArmDeliverLevel(int n) {
+        if (n > Constants.ArmConstants.armPositionInches.length - 1)
+            n = Constants.ArmConstants.armPositionInches.length - 1;
+        if (n < 0)
+            n = 0;
+        armDeliverLevel = n;
+    }
+
+    public void incArmDeleiveryLeve() {
+        int n = armDeliverLevel;
+        setArmDeliverLevel(n + 1);
+    }
+
+    public void decArmDeleiveryLeve() {
+        int n = armDeliverLevel;
+        setArmDeliverLevel(n - 1);
     }
 
     public void resetEncoder() {
@@ -67,22 +91,39 @@ public class ArmSubsystem extends SubsystemBase {
 
 
     public boolean inPosition() {
-        return controller.atSetPoint();
+        return profController.atSetpoint();
     }
 
     public void setPositionKp(double kp) {
-        controller.setP(kp);
+        profController.setP(kp);
     }
 
     public double getPositionKp() {
-        return controller.getP();
+        return profController.getP();
+    }
+
+    public double getPositionKi() {
+        return profController.getD();
+    }
+
+    public void setPositionKi(double ki) {
+        profController.setI(ki);
     }
 
     public double getPositionKd() {
-        return controller.getD();
+        return profController.getD();
     }
 
-    public void setPower(double power){
+    public void setPositionKd(double kd) {
+        profController.setD(kd);
+    }
+
+    public void setTrapConstraints(double vel, double acc) {
+        profController.setConstraints(new TrapezoidProfile.Constraints(vel, acc));
+    }
+
+
+    public void setPower(double power) {
         armMotor.set(power);
     }
 
@@ -98,13 +139,9 @@ public class ArmSubsystem extends SubsystemBase {
         telemetry.addData("ArmPowerCmd", power);
         telemetry.addData("ArmInches", getPositionInches());
         telemetry.addData("TargetInches", targetInches);
-        telemetry.addData("HoldInches", holdInches);
-
-
         telemetry.addData("ArmInches", getPositionInches());
         telemetry.addData("ArmVelocity", armEncoder.getRawVelocity());
         telemetry.addData("ArmPower", armMotor.get());
-        telemetry.addData("HoldCtr", holdCountTimer);
 
 
         telemetry.update();

@@ -14,13 +14,16 @@ import org.openftc.apriltag.AprilTagDetection;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
+import org.openftc.easyopencv.OpenCvWebcam;
 
 import java.util.ArrayList;
 
 public class OpenCVAprilTag extends CommandBase {
-    OpenCvCamera camera;
+
     AprilTagDetectionPipeline aprilTagDetectionPipeline;
-    int cameraMonitorViewId;
+
+    public final OpenCvCamera webcam;
+
     double m_timeOut;
     CommandOpMode m_opMode;
     ElapsedTime m_elapsedTimer = new ElapsedTime(ElapsedTime.Resolution.MILLISECONDS);
@@ -41,25 +44,23 @@ public class OpenCVAprilTag extends CommandBase {
     public static final int ID_TAG_OF_INTEREST = 5;
 
 
-    public OpenCVAprilTag(CommandOpMode _opMode, double _timeOut) {
+    public OpenCVAprilTag(CommandOpMode _opMode, OpenCvCamera webcam,double _timeOut) {
         m_timeOut = _timeOut;
         m_opMode = _opMode;
+        this.webcam = webcam;
 
     }
 
     @Override
     public void initialize() {
-        cameraMonitorViewId = m_opMode.hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", m_opMode.hardwareMap.appContext.getPackageName());
-        camera = OpenCvCameraFactory.getInstance().createWebcam(m_opMode.hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
-        m_opMode.telemetry.addData("CMVID", cameraMonitorViewId);
-        aprilTagDetectionPipeline = new AprilTagDetectionPipeline(tagsize, fx, fy, cx, cy);
+             aprilTagDetectionPipeline = new AprilTagDetectionPipeline(tagsize, fx, fy, cx, cy);
 
-        camera.setPipeline(aprilTagDetectionPipeline);
-        camera.setPipeline(aprilTagDetectionPipeline);
-        camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
+       webcam .setPipeline(aprilTagDetectionPipeline);
+
+        webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
             public void onOpened() {
-                camera.startStreaming(640, 480, OpenCvCameraRotation.UPRIGHT);
+                webcam.startStreaming(640, 480, OpenCvCameraRotation.UPRIGHT);
             }
 
             @Override

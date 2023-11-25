@@ -179,26 +179,27 @@ public final class Constants {
         public static final double ENCODER_COUNTS_PER_INCH = ENCODER_COUNTS_PER_MOTOR_REV / GEARING_RATIO;
 
         public static final double MOTOR_REVS_PER_INCH = GEARING_RATIO;
-
         public static final double MAX_INCHES_PER_SECOND = MAX_MOTOR_RPSEC / GEARING_RATIO;
-        public static final double POSITION_TOLERANCE_INCHES = .5;
+        public static final double POSITION_TOLERANCE_INCHES = .25;
         public static final double UPPER_POSITION_LIMIT = 27.00;
-
         public static final int LOWER_POSITION_LIMIT = -1;
-
 
         public static final double JOG_UP_POWER = +.5;
 
         public static final double JOG_DOWN_POWER = -.5;
+        public static final double DELIVER_POSITION = 7.5;
+        public static final double HOME_POSITION = 1;
+        public static final double MAX_VEL = 5;
+        public static final double MAX_ACCEL = 5;
 
         public static double[] armPositionInches = {2, 3, 3.6, 4.3, 6.8, 9};
 
 
-        public static double kP =.06;
+        public static double kP = .06;
         public static double kI = 0;
         public static double kD = 0;
 
-        public static double POSITION_Kg=0;
+        public static double POSITION_Kg = 0;
 
     }
 

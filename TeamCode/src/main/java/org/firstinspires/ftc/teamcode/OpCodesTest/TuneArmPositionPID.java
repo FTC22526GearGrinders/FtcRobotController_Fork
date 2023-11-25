@@ -29,12 +29,17 @@ public class TuneArmPositionPID extends CommandOpMode {
 
     public static PIDCoefficients armTunePID = new PIDCoefficients(0.06, 0, 0);
 
+    public static double maxAccel = 2;
+
+    public static double maxVel = 4;
+
+    double lastAccel;
+
+    double lastVel;
 
     FtcDashboard dashboard;
 
     public static double TARGET_INCHES = 0;
-
-    double integral = 0;
 
     public void initialize() {
 
@@ -57,7 +62,20 @@ public class TuneArmPositionPID extends CommandOpMode {
 
             run();
 
-            double output = arm.controller.calculate(
+            if (armTunePID.p != arm.getPositionKp())
+                arm.setPositionKp(armTunePID.p);
+
+            if (armTunePID.i != arm.getPositionKi())
+                arm.setPositionKi(armTunePID.i);
+
+            if (armTunePID.d != arm.getPositionKd())
+                arm.setPositionKp(armTunePID.d);
+
+            if (maxAccel != lastAccel || maxVel != lastVel) {
+                arm.setTrapConstraints(maxVel, maxVel);
+            }
+
+            double output = arm.profController.calculate(
                     arm.getPositionInches(), TARGET_INCHES);
 
             double temp = output + Constants.ArmConstants.POSITION_Kg;
@@ -74,20 +92,15 @@ public class TuneArmPositionPID extends CommandOpMode {
 
             arm.armMotor.set(arm.power);
 
-            if (armTunePID.p != arm.getPositionKp())
-                arm.setPositionKp(armTunePID.p);
 
-            if (armTunePID.d != arm.getPositionKd())
-                arm.setPositionKp(armTunePID.d);
+            telemetry.addData("trapout", output);
+            telemetry.addData("poserr", arm.profController.getPositionError());
+            telemetry.addData("velerr", arm.profController.getVelocityError());
 
             telemetry.addData("commandpower", arm.power);
-            telemetry.addData("armtargetinches", arm.targetInches);
+            telemetry.addData("armtargetinches", TARGET_INCHES);
             telemetry.addData("arm current inches", arm.getPositionInches());
             telemetry.addData("motorpower", arm.getPower());
-
-            telemetry.addData("p", armTunePID.p);
-            telemetry.addData("d", armTunePID.d);
-            telemetry.addData("TP", TARGET_INCHES);
 
             telemetry.update();
 

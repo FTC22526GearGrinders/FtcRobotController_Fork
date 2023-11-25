@@ -6,43 +6,40 @@ import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.Subsystems.ArmSubsystem;
 
 
-public class HoldArmAtPosition extends CommandBase {
+public class PositionArm extends CommandBase {
     private final ArmSubsystem arm;
 
-    private double power;
+    private final double targetInches;
 
 
-    public HoldArmAtPosition(ArmSubsystem arm) {
+    public PositionArm(ArmSubsystem arm, double targetInches) {
         this.arm = arm;
+        this.targetInches = targetInches;
         addRequirements(this.arm);
     }
 
     @Override
     public void initialize() {
 
-        arm.holdInches = arm.getPositionInches();
-        arm.holdCountTimer = 0;
     }
 
     @Override
     public void execute() {
-        arm.holdCountTimer++;
-        double output = arm.controller.calculate(
-                arm.getPositionInches(), arm.holdInches);
+
+        double output = arm.profController.calculate(
+                arm.getPositionInches(), arm.targetInches);
 
         arm.armMotor.set(output + Constants.ArmConstants.POSITION_Kg);
-
 
     }
 
 
     @Override
     public void end(boolean interrupted) {
-        arm.armMotor.set(0);
     }
 
     @Override
     public boolean isFinished() {
-        return false;
+        return arm.profController.atSetpoint();
     }
 }

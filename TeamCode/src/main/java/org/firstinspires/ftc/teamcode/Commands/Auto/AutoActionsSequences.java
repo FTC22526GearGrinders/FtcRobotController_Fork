@@ -7,7 +7,7 @@ import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 
-import org.firstinspires.ftc.teamcode.Commands.Arm.PositionPHArm;
+import org.firstinspires.ftc.teamcode.Commands.Arm.PositionArm;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Commands.Utils.DoNothing;
 import org.firstinspires.ftc.teamcode.Constants;
@@ -41,7 +41,7 @@ public class AutoActionsSequences extends SequentialCommandGroup {
 
                                         new ParallelCommandGroup(
 
-                                                new PositionPHArm(arm, Constants.ArmConstants.armPositionInches[1], .5),
+                                                new PositionArm(arm, Constants.ArmConstants.DELIVER_POSITION),
 
                                                 new InstantCommand(() -> phss.turnGrippersToDeliver())),
 
@@ -55,7 +55,7 @@ public class AutoActionsSequences extends SequentialCommandGroup {
 
                                                 new InstantCommand(() -> phss.closeBothGrippers()),
 
-                                                new PositionPHArm(arm, Constants.ArmConstants.armPositionInches[0], .5),
+                                                new PositionArm(arm, Constants.ArmConstants.HOME_POSITION),
 
                                                 af.getMoveToPark())),
 

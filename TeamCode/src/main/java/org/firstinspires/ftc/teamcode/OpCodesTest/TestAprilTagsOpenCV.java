@@ -37,9 +37,10 @@ import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.Commands.Utils.OpenCVAprilTag;
-import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
-import org.firstinspires.ftc.teamcode.Subsystems.Vision_Subsystem;
+import org.openftc.easyopencv.OpenCvCamera;
+import org.openftc.easyopencv.OpenCvCameraFactory;
 
 /*
  * This OpMode illustrates the basics of AprilTag recognition and pose estimation, using
@@ -50,7 +51,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Vision_Subsystem;
  */
 @Config
 @TeleOp(name = "Auto: Test AprilTag OPENCV ", group = "Test")
-@Disabled
+//@Disabled
 public class TestAprilTagsOpenCV extends CommandOpMode {
 
     private static final boolean USE_WEBCAM = true;  // true for webcam, false for phone camera
@@ -59,19 +60,16 @@ public class TestAprilTagsOpenCV extends CommandOpMode {
      * The variable to store our instance of the AprilTag processor.
      */
 
-
-    private Drive_Subsystem drive;
+    public OpenCvCamera webcam;
     private FtcDashboard dashboard;
 
-    private Vision_Subsystem vss;
+    int cameraMonitorViewId;
 
     @Override
     public void initialize() {
-
-
-        drive = new Drive_Subsystem(this);
-
-        vss = new Vision_Subsystem(this);
+        cameraMonitorViewId = this.hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", this.hardwareMap.appContext.getPackageName());
+        webcam = OpenCvCameraFactory.getInstance().createWebcam(this.hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
+        telemetry.addData("CMVID", cameraMonitorViewId);
 
         dashboard = FtcDashboard.getInstance();
 
@@ -93,23 +91,14 @@ public class TestAprilTagsOpenCV extends CommandOpMode {
 
         telemetry = new MultipleTelemetry(telemetry, dashboard.getTelemetry());
 
-//        FtcDashboard.getInstance().startCameraStream(vss.getWebcam(), 5);
+        FtcDashboard.getInstance().startCameraStream(webcam, 5);
 
-        //vss.setUseDashboard(true);
-
-
-        CommandScheduler.getInstance().schedule(new OpenCVAprilTag(this, 30));
-
+        CommandScheduler.getInstance().schedule(new OpenCVAprilTag(this, webcam, 30));
 
         while (!isStopRequested() && opModeIsActive()) {
-
             run();
-
             telemetry.update();
-
         }
         reset();
-
     }
-
 }

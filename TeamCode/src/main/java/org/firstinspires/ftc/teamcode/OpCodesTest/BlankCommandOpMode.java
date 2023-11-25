@@ -1,4 +1,7 @@
-/* Copyright (c) 2023 FIRST. All rights reserved.
+package org.firstinspires.ftc.teamcode.OpCodesTest;
+
+
+/* Copyright (c) 2017 FIRST. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
  * are permitted (subject to the limitations in the disclaimer below) provided that
@@ -27,59 +30,22 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode.OpCodesTest;
 
-import com.acmerobotics.dashboard.FtcDashboard;
-import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-
-import org.firstinspires.ftc.teamcode.Commands.Auto.DetectAprilTags;
-import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
-import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
-import org.firstinspires.ftc.teamcode.Subsystems.Vision_Subsystem;
-
-/*
- * This OpMode illustrates the basics of AprilTag recognition and pose estimation, using
- * the easy way.
- *
- * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
- * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list.
- */
-@TeleOp(name = "Auto: Test AprilTag ", group = "Test")
-//Disabled
-public class TestAprilTags extends CommandOpMode {
-
-    private static final boolean USE_WEBCAM = true;  // true for webcam, false for phone camera
-
-    /**
-     * The variable to store our instance of the AprilTag processor.
-     */
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 
-    private Drive_Subsystem drive;
-    private FtcDashboard dashboard;
-
-    private Vision_Subsystem vss;
-
-    public static int reqdTagID;
+@Autonomous(name = "Auto:Blank Sample", group = "Auto")
+@Disabled
+public class BlankCommandOpMode extends CommandOpMode {
 
     @Override
     public void initialize() {
 
-        dashboard = FtcDashboard.getInstance();
-
-        telemetry = new MultipleTelemetry(telemetry, dashboard.getTelemetry());
-
-        drive = new Drive_Subsystem(this);
-
-        vss = new Vision_Subsystem(this);
-        // Wait for the DS start button to be touched.
-        telemetry.addData("DS preview on/off", "3 dots, Camera Stream");
-        telemetry.update();
-
     }
+
     @Override
     public void runOpMode() throws InterruptedException {
 
@@ -87,16 +53,14 @@ public class TestAprilTags extends CommandOpMode {
 
         waitForStart();
 
-        CommandScheduler.getInstance().schedule(new DetectAprilTags(this, vss, true));
+      //  CommandScheduler.getInstance().schedule(new .............);
 
         while (!isStopRequested() && opModeIsActive()) {
 
             run();
-            if(ActiveMotionValues.getActTag()!=reqdTagID)
-                ActiveMotionValues.setActTag(reqdTagID);
-
 
             telemetry.update();
+
         }
         reset();
 
