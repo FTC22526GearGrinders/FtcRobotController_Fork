@@ -63,15 +63,16 @@ public class AutoFactory extends CommandBase {
                 new SelectAndBuildTrajectory(opMode, drive, phss),
                 new ShowTrajectoryInfo(drive, opMode),
                 new RunTrajSequence(drive, opMode));
-
-
     }
 
     public Command detectAndMoveToAprilTag() {
         return new SequentialCommandGroup(
                 new DetectAprilTags(opMode, vss, false),
                 new RunToAprilTag(drive, opMode));
+    }
 
+    public Command getTeamProp() {
+        return new LookForTeamProp(opMode, false, vss);
     }
 
 }

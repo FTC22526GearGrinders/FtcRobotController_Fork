@@ -27,7 +27,7 @@ public class AutoActionsSequences extends SequentialCommandGroup {
 
                 new SequentialCommandGroup(
 
-                        new LookForTeamProp(opMode, false, vss),
+                        af.getTeamProp(),
 
                         af.getAllianceData(opMode, red),
 

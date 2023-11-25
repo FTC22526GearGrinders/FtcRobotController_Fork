@@ -41,7 +41,9 @@ public class LookForTeamProp extends CommandBase {
 
     private boolean waitingForCamera;
 
-    private int checklimit = 3;
+    private int checklimit = 2;
+
+    private float fps;
 
     public LookForTeamProp(CommandOpMode opMode, boolean noEnd, Vision_Subsystem vss) {
         myOpMode = opMode;
@@ -64,42 +66,46 @@ public class LookForTeamProp extends CommandBase {
 
         ActiveMotionValues.setLcrpos(0);
 
+        myOpMode.telemetry.clearAll();
+
+
     }
 
 
     @Override
     public void execute() {
 
-        if (vss.getCameraOpened()) {
+        if (!vss.getCameraOpened()) endTimer.reset();
 
-            if (vss.getWebcam().getFps() > 1) {
-                waitingForCamera = false;
-            }
+        fps = vss.getWebcam().getFps();
 
+        if (fps > 1) {
             currentLCR = vss.sptop.getLCR();
 
-            if (currentLCR != 0 && currentLCR == lastlcr) {
+            if (lastlcr != 0 && currentLCR == lastlcr) {
                 lcrCheckCount++;
             }
 
-            if (currentLCR != lastlcr) {
-                lcrCheckCount = 0;
-                currentLCR = lastlcr;
+
+            if (currentLCR != 0 && lastlcr == 0) {
+                lastlcr = currentLCR;
             }
 
-            if (lcrCheckCount >= checklimit)
-                ActiveMotionValues.setLcrpos(currentLCR);
 
-
-            myOpMode.telemetry.addData("LookForProp Secs", endTimer.seconds());
-            myOpMode.telemetry.addData("Streaming", vss.getWebcam().getFps());
-            myOpMode.telemetry.addData("RRAIsempty", vss.sptop.rrAreas.isEmpty());
-            myOpMode.telemetry.addData("LCR current", currentLCR);
-            myOpMode.telemetry.addData("Red", vss.sptop.getRedPipeline());
-            myOpMode.telemetry.addData("CheckCount", lcrCheckCount);
-
+            if (currentLCR != lastlcr) {
+                lcrCheckCount = 0;
+                lastlcr = currentLCR;
+            }
         }
-        myOpMode.telemetry.addData("WaitingForCamera", "");
+        myOpMode.telemetry.addData("LCR ", currentLCR);
+        myOpMode.telemetry.addData("LCRChkCnt ", lcrCheckCount);
+        myOpMode.telemetry.addData("LookForProp Secs", endTimer.seconds());
+        myOpMode.telemetry.addData("Streaming", fps);
+        myOpMode.telemetry.addData("UsableContour", vss.sptop.getUsableContours());
+//        myOpMode.telemetry.addData("LargestArea A", vss.sptop.getArea(1));
+        myOpMode.telemetry.addData("LargestArea X", vss.sptop.getX(1));
+        myOpMode.telemetry.addData("Red", vss.sptop.getRedPipeline());
+
 
         myOpMode.telemetry.update();
     }
@@ -112,13 +118,14 @@ public class LookForTeamProp extends CommandBase {
         myOpMode.telemetry.update();
         if (currentLCR < 1 || currentLCR > 3) {
             currentLCR = 2;
-            ActiveMotionValues.setLcrpos(currentLCR);
         }
+        ActiveMotionValues.setLcrpos(currentLCR);
+
     }
 
     @Override
     public boolean isFinished() {
-        return !noEnd && (lcrCheckCount >= checklimit && endTimer.seconds() > 2 || endTimer.seconds() > 5);
+        return !noEnd && (lcrCheckCount >= checklimit && endTimer.seconds() > 2 || endTimer.seconds() > 10);
     }
 
 

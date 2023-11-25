@@ -70,9 +70,12 @@ public class StageSwitchingPipeline extends OpenCvPipeline {
     private Stage stageToRenderToViewport = Stage.CONTOURS_OVERLAYED_ON_FRAME;
     private final Stage[] stages = Stage.values();
 
-    public int lcr;
+    private int lcr;
 
     public boolean changing;
+
+    public int tst;
+    private int latchLCR;
 
     public StageSwitchingPipeline(boolean red) {
         this.red = red;
@@ -80,6 +83,8 @@ public class StageSwitchingPipeline extends OpenCvPipeline {
 
     private final int imgHeight = 240;
     private final int imgWidth = 320;
+
+    public double minAreaLimit = 100;
     Point leftTop = new Point(left, 0);
     Point leftBottom = new Point(left, imgHeight);
     Point rightTop = new Point(right, 0);
@@ -173,9 +178,8 @@ public class StageSwitchingPipeline extends OpenCvPipeline {
             RotatedRect temp = Imgproc.minAreaRect(contour2f);
 
 //don't use too small or too large (image frame)
-            double smallLimit = 100;
 
-            if (temp.size.area() > smallLimit) {
+            if (temp.size.area() > minAreaLimit) {
 
                 double currentX = temp.center.x;
 
@@ -190,12 +194,18 @@ public class StageSwitchingPipeline extends OpenCvPipeline {
             }
         }
 
+        //contours found include the frame of the image which will be the larges
+        //when sorted it will be index 0
+
         if (usableContours >= 2) {
             sort(rrAreas, rrxval);
         }
-        changing = false;
-        lcr = 0;
 
+        changing = false;
+
+        tst++;
+
+        lcr = 0;
 
         if (usableContours >= 1) {
 
@@ -208,6 +218,18 @@ public class StageSwitchingPipeline extends OpenCvPipeline {
             if (temp > right) lcr = 3;
         }
 
+        if (lcr == 0) {
+
+            double temp = getX(1);
+
+            if (temp < left) lcr = 1;
+
+            if (temp > left && temp < right) lcr = 2;
+
+            if (temp > right) lcr = 3;
+        }
+
+        latchLCR=lcr;
 
         switch (stageToRenderToViewport) {
             case YCbCr_CHAN0: {
@@ -225,16 +247,14 @@ public class StageSwitchingPipeline extends OpenCvPipeline {
             case RAW_IMAGE: {
                 return src;
             }
-
             default: {
                 return src;
             }
-
         }
     }
 
     public int getLCR() {
-        return lcr;
+        return latchLCR;
     }
 
     public int getNumContoursFound() {
@@ -245,6 +265,7 @@ public class StageSwitchingPipeline extends OpenCvPipeline {
     public boolean getRedPipeline() {
         return this.red;
     }
+
     public void setRedThreshold(int num) {
         redThreshold = num;
     }

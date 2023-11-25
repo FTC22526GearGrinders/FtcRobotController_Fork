@@ -31,6 +31,8 @@ package org.firstinspires.ftc.teamcode.OpModes_Auto;
  */
 
 
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -54,6 +56,9 @@ public class AutoSelectAndRunBlue extends CommandOpMode {
     private AutoFactory af;
 
     private Vision_Subsystem vss;
+
+    FtcDashboard dashboard;
+
     boolean buttonLocked = false;
     boolean useStageDoor = false;
     boolean secondPixel = true;
@@ -162,8 +167,10 @@ public class AutoSelectAndRunBlue extends CommandOpMode {
 
         vss = new Vision_Subsystem(this);
 
-
         af = new AutoFactory(this, drive, phss, arm, vss);
+
+        dashboard = FtcDashboard.getInstance();
+
 
 
     }
@@ -177,9 +184,11 @@ public class AutoSelectAndRunBlue extends CommandOpMode {
 
         if (!vss.getCameraOpened()) vss.openCamera(false);
 
+        telemetry = new MultipleTelemetry(telemetry, dashboard.getTelemetry());
+
+        FtcDashboard.getInstance().startCameraStream(vss.getWebcam(), 5);
 
         CommandScheduler.getInstance().schedule(af.getAAS());
-
 
         while (!isStopRequested() && opModeIsActive()) {
 

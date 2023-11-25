@@ -42,6 +42,8 @@ public class ShowTrajectoryInfo extends CommandBase {
         opMode.telemetry.addData("TName", drive.runningTrajName);
         opMode.telemetry.addData("TBuilding", drive.trajectoryBuilding);
         opMode.telemetry.addData("TBuilt", drive.trajectoryBuilt);
+        opMode.telemetry.addData("LEftRightCenter", ActiveMotionValues.getLcrpos());
+
 
 
         opMode.telemetry.addData("Size", size);

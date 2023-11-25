@@ -35,9 +35,13 @@ public class LookForTeamElement extends CommandOpMode {
     public static int left = 146;
 
     public static int right = 231;
+
+    public static double minAreaLimit = 100;
+
+    double lastMinArealimit;
     public static int changeLinesInt = 0;
 
-    public static int blueRed_0_1 = 0;
+    public static int blueRed_0_1 = 1;
     boolean changeLines;
     boolean lastChangeLines;
 
@@ -53,6 +57,8 @@ public class LookForTeamElement extends CommandOpMode {
 
     public void initialize() {
 
+        telemetry.clearAll();
+        telemetry.update();
 
         dashboard = FtcDashboard.getInstance();
 
@@ -74,7 +80,7 @@ public class LookForTeamElement extends CommandOpMode {
 
         FtcDashboard.getInstance().startCameraStream(vss.getWebcam(), 5);
 
-        vss.setUseDashboard(true);
+       // vss.setUseDashboard(true);
 
         CommandScheduler.getInstance().schedule(new LookForTeamProp(this, true, vss));
 
@@ -83,83 +89,43 @@ public class LookForTeamElement extends CommandOpMode {
 
             run();
 
-            telemetry.update();
+            changeLines = changeLinesInt != 0;
+
+            if (blueRed_0_1 == 1)
+                vss.sptop.red = true;
+            else vss.sptop.red = false;
+
+            if (changeLines != lastChangeLines) {
+                vss.sptop.allowLineChange = changeLines;
+                lastChangeLines = changeLines;
+            }
+
+            if (lastBlue != blueThreshold) {
+                vss.sptop.setBlueThreshold(blueThreshold);
+                lastBlue = blueThreshold;
+            }
+
+            if (lastRed != redThreshold) {
+                vss.sptop.setRedThreshold(redThreshold);
+                lastRed = redThreshold;
+            }
+
+            if (lastleft != left) {
+                vss.sptop.left = left;
+                lastleft = left;
+            }
+            if (lastRight != right) {
+                vss.sptop.right = right;
+                lastRight = right;
+            }
+
+            if (lastMinArealimit != minAreaLimit) {
+                vss.sptop.minAreaLimit = minAreaLimit;
+                lastMinArealimit = minAreaLimit;
+            }
 
         }
         reset();
-
-    }
-
-
-    // Put run blocks here.
-    public void run() {
-
-        if (vss.getCameraOpened() && isStopRequested()) vss.closeCamera();
-
-        changeLines = changeLinesInt != 0;
-
-        if (blueRed_0_1 == 1)
-            vss.sptop.red = true;
-        else vss.sptop.red = false;
-
-        if (changeLines != lastChangeLines) {
-            vss.sptop.allowLineChange = changeLines;
-            lastChangeLines = changeLines;
-        }
-
-        if (lastBlue != blueThreshold) {
-            vss.sptop.setBlueThreshold(blueThreshold);
-            lastBlue = blueThreshold;
-        }
-
-        if (lastRed != redThreshold) {
-            vss.sptop.setRedThreshold(redThreshold);
-            lastRed = redThreshold;
-        }
-
-        if (lastleft != left) {
-            vss.sptop.left = left;
-            lastleft = left;
-        }
-        if (lastRight != right) {
-            vss.sptop.right = right;
-            lastRight = right;
-        }
-
-        telemetry.addData("Streaming", vss.getWebcam().getFps());
-        telemetry.addData("LCR", vss.sptop.lcr);
-        telemetry.addData("NumCon", vss.sptop.numContoursFound);
-        telemetry.addData("ValCon", vss.sptop.usableContours);
-        telemetry.addData("Red", vss.sptop.getRedPipeline());
-        if (!vss.sptop.rr.isEmpty())
-            telemetry.addData("RRSize", vss.sptop.rr.size());
-        if (!vss.sptop.rrxval.isEmpty())
-            telemetry.addData("XVALSize", vss.sptop.rrxval.size());
-        if (!vss.sptop.rrAreas.isEmpty())
-            telemetry.addData("AreasSize", vss.sptop.rrAreas.size());
-        if (!vss.sptop.changing)
-            telemetry.addData("area0", vss.sptop.getArea(0));
-        if (!vss.sptop.changing)
-            telemetry.addData("X0", vss.sptop.getX(0));
-        if (!vss.sptop.changing)
-            telemetry.addData("area1", vss.sptop.getArea(1));
-        if (!vss.sptop.changing)
-            telemetry.addData("X1", vss.sptop.getX(1));
-        if (!vss.sptop.changing)
-            telemetry.addData("area2", vss.sptop.getArea(2));
-        if (!vss.sptop.changing)
-            telemetry.addData("X2", vss.sptop.getX(2));
-
-
-        if (vss.sptop.getUsableContours() > 1) {
-
-            telemetry.addData("Cont Found", vss.sptop.getNumberContours());
-            telemetry.addData("Usable", vss.sptop.getUsableContours());
-
-        }
-        telemetry.update();
-
-        CommandScheduler.getInstance().run();
 
     }
 
