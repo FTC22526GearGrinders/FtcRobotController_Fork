@@ -36,6 +36,8 @@ public class BuildTrussSDLRTape extends CommandBase {
 
             drive.currentTrajSeq = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
 
+                    .lineToLinearHeading(ActiveMotionValues.getAdvancePose())
+
                     .lineToLinearHeading(ActiveMotionValues.getDropOffPose())
 
                     .UNSTABLE_addTemporalMarkerOffset(.5, () -> phss.dropPixel())
@@ -63,6 +65,8 @@ public class BuildTrussSDLRTape extends CommandBase {
             if (!trussSideTape) {
 
                 drive.currentTrajSeq = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
+
+                        .lineToLinearHeading(ActiveMotionValues.getAdvancePose())
 
                         .lineToLinearHeading(ActiveMotionValues.getDropOffPose())
 

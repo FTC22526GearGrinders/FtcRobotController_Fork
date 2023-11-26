@@ -152,6 +152,7 @@ public class SelectMotionValuesBlue extends CommandBase {
                         .minus(FieldConstantsBlue.AprilTagConstants.tagLookAheadPose));
 
                 ActiveMotionValues.setParkPose(new Pose2d());
+
                 parkPoseOffset = new Pose2d(0, 0, Math.toRadians(-90));
 
                 if (ActiveMotionValues.getCenterPark())

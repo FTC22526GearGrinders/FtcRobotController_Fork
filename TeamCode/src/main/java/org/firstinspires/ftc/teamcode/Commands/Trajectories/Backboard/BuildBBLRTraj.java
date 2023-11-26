@@ -18,7 +18,7 @@ public class BuildBBLRTraj extends CommandBase {
     public BuildBBLRTraj(Drive_Subsystem drive, PixelHandlerSubsystem phss, CommandOpMode opMode) {
         this.drive = drive;
         this.phss = phss;
-        this.opMode=opMode;
+        this.opMode = opMode;
     }
 
     @Override
@@ -50,9 +50,9 @@ public class BuildBBLRTraj extends CommandBase {
 
             drive.currentTrajSeq = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
 
-                    .lineToLinearHeading(ActiveMotionValues.getDropOffPose())
-
                     .lineToLinearHeading(ActiveMotionValues.getAdvancePose())
+
+                    .lineToLinearHeading(ActiveMotionValues.getDropOffPose())
 
                     .UNSTABLE_addTemporalMarkerOffset(.5, () -> phss.dropPixel())
 

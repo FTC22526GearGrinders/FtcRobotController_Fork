@@ -131,11 +131,9 @@ public final class FieldConstantsBlue {
                 .plus(Constants.RobotConstants.activeDropOffsetPose);
 
         public static final Pose2d retPose = new Pose2d(0, 4);
-
         public static final Pose2d leftRetractPose = leftDropPose.plus(retPose);
         public static final Pose2d centerRetractPose = centerDropPose.plus(retPose);
         public static final Pose2d rightRetractPose = rightDropPose.plus(retPose);
-
         public static final Pose2d clearPose = advancePose.plus(retPose);
     }
 
