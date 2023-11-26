@@ -11,9 +11,11 @@ public final class Constants {
         static final double width = 16;
 
         static double gripperXOffset = 4;
-        public static Pose2d pixelDropPose = new Pose2d(0, -RobotConstants.length / 2 + 1, 0);
-        public static Pose2d leftGripperPose = new Pose2d(-gripperXOffset, -RobotConstants.length / 2 + 1, 0);
-        public static Pose2d rightGripperPose = new Pose2d(gripperXOffset, -RobotConstants.length / 2 + 1, 0);
+        public static Pose2d pixelDropPose = new Pose2d(0, -RobotConstants.length / 2 , 0);
+        public static Pose2d leftGripperPose = new Pose2d(-gripperXOffset, -RobotConstants.length / 2 , 0);
+        public static Pose2d rightGripperPose = new Pose2d(gripperXOffset, -RobotConstants.length / 2 , 0);
+
+        public static double pixelDropyOffset = 1;
 
         public static Pose2d activeDropOffsetPose = pixelDropPose;
 

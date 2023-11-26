@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.FieldConstantsRed;
 
 @Config
 @TeleOp(name = "Auto: Values", group = "Test")
-
+//@Disabled
 public class TestMotionData extends CommandOpMode {
 
     FtcDashboard dashboard;

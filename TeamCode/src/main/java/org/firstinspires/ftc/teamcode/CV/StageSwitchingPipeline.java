@@ -30,6 +30,7 @@ import org.opencv.core.MatOfPoint2f;
 import org.opencv.core.Point;
 import org.opencv.core.RotatedRect;
 import org.opencv.core.Scalar;
+import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 import org.openftc.easyopencv.OpenCvPipeline;
 
@@ -297,7 +298,6 @@ public class StageSwitchingPipeline extends OpenCvPipeline {
             return Math.round(rrxval.get(n));
         else return 0;
     }
-
     void sort(List<Double> rrAreas, List<Double> rrxval) {
         int n = rrAreas.size();
         for (int i = 1; i < n; ++i) {

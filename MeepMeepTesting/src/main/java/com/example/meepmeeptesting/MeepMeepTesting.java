@@ -6,6 +6,7 @@ import com.noahbres.meepmeep.roadrunner.DefaultBotBuilder;
 import com.noahbres.meepmeep.roadrunner.entity.RoadRunnerBotEntity;
 
 public class MeepMeepTesting {
+
     public static Pose2d startPose = new Pose2d();
 
 
@@ -68,7 +69,7 @@ public class MeepMeepTesting {
                         drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
 
 //
-                           //    .lineToLinearHeading(ActiveMotionValues.getAdvancePose())
+                            //   .lineToLinearHeading(ActiveMotionValues.getAdvancePose())
 
                                 .lineToLinearHeading(ActiveMotionValues.getDropOffPose())
 
@@ -76,7 +77,7 @@ public class MeepMeepTesting {
 
                                 .lineToLinearHeading(ActiveMotionValues.getRetractPose())
 
-                     //         .lineToLinearHeading(ActiveMotionValues.getClearPose())
+                          //    .lineToLinearHeading(ActiveMotionValues.getClearPose())
 
 
                                 .lineToLinearHeading(ActiveMotionValues.getPreTagPose())

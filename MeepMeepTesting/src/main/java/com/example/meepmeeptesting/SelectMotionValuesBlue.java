@@ -62,7 +62,6 @@ public class SelectMotionValuesBlue {
                     ActiveMotionValues.setParkPose(FieldConstantsBlue.nearParkPose.plus(parkPoseOffset));
 
 
-
                 break;
 
             //******************************************************************************************
@@ -225,10 +224,10 @@ public class SelectMotionValuesBlue {
         ActiveMotionValues.setStrafeDistance(0);
         ActiveMotionValues.setParkPose(new Pose2d());
 
+        boolean useTruss = !useStageDoor;
+
         double strafeDistance = -11.5;
 
-
-        boolean useTruss = !useStageDoor;
 
         if (ActiveMotionValues.getCenterPark())
 
@@ -288,6 +287,4 @@ public class SelectMotionValuesBlue {
 
         }
     }
-
-
 }

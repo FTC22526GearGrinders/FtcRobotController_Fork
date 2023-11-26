@@ -81,7 +81,7 @@ public class LogTrajectory extends CommandBase {
 
         if (headersWritten && dataTimer.time() > logInterval) {
             writeRunning = true;
-            tsDL.addField(","+","+","+",");
+            tsDL.addField("," + "," + "," + ",");
             tsDL.addField(drive.drive.getTrajectoryRunning());
             tsDL.addField(drive.drive.getPoseEstimate().getX());
             tsDL.addField(drive.drive.getPoseEstimate().getY());
@@ -110,9 +110,7 @@ public class LogTrajectory extends CommandBase {
             writeRunning = false;
             dataTimer.reset();
         }
-
-
-        logged = !writeRunning && lpctr >= 3;
+        logged = !writeRunning && logTimer.seconds() > 5;
     }
 
     @Override

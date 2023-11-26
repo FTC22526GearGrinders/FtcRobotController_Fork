@@ -6,6 +6,7 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 public class SelectMotionValuesRed {
 
     public SelectMotionValuesRed() {
+
         boolean bbstart = ActiveMotionValues.getBBStart();
         int lcr = ActiveMotionValues.getLcrpos();
         ActiveMotionValues.setStrafeDistance(0);
@@ -53,7 +54,7 @@ public class SelectMotionValuesRed {
                         .minus(FieldConstantsRed.AprilTagConstants.tagLookAheadPose));
 
 
-                ActiveMotionValues.setParkPose(new Pose2d(0, 0));
+                ActiveMotionValues.setParkPose(new Pose2d());
 
                 Pose2d parkPoseOffset = new Pose2d(0, 0, 90);
 
@@ -94,7 +95,7 @@ public class SelectMotionValuesRed {
 
                 ActiveMotionValues.setParkPose(new Pose2d());
 
-                parkPoseOffset = new Pose2d(0, 0, Math.toRadians(90));
+                parkPoseOffset = new Pose2d(0, 0, 90);
 
                 if (ActiveMotionValues.getCenterPark())
 
@@ -132,7 +133,7 @@ public class SelectMotionValuesRed {
 
                 ActiveMotionValues.setParkPose(new Pose2d());
 
-                parkPoseOffset = new Pose2d(0, 0, Math.toRadians(90));
+                parkPoseOffset = new Pose2d(0, 0, 90);
 
                 if (ActiveMotionValues.getCenterPark())
 
@@ -141,6 +142,7 @@ public class SelectMotionValuesRed {
                 if (ActiveMotionValues.getNearPark())
 
                     ActiveMotionValues.setParkPose(FieldConstantsRed.nearParkPose.plus(parkPoseOffset));
+
 
                 break;
 

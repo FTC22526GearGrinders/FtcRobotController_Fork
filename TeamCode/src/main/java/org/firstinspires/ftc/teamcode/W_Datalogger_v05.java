@@ -75,10 +75,10 @@ some values (esp sensor values) should see discontinuities.
 
 import android.os.Environment;
 
-import java.io.File;                    // already used in FTC SDK
-import java.io.Writer;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.FileWriter;              // subclass of java.io.Writer
+import java.io.Writer;
 
 public class W_Datalogger_v05 {
 
@@ -89,13 +89,14 @@ public class W_Datalogger_v05 {
     private long nsBase;                // time of reset (nanoseconds)
 
     // This constructor runs once, to initialize an instantiation of the class.
-    public W_Datalogger_v05 (String fileName) {
+    public W_Datalogger_v05(String fileName) {
 
         // Build the path with the filename provided by the calling OpMode.
         String logFilePath = String.format("%s/FIRST/data/", Environment.getExternalStorageDirectory().getAbsolutePath());
 
         String directoryPath = logFilePath;//  = "/sdcard/FIRST/java/src/Datalogs";
-        String filePath         = directoryPath + "/" + fileName;
+
+        String filePath = directoryPath + "/" + fileName;
 
         // src and any subfolder contents appear in OnBot Java (left side).
         // .txt files allow data display in OBJ.  Download as .csv files.
@@ -106,8 +107,7 @@ public class W_Datalogger_v05 {
         try {
             writer = new FileWriter(filePath);
             lineBuffer = new StringBuffer(128);     // initial length 128
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
         }
 
         timeBase = System.currentTimeMillis();
@@ -120,33 +120,32 @@ public class W_Datalogger_v05 {
 
     // This *private* method is called by the *public* methods firstLine()
     // and newLine().
-    private void flushLineBuffer(){
+    private void flushLineBuffer() {
 
         try {
             lineBuffer.append('\n');                // end-of-line character
             writer.write(lineBuffer.toString());    // add line (row) to file
             lineBuffer.setLength(0);                // clear the line (row)
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
         }
 
     }   // end flushLineBuffer() method
 
 
     // This *private* method is called by the *public* method newLine().
-    private void insertTimestamps(){
+    private void insertTimestamps() {
 
-        long milliTime,nanoTime;
+        long milliTime, nanoTime;
 
         // Update time for first two columns (cumulative and incremental time).
-        milliTime   = System.currentTimeMillis();
-        nanoTime    = System.nanoTime();
+        milliTime = System.currentTimeMillis();
+        nanoTime = System.nanoTime();
 
         // Insert timestamps at position 0, *before* the OpMode data fields.
         lineBuffer.insert
 
-                (0, String.format("%.3f",(milliTime - timeBase) / 1000.0) + ','
-                        + String.format("%.3f",(nanoTime - nsBase) / 1.0E6) + ',');
+                (0, String.format("%.3f", (milliTime - timeBase) / 1000.0) + ','
+                        + String.format("%.3f", (nanoTime - nsBase) / 1.0E6) + ',');
 
         // Divide milliseconds by 1,000 to log seconds, in field named "Time".
         // Divide nanoseconds by 1,000,000 to log milliseconds, in "d ms".
@@ -154,7 +153,7 @@ public class W_Datalogger_v05 {
         // The 1000.0 decimal and 1.0E6 scientific notation avoid a type error;
         // the expressions' variables are 'long'.
 
-        nsBase      = nanoTime;         // reset for incremental time delta
+        nsBase = nanoTime;         // reset for incremental time delta
 
     }   // end insertTimestamps() method
 
@@ -176,14 +175,14 @@ public class W_Datalogger_v05 {
     // preceded by a comma.  This creates the comma-separated values (CSV).
 
     public void addField(String s) {
-        if (lineBuffer.length()>0) {
+        if (lineBuffer.length() > 0) {
             lineBuffer.append(',');
         }
         lineBuffer.append(s);
     }
 
     public void addField(char c) {
-        if (lineBuffer.length()>0) {
+        if (lineBuffer.length() > 0) {
             lineBuffer.append(',');
         }
         lineBuffer.append(c);
@@ -239,8 +238,7 @@ public class W_Datalogger_v05 {
     public void closeDataLogger() {
         try {
             writer.close();             // close the file
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
         }
     }
 

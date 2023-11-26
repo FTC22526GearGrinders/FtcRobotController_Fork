@@ -22,7 +22,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Vision_Subsystem;
 
 @Config
 @TeleOp(name = "Teleop Main Test Traj Red", group = "Test")
-
+//@Disabled
 public class TestTrajectories extends CommandOpMode {
     boolean redAlliance = true;
 
