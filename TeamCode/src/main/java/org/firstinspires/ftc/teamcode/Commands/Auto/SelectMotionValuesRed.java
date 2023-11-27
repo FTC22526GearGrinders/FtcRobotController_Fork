@@ -242,9 +242,10 @@ public class SelectMotionValuesRed extends CommandBase {
     private void setOptions() {
 
         int lcr = ActiveMotionValues.getLcrpos() + 10;
-        boolean centerTape = lcr == 12;
         boolean useStageDoor = ActiveMotionValues.getUseStageDoor();
         boolean secondPixel = ActiveMotionValues.getSecondPixel();
+        ActiveMotionValues.setStrafeDistance(0);
+        ActiveMotionValues.setParkPose(new Pose2d());
 
         boolean useTruss = !useStageDoor;
 

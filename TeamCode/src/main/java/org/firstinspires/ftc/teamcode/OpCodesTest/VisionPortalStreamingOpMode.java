@@ -18,7 +18,7 @@ import org.opencv.android.Utils;
 import org.opencv.core.Mat;
 
 @Autonomous
-@Disabled
+//@Disabled
 public class VisionPortalStreamingOpMode extends LinearOpMode {
     public static class CameraStreamProcessor implements VisionProcessor, CameraStreamSource {
         private final AtomicReference<Bitmap> lastFrame =

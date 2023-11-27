@@ -9,8 +9,6 @@ import com.arcrobotics.ftclib.gamepad.TriggerReader;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Commands.Arm.JogArm;
-import org.firstinspires.ftc.teamcode.Commands.Arm.PositionArm;
-import org.firstinspires.ftc.teamcode.Commands.Arm.PositionHoldArm;
 import org.firstinspires.ftc.teamcode.Commands.Drive.JogDrive;
 import org.firstinspires.ftc.teamcode.Commands.PixelHandler.TurnGrippersIncrementalCommand;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
@@ -62,7 +60,7 @@ public class TeleopOpMode extends CommandOpMode {
 
         drive.setDefaultCommand(new JogDrive(this.drive, driver, false));
 
-      //  arm.setDefaultCommand(new PositionHoldArm(this.arm));
+        //  arm.setDefaultCommand(new PositionHoldArm(this.arm));
 
 
         if (ActiveMotionValues.getRedAlliance())
@@ -191,9 +189,7 @@ public class TeleopOpMode extends CommandOpMode {
 
 
     public void showTelemetry() {
-//
-//telemetry.addData("TST",tst++);
-//telemetry.update();
+
         poseEstimate = drive.drive.getPoseEstimate();
 
         // drive.drive.showTelemetry(telemetry);

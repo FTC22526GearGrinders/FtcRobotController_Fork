@@ -26,12 +26,8 @@ public class LookForTeamProp extends CommandBase {
     StageSwitchingPipeline sptop = null;
 
     ElapsedTime endTimer;
-
-
     CommandOpMode myOpMode;
-
     FtcDashboard dashboard;
-
     private boolean noEnd;
     private Vision_Subsystem vss;
     int currentLCR = 0;
@@ -79,6 +75,8 @@ public class LookForTeamProp extends CommandBase {
 
         fps = vss.getWebcam().getFps();
 
+
+
         if (fps > 1) {
             currentLCR = vss.sptop.getLCR();
 
@@ -86,12 +84,10 @@ public class LookForTeamProp extends CommandBase {
                 lcrCheckCount++;
             }
 
-
             if (currentLCR != 0 && lastlcr == 0) {
                 lastlcr = currentLCR;
             }
-
-
+            
             if (currentLCR != lastlcr) {
                 lcrCheckCount = 0;
                 lastlcr = currentLCR;

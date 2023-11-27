@@ -148,6 +148,18 @@ public final class Constants {
                 this.position = position;
             }
         }
+
+        public enum FlipGripperSet {
+            PICKUP(.1),
+            MID(.3),
+            DELIVER(.5);
+
+            public final double position;
+
+            FlipGripperSet(double position) {
+                this.position = position;
+            }
+        }
     }
 
     public enum TurnGripperJogSet {

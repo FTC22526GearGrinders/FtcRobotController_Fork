@@ -28,16 +28,18 @@ public class GripperServoSettings extends CommandOpMode {
     boolean lastRightDirection;
     public static boolean TURN_DIRECTION = true;
     boolean lastTurnDirection;
+    public static boolean FLIP_DIRECTION = true;
+    boolean lastFlipDirection;
     public static double LEFT_POSITION = .1;
     public static double RIGHT_POSITION = .1;
     public static double TURN_POSITION = .1;
 
+    public static double FLIP_POSITION = .1;
 
     public static boolean LEFT_GRIPPER = true;
     public static boolean RIGHT_GRIPPER = true;
-
     public static boolean TURN_GRIPPER = true;
-
+    public static boolean FLIP_GRIPPER = true;
 
     FtcDashboard dashboard;
     private PixelHandlerSubsystem phss;
@@ -55,6 +57,8 @@ public class GripperServoSettings extends CommandOpMode {
         telemetry.addData("Set positions from 0.0 to 1","");
         telemetry.addData("Record open, closed and mid for left and right","");
         telemetry.addData("Record home, pickup and deliver for turn","");
+        telemetry.addData("Record home, pickup and deliver for flip","");
+
         telemetry.addData("Edit Constants file for these values and test","");
 
         telemetry.update();
@@ -93,6 +97,13 @@ public class GripperServoSettings extends CommandOpMode {
                 lastTurnDirection = TURN_DIRECTION;
             }
 
+            if (FLIP_DIRECTION != lastFlipDirection) {
+                if (FLIP_DIRECTION)
+                    phss.flipGrippers.setDirection(Servo.Direction.FORWARD);
+                else
+                    phss.flipGrippers.setDirection(Servo.Direction.REVERSE);
+                lastFlipDirection = FLIP_DIRECTION;
+            }
 
             if (LEFT_GRIPPER) {
                 phss.positionLeftGripper(LEFT_POSITION);
@@ -103,6 +114,9 @@ public class GripperServoSettings extends CommandOpMode {
 
             if (TURN_GRIPPER)
                 phss.positionTurnGripper(TURN_POSITION);
+
+            if (FLIP_GRIPPER)
+                phss.positionFlipGripper(FLIP_POSITION);
 
             reset();
         }

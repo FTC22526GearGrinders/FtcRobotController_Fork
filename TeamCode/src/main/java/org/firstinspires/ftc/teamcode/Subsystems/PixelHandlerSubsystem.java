@@ -21,6 +21,8 @@ public class PixelHandlerSubsystem extends SubsystemBase {
 
     public Servo turnGrippers;
 
+    public Servo flipGrippers;
+
     ColorSensor colorSensor;
 
     private CommandOpMode myOpMode = null;
@@ -34,6 +36,7 @@ public class PixelHandlerSubsystem extends SubsystemBase {
         leftGripper = myOpMode.hardwareMap.get(Servo.class, "left gripper");
         rightGripper = myOpMode.hardwareMap.get(Servo.class, "right gripper");
         turnGrippers = myOpMode.hardwareMap.get(Servo.class, "turn gripper");
+        flipGrippers = myOpMode.hardwareMap.get(Servo.class, "flip gripper");
 
 
         pixelDrop = myOpMode.hardwareMap.get(Servo.class, "pixel drop");
@@ -46,6 +49,8 @@ public class PixelHandlerSubsystem extends SubsystemBase {
         rightGripper.setDirection(Servo.Direction.FORWARD);
 
         turnGrippers.setDirection(Servo.Direction.FORWARD);
+
+        flipGrippers.setDirection(Servo.Direction.FORWARD);
 
     }
 
@@ -74,6 +79,10 @@ public class PixelHandlerSubsystem extends SubsystemBase {
 
     public void positionTurnGripper(double position) {
         turnGrippers.setPosition(position);
+    }
+
+    public void positionFlipGripper(double position) {
+        flipGrippers.setPosition(position);
     }
 
 
@@ -122,6 +131,15 @@ public class PixelHandlerSubsystem extends SubsystemBase {
     public void turnGrippersToPickup() {
         turnGrippers.setPosition(Constants.PixelHandlerConstants.TurnGripperSet.PICKUP.position);
         turnGrippersPosition = Constants.PixelHandlerConstants.TurnGripperSet.PICKUP.position;
+    }
+
+    public void flipGrippersToPickup() {
+        flipGrippers.setPosition(Constants.PixelHandlerConstants.FlipGripperSet.PICKUP.position);
+
+    }
+
+    public void flipGrippersToDeliver() {
+        flipGrippers.setPosition(Constants.PixelHandlerConstants.FlipGripperSet.DELIVER.position);
     }
 
     public double getSensorDistanceInches() {

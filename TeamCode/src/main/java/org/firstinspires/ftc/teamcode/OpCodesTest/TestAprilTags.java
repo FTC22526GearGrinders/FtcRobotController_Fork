@@ -80,6 +80,7 @@ public class TestAprilTags extends CommandOpMode {
         telemetry.update();
 
     }
+
     @Override
     public void runOpMode() throws InterruptedException {
 
@@ -92,7 +93,8 @@ public class TestAprilTags extends CommandOpMode {
         while (!isStopRequested() && opModeIsActive()) {
 
             run();
-            if(ActiveMotionValues.getActTag()!=reqdTagID)
+
+            if (ActiveMotionValues.getActTag() != reqdTagID)
                 ActiveMotionValues.setActTag(reqdTagID);
 
 
