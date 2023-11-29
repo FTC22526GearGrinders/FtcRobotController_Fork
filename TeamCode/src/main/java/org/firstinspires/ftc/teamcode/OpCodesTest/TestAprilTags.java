@@ -30,6 +30,7 @@
 package org.firstinspires.ftc.teamcode.OpCodesTest;
 
 import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
@@ -47,11 +48,10 @@ import org.firstinspires.ftc.teamcode.Subsystems.Vision_Subsystem;
  * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list.
  */
+@Config
 @TeleOp(name = "Auto: Test AprilTag ", group = "Test")
 //Disabled
 public class TestAprilTags extends CommandOpMode {
-
-    private static final boolean USE_WEBCAM = true;  // true for webcam, false for phone camera
 
     /**
      * The variable to store our instance of the AprilTag processor.
@@ -63,7 +63,9 @@ public class TestAprilTags extends CommandOpMode {
 
     private Vision_Subsystem vss;
 
-    public static int reqdTagID;
+    public static int reqdTagID = 3;
+
+    public static int closePortal = 0;
 
     @Override
     public void initialize() {
@@ -97,10 +99,15 @@ public class TestAprilTags extends CommandOpMode {
             if (ActiveMotionValues.getActTag() != reqdTagID)
                 ActiveMotionValues.setActTag(reqdTagID);
 
+            if (closePortal == 1 ) {
+                vss.myVisionPortal.close();
+            }
 
-            telemetry.update();
         }
         reset();
+
+
+        // Save more CPU resources when camera is no longer needed.
 
     }
 

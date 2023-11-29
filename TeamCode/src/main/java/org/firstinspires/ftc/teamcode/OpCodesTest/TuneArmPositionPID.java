@@ -41,6 +41,8 @@ public class TuneArmPositionPID extends CommandOpMode {
 
     public static double TARGET_INCHES = 0;
 
+    double lastTargetInches;
+
     public void initialize() {
 
         arm = new ArmSubsystem(this);
@@ -75,18 +77,17 @@ public class TuneArmPositionPID extends CommandOpMode {
                 arm.setTrapConstraints(maxVel, maxVel);
             }
 
+
+            if (TARGET_INCHES != lastTargetInches) {
+                arm.profController.setGoal(TARGET_INCHES);
+                lastTargetInches = TARGET_INCHES;
+            }
+
             double output = arm.profController.calculate(
-                    arm.getPositionInches(), TARGET_INCHES);
+                    arm.getPositionInches());
 
             double temp = output + Constants.ArmConstants.POSITION_Kg;
 
-            double maxPower = .5;
-
-            boolean minus = temp < 0;
-
-            if (Math.abs(temp) > maxPower) temp = maxPower;
-
-            if (minus) temp = -temp;
 
             arm.power = temp;
 

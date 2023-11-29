@@ -50,11 +50,13 @@ public class PositionArmToSensor extends CommandBase {
 
             arm.targetInches += positionCorrection;
 
+            arm.profController.setGoal(arm.targetInches);
+
         }
 
 
         double output = arm.profController.calculate(
-                arm.getPositionInches(), arm.targetInches);
+                arm.getPositionInches());
 
         arm.armMotor.set(output + Constants.ArmConstants.POSITION_Kg);
 

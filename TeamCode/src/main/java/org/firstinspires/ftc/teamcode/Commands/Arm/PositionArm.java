@@ -20,14 +20,15 @@ public class PositionArm extends CommandBase {
 
     @Override
     public void initialize() {
-
+        arm.targetInches = targetInches;
+        arm.profController.setGoal(arm.targetInches);
     }
 
     @Override
     public void execute() {
 
         double output = arm.profController.calculate(
-                arm.getPositionInches(), arm.targetInches);
+                arm.getPositionInches());
 
         arm.armMotor.set(output + Constants.ArmConstants.POSITION_Kg);
 

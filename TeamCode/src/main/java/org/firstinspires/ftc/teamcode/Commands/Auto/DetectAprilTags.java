@@ -13,7 +13,6 @@ import org.firstinspires.ftc.teamcode.Subsystems.Vision_Subsystem;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 
 import java.util.List;
-import java.util.Locale;
 
 
 public class DetectAprilTags extends CommandBase {
@@ -44,16 +43,21 @@ public class DetectAprilTags extends CommandBase {
     public void initialize() {
         et = new ElapsedTime();
         n = ActiveMotionValues.getActTag();
-        if (!noEnd)
-            vss.myVisionPortal.saveNextFrameRaw(String.format(Locale.US, "CameraFrameCapture-%06d"));
+        // if (!noEnd)
+        //  vss.myVisionPortal.saveNextFrameRaw(String.format(Locale.US, "CameraFrameCapture-%06d"));
     }
 
     @Override
     public void execute() {
 
+        if (noEnd)
+            n = ActiveMotionValues.getActTag();
+
         List<AprilTagDetection> currentDetections = vss.myAprilTagProcessor.getDetections();
+        myOpMode.telemetry.addData("Camera State", vss.myVisionPortal.getCameraState());
+
         myOpMode.telemetry.addData("Camera FPS", vss.myVisionPortal.getFps());
-        myOpMode.telemetry.addData("LookingForTags", "");
+        myOpMode.telemetry.addData("LookingForTag ", n);
         myOpMode.telemetry.addData("# AprilTags Detected", currentDetections.size());
         for (AprilTagDetection detection : currentDetections) {
             if (detection.metadata != null) {

@@ -198,16 +198,16 @@ public final class Constants {
 
         public static final double JOG_UP_POWER = +.5;
 
-        public static final double JOG_DOWN_POWER = -.5;
+        public static final double JOG_DOWN_POWER = -.4;
         public static final double DELIVER_POSITION = 7.5;
         public static final double HOME_POSITION = 1;
-        public static final double MAX_VEL = 5;
-        public static final double MAX_ACCEL = 5;
+        public static final double MAX_VEL = 10;
+        public static final double MAX_ACCEL = 10;
 
-        public static double[] armPositionInches = {2, 3, 3.6, 4.3, 6.8, 9};
+        public static double[] armPositionInches = {0, 5.8, 9, 13.6, 14.3, 16.8, 19};
 
 
-        public static double kP = .06;
+        public static double kP = .25;
         public static double kI = 0;
         public static double kD = 0;
 

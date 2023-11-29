@@ -19,6 +19,8 @@ public class PositionHoldArm extends CommandBase {
 
     @Override
     public void initialize() {
+        double temp = arm.getPositionInches();
+        arm.profController.setGoal(temp);
 
     }
 
@@ -26,7 +28,7 @@ public class PositionHoldArm extends CommandBase {
     public void execute() {
 
         double output = arm.profController.calculate(
-                arm.getPositionInches(), arm.targetInches);
+                arm.getPositionInches());
 
         arm.armMotor.set(output + Constants.ArmConstants.POSITION_Kg);
 

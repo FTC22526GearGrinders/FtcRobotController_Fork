@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.OpModes_Teleop;
 
+import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.InstantCommand;
@@ -8,6 +9,7 @@ import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.arcrobotics.ftclib.gamepad.TriggerReader;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Commands.Arm.JogArm;
 import org.firstinspires.ftc.teamcode.Commands.Drive.JogDrive;
 import org.firstinspires.ftc.teamcode.Commands.PixelHandler.TurnGrippersIncrementalCommand;
@@ -24,7 +26,6 @@ public class TeleopOpMode extends CommandOpMode {
 
     protected Drive_Subsystem drive;
 
-
     protected PixelHandlerSubsystem phss;
 
     protected ArmSubsystem arm;
@@ -35,18 +36,14 @@ public class TeleopOpMode extends CommandOpMode {
 
     private Vision_Subsystem vss;
 
-    private int tst;
-
     @Override
     public void initialize() {
-
 
         driver = new GamepadEx(gamepad1);
 
         coDriver = new GamepadEx(gamepad2);
 
         drive = new Drive_Subsystem(this);
-
 
         phss = new PixelHandlerSubsystem(this);
 
@@ -130,13 +127,13 @@ public class TeleopOpMode extends CommandOpMode {
 
         // example usage if(drrt.wasJustPressed())new IncrementPixelDeliveryLevel().schedule();
 
-        //coDriver.getGamepadButton(GamepadKeys.Button.A).whenPressed(
+        coDriver.getGamepadButton(GamepadKeys.Button.A).whenPressed(new InstantCommand(() -> arm.decArmDeleiveryLeve()));
 
-        //       coDriver.getGamepadButton(GamepadKeys.Button.B).whenPressed(
+        coDriver.getGamepadButton(GamepadKeys.Button.B).whenPressed(new InstantCommand(() -> arm.setArmDeliverLevel(0)));
 
         //       coDriver.getGamepadButton(GamepadKeys.Button.X).whenPressed(
 
-        //      coDriver.getGamepadButton(GamepadKeys.Button.Y).whenPressed(
+        coDriver.getGamepadButton(GamepadKeys.Button.Y).whenPressed(new InstantCommand(() -> arm.incArmDeleiveryLeve()));
 
 
         coDriver.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whileHeld(
@@ -196,7 +193,7 @@ public class TeleopOpMode extends CommandOpMode {
 
         //   drive.showtelemetry(telemetry);
 
-        // arm.showTelemetry(telemetry);
+        arm.showTelemetry(telemetry);
 
         // phss.showTelemetry(telemetry);
 

@@ -38,6 +38,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Commands.Utils.OpenCVAprilTag;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
@@ -62,6 +63,9 @@ public class TestAprilTagsOpenCV extends CommandOpMode {
 
     public OpenCvCamera webcam;
     private FtcDashboard dashboard;
+
+
+    public static int reqdTagID =3;
 
     int cameraMonitorViewId;
 
@@ -97,8 +101,12 @@ public class TestAprilTagsOpenCV extends CommandOpMode {
 
         while (!isStopRequested() && opModeIsActive()) {
             run();
+
+            if (ActiveMotionValues.getActTag() != reqdTagID)
+                ActiveMotionValues.setActTag(reqdTagID);
             telemetry.update();
         }
         reset();
+
     }
 }

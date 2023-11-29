@@ -41,7 +41,7 @@ public class OpenCVAprilTag extends CommandBase {
     public static final float DECIMATION_LOW = 2;
     public static final float THRESHOLD_HIGH_DECIMATION_RANGE_METERS = 1.0f;
     public static final int THRESHOLD_NUM_FRAMES_NO_DETECTION_BEFORE_LOW_DECIMATION = 4;
-    public static final int ID_TAG_OF_INTEREST = 5;
+    public static  int ID_TAG_OF_INTEREST = 5;
 
 
     public OpenCVAprilTag(CommandOpMode _opMode, OpenCvCamera webcam,double _timeOut) {
@@ -78,6 +78,9 @@ public class OpenCVAprilTag extends CommandBase {
 
     @Override
     public void execute() {
+
+        ID_TAG_OF_INTEREST=ActiveMotionValues.getActTag();
+
         // Calling getDetectionsUpdate() will only return an object if there was a new frame
         // processed since the last time we called it. Otherwise, it will return null. This
         // enables us to only run logic when there has been a new frame, as opposed to the
