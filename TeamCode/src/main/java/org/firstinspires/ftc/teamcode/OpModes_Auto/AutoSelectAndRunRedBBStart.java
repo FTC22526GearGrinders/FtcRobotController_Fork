@@ -193,7 +193,8 @@ public class AutoSelectAndRunRedBBStart extends CommandOpMode {
 
             run();
 
-            telemetry.update();
+            drive.showtelemetry(telemetry);
+          //  telemetry.update();
 
         }
         reset();

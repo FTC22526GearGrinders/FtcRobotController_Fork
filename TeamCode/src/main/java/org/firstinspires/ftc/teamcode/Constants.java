@@ -8,9 +8,9 @@ public final class Constants {
 
     public static final class RobotConstants {
 
-        public static final double length = 13.25;
+        public static final double length = 15.0;
         static final double height = 13;
-        static final double width = 16;
+        static final double width = 16.5;
 
         static double gripperXOffset = 4;
         public static Pose2d pixelDropPose = new Pose2d(0, -RobotConstants.length / 2 + 1, 0);
@@ -207,7 +207,7 @@ public final class Constants {
         public static double[] armPositionInches = {0, 5.8, 9, 13.6, 14.3, 16.8, 19};
 
 
-        public static double kP = .25;
+        public static double kP = .35;
         public static double kI = 0;
         public static double kD = 0;
 
