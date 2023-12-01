@@ -54,13 +54,13 @@ public class JogDrive extends CommandBase {
                     strafe * Math.cos(gyro_radians);
             forward = temp;
 
-            drive.drive.jog(strafe, forward, rcw);
+            drive.drive.jog(strafe, - forward, rcw);
 
 
             /* At this point, Joystick X/Y (strafe/forwrd) vectors have been */
             /* rotated by the gyro angle, and can be sent to drive system */
         } else {
-            double y = -this.gamepad.getLeftY();
+            double y = this.gamepad.getLeftY();
             double x = this.gamepad.getLeftX();
             double rx = this.gamepad.getRightX();
 

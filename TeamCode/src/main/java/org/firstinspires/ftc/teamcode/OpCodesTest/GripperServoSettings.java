@@ -118,7 +118,8 @@ public class GripperServoSettings extends CommandOpMode {
             if (FLIP_GRIPPER)
                 phss.positionFlipGripper(FLIP_POSITION);
 
-            reset();
+
         }
+        reset();
     }
 }
