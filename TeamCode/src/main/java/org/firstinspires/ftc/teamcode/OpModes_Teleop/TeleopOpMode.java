@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.OpModes_Teleop;
 
-import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.InstantCommand;
@@ -9,7 +8,6 @@ import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.arcrobotics.ftclib.gamepad.TriggerReader;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Commands.Arm.JogArm;
 import org.firstinspires.ftc.teamcode.Commands.Drive.JogDrive;
 import org.firstinspires.ftc.teamcode.Commands.PixelHandler.TurnGrippersIncrementalCommand;
@@ -35,6 +33,7 @@ public class TeleopOpMode extends CommandOpMode {
     private DroneCatapultSubsystem dcatss;
 
     private Vision_Subsystem vss;
+    private int teleSwitch;
 
     @Override
     public void initialize() {
@@ -140,7 +139,7 @@ public class TeleopOpMode extends CommandOpMode {
                 new JogArm(arm, coDriver));
 
 
-        //coDriver.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER).whileHeld(
+        coDriver.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER).whenPressed(new InstantCommand(() -> teleSwitch++));
 
 
         //coDriver.getGamepadButton(GamepadKeys.Button.START).whenPressed(
@@ -171,8 +170,6 @@ public class TeleopOpMode extends CommandOpMode {
 
         waitForStart();
 
-//        CommandScheduler.getInstance().run();
-
         while (!isStopRequested() && opModeIsActive()) {
 
             run();
@@ -188,29 +185,26 @@ public class TeleopOpMode extends CommandOpMode {
     public void showTelemetry() {
 
         poseEstimate = drive.drive.getPoseEstimate();
+        if (teleSwitch < 0) teleSwitch = 0;
+        if (teleSwitch > 3) teleSwitch = 3;
 
-        // drive.drive.showTelemetry(telemetry);
+        switch (teleSwitch) {
 
-        //   drive.showtelemetry(telemetry);
+            case 0:
+                break;
+            case 1:
+                drive.drive.showTelemetry(telemetry);
+                break;
+            case 2:
+                drive.showtelemetry(telemetry);
+                break;
+            case 3:
+                arm.showTelemetry(telemetry);
+                break;
+            default:
+                break;
 
-        arm.showTelemetry(telemetry);
-
-        // phss.showTelemetry(telemetry);
-
-//        telemetry.addData("Atag Num", ActiveMotionValues.getActTag());
-//        telemetry.addLine();
-//        telemetry.addData("Atag Base", ActiveMotionValues.getBackboardLevel());
-//        Constants.ArmConstants.armExtensions entry = Constants.ArmConstants.armExtensions.values()[ActiveMotionValues.getBackboardLevel()];
-//
-//        double extension = entry.extension;
-//        telemetry.addData("ArmTgtExten", extension);
-//        telemetry.addLine();
-//
-//        telemetry.addData("TagDistance", Constants.DriveConstants.tagOffsetPose.toString());
-//        telemetry.addLine();
-//        telemetry.addData("SensorDistance", phss.getSensorDistanceInches());
-//        telemetry.update();
-
+        }
     }
-
 }
+

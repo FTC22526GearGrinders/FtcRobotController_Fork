@@ -27,6 +27,12 @@ public class JogDrive extends CommandBase {
 
     }
 
+    //    public void driveFieldCentric(double yaxis, double turn, double xaxis, double speed) {
+//        double angle = startHeading - getHeading();
+//        double forward = Math.cos(angle) * yaxis + Math.sin(angle) * xaxis;
+//        double strafe = -Math.sin(angle) * yaxis + Math.cos(angle) * xaxis;
+//        driveSimple(forward, turn, strafe, speed);
+//    }
     @Override
     public void execute() {
 

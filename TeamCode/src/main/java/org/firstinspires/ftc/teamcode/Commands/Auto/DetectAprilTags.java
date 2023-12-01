@@ -43,8 +43,6 @@ public class DetectAprilTags extends CommandBase {
     public void initialize() {
         et = new ElapsedTime();
         n = ActiveMotionValues.getActTag();
-        // if (!noEnd)
-        //  vss.myVisionPortal.saveNextFrameRaw(String.format(Locale.US, "CameraFrameCapture-%06d"));
     }
 
     @Override
@@ -85,20 +83,21 @@ public class DetectAprilTags extends CommandBase {
 
                     ActiveMotionValues.setCurrentRobotPose(currentRobotPose);
 
-                    myOpMode.telemetry.addData("Active Tag", n);
-                    myOpMode.telemetry.addData("Tag ID", detection.id);
-                    myOpMode.telemetry.addLine();
+                    if (noEnd) {
+                        myOpMode.telemetry.addData("Active Tag", n);
+                        myOpMode.telemetry.addData("Tag ID", detection.id);
+                        myOpMode.telemetry.addLine();
 
-                    myOpMode.telemetry.addData("TagPose", tagPose.toString());
-                    myOpMode.telemetry.addData("CamPose", camPose.toString());
-                    myOpMode.telemetry.addLine();
-                    myOpMode.telemetry.addData("CamFieldPose", camFieldPose.toString());
-                    myOpMode.telemetry.addData("CurrRobotPose", currentRobotPose.toString());
-                    myOpMode.telemetry.addLine();
-                    myOpMode.telemetry.addData("TagDistPose", tagOffsetPose.toString());
-                    myOpMode.telemetry.addData("FinalPose", finalTagPose.toString());
-                    myOpMode.telemetry.addLine();
-
+                        myOpMode.telemetry.addData("TagPose", tagPose.toString());
+                        myOpMode.telemetry.addData("CamPose", camPose.toString());
+                        myOpMode.telemetry.addLine();
+                        myOpMode.telemetry.addData("CamFieldPose", camFieldPose.toString());
+                        myOpMode.telemetry.addData("CurrRobotPose", currentRobotPose.toString());
+                        myOpMode.telemetry.addLine();
+                        myOpMode.telemetry.addData("TagDistPose", tagOffsetPose.toString());
+                        myOpMode.telemetry.addData("FinalPose", finalTagPose.toString());
+                        myOpMode.telemetry.addLine();
+                    }
 
                 }
 
