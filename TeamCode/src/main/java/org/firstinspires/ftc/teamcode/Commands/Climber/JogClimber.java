@@ -27,14 +27,14 @@ public class JogClimber extends CommandBase {
     @Override
     public void execute() {
 
-        climber.power = gamepad.getLeftX() / 4;
+        climber.power = -gamepad.getRightY() / 4;
 
-        if (climber.power > 0 && climber.getPositionInches() < Constants.ClimberConstants.UPPER_POSITION_LIMIT
-
-                || climber.power < 0 && climber.getPositionInches() > Constants.ClimberConstants.LOWER_POSITION_LIMIT) {
-
-        } else
-            climber.power = 0;
+//        if (climber.power > 0 && climber.getPositionInches() < Constants.ClimberConstants.UPPER_POSITION_LIMIT
+//
+//                || climber.power < 0 && climber.getPositionInches() > Constants.ClimberConstants.LOWER_POSITION_LIMIT) {
+//
+//        } else
+//            climber.power = 0;
 
         climber.climberMotor.set(climber.power);
     }

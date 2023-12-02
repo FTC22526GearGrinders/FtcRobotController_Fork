@@ -70,6 +70,8 @@ public class TestAprilTags extends CommandOpMode {
     @Override
     public void initialize() {
 
+        reqdTagID=ActiveMotionValues.getActTag();
+
         dashboard = FtcDashboard.getInstance();
 
         telemetry = new MultipleTelemetry(telemetry, dashboard.getTelemetry());

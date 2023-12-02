@@ -28,7 +28,7 @@ public class JogArm extends CommandBase {
     @Override
     public void execute() {
 
-        arm.power = gamepad.getLeftY() / 4;
+        arm.power = gamepad.getLeftY() / 2;
 
         if (arm.power > 0 && arm.getPositionInches() < Constants.ArmConstants.UPPER_POSITION_LIMIT
 

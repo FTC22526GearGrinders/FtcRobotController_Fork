@@ -9,11 +9,13 @@ import com.arcrobotics.ftclib.gamepad.TriggerReader;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Commands.Arm.JogArm;
+import org.firstinspires.ftc.teamcode.Commands.Climber.JogClimber;
 import org.firstinspires.ftc.teamcode.Commands.Drive.JogDrive;
 import org.firstinspires.ftc.teamcode.Commands.PixelHandler.TurnGrippersIncrementalCommand;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.Subsystems.ArmSubsystem;
+import org.firstinspires.ftc.teamcode.Subsystems.ClimberSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.DroneCatapultSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.PixelHandlerSubsystem;
@@ -27,6 +29,8 @@ public class TeleopOpMode extends CommandOpMode {
     protected PixelHandlerSubsystem phss;
 
     protected ArmSubsystem arm;
+
+    protected ClimberSubsystem climber;
     Pose2d poseEstimate;
     GamepadEx driver;
     GamepadEx coDriver;
@@ -47,6 +51,8 @@ public class TeleopOpMode extends CommandOpMode {
         phss = new PixelHandlerSubsystem(this);
 
         arm = new ArmSubsystem(this);
+
+        climber=new ClimberSubsystem(this);
 
         vss = new Vision_Subsystem(this);
 
@@ -76,22 +82,22 @@ public class TeleopOpMode extends CommandOpMode {
 
         // example usage if(drrt.wasJustPressed())new IncrementPixelDeliveryLevel().schedule();
 
-        driver.getGamepadButton(GamepadKeys.Button.A).whenPressed(
-                new InstantCommand(() -> drive.drive.toggleFieldCentric()));
+        driver.getGamepadButton(GamepadKeys.Button.A).whenPressed(new InstantCommand(()->phss.turnGrippersToPickup()));
+
 
         //      driver.getGamepadButton(GamepadKeys.Button.B).whenPressed(
 
         //       driver.getGamepadButton(GamepadKeys.Button.X).whenPressed(
 
-        //      driver.getGamepadButton(GamepadKeys.Button.Y).whenPressed(
+              driver.getGamepadButton(GamepadKeys.Button.Y).whenPressed(new InstantCommand(()->phss.turnGrippersToDeliver()));
 
 
         // driver.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whileHeld(
 
         //driver.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER).whenPressed(
 
-        //      tq    driver.getGamepadButton(GamepadKeys.Button.START).whenPressed(
-
+          driver.getGamepadButton(GamepadKeys.Button.START).whenPressed(
+                  new InstantCommand(() -> drive.drive.toggleFieldCentric()));
 
         driver.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT).whenPressed(
                 new TurnGrippersIncrementalCommand(phss, true, Constants.TurnGripperJogSet.HI));
@@ -100,11 +106,11 @@ public class TeleopOpMode extends CommandOpMode {
                 new TurnGrippersIncrementalCommand(phss, false, Constants.TurnGripperJogSet.HI));
 
         driver.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenPressed(
-                new InstantCommand(() -> phss.turnGrippersToDeliver()));
+                new InstantCommand(() -> climber.climberToClearBar()));
 
 
         driver.getGamepadButton(GamepadKeys.Button.DPAD_DOWN).whenPressed(
-                new InstantCommand(() -> phss.turnGrippersToPickup()));
+                new InstantCommand(() -> climber.climberToLiftPosition()));
 
 
         // driver.getGamepadButton(GamepadKeys.Button.BACK).whenPressed(
@@ -150,7 +156,7 @@ public class TeleopOpMode extends CommandOpMode {
         // coDriver.getGamepadButton(GamepadKeys.Button.DPAD_LEFT).whenPressed(
 
 
-//        coDriver.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenHeld(new JogArm(arm, true));
+        coDriver.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenHeld(new JogClimber(climber,coDriver));
 
 //        coDriver.getGamepadButton(GamepadKeys.Button.DPAD_DOWN).whenHeld(new JogArm(arm, false));
 
@@ -194,7 +200,7 @@ public class TeleopOpMode extends CommandOpMode {
                 drive.drive.showTelemetry(telemetry);
                 break;
             case 1:
-                drive.drive.showTelemetry(telemetry);
+                climber.showTelemetry(telemetry);
                 break;
             case 2:
                 drive.showtelemetry(telemetry);

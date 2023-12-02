@@ -135,9 +135,9 @@ public final class Constants {
 
 
         public enum TurnGripperSet {
-            PICKUP(.1),
-            MID(.3),
-            DELIVER(.5);
+            PICKUP(.79),
+            MID(.65),
+            DELIVER(.585);
 
             public final double position;
 
@@ -178,7 +178,7 @@ public final class Constants {
 
         public static final double MAX_MOTOR_RPM = 435;
 
-        public static final double MAX_MOTOR_RPSEC = 312 / 60;
+        public static final double MAX_MOTOR_RPSEC = 435 / 60;
 
 
         public static final double ENCODER_COUNTS_PER_MOTOR_REV = 384.5;
@@ -198,31 +198,32 @@ public final class Constants {
         public static final double JOG_DOWN_POWER = -.4;
         public static final double AUTO_DELIVER_POSITION = 7.5;
         public static final double HOME_POSITION = 1;
-        public static final double MAX_VEL = 10;
-        public static final double MAX_ACCEL = 10;
+        public static final double MAX_VEL = 8;
+        public static final double MAX_ACCEL = 6;
 
         public static double[] armPositionInches = {0, 5.8, 9, 13.6, 14.3, 16.8, 19};
 
 
-        public static double kP = .35;
+        public static double kP = 2.;
         public static double kI = 0;
         public static double kD = 0;
 
         public static double POSITION_Kg = 0;
 
     }
+
     public static final class ClimberConstants {
 
-        public static final double MAX_MOTOR_RPM = 435;
+        public static final double MAX_MOTOR_RPM = 312;
 
         public static final double MAX_MOTOR_RPSEC = 312 / 60;
 
 
-        public static final double ENCODER_COUNTS_PER_MOTOR_REV = 384.5;
+        public static final double ENCODER_COUNTS_PER_MOTOR_REV = 537.7;
 
-        public static final double GEARING_RATIO = 4.72;// motor revs per inch
+        public static final double GEARING_RATIO = 225 / 16;// motor revs per inch
 
-        public static final double ENCODER_COUNTS_PER_INCH = ENCODER_COUNTS_PER_MOTOR_REV / GEARING_RATIO;
+        public static final double ENCODER_COUNTS_PER_INCH = 6.67 * ENCODER_COUNTS_PER_MOTOR_REV / GEARING_RATIO;
 
         public static final double MOTOR_REVS_PER_INCH = GEARING_RATIO;
         public static final double MAX_INCHES_PER_SECOND = MAX_MOTOR_RPSEC / GEARING_RATIO;
@@ -235,10 +236,10 @@ public final class Constants {
         public static final double JOG_DOWN_POWER = -.4;
         public static final double AUTO_DELIVER_POSITION = 7.5;
         public static final double HOME_POSITION = 1;
-        public static final double MAX_VEL = 10;
-        public static final double MAX_ACCEL = 10;
+        public static final double MAX_VEL = 4;
+        public static final double MAX_ACCEL = 2;
 
-        public static double kP = .35;
+        public static double kP = .5;
         public static double kI = 0;
         public static double kD = 0;
 

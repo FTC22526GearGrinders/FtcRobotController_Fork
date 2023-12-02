@@ -30,11 +30,11 @@ public class ClimberSubsystem extends SubsystemBase {
     public ClimberSubsystem(CommandOpMode opMode) {
         myOpMode = opMode;
 
-        climberMotor = new MotorEx(myOpMode.hardwareMap, "climber motor");
+        climberMotor = new MotorEx(myOpMode.hardwareMap, "climber motor", Motor.GoBILDA.RPM_312);
         
         climberEncoder = climberMotor.encoder;
 
-        climberMotor.setInverted(true);
+        climberMotor.setInverted(false);
 
         climberMotor.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
 
@@ -61,6 +61,15 @@ public class ClimberSubsystem extends SubsystemBase {
     public void periodic() {
 
     }
+
+    public void climberToClearBar(){
+        profController.setGoal(14);
+    }
+
+    public void climberToLiftPosition(){
+        profController.setGoal(10);
+    }
+
 
     public void runClimberMoor(double power){
         climberMotor.set(power);
