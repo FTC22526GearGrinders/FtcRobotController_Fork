@@ -19,7 +19,7 @@ public final class Constants {
 
         public static Pose2d activeDropOffsetPose = pixelDropPose;
 
-        public static Pose2d kCameraToRobot = new Pose2d(RobotConstants.length / 2, 2);
+        public static Pose2d kCameraToRobot = new Pose2d(RobotConstants.length / 2, 6);
     }
 
     public static final class FieldConstants {

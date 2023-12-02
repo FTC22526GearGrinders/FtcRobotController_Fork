@@ -44,6 +44,10 @@ public class RunToAprilTag extends CommandBase {
 
         currentRobotPose = ActiveMotionValues.getCurrentRobotPose();
 
+        double robotDistance = currentRobotPose.getY();
+
+
+
         finalPose = ActiveMotionValues.getFinalTagPose();
 
         tagTraj = drive.drive.trajectoryBuilder(currentRobotPose)

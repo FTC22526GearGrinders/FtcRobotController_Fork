@@ -23,7 +23,7 @@ public class LogTrajectory extends CommandBase {
 
     ElapsedTime logTimer;// timer object
 
-    int logInterval = 60;               // target interval in milliseconds
+    int logInterval = 100;               // target interval in milliseconds
 
     boolean logged = false;
 
@@ -110,7 +110,7 @@ public class LogTrajectory extends CommandBase {
             writeRunning = false;
             dataTimer.reset();
         }
-        logged = !writeRunning && logTimer.seconds() > 5;
+
     }
 
     @Override
@@ -122,7 +122,7 @@ public class LogTrajectory extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return logged;
+        return false;
     }
 
 

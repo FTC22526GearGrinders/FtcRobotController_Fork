@@ -191,6 +191,7 @@ public class TeleopOpMode extends CommandOpMode {
         switch (teleSwitch) {
 
             case 0:
+                drive.drive.showTelemetry(telemetry);
                 break;
             case 1:
                 drive.drive.showTelemetry(telemetry);

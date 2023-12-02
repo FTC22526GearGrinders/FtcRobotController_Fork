@@ -88,9 +88,6 @@ public final class Constants {
         //public static final double kV = BATTERY_VOLTS / MAX_IPM;//12/60 = .2 MAX THEORETICAL VALUE
         public static final double ENCODER_COUNTS_PER_MOTOR_REV = 537.7;
 
-
-        public static final Pose2d tagOffsetPose = new Pose2d(RobotConstants.length / 2 + 2, 0, 0);
-
         public static RevHubOrientationOnRobot.LogoFacingDirection LOGO_FACING_DIR =
                 RevHubOrientationOnRobot.LogoFacingDirection.UP;
         public static RevHubOrientationOnRobot.UsbFacingDirection USB_FACING_DIR =
@@ -199,13 +196,47 @@ public final class Constants {
         public static final double JOG_UP_POWER = +.5;
 
         public static final double JOG_DOWN_POWER = -.4;
-        public static final double DELIVER_POSITION = 7.5;
+        public static final double AUTO_DELIVER_POSITION = 7.5;
         public static final double HOME_POSITION = 1;
         public static final double MAX_VEL = 10;
         public static final double MAX_ACCEL = 10;
 
         public static double[] armPositionInches = {0, 5.8, 9, 13.6, 14.3, 16.8, 19};
 
+
+        public static double kP = .35;
+        public static double kI = 0;
+        public static double kD = 0;
+
+        public static double POSITION_Kg = 0;
+
+    }
+    public static final class ClimberConstants {
+
+        public static final double MAX_MOTOR_RPM = 435;
+
+        public static final double MAX_MOTOR_RPSEC = 312 / 60;
+
+
+        public static final double ENCODER_COUNTS_PER_MOTOR_REV = 384.5;
+
+        public static final double GEARING_RATIO = 4.72;// motor revs per inch
+
+        public static final double ENCODER_COUNTS_PER_INCH = ENCODER_COUNTS_PER_MOTOR_REV / GEARING_RATIO;
+
+        public static final double MOTOR_REVS_PER_INCH = GEARING_RATIO;
+        public static final double MAX_INCHES_PER_SECOND = MAX_MOTOR_RPSEC / GEARING_RATIO;
+        public static final double POSITION_TOLERANCE_INCHES = .25;
+        public static final double UPPER_POSITION_LIMIT = 27.00;
+        public static final int LOWER_POSITION_LIMIT = -1;
+
+        public static final double JOG_UP_POWER = +.5;
+
+        public static final double JOG_DOWN_POWER = -.4;
+        public static final double AUTO_DELIVER_POSITION = 7.5;
+        public static final double HOME_POSITION = 1;
+        public static final double MAX_VEL = 10;
+        public static final double MAX_ACCEL = 10;
 
         public static double kP = .35;
         public static double kI = 0;

@@ -37,13 +37,17 @@ public class AutoActionsSequences extends SequentialCommandGroup {
 
                                 new SequentialCommandGroup(
 
-                                        af.detectAndMoveToAprilTag(),
-
                                         new ParallelCommandGroup(
 
-                                                new PositionArm(arm, Constants.ArmConstants.DELIVER_POSITION),
+                                                new PositionArm(arm, Constants.ArmConstants.AUTO_DELIVER_POSITION),
+
+                                                new InstantCommand(()->phss.flipGrippersToDeliver()),
 
                                                 new InstantCommand(() -> phss.turnGrippersToDeliver())),
+
+                                        new WaitCommand(500),
+
+                                        af.detectAndMoveToAprilTag(),
 
                                         new WaitCommand(500),
 

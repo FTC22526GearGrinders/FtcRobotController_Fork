@@ -95,7 +95,7 @@ public class SampleMecanumDrive extends MecanumDrive {
     private List<Integer> lastEncVels = new ArrayList<>();
     public boolean fieldCentric = false;
 
-    double testX;
+    public double startRadians;
 
     public SampleMecanumDrive(HardwareMap hardwareMap) {
         super(kV, kA, kStatic, TRACK_WIDTH, WHEEL_BASE, LATERAL_MULTIPLIER);
@@ -160,6 +160,8 @@ public class SampleMecanumDrive extends MecanumDrive {
                 follower, HEADING_PID, batteryVoltageSensor,
                 lastEncPositions, lastEncVels, lastTrackingEncPositions, lastTrackingEncVels
         );
+
+        startRadians= getRawExternalHeading();
 
     }
 
@@ -344,7 +346,6 @@ public class SampleMecanumDrive extends MecanumDrive {
         rightFront.setPower((y - x - rx) / denominator);
         leftRear.setPower((y - x + rx) / denominator);
         rightRear.setPower((y + x - rx) / denominator);
-        testX = y;
 
     }
 
@@ -403,7 +404,7 @@ public class SampleMecanumDrive extends MecanumDrive {
         telemetry.addData("BackRightPosn", encoderTicksToInches(rightRear.getCurrentPosition()));
         telemetry.addData("FrontLeftVel", leftFront.getVelocity());
 
-        telemetry.addData("Gyro Heading", Math.toDegrees(getExternalHeading()));
+        telemetry.addData("Gyro Heading", Math.toDegrees(getRawExternalHeading()));
         telemetry.addData("BatteryVolts", getBatteryVolts());
         telemetry.addData("FieldCentric", fieldCentric);
         telemetry.update();

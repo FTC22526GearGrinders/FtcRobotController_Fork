@@ -36,30 +36,8 @@ public class JogDrive extends CommandBase {
     @Override
     public void execute() {
 
-        if (drive.drive.fieldCentric) {
+        if (!drive.drive.fieldCentric) {
 
-
-            double forward = this.gamepad.getLeftY(); /* Invert stick Y axis */
-            double strafe = this.gamepad.getLeftX();
-            double rcw = this.gamepad.getRightX();
-
-            /* Adjust Joystick X/Y inputs by navX MXP yaw angle */
-
-            double gyro_degrees = drive.drive.getRawExternalHeading();
-
-            double gyro_radians = gyro_degrees * Math.PI / 180;
-            double temp = forward * (float) Math.cos(gyro_radians) +
-                    strafe * Math.sin(gyro_radians);
-            strafe = -forward * Math.sin(gyro_radians) +
-                    strafe * Math.cos(gyro_radians);
-            forward = temp;
-
-            drive.drive.jog(strafe, - forward, rcw);
-
-
-            /* At this point, Joystick X/Y (strafe/forwrd) vectors have been */
-            /* rotated by the gyro angle, and can be sent to drive system */
-        } else {
             double y = this.gamepad.getLeftY();
             double x = this.gamepad.getLeftX();
             double rx = this.gamepad.getRightX();
@@ -67,6 +45,30 @@ public class JogDrive extends CommandBase {
             drive.drive.jog(y, x, rx);
 
         }
+
+        if (drive.drive.fieldCentric) {
+
+            double forward = this.gamepad.getLeftY(); /* Invert stick Y axis */
+            double strafe = this.gamepad.getLeftX();
+            double rcw = this.gamepad.getRightX();
+
+            /* Adjust Joystick X/Y inputs by navX MXP yaw angle */
+
+            double gyro_radians = drive.drive.startRadians - drive.drive.getRawExternalHeading();
+
+            //     new drive  = strafe * sin(heading) + drive * cos(heading)
+            //    new strafe = strafe * cos(heading) - drive * sin(heading)
+
+
+            double temp = strafe * Math.sin(gyro_radians) + forward * (float) Math.cos(gyro_radians);
+
+            strafe = strafe * Math.cos(gyro_radians) - forward * Math.sin(gyro_radians);
+
+            forward = temp;
+
+            drive.drive.jog(forward, strafe, rcw);
+        }
+
     }
 
     @Override

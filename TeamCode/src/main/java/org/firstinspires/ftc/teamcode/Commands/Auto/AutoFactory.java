@@ -4,10 +4,12 @@ import com.arcrobotics.ftclib.command.Command;
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.ConditionalCommand;
+import com.arcrobotics.ftclib.command.ParallelRaceGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 
 import org.firstinspires.ftc.teamcode.Commands.Drive.MoveToPark;
 import org.firstinspires.ftc.teamcode.Commands.Drive.RunToAprilTag;
+import org.firstinspires.ftc.teamcode.Commands.Trajectories.LogTrajectory;
 import org.firstinspires.ftc.teamcode.Commands.Trajectories.RunTrajSequence;
 import org.firstinspires.ftc.teamcode.Commands.Trajectories.SelectAndBuildTrajectory;
 import org.firstinspires.ftc.teamcode.Commands.Trajectories.ShowTrajectoryInfo;
@@ -62,7 +64,9 @@ public class AutoFactory extends CommandBase {
         return new SequentialCommandGroup(
                 new SelectAndBuildTrajectory(opMode, drive, phss),
                 new ShowTrajectoryInfo(drive, opMode),
-                new RunTrajSequence(drive, opMode));
+                new ParallelRaceGroup(
+                new RunTrajSequence(drive, opMode),
+                        new LogTrajectory(drive,opMode)));
     }
 
     public Command detectAndMoveToAprilTag() {
