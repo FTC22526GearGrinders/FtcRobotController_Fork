@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.FieldConstantsBlue;
+import org.firstinspires.ftc.teamcode.FieldConstantsRed;
 import org.firstinspires.ftc.teamcode.Subsystems.Vision_Subsystem;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 
@@ -68,7 +69,12 @@ public class DetectAprilTags extends CommandBase {
 
                     Pose2d camPose = new Pose2d(detection.ftcPose.y, detection.ftcPose.x, Math.toRadians(detection.ftcPose.yaw));
 
-                    Pose2d tagPose = FieldConstantsBlue.getActiveTagPose(ActiveMotionValues.getActTag());
+                    Pose2d tagPose = new Pose2d();
+
+                    if (ActiveMotionValues.getRedAlliance())
+                        tagPose = FieldConstantsRed.getActiveTagPose(ActiveMotionValues.getActTag());
+                    else
+                        tagPose = FieldConstantsBlue.getActiveTagPose(ActiveMotionValues.getActTag());
 
                     Pose2d camFieldPose = tagPose.minus(camPose);
 

@@ -46,23 +46,19 @@ public final class FieldConstantsRed {
         public static final Pose2d atag5 = new Pose2d(60.25, -36, Math.toRadians(atagAngle));
         public static final Pose2d atag6 = new Pose2d(60.25, -42, Math.toRadians(atagAngle));
 
-
     }
 
     public static Pose2d getActiveTagPose(int num) {
-        int sel = num - 3;
+        int sel = num - 4;
         switch (sel) {
             case 0:
                 return FieldConstantsRed.AprilTagConstants.atag4;
             case 1:
-                return FieldConstantsRed.AprilTagConstants.atag4;
-            case 2:
                 return FieldConstantsRed.AprilTagConstants.atag5;
-            case 3:
+            case 2:
                 return FieldConstantsRed.AprilTagConstants.atag6;
             default:
                 return FieldConstantsRed.AprilTagConstants.atag4;
-
         }
     }
 

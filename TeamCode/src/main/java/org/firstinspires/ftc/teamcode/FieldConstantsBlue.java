@@ -51,9 +51,6 @@ public final class FieldConstantsBlue {
     public static Pose2d getActiveTagPose(int num) {
 
         switch (num) {
-            case 0:
-                return AprilTagConstants.atag1;
-
             case 1:
                 return AprilTagConstants.atag1;
 
@@ -62,7 +59,6 @@ public final class FieldConstantsBlue {
 
             case 3:
                 return AprilTagConstants.atag3;
-
 
             default:
                 return AprilTagConstants.atag1;
