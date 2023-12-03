@@ -11,9 +11,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.Commands.Arm.JogArm;
 import org.firstinspires.ftc.teamcode.Commands.Climber.JogClimber;
 import org.firstinspires.ftc.teamcode.Commands.Drive.JogDrive;
-import org.firstinspires.ftc.teamcode.Commands.PixelHandler.TurnGrippersIncrementalCommand;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
-import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.Subsystems.ArmSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.ClimberSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
@@ -39,6 +37,13 @@ public class TeleopOpMode extends CommandOpMode {
     private Vision_Subsystem vss;
     private int teleSwitch;
 
+    TriggerReader drlt;
+    TriggerReader drrt;
+
+    TriggerReader cdlt;
+    TriggerReader cdrt;
+
+
     @Override
     public void initialize() {
 
@@ -52,7 +57,7 @@ public class TeleopOpMode extends CommandOpMode {
 
         arm = new ArmSubsystem(this);
 
-        climber=new ClimberSubsystem(this);
+        climber = new ClimberSubsystem(this);
 
         vss = new Vision_Subsystem(this);
 
@@ -61,9 +66,6 @@ public class TeleopOpMode extends CommandOpMode {
         //DEFAULT COMMANDS
 
         drive.setDefaultCommand(new JogDrive(this.drive, driver, false));
-
-        //  arm.setDefaultCommand(new PositionHoldArm(this.arm));
-
 
         if (ActiveMotionValues.getRedAlliance())
             ActiveMotionValues.setBaseTag(4);
@@ -74,36 +76,33 @@ public class TeleopOpMode extends CommandOpMode {
  * Driver gamepad assignmnents
  * */
 
-        TriggerReader drlt = new TriggerReader(
-                driver, GamepadKeys.Trigger.LEFT_TRIGGER);
+        drlt = new TriggerReader(
+                driver, GamepadKeys.Trigger.LEFT_TRIGGER, .5);
 
-        TriggerReader drrt = new TriggerReader(
+        drrt = new TriggerReader(
                 driver, GamepadKeys.Trigger.RIGHT_TRIGGER);
 
-        // example usage if(drrt.wasJustPressed())new IncrementPixelDeliveryLevel().schedule();
 
-        driver.getGamepadButton(GamepadKeys.Button.A).whenPressed(new InstantCommand(()->phss.turnGrippersToPickup()));
+        driver.getGamepadButton(GamepadKeys.Button.A).whenPressed(new InstantCommand(() -> phss.turnGrippersToPickup()));
 
-
-        //      driver.getGamepadButton(GamepadKeys.Button.B).whenPressed(
+//.getGamepadButton(GamepadKeys.Button.B).whenPressed(
 
         //       driver.getGamepadButton(GamepadKeys.Button.X).whenPressed(
 
-              driver.getGamepadButton(GamepadKeys.Button.Y).whenPressed(new InstantCommand(()->phss.turnGrippersToDeliver()));
+        driver.getGamepadButton(GamepadKeys.Button.Y).whenPressed(new InstantCommand(() -> phss.turnGrippersToDeliver()));
 
 
-        // driver.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whileHeld(
+        driver.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenPressed(new InstantCommand(() -> phss.openLeftGripper()));
 
-        //driver.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER).whenPressed(
+        driver.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER).whenPressed(new InstantCommand(() -> phss.openRightGripper()));
 
-          driver.getGamepadButton(GamepadKeys.Button.START).whenPressed(
-                  new InstantCommand(() -> drive.drive.toggleFieldCentric()));
+        driver.getGamepadButton(GamepadKeys.Button.START).whenPressed(
+                new InstantCommand(() -> drive.drive.toggleFieldCentric()));
 
-        driver.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT).whenPressed(
-                new TurnGrippersIncrementalCommand(phss, true, Constants.TurnGripperJogSet.HI));
+        //  driver.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT).whenPressed(
 
-        driver.getGamepadButton(GamepadKeys.Button.DPAD_LEFT).whenPressed(
-                new TurnGrippersIncrementalCommand(phss, false, Constants.TurnGripperJogSet.HI));
+
+        //  driver.getGamepadButton(GamepadKeys.Button.DPAD_LEFT).whenPressed(
 
         driver.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenPressed(
                 new InstantCommand(() -> climber.climberToClearBar()));
@@ -124,13 +123,12 @@ public class TeleopOpMode extends CommandOpMode {
 /**
  * co driver gamepad assignmnents
  * */
-        TriggerReader cdlt = new TriggerReader(
+        cdlt = new TriggerReader(
                 coDriver, GamepadKeys.Trigger.LEFT_TRIGGER);
 
-        TriggerReader cdrt = new TriggerReader(
+        cdrt = new TriggerReader(
                 coDriver, GamepadKeys.Trigger.RIGHT_TRIGGER);
 
-        // example usage if(drrt.wasJustPressed())new IncrementPixelDeliveryLevel().schedule();
 
         coDriver.getGamepadButton(GamepadKeys.Button.A).whenPressed(new InstantCommand(() -> arm.decArmDeleiveryLeve()));
 
@@ -156,7 +154,7 @@ public class TeleopOpMode extends CommandOpMode {
         // coDriver.getGamepadButton(GamepadKeys.Button.DPAD_LEFT).whenPressed(
 
 
-        coDriver.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenHeld(new JogClimber(climber,coDriver));
+        coDriver.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenHeld(new JogClimber(climber, coDriver));
 
 //        coDriver.getGamepadButton(GamepadKeys.Button.DPAD_DOWN).whenHeld(new JogArm(arm, false));
 
@@ -179,20 +177,40 @@ public class TeleopOpMode extends CommandOpMode {
         while (!isStopRequested() && opModeIsActive()) {
 
             run();
+            checkTriggers();
 
-            showTelemetry();
+            // showTelemetry();
 
         }
         reset();
 
     }
 
+    void checkTriggers() {
+
+        drlt.readValue();
+        drrt.readValue();
+//        cdlt.readValue();
+//        cdrt.readValue();
+
+        if (drlt.wasJustPressed()) new InstantCommand(() -> phss.closeLeftGripper()).schedule();
+
+        if (drrt.wasJustPressed()) new InstantCommand(() -> phss.closeRightGripper()).schedule();
+
+//        if (cdlt.wasJustPressed())
+//        if (cdrt.wasJustPressed())
+
+
+        telemetry.update();
+    }
+
 
     public void showTelemetry() {
 
         poseEstimate = drive.drive.getPoseEstimate();
-        if (teleSwitch < 0) teleSwitch = 0;
-        if (teleSwitch > 3) teleSwitch = 3;
+        if (teleSwitch > 4) teleSwitch = 0;
+        if (teleSwitch < 0) teleSwitch = 4;
+
 
         switch (teleSwitch) {
 
@@ -200,14 +218,19 @@ public class TeleopOpMode extends CommandOpMode {
                 drive.drive.showTelemetry(telemetry);
                 break;
             case 1:
-                climber.showTelemetry(telemetry);
-                break;
-            case 2:
                 drive.showtelemetry(telemetry);
                 break;
-            case 3:
+            case 2:
                 arm.showTelemetry(telemetry);
                 break;
+            case 3:
+                phss.showTelemetry(telemetry);
+                break;
+            case 4:
+                climber.showTelemetry(telemetry);
+                break;
+
+
             default:
                 break;
 
