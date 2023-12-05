@@ -32,14 +32,10 @@ public class DetectAprilTags extends CommandBase {
     private int tst;
 
     public DetectAprilTags(CommandOpMode opMode, Vision_Subsystem vss, boolean noEnd) {
-
         this.vss = vss;
-
         myOpMode = opMode;
-
         this.noEnd = noEnd;
     }
-
     @Override
     public void initialize() {
         et = new ElapsedTime();
@@ -67,6 +63,8 @@ public class DetectAprilTags extends CommandBase {
 
                     ActiveMotionValues.setAprilTagSeen(true);
 
+                    ActiveMotionValues.setDetection(detection);
+
                     Pose2d camPose = new Pose2d(detection.ftcPose.y, detection.ftcPose.x, Math.toRadians(detection.ftcPose.yaw));
 
                     Pose2d tagPose = new Pose2d();
@@ -82,9 +80,7 @@ public class DetectAprilTags extends CommandBase {
 
                     Pose2d finalTagPose = tagPose;
 
-                    ActiveMotionValues.setFinalTagPose(finalTagPose);
 
-                    ActiveMotionValues.setCurrentRobotPose(currentRobotPose);
 
                     if (noEnd) {
                         myOpMode.telemetry.addData("Active Tag", n);

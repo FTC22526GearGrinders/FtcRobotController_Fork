@@ -59,9 +59,10 @@ public class ArmSubsystem extends SubsystemBase {
 
         resetEncoder();
 
-        setArmDeliverLevel(0);
 
         setDefaultCommand(new PositionHoldArm(this));
+
+        setTargetInches(.5);
 
         dashboard = FtcDashboard.getInstance();
 
@@ -85,10 +86,10 @@ public class ArmSubsystem extends SubsystemBase {
             n = Constants.ArmConstants.armPositionInches.length - 1;
         if (n < 0)
             n = 0;
-        if (n != armDeliverLevel) {
-            armDeliverLevel = n;
-            profController.setGoal(Constants.ArmConstants.armPositionInches[armDeliverLevel]);
-        }
+        // if (n != armDeliverLevel) {
+        armDeliverLevel = n;
+        profController.setGoal(Constants.ArmConstants.armPositionInches[armDeliverLevel]);
+
     }
 
     public void incArmDeleiveryLeve() {
@@ -113,7 +114,7 @@ public class ArmSubsystem extends SubsystemBase {
         return profController.atSetpoint();
     }
 
-    public double getGoalPosition(){
+    public double getGoalPosition() {
         return profController.getGoal().position;
     }
 
@@ -165,7 +166,6 @@ public class ArmSubsystem extends SubsystemBase {
         telemetry.addData("ArmInches", getPositionInches());
         telemetry.addData("ArmVelocity", armEncoder.getRawVelocity());
         telemetry.addData("ArmPower", armMotor.get());
-
 
 
         telemetry.update();

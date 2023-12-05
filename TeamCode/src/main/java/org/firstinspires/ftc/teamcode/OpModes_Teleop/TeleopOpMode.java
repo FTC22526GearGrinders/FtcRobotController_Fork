@@ -2,7 +2,10 @@ package org.firstinspires.ftc.teamcode.OpModes_Teleop;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.arcrobotics.ftclib.command.CommandOpMode;
+import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.InstantCommand;
+import com.arcrobotics.ftclib.command.SequentialCommandGroup;
+import com.arcrobotics.ftclib.command.WaitCommand;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.arcrobotics.ftclib.gamepad.TriggerReader;
@@ -83,13 +86,21 @@ public class TeleopOpMode extends CommandOpMode {
                 driver, GamepadKeys.Trigger.RIGHT_TRIGGER);
 
 
-        driver.getGamepadButton(GamepadKeys.Button.A).whenPressed(new InstantCommand(() -> phss.turnGrippersToPickup()));
+        driver.getGamepadButton(GamepadKeys.Button.A).whenPressed(
+                new SequentialCommandGroup(
+                        new InstantCommand(() -> phss.flipGrippersToPickup()),
+                        new WaitCommand(500),
+                        new InstantCommand(() -> phss.turnGrippersToPickup())));
 
-//.getGamepadButton(GamepadKeys.Button.B).whenPressed(
+        driver.getGamepadButton(GamepadKeys.Button.B).whenPressed(new InstantCommand(() -> arm.incArmDeleiveryLeve()));
 
-        //       driver.getGamepadButton(GamepadKeys.Button.X).whenPressed(
+        driver.getGamepadButton(GamepadKeys.Button.X).whenPressed(new InstantCommand(() -> arm.setArmDeliverLevel(0)));
 
-        driver.getGamepadButton(GamepadKeys.Button.Y).whenPressed(new InstantCommand(() -> phss.turnGrippersToDeliver()));
+        driver.getGamepadButton(GamepadKeys.Button.Y).whenPressed(
+                new SequentialCommandGroup(
+                        new InstantCommand(() -> phss.turnGrippersToDeliver()),
+                        new WaitCommand(1000),
+                        new InstantCommand(() -> phss.flipGrippersToDeliver())));
 
 
         driver.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenPressed(new InstantCommand(() -> phss.openLeftGripper()));
@@ -177,9 +188,10 @@ public class TeleopOpMode extends CommandOpMode {
         while (!isStopRequested() && opModeIsActive()) {
 
             run();
+
             checkTriggers();
 
-            // showTelemetry();
+            showTelemetry();
 
         }
         reset();

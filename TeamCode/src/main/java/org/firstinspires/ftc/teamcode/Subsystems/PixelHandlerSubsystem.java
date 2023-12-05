@@ -135,11 +135,16 @@ public class PixelHandlerSubsystem extends SubsystemBase {
 
     public void flipGrippersToPickup() {
         flipGrippers.setPosition(Constants.PixelHandlerConstants.FlipGripperSet.PICKUP.position);
-
     }
 
     public void flipGrippersToDeliver() {
         flipGrippers.setPosition(Constants.PixelHandlerConstants.FlipGripperSet.DELIVER.position);
+    }
+    public void flipGrippersToLeftDown() {
+        flipGrippers.setPosition(Constants.PixelHandlerConstants.FlipGripperSet.LEFT_DOWN.position);
+    }
+    public void flipGrippersToRightDown() {
+        flipGrippers.setPosition(Constants.PixelHandlerConstants.FlipGripperSet.RIGHT_DOWN.position);
     }
 
     public double getSensorDistanceInches() {

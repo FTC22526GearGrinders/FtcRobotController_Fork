@@ -173,6 +173,7 @@ public class AutoSelectAndRunBlueBBStart extends CommandOpMode {
 
         dashboard = FtcDashboard.getInstance();
 
+        phss.closeBothGrippers();
     }
 
     @Override

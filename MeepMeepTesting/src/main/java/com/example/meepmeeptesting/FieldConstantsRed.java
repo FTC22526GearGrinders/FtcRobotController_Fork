@@ -21,6 +21,10 @@ public final class FieldConstantsRed {
 
     public static Pose2d nearTrussLineUpPose = new Pose2d(-36, -60, startangle);
 
+    public static double addedYdist = 2;
+
+    public static double pixelLRComp = 1;//compensate for left to right difference due to hole in pixel
+
     public static final class AprilTagConstants {
         public static int leftAtag = 0; //index into arrtay tags ar 1,2,3
 
@@ -42,23 +46,19 @@ public final class FieldConstantsRed {
         public static final Pose2d atag5 = new Pose2d(60.25, -36, Math.toRadians(atagAngle));
         public static final Pose2d atag6 = new Pose2d(60.25, -42, Math.toRadians(atagAngle));
 
-
     }
 
     public static Pose2d getActiveTagPose(int num) {
-        int sel = num - 3;
+        int sel = num - 4;
         switch (sel) {
             case 0:
-                return AprilTagConstants.atag4;
+                return FieldConstantsRed.AprilTagConstants.atag4;
             case 1:
-                return AprilTagConstants.atag4;
+                return FieldConstantsRed.AprilTagConstants.atag5;
             case 2:
-                return AprilTagConstants.atag5;
-            case 3:
-                return AprilTagConstants.atag6;
+                return FieldConstantsRed.AprilTagConstants.atag6;
             default:
-                return AprilTagConstants.atag4;
-
+                return FieldConstantsRed.AprilTagConstants.atag4;
         }
     }
 
@@ -73,20 +73,20 @@ public final class FieldConstantsRed {
         public static final Pose2d leftTapeMid = new Pose2d(0.5, -30);
 
         public static final Pose2d advancePose = new Pose2d(12,
-                rightTapeMid.getY() - Constants.TapeConstants.tapeLength / 4, startangle)
+                rightTapeMid.getY() + addedYdist, startangle)
                 .plus(Constants.RobotConstants.activeDropOffsetPose);
 
-        public static final Pose2d leftDropPose = new Pose2d(leftTapeMid.getX(),
-                leftTapeMid.getY() - Constants.TapeConstants.tapeLength / 4, startangle)
+        public static final Pose2d leftDropPose = new Pose2d(leftTapeMid.getX() + pixelLRComp,
+                leftTapeMid.getY() + addedYdist, startangle)
                 .plus(Constants.RobotConstants.activeDropOffsetPose);
         public static final Pose2d centerDropPose = new Pose2d(centerTapeMid.getX(),
-                centerTapeMid.getY() - Constants.RobotConstants.pixelDropyOffset, startangle)
+                centerTapeMid.getY(), startangle)
                 .plus(Constants.RobotConstants.activeDropOffsetPose);
-        public static final Pose2d rightDropPose = new Pose2d(rightTapeMid.getX(),
-                rightTapeMid.getY() - Constants.TapeConstants.tapeLength / 4, startangle)
+        public static final Pose2d rightDropPose = new Pose2d(rightTapeMid.getX() - pixelLRComp,
+                rightTapeMid.getY() + addedYdist, startangle)
                 .plus(Constants.RobotConstants.activeDropOffsetPose);
 
-        public static final Pose2d retPose = new Pose2d(0, -4);
+        public static final Pose2d retPose = new Pose2d(0, -2);
         public static final Pose2d retCPose = new Pose2d(0, -8);
 
         public static final Pose2d leftRetractPose = leftDropPose.plus(retPose);
@@ -110,18 +110,18 @@ public final class FieldConstantsRed {
         public static final Pose2d centerTapeMid = new Pose2d(-36, -24.5);
         public static final Pose2d leftTapeMid = new Pose2d(-47.5, -30);
         public static final Pose2d advancePose = new Pose2d(-36,
-                rightTapeMid.getY() + Constants.TapeConstants.tapeLength / 4, startangle)
+                rightTapeMid.getY() + addedYdist, startangle)
                 .plus(Constants.RobotConstants.activeDropOffsetPose);
-        public static final Pose2d leftDropPose = new Pose2d(leftTapeMid.getX(),
-                leftTapeMid.getY() + Constants.TapeConstants.tapeLength / 4, startangle)
+        public static final Pose2d leftDropPose = new Pose2d(leftTapeMid.getX() + pixelLRComp,
+                leftTapeMid.getY() + addedYdist, startangle)
                 .plus(Constants.RobotConstants.activeDropOffsetPose);
         public static final Pose2d centerDropPose = new Pose2d(centerTapeMid.getX(),
                 centerTapeMid.getY(), startangle).plus(Constants.RobotConstants.activeDropOffsetPose);
-        public static final Pose2d rightDropPose = new Pose2d(rightTapeMid.getX(),
-                rightTapeMid.getY() + Constants.TapeConstants.tapeLength / 4, startangle)
+        public static final Pose2d rightDropPose = new Pose2d(rightTapeMid.getX() - pixelLRComp,
+                rightTapeMid.getY() + addedYdist, startangle)
                 .plus(Constants.RobotConstants.activeDropOffsetPose);
 
-        public static final Pose2d retPose = new Pose2d(0, -4);
+        public static final Pose2d retPose = new Pose2d(0, -2);
 
         public static final Pose2d leftRetractPose = leftDropPose.plus(retPose);
         public static final Pose2d centerRetractPose = centerDropPose.plus(retPose);

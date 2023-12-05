@@ -56,6 +56,7 @@ public final class Constants {
         public static final double MAX_IPM = MAX_MOTOR_RPM * WHEEL_CIRCUMFERENCE_INCH;// 312 *12.57 = 3900 IPM
 
         public static final double MAX_IPS = MAX_IPM / 60;//65 IPS
+        public static final double POSITION_TOLERANCE_INCHES = .25;
 
         public static double MAX_VEL = MAX_IPS * .8;
         public static double MAX_ACCEL = 30;
@@ -67,6 +68,10 @@ public final class Constants {
         public static double TRAJ_ANG_ACCEL = Math.toRadians(40);
 
         public static PIDFCoefficients MOTOR_VELO_PID = new PIDFCoefficients(.1, 0, 0, 0);
+
+        public static double kP = .02;
+        public static double kI = 0;
+        public static double kD = 0;
 
         public static double getMotorVelocityF(double ticksPerSecond) {
             // see https://docs.google.com/document/d/1tyWrXDfMidwYyP_5H4mZyVgaEswhOC35gvdmP-V-5hA/edit#heading=h.61g9ixenznbx
@@ -102,6 +107,18 @@ public final class Constants {
         public static double rpmToVelocity(double rpm) {
             return rpm * GEARBOX_RATIO * 2 * Math.PI * WHEEL_DIAMETER_INCH / 2 / 60.0;
         }
+
+        public static double MAX_AUTO_TURN = 0.3;   //  Clip the turn speed to this max value (adjust for your robot)
+        //  Set the GAIN constants to control the relationship between the measured position error, and how much power is
+        //  applied to the drive motors to correct the error.
+        //  Drive = Error * Gain    Make these values smaller for smoother control, or larger for a more aggressive response.
+        public static double STRAFE_GAIN = 0.015;   //  Strafe Speed Control "Gain".  eg: Ramp up to 25% power at a 25 degree Yaw error.   (0.25 / 25.0)
+        public static double TURN_GAIN = 0.01;   //  Turn Control "Gain".  eg: Ramp up to 25% power at a 25 degree error. (0.25 / 25.0)
+        public static double MAX_AUTO_SPEED = 0.5;   //  Clip the approach speed to this max value (adjust for your robot)
+        public static double MAX_AUTO_STRAFE = 0.5;   //  Clip the approach speed to this max value (adjust for your robot)
+
+        public static double BACKBOARD_DISTANCE_OFFSET = 6;
+
     }
 
     public static final class PixelHandlerConstants {
@@ -109,9 +126,9 @@ public final class Constants {
         public static final double DROP_CLOSED_POSITION = .7;
 
         public enum LeftGripperSet {
-            OPEN(.1),//open position
-            MID(.3),//mid
-            CLOSED(.5);//closed
+            OPEN(.4),//open position
+            MID(.7),//mid
+            CLOSED(.1);//closed
 
             public final double position;
 
@@ -122,9 +139,9 @@ public final class Constants {
 
 
         public enum RightGripperSet {
-            OPEN(.1),
+            OPEN(.2),
             MID(.3),
-            CLOSED(.5);
+            CLOSED(.6);
 
             public final double position;
 
@@ -147,9 +164,11 @@ public final class Constants {
         }
 
         public enum FlipGripperSet {
-            PICKUP(.1),
-            MID(.3),
-            DELIVER(.5);
+            PICKUP(.4),
+            LEFT_DOWN(.2),
+            DELIVER(.16),
+
+            RIGHT_DOWN(.09);
 
             public final double position;
 
@@ -201,10 +220,10 @@ public final class Constants {
         public static final double MAX_VEL = 8;
         public static final double MAX_ACCEL = 6;
 
-        public static double[] armPositionInches = {0, 5.8, 9, 13.6, 14.3, 16.8, 19};
+        public static double[] armPositionInches = {0,0.5, 5.8, 9, 13.6, 14.3, 16.8, 19};
 
 
-        public static double kP = 2.;
+        public static double kP = 1.8;
         public static double kI = 0;
         public static double kD = 0;
 

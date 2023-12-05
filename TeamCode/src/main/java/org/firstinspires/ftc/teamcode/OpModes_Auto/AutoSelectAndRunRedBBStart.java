@@ -171,6 +171,8 @@ public class AutoSelectAndRunRedBBStart extends CommandOpMode {
         af = new AutoFactory(this, drive, phss, arm, vss);
 
         dashboard = FtcDashboard.getInstance();
+
+        phss.closeBothGrippers();
     }
 
     @Override

@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode.Commands.Utils;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 
+import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
+
 public class ActiveMotionValues {
     public static boolean getAprilTagSeen() {
         return aprilTagSeen;
@@ -12,6 +14,16 @@ public class ActiveMotionValues {
     }
 
     private static boolean aprilTagSeen = false;
+
+    private static AprilTagDetection detection;
+
+    public static AprilTagDetection getDetection(){
+        return detection;
+    }
+
+    public static void setDetection(AprilTagDetection detect){
+        detection=detect;
+    }
 
 
     public static int getBaseTag() {
@@ -33,16 +45,6 @@ public class ActiveMotionValues {
     }
 
     private static Pose2d finalTagPose = new Pose2d();
-
-    public static Pose2d getCurrentRobotPose() {
-        return currentRobotPose;
-    }
-
-    public static void setCurrentRobotPose(Pose2d pose) {
-        currentRobotPose = pose;
-    }
-
-    private static Pose2d currentRobotPose = new Pose2d();
 
 
     public static Pose2d getAutoRobotPose() {

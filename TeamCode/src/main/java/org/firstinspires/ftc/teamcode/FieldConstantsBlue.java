@@ -36,7 +36,7 @@ public final class FieldConstantsBlue {
 
         //  public static final Pose2d tagLookAheadPose = new Pose2d(14 , 0, Math.toRadians(0));
 
-        public static final Pose2d tagLookAheadPose = new Pose2d(4 + Constants.RobotConstants.length / 2, 0, Math.toRadians(0));
+        public static final Pose2d tagLookAheadPose = new Pose2d(12 + Constants.RobotConstants.length / 2, 0, Math.toRadians(0));
 
         public static final Pose2d tagStrafeOffsetPose = new Pose2d(-60.25 + 36, 0, 0);
 
@@ -91,7 +91,7 @@ public final class FieldConstantsBlue {
         public static final Pose2d retPose = new Pose2d(0, 2);
         public static final Pose2d retCPose = new Pose2d(0, 8);
 
-        public static final Pose2d leftRetractPose = leftDropPose.plus(retCPose);
+        public static final Pose2d leftRetractPose = leftDropPose.plus(retPose);
         public static final Pose2d centerRetractPose = centerDropPose.plus(retCPose);
         public static final Pose2d rightRetractPose = rightDropPose.plus(retPose);
 

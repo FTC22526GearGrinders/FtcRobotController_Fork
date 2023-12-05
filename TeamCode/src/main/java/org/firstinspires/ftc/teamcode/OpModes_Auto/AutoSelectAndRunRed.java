@@ -176,6 +176,8 @@ public class AutoSelectAndRunRed extends CommandOpMode {
 
         dashboard = FtcDashboard.getInstance();
 
+        phss.closeBothGrippers();
+
     }
 
     @Override

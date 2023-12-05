@@ -13,7 +13,7 @@ public class MeepMeepTesting {
     public static void main(String[] args) {
 
 
-        boolean redAlliance = true;
+        boolean redAlliance = false;
 
         boolean bbstart = true;//aaset to false for start on stack side of truss
 
@@ -77,7 +77,7 @@ public class MeepMeepTesting {
 
                                 .lineToLinearHeading(ActiveMotionValues.getRetractPose())
 
-                             .lineToLinearHeading(ActiveMotionValues.getClearPose())
+                          //   .lineToLinearHeading(ActiveMotionValues.getClearPose())
 
 
                                 .lineToLinearHeading(ActiveMotionValues.getPreTagPose())

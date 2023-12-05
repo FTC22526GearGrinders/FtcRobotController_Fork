@@ -7,7 +7,11 @@ import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
+import org.firstinspires.ftc.teamcode.Constants;
+import org.firstinspires.ftc.teamcode.FieldConstantsBlue;
+import org.firstinspires.ftc.teamcode.FieldConstantsRed;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
+import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 
 
 public class RunToAprilTag extends CommandBase {
@@ -28,6 +32,8 @@ public class RunToAprilTag extends CommandBase {
 
     Pose2d finalPose = new Pose2d();
 
+    AprilTagDetection detection;
+
     public RunToAprilTag(Drive_Subsystem drive, CommandOpMode opMode) {
         this.drive = drive;
         myOpMode = opMode;
@@ -41,14 +47,27 @@ public class RunToAprilTag extends CommandBase {
         myOpMode.telemetry.addData("RunToTagInit", "");
         myOpMode.telemetry.update();
         et = new ElapsedTime();
+        detection = ActiveMotionValues.getDetection();
 
-        currentRobotPose = ActiveMotionValues.getCurrentRobotPose();
+        Pose2d camPose = new Pose2d(detection.ftcPose.y, detection.ftcPose.x, Math.toRadians(detection.ftcPose.yaw));
+
+        Pose2d tagPose = new Pose2d();
+
+        if (ActiveMotionValues.getRedAlliance())
+            tagPose = FieldConstantsRed.getActiveTagPose(ActiveMotionValues.getActTag());
+        else
+            tagPose = FieldConstantsBlue.getActiveTagPose(ActiveMotionValues.getActTag());
+
+        Pose2d camFieldPose = tagPose.minus(camPose);
+
+        Pose2d currentRobotPose = camFieldPose.minus(Constants.RobotConstants.kCameraToRobot);
+
+        Pose2d finalTagPose = tagPose;
+
+        ActiveMotionValues.setFinalTagPose(tagPose);
 
         double robotDistance = currentRobotPose.getY();
 
-
-
-        finalPose = ActiveMotionValues.getFinalTagPose();
 
         tagTraj = drive.drive.trajectoryBuilder(currentRobotPose)
                 .lineToLinearHeading(finalPose)

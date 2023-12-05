@@ -20,6 +20,7 @@ public class PositionHoldArm extends CommandBase {
     @Override
     public void initialize() {
         double temp = arm.getPositionInches();
+       // if (temp < .25) temp = .25;
         arm.profController.setGoal(temp);
 
     }

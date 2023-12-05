@@ -2,12 +2,15 @@ package org.firstinspires.ftc.teamcode.Subsystems;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.SubsystemBase;
+import com.arcrobotics.ftclib.controller.wpilibcontroller.ProfiledPIDController;
+import com.arcrobotics.ftclib.trajectory.TrapezoidProfile;
 import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.Commands.Trajectories.trajectorysequence.TrajectorySequence;
 
@@ -37,6 +40,8 @@ public class Drive_Subsystem extends SubsystemBase {
 
     Rev2mDistanceSensor sensorTimeOfFlight;
 
+    public ProfiledPIDController profController;
+
 
     public Drive_Subsystem(CommandOpMode opMode) {
         myOpmode = opMode;
@@ -51,6 +56,14 @@ public class Drive_Subsystem extends SubsystemBase {
        sensorTimeOfFlight = (Rev2mDistanceSensor) sensorDistance;
 
         runtime.reset();
+
+        profController = new ProfiledPIDController(
+                Constants.DriveConstants.kP, Constants.DriveConstants.kI, Constants.DriveConstants.kD,
+                new TrapezoidProfile.Constraints(Constants.DriveConstants.MAX_VEL, Constants.DriveConstants.MAX_ACCEL));
+
+        profController.setTolerance(Constants.DriveConstants.POSITION_TOLERANCE_INCHES);
+
+        profController.reset(0);
     }
 
     public void periodic() {
@@ -58,9 +71,42 @@ public class Drive_Subsystem extends SubsystemBase {
 
     }
 
+    public void setPositionKp(double kp) {
+        profController.setP(kp);
+    }
+
+    public double getPositionKp() {
+        return profController.getP();
+    }
+
+    public double getPositionKi() {
+        return profController.getD();
+    }
+
+    public void setPositionKi(double ki) {
+        profController.setI(ki);
+    }
+
+    public double getPositionKd() {
+        return profController.getD();
+    }
+
+    public void setPositionKd(double kd) {
+        profController.setD(kd);
+    }
+
+    public void setTrapConstraints(double vel, double acc) {
+        profController.setConstraints(new TrapezoidProfile.Constraints(vel, acc));
+    }
+
+    public double getSensorInches(){
+        return sensorDistance.getDistance(DistanceUnit.INCH);
+    }
+
+
     public void showtelemetry(Telemetry telemetry) {
 
-        telemetry.addData("range", String.format("%.01f in", sensorDistance.getDistance(DistanceUnit.INCH)));
+        telemetry.addData("range", String.format("%.01f in",getSensorInches() ));
 
         // Rev2mDistanceSensor specific methods.
         telemetry.addData("ID", String.format("%x", sensorTimeOfFlight.getModelID()));
