@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.Constants;
 public class DroneCatapultSubsystem extends SubsystemBase {
 
 
-    Servo catapult;
+   public Servo catapult;
 
 
 
@@ -47,12 +47,6 @@ public class DroneCatapultSubsystem extends SubsystemBase {
 
     }
 
-    public void setCatapultDirection(boolean fwd) {
-        if (fwd)
-            catapult.setDirection(Servo.Direction.FORWARD);
-        else
-            catapult.setDirection(Servo.Direction.REVERSE);
-    }
 
 
 

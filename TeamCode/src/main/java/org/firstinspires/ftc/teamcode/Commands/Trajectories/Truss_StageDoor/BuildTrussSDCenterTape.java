@@ -40,6 +40,8 @@ public class BuildTrussSDCenterTape extends CommandBase {
 
                 .lineToLinearHeading(ActiveMotionValues.getOptionStopPose())
 
+                .waitSeconds(.5)
+
                 .lineToLinearHeading(ActiveMotionValues.getOptionTargetPose())
 
                 .build();

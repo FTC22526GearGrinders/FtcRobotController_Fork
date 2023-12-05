@@ -72,7 +72,6 @@ public class RunToBackboard extends CommandBase {
                 .lineToLinearHeading(finalPose)
                 .build();
 
-
         drive.drive.setPoseEstimate(currentRobotPose);
 
         drive.drive.followTrajectory(tagTraj);
