@@ -27,6 +27,8 @@ public class AutoActionsSequences extends SequentialCommandGroup {
 
                 new SequentialCommandGroup(
 
+                        new InstantCommand(()->arm.setArmDeliverLevel(1)),
+
                         af.getTeamProp(),
 
                         af.getAllianceData(opMode, red),
