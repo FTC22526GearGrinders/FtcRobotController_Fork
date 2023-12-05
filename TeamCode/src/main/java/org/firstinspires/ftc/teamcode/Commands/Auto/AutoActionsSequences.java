@@ -27,7 +27,7 @@ public class AutoActionsSequences extends SequentialCommandGroup {
 
                 new SequentialCommandGroup(
 
-                        new InstantCommand(()->arm.setArmDeliverLevel(1)),
+                        new InstantCommand(() -> arm.setArmDeliverLevel(1)),
 
                         af.getTeamProp(),
 
@@ -43,23 +43,29 @@ public class AutoActionsSequences extends SequentialCommandGroup {
 
                                                 new PositionArm(arm, Constants.ArmConstants.AUTO_DELIVER_POSITION),
 
-                                                new InstantCommand(()->phss.flipGrippersToDeliver()),
+                                                new InstantCommand(() -> phss.flipGrippersToDeliver()),
 
-                                                new InstantCommand(() -> phss.turnGrippersToDeliver())),
+                                                new InstantCommand(() -> phss.raiseGrippersToDeliver())),
 
                                         new WaitCommand(500),
 
                                         af.detectAndMoveToAprilTag(),
 
+                                        new InstantCommand(()->phss.flipGrippersToLeftDown()),
+
                                         new WaitCommand(500),
 
-                                        new InstantCommand(() -> phss.openBothGrippers()),
+                                        new InstantCommand(phss::openLeftGripper),
 
                                         new WaitCommand(500),
 
                                         new ParallelCommandGroup(
 
-                                                new InstantCommand(() -> phss.closeBothGrippers()),
+                                                new InstantCommand(phss::closeBothGrippers),
+
+                                                new InstantCommand(phss::flipGrippersToPickup),
+
+                                                new InstantCommand(phss::flipGrippersToPickup),
 
                                                 new PositionArm(arm, Constants.ArmConstants.HOME_POSITION),
 

@@ -8,7 +8,7 @@ import com.arcrobotics.ftclib.command.ParallelRaceGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 
 import org.firstinspires.ftc.teamcode.Commands.Drive.MoveToPark;
-import org.firstinspires.ftc.teamcode.Commands.Drive.RunToAprilTag;
+import org.firstinspires.ftc.teamcode.Commands.Drive.RunToBackboard;
 import org.firstinspires.ftc.teamcode.Commands.Trajectories.LogTrajectory;
 import org.firstinspires.ftc.teamcode.Commands.Trajectories.RunTrajSequence;
 import org.firstinspires.ftc.teamcode.Commands.Trajectories.SelectAndBuildTrajectory;
@@ -72,7 +72,7 @@ public class AutoFactory extends CommandBase {
     public Command detectAndMoveToAprilTag() {
         return new SequentialCommandGroup(
                 new DetectAprilTags(opMode, vss, false),
-                new RunToAprilTag(drive, opMode));
+                new RunToBackboard(drive, opMode));
     }
 
     public Command getTeamProp() {

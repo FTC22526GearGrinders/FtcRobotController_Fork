@@ -213,13 +213,11 @@ public final class Constants {
         public static final int LOWER_POSITION_LIMIT = -1;
 
         public static final double JOG_UP_POWER = +.5;
-
         public static final double JOG_DOWN_POWER = -.4;
         public static final double AUTO_DELIVER_POSITION = 7.5;
         public static final double HOME_POSITION = 1;
         public static final double MAX_VEL = 8;
         public static final double MAX_ACCEL = 6;
-
         public static double[] armPositionInches = {0,0.5, 5.8, 9, 13.6, 14.3, 16.8, 19};
 
 
@@ -263,6 +261,11 @@ public final class Constants {
         public static double kD = 0;
 
         public static double POSITION_Kg = 0;
+
+        public static double CLEAR_BAR_HEIGHT = 14;
+
+        public static double RAISe_ROBOT_HEIGHT = 10;
+
 
     }
 

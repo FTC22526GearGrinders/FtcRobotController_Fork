@@ -120,7 +120,7 @@ public class PixelHandlerSubsystem extends SubsystemBase {
         closeRightGripper();
     }
 
-    public void turnGrippersToDeliver() {
+    public void raiseGrippersToDeliver() {
         turnGrippers.setPosition(Constants.PixelHandlerConstants.TurnGripperSet.DELIVER.position);
         turnGrippersPosition = Constants.PixelHandlerConstants.TurnGripperSet.DELIVER.position;
     }
@@ -128,7 +128,7 @@ public class PixelHandlerSubsystem extends SubsystemBase {
         turnGrippers.setPosition(Constants.PixelHandlerConstants.TurnGripperSet.MID.position);
         turnGrippersPosition = Constants.PixelHandlerConstants.TurnGripperSet.MID.position;
     }
-    public void turnGrippersToPickup() {
+    public void lowerGrippersToPickup() {
         turnGrippers.setPosition(Constants.PixelHandlerConstants.TurnGripperSet.PICKUP.position);
         turnGrippersPosition = Constants.PixelHandlerConstants.TurnGripperSet.PICKUP.position;
     }

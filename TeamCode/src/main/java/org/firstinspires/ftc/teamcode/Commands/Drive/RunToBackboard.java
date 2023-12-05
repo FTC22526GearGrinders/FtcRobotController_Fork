@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 
 
-public class RunToAprilTag extends CommandBase {
+public class RunToBackboard extends CommandBase {
     private Drive_Subsystem drive;
 
 
@@ -34,7 +34,7 @@ public class RunToAprilTag extends CommandBase {
 
     AprilTagDetection detection;
 
-    public RunToAprilTag(Drive_Subsystem drive, CommandOpMode opMode) {
+    public RunToBackboard(Drive_Subsystem drive, CommandOpMode opMode) {
         this.drive = drive;
         myOpMode = opMode;
         addRequirements(drive);
@@ -62,12 +62,11 @@ public class RunToAprilTag extends CommandBase {
 
         Pose2d currentRobotPose = camFieldPose.minus(Constants.RobotConstants.kCameraToRobot);
 
-        Pose2d finalTagPose = tagPose;
+        Pose2d finalTagPose = tagPose.minus(new Pose2d(0, Constants.DriveConstants.BACKBOARD_DISTANCE_OFFSET));
 
         ActiveMotionValues.setFinalTagPose(tagPose);
 
         double robotDistance = currentRobotPose.getY();
-
 
         tagTraj = drive.drive.trajectoryBuilder(currentRobotPose)
                 .lineToLinearHeading(finalPose)

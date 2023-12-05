@@ -63,11 +63,11 @@ public class ClimberSubsystem extends SubsystemBase {
     }
 
     public void climberToClearBar(){
-        profController.setGoal(14);
+        profController.setGoal(Constants.ClimberConstants.CLEAR_BAR_HEIGHT);
     }
 
     public void climberToLiftPosition(){
-        profController.setGoal(10);
+        profController.setGoal(Constants.ClimberConstants.RAISe_ROBOT_HEIGHT);
     }
 
 

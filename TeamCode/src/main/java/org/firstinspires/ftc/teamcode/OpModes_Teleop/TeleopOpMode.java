@@ -90,7 +90,7 @@ public class TeleopOpMode extends CommandOpMode {
                 new SequentialCommandGroup(
                         new InstantCommand(() -> phss.flipGrippersToPickup()),
                         new WaitCommand(500),
-                        new InstantCommand(() -> phss.turnGrippersToPickup())));
+                        new InstantCommand(() -> phss.lowerGrippersToPickup())));
 
         driver.getGamepadButton(GamepadKeys.Button.B).whenPressed(new InstantCommand(() -> arm.incArmDeleiveryLeve()));
 
@@ -98,7 +98,7 @@ public class TeleopOpMode extends CommandOpMode {
 
         driver.getGamepadButton(GamepadKeys.Button.Y).whenPressed(
                 new SequentialCommandGroup(
-                        new InstantCommand(() -> phss.turnGrippersToDeliver()),
+                        new InstantCommand(() -> phss.raiseGrippersToDeliver()),
                         new WaitCommand(1000),
                         new InstantCommand(() -> phss.flipGrippersToDeliver())));
 
