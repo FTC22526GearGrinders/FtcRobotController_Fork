@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 
 
-public class RunToBackboard extends CommandBase {
+public class TrajectoryToBackboard extends CommandBase {
     private Drive_Subsystem drive;
 
 
@@ -34,7 +34,7 @@ public class RunToBackboard extends CommandBase {
 
     AprilTagDetection detection;
 
-    public RunToBackboard(Drive_Subsystem drive, CommandOpMode opMode) {
+    public TrajectoryToBackboard(Drive_Subsystem drive, CommandOpMode opMode) {
         this.drive = drive;
         myOpMode = opMode;
         addRequirements(drive);

@@ -46,6 +46,13 @@ public class Drive_Subsystem extends SubsystemBase {
     public ProfiledPIDController profController;
 
 
+    public double strafe_gain = Constants.DriveConstants.STRAFE_GAIN;
+    public double turn_gain = Constants.DriveConstants.TURN_GAIN;
+
+    //  Turn Control "Gain".  eg: Ramp up to 25% power at a 25 degree error. (0.25 / 25.0)
+
+   public double stopDistanceFromTag = 5;
+
     public Drive_Subsystem(CommandOpMode opMode) {
         myOpmode = opMode;
         runtime.reset();
@@ -103,6 +110,22 @@ public class Drive_Subsystem extends SubsystemBase {
 
     public void setTrapConstraints(double vel, double acc) {
         profController.setConstraints(new TrapezoidProfile.Constraints(vel, acc));
+    }
+
+    public double getStrafe_gain() {
+        return strafe_gain;
+    }
+
+    public void setStrafe_gain(double gain) {
+        strafe_gain = gain;
+    }
+
+    public double getTurn_gain() {
+        return turn_gain;
+    }
+
+    public void setTurn_gain(double gain) {
+        turn_gain = gain;
     }
 
     public double getSensorInches() {

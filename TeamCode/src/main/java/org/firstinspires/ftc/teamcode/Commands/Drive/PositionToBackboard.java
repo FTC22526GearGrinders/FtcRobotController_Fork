@@ -13,20 +13,20 @@ import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 public class PositionToBackboard extends CommandBase {
     private final Drive_Subsystem drive;
     private AprilTagDetection detection;
-   
-    public static double MAX_AUTO_TURN = Constants.DriveConstants.MAX_AUTO_TURN;
-    static double STRAFE_GAIN = Constants.DriveConstants.STRAFE_GAIN;
-    static double TURN_GAIN = Constants.DriveConstants.TURN_GAIN;   //  Turn Control "Gain".  eg: Ramp up to 25% power at a 25 degree error. (0.25 / 25.0)
-    static double MAX_AUTO_SPEED = Constants.DriveConstants.MAX_AUTO_SPEED;  //  Clip the approach speed to this max value (adjust for your robot)
-    static double MAX_AUTO_STRAFE = Constants.DriveConstants.MAX_AUTO_STRAFE;   //  Clip the approach speed to this max value (adjust for your robot)
+
+    public static double max_auto_turn = Constants.DriveConstants.MAX_AUTO_TURN;
+
+    double max_auto_speed = Constants.DriveConstants.MAX_AUTO_SPEED;  //  Clip the approach speed to this max value (adjust for your robot)
+    double max_auto_strafe = Constants.DriveConstants.MAX_AUTO_STRAFE;   //  Clip the approach speed to this max value (adjust for your robot)
 
     double forward = 0;        // Desired forward power/speed (-1 to +1)
-    double strafe = 0;        // Desired strafe power/speed (-1 to +1)
-    double turn = 0;
+    double strafe = 0.5;        // Desired strafe power/speed (-1 to +1)
+    double turn = 0.5;
 
     double headingError;
 
     double yawError;
+
 
     public PositionToBackboard(Drive_Subsystem drive) {
         this.drive = drive;
@@ -36,40 +36,30 @@ public class PositionToBackboard extends CommandBase {
     public void initialize() {
         drive.drive.resetEncoders();
         drive.drive.setPoseEstimate(new Pose2d());
-        detection = ActiveMotionValues.getDetection();
-
-        double sensorOffset = 2;//??????????????
-
-        double sensorDistance = drive.getAveSensorInches();
-
-        double angleDistance = sensorDistance - Constants.DriveConstants.AT_BACKBOARD_ANGLE_DISTANCE;
-
-        double robotDistance = angleDistance * Math.sin(Math.toRadians(60)) - sensorOffset;
-
-        drive.profController.setGoal(robotDistance);
-
-
-        // Determine heading and Yaw (tag image rotation) error so we can use them to control the robot automatically.
-
-        headingError = detection.ftcPose.bearing;
-
-        yawError = detection.ftcPose.yaw;
-
     }
 
     @Override
     public void execute() {
 
+        if (ActiveMotionValues.getAprilTagSeen())
 
-        // Use the speed and turn "gains" to calculate how we want the robot to move.
+            detection = ActiveMotionValues.getDetection();
+
+        headingError = detection.ftcPose.bearing;
+
+        yawError = detection.ftcPose.yaw;
+
+        drive.profController.setGoal(detection.ftcPose.range - drive.stopDistanceFromTag);
+
         forward = drive.profController.calculate(drive.drive.getPoseEstimate().getX());
 
-        turn = Range.clip(headingError * TURN_GAIN, -MAX_AUTO_TURN, MAX_AUTO_TURN);
+        turn = Range.clip(headingError * drive.turn_gain, -max_auto_turn, max_auto_turn);
 
-        strafe = Range.clip(-yawError * STRAFE_GAIN, -MAX_AUTO_STRAFE, MAX_AUTO_STRAFE);
-
+        strafe = Range.clip(-yawError * drive.strafe_gain, -max_auto_strafe, max_auto_strafe);
 
         moveRobot(forward, strafe, turn);
+
+        //  drive.drive.jog(forward,strafe,turn);
 
     }
 
@@ -80,7 +70,7 @@ public class PositionToBackboard extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return false;
+        return drive.profController.atGoal();
     }
 
     public void moveRobot(double x, double y, double yaw) {

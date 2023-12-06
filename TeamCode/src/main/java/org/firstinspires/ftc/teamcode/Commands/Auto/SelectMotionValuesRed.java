@@ -31,8 +31,9 @@ public class SelectMotionValuesRed extends CommandBase {
         ActiveMotionValues.setStrafeDistance(0);
         ActiveMotionValues.setAdvancePose(new Pose2d());
         ActiveMotionValues.setClearPose(new Pose2d());
-
         ActiveMotionValues.setParkPose(new Pose2d());
+
+        ActiveMotionValues.setStopSecs(.1);
 
 
         if (lcr < 1 || lcr > 3) lcr = 1;
@@ -267,10 +268,9 @@ public class SelectMotionValuesRed extends CommandBase {
                 ActiveMotionValues.setOptionTargetPose(FieldConstantsRed.nearParkPose);
 
             else {
-
+                ActiveMotionValues.setStopSecs(10);
                 ActiveMotionValues.setOptionTargetPose(FieldConstantsRed.getActiveTagPose(ActiveMotionValues.getActTag())
                         .plus(FieldConstantsRed.AprilTagConstants.tagStrafeOffsetPose));
-
             }
         }
 

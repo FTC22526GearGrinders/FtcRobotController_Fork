@@ -57,13 +57,15 @@ public class DetectAprilTags extends CommandBase {
         for (AprilTagDetection detection : currentDetections) {
             if (detection.metadata != null) {
                 tagsSeen = true;
+
+
                 ActiveMotionValues.setAprilTagSeen(false);
 
                 if (detection.id == n) {
 
-                    ActiveMotionValues.setAprilTagSeen(true);
-
                     ActiveMotionValues.setDetection(detection);
+
+                    ActiveMotionValues.setAprilTagSeen(true);
 
                     Pose2d camPose = new Pose2d(detection.ftcPose.y, detection.ftcPose.x, Math.toRadians(detection.ftcPose.yaw));
 

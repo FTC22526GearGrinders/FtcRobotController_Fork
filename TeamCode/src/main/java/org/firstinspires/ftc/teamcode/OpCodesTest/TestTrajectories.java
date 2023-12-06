@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Commands.Auto.DetectAprilTags;
 import org.firstinspires.ftc.teamcode.Commands.Auto.SelectMotionValuesRed;
-import org.firstinspires.ftc.teamcode.Commands.Drive.RunToBackboard;
+import org.firstinspires.ftc.teamcode.Commands.Drive.TrajectoryToBackboard;
 import org.firstinspires.ftc.teamcode.Commands.Trajectories.RunTrajSequence;
 import org.firstinspires.ftc.teamcode.Commands.Trajectories.SelectAndBuildTrajectory;
 import org.firstinspires.ftc.teamcode.Commands.Trajectories.ShowTrajectoryInfo;
@@ -64,7 +64,7 @@ public class TestTrajectories extends CommandOpMode {
                 new RunTrajSequence(drive, this),
                 new DetectAprilTags(this, vss, false),
                 new ConditionalCommand(
-                        new RunToBackboard(drive, this),
+                        new TrajectoryToBackboard(drive, this),
                         new DoNothing(),
                         () -> ActiveMotionValues.getAprilTagSeen())).schedule();
     }

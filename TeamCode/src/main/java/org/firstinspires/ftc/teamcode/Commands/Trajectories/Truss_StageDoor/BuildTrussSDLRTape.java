@@ -84,7 +84,7 @@ public class BuildTrussSDLRTape extends CommandBase {
 
                         .lineToLinearHeading(ActiveMotionValues.getOptionStopPose())
 
-                        .waitSeconds(.5)
+                        .waitSeconds(ActiveMotionValues.getStopSecs())
 
                         .lineToLinearHeading(ActiveMotionValues.getOptionTargetPose())
 

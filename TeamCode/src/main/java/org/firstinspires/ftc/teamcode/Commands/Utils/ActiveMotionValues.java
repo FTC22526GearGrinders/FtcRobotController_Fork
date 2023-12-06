@@ -5,6 +5,16 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 
 public class ActiveMotionValues {
+
+    public static double getStopSecs() {
+        return stopSecs;
+    }
+
+    public static void setStopSecs(double secs) {stopSecs = secs;
+    }
+
+    public static double stopSecs=.1;
+
     public static boolean getAprilTagSeen() {
         return aprilTagSeen;
     }
