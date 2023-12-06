@@ -57,6 +57,9 @@ public final class Constants {
 
         public static final double MAX_IPS = MAX_IPM / 60;//65 IPS
         public static final double POSITION_TOLERANCE_INCHES = .25;
+        public static final double AT_BACKBOARD_ANGLE_DISTANCE = 6;
+        public static final double POSN_VEL = 4 ;
+        public static final double POSN_ACCEL = 4 ;
 
         public static double MAX_VEL = MAX_IPS * .8;
         public static double MAX_ACCEL = 30;
@@ -245,8 +248,8 @@ public final class Constants {
         public static final double MOTOR_REVS_PER_INCH = GEARING_RATIO;
         public static final double MAX_INCHES_PER_SECOND = MAX_MOTOR_RPSEC / GEARING_RATIO;
         public static final double POSITION_TOLERANCE_INCHES = .25;
-        public static final double UPPER_POSITION_LIMIT = 27.00;
-        public static final int LOWER_POSITION_LIMIT = -1;
+        public static final double UPPER_POSITION_LIMIT = 18.00;
+        public static final int LOWER_POSITION_LIMIT = 0;
 
         public static final double JOG_UP_POWER = +.5;
 

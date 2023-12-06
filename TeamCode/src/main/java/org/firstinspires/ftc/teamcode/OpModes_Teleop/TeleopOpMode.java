@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.OpModes_Teleop;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.arcrobotics.ftclib.command.CommandOpMode;
-import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
@@ -13,7 +12,9 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Commands.Arm.JogArm;
 import org.firstinspires.ftc.teamcode.Commands.Climber.JogClimber;
+import org.firstinspires.ftc.teamcode.Commands.Drive.CancelJog2;
 import org.firstinspires.ftc.teamcode.Commands.Drive.JogDrive;
+import org.firstinspires.ftc.teamcode.Commands.Drive.JogDrive2;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
 import org.firstinspires.ftc.teamcode.Subsystems.ArmSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.ClimberSubsystem;
@@ -68,12 +69,7 @@ public class TeleopOpMode extends CommandOpMode {
 
         //DEFAULT COMMANDS
 
-        drive.setDefaultCommand(new JogDrive(this.drive, driver, false));
-
-        if (ActiveMotionValues.getRedAlliance())
-            ActiveMotionValues.setBaseTag(4);
-        else ActiveMotionValues.setBaseTag(1);
-
+        drive.setDefaultCommand(new JogDrive(this.drive, driver));
 
 /**
  * Driver gamepad assignmnents
@@ -92,7 +88,7 @@ public class TeleopOpMode extends CommandOpMode {
                         new WaitCommand(500),
                         new InstantCommand(() -> phss.lowerGrippersToPickup())));
 
-        driver.getGamepadButton(GamepadKeys.Button.B).whenPressed(new InstantCommand(() -> arm.incArmDeleiveryLeve()));
+        driver.getGamepadButton(GamepadKeys.Button.B).whenPressed(new InstantCommand(() -> arm.incArmDeliveryLeve()));
 
         driver.getGamepadButton(GamepadKeys.Button.X).whenPressed(new InstantCommand(() -> arm.setArmDeliverLevel(0)));
 
@@ -110,20 +106,18 @@ public class TeleopOpMode extends CommandOpMode {
         driver.getGamepadButton(GamepadKeys.Button.START).whenPressed(
                 new InstantCommand(() -> drive.drive.toggleFieldCentric()));
 
-        //  driver.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT).whenPressed(
+        driver.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT).whenPressed(new InstantCommand(() -> phss.flipGrippersToRightDown()));
 
 
-        //  driver.getGamepadButton(GamepadKeys.Button.DPAD_LEFT).whenPressed(
+        driver.getGamepadButton(GamepadKeys.Button.DPAD_LEFT).whenPressed(new InstantCommand(() -> phss.flipGrippersToLeftDown()));
 
-        driver.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenPressed(
-                new InstantCommand(() -> climber.climberToClearBar()));
-
-
-        driver.getGamepadButton(GamepadKeys.Button.DPAD_DOWN).whenPressed(
-                new InstantCommand(() -> climber.climberToLiftPosition()));
+         driver.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenPressed(new InstantCommand(() -> phss.flipGrippersToDeliver()));
 
 
-        // driver.getGamepadButton(GamepadKeys.Button.BACK).whenPressed(
+        //   driver.getGamepadButton(GamepadKeys.Button.DPAD_DOWN).whenPressed(
+
+
+        driver.getGamepadButton(GamepadKeys.Button.BACK).whenPressed(new CancelJog2(drive));
 
 
         // driver.getGamepadButton(GamepadKeys.Button.LEFT_STICK_BUTTON)
@@ -141,36 +135,36 @@ public class TeleopOpMode extends CommandOpMode {
                 coDriver, GamepadKeys.Trigger.RIGHT_TRIGGER);
 
 
-        coDriver.getGamepadButton(GamepadKeys.Button.A).whenPressed(new InstantCommand(() -> arm.decArmDeleiveryLeve()));
+        // coDriver.getGamepadButton(GamepadKeys.Button.A).whenPressed(
 
-        coDriver.getGamepadButton(GamepadKeys.Button.B).whenPressed(new InstantCommand(() -> arm.setArmDeliverLevel(0)));
+        coDriver.getGamepadButton(GamepadKeys.Button.B).whenPressed(new InstantCommand(() -> dcatss.releaseCatapult()));
 
-        //       coDriver.getGamepadButton(GamepadKeys.Button.X).whenPressed(
+        coDriver.getGamepadButton(GamepadKeys.Button.X).whenPressed(new InstantCommand(() -> climber.climberToClearBar()));
 
-        coDriver.getGamepadButton(GamepadKeys.Button.Y).whenPressed(new InstantCommand(() -> arm.incArmDeleiveryLeve()));
-
-
-        coDriver.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whileHeld(
-                new JogArm(arm, coDriver));
+        coDriver.getGamepadButton(GamepadKeys.Button.Y).whenPressed(new InstantCommand(() -> climber.climberToLiftPosition()));
 
 
-        coDriver.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER).whenPressed(new InstantCommand(() -> teleSwitch++));
+        // coDriver.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER).whileHeld(
 
 
-        //coDriver.getGamepadButton(GamepadKeys.Button.START).whenPressed(
+        coDriver.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenPressed(new JogDrive2(drive, coDriver));
 
 
-        //coDriver.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT).whenPressed(
+        coDriver.getGamepadButton(GamepadKeys.Button.BACK).whenPressed(new CancelJog2(drive));
+
+
+        coDriver.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT).whenPressed(new InstantCommand(() -> teleSwitch++));
 
         // coDriver.getGamepadButton(GamepadKeys.Button.DPAD_LEFT).whenPressed(
 
 
         coDriver.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenHeld(new JogClimber(climber, coDriver));
 
-//        coDriver.getGamepadButton(GamepadKeys.Button.DPAD_DOWN).whenHeld(new JogArm(arm, false));
+        coDriver.getGamepadButton(GamepadKeys.Button.DPAD_DOWN).whenHeld(new JogArm(arm, coDriver));
 
-//        coDriver.getGamepadButton(GamepadKeys.Button.BACK).whenPressed(
 
+        coDriver.getGamepadButton(GamepadKeys.Button.START).whenPressed(
+                new InstantCommand(() -> drive.drive.toggleFieldCentric()));
 
         // coDriver.getGamepadButton(GamepadKeys.Button.LEFT_STICK_BUTTON)
         //
@@ -209,8 +203,10 @@ public class TeleopOpMode extends CommandOpMode {
 
         if (drrt.wasJustPressed()) new InstantCommand(() -> phss.closeRightGripper()).schedule();
 
-//        if (cdlt.wasJustPressed())
-//        if (cdrt.wasJustPressed())
+        //if (cdlt.isDown())
+
+
+        // if (cdrt.wasJustPressed())
 
 
         telemetry.update();

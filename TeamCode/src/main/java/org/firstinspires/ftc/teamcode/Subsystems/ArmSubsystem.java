@@ -92,12 +92,12 @@ public class ArmSubsystem extends SubsystemBase {
 
     }
 
-    public void incArmDeleiveryLeve() {
+    public void incArmDeliveryLeve() {
         int n = armDeliverLevel;
         setArmDeliverLevel(n + 1);
     }
 
-    public void decArmDeleiveryLeve() {
+    public void decArmDeliveryLeve() {
         int n = armDeliverLevel;
         setArmDeliverLevel(n - 1);
     }

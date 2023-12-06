@@ -6,13 +6,13 @@ import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
 
 
-public class JogDrive extends CommandBase {
+public class JogDrive2 extends CommandBase {
     private Drive_Subsystem drive;
+
 
     private GamepadEx gamepad;
 
-
-    public JogDrive(Drive_Subsystem drive, GamepadEx gamepad) {
+    public JogDrive2(Drive_Subsystem drive, GamepadEx gamepad) {
         this.drive = drive;
         this.gamepad = gamepad;
         addRequirements(this.drive);

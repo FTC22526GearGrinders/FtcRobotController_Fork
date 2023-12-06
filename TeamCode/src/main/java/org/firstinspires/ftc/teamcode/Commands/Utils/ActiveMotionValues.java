@@ -26,16 +26,6 @@ public class ActiveMotionValues {
     }
 
 
-    public static int getBaseTag() {
-        return baseTag;
-    }
-
-    public static void setBaseTag(int tag) {
-        baseTag = tag;
-    }
-
-    private static int baseTag = 1;
-
     public static Pose2d getFinalTagPose() {
         return finalTagPose;
     }
@@ -45,18 +35,6 @@ public class ActiveMotionValues {
     }
 
     private static Pose2d finalTagPose = new Pose2d();
-
-
-    public static Pose2d getAutoRobotPose() {
-        return autoRobotPose;
-    }
-
-    public static void setAutoRobotPose(Pose2d pose) {
-        autoRobotPose = pose;
-    }
-
-    private static Pose2d autoRobotPose = new Pose2d();
-
 
     public static Pose2d getTrussSDLineUpPose() {
         return trussSDLineUpPose;

@@ -10,16 +10,17 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.teamcode.Commands.Trajectories.trajectorysequence.TrajectorySequence;
+import org.firstinspires.ftc.teamcode.Commands.Utils.RollingAverage;
 import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
-import org.firstinspires.ftc.teamcode.Commands.Trajectories.trajectorysequence.TrajectorySequence;
 
 
 public class Drive_Subsystem extends SubsystemBase {
 
     public TrajectorySequence currentTrajSeq = null;
-    public String trajName ="";
-    public String runningTrajName="";
+    public String trajName = "";
+    public String runningTrajName = "";
     public boolean trajectoryBuilt;
     public boolean trajectoryBuilding;
 
@@ -38,6 +39,8 @@ public class Drive_Subsystem extends SubsystemBase {
 
     private DistanceSensor sensorDistance;
 
+    private RollingAverage rollingAverage;
+
     Rev2mDistanceSensor sensorTimeOfFlight;
 
     public ProfiledPIDController profController;
@@ -53,13 +56,15 @@ public class Drive_Subsystem extends SubsystemBase {
         // you can use this as a regular DistanceSensor.
         sensorDistance = myOpmode.hardwareMap.get(DistanceSensor.class, "sensor_distance");
 
-       sensorTimeOfFlight = (Rev2mDistanceSensor) sensorDistance;
+        sensorTimeOfFlight = (Rev2mDistanceSensor) sensorDistance;
+
+        rollingAverage = new RollingAverage(5);
 
         runtime.reset();
 
         profController = new ProfiledPIDController(
                 Constants.DriveConstants.kP, Constants.DriveConstants.kI, Constants.DriveConstants.kD,
-                new TrapezoidProfile.Constraints(Constants.DriveConstants.MAX_VEL, Constants.DriveConstants.MAX_ACCEL));
+                new TrapezoidProfile.Constraints(Constants.DriveConstants.POSN_VEL, Constants.DriveConstants.POSN_ACCEL));
 
         profController.setTolerance(Constants.DriveConstants.POSITION_TOLERANCE_INCHES);
 
@@ -68,6 +73,7 @@ public class Drive_Subsystem extends SubsystemBase {
 
     public void periodic() {
 
+        rollingAverage.add(getSensorInches());
 
     }
 
@@ -99,14 +105,18 @@ public class Drive_Subsystem extends SubsystemBase {
         profController.setConstraints(new TrapezoidProfile.Constraints(vel, acc));
     }
 
-    public double getSensorInches(){
+    public double getSensorInches() {
         return sensorDistance.getDistance(DistanceUnit.INCH);
+    }
+
+    public double getAveSensorInches() {
+        return rollingAverage.getAverage();
     }
 
 
     public void showtelemetry(Telemetry telemetry) {
 
-        telemetry.addData("range", String.format("%.01f in",getSensorInches() ));
+        telemetry.addData("range", String.format("%.01f in", getSensorInches()));
 
         // Rev2mDistanceSensor specific methods.
         telemetry.addData("ID", String.format("%x", sensorTimeOfFlight.getModelID()));
