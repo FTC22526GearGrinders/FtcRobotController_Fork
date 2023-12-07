@@ -52,7 +52,7 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
  */
 @Config
 @TeleOp(name = "Auto: Test AprilTag OPENCV ", group = "Test")
-//@Disabled
+@Disabled
 public class TestAprilTagsOpenCV extends CommandOpMode {
 
     private static final boolean USE_WEBCAM = true;  // true for webcam, false for phone camera

@@ -9,11 +9,11 @@ import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.arcrobotics.ftclib.gamepad.TriggerReader;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Commands.Arm.JogArm;
 import org.firstinspires.ftc.teamcode.Commands.Arm.PositionArm;
 import org.firstinspires.ftc.teamcode.Commands.Climber.JogClimber;
-import org.firstinspires.ftc.teamcode.Commands.Climber.PositionClimber;
 import org.firstinspires.ftc.teamcode.Commands.Climber.PositionHoldClimber;
 import org.firstinspires.ftc.teamcode.Commands.Drive.CancelJog2;
 import org.firstinspires.ftc.teamcode.Commands.Drive.JogDrive;
@@ -38,9 +38,12 @@ public class TeleopOpMode extends CommandOpMode {
     Pose2d poseEstimate;
     GamepadEx driver;
     GamepadEx coDriver;
-    private DroneCatapultSubsystem dcatss;
+       private DroneCatapultSubsystem dcatss;
 
-    private Vision_Subsystem vss;
+    ElapsedTime et;
+
+    int ctr;
+
     private int teleSwitch;
 
     TriggerReader drlt;
@@ -65,7 +68,6 @@ public class TeleopOpMode extends CommandOpMode {
 
         climber = new ClimberSubsystem(this);
 
-        vss = new Vision_Subsystem(this);
 
         dcatss = new DroneCatapultSubsystem(this);
 
@@ -74,6 +76,8 @@ public class TeleopOpMode extends CommandOpMode {
         drive.setDefaultCommand(new JogDrive(this.drive, driver));
 
         climber.setDefaultCommand(new PositionHoldClimber(climber));
+
+        et = new ElapsedTime();
 
 /**
  * Driver gamepad assignmnents
@@ -121,7 +125,7 @@ public class TeleopOpMode extends CommandOpMode {
         driver.getGamepadButton(GamepadKeys.Button.DPAD_DOWN).whenPressed(new PositionArm(arm, 10));
 
 
-        driver.getGamepadButton(GamepadKeys.Button.BACK).whenPressed(new CancelJog2(drive));
+         driver.getGamepadButton(GamepadKeys.Button.BACK).whenPressed(new CancelJog2(drive));
 
 
         // driver.getGamepadButton(GamepadKeys.Button.LEFT_STICK_BUTTON)
@@ -141,7 +145,7 @@ public class TeleopOpMode extends CommandOpMode {
 
         // coDriver.getGamepadButton(GamepadKeys.Button.A).whenPressed(
 
-        coDriver.getGamepadButton(GamepadKeys.Button.B).whenPressed(new InstantCommand(() -> dcatss.releaseCatapult()));
+         coDriver.getGamepadButton(GamepadKeys.Button.B).whenPressed(new InstantCommand(() -> dcatss.releaseCatapult()));
 
         coDriver.getGamepadButton(GamepadKeys.Button.X).whenPressed(new InstantCommand(() -> climber.climberToClearBar()));
 
@@ -188,9 +192,10 @@ public class TeleopOpMode extends CommandOpMode {
 
             run();
 
-            checkTriggers();
+               checkTriggers();
 
             showTelemetry();
+
 
         }
         reset();
@@ -201,8 +206,8 @@ public class TeleopOpMode extends CommandOpMode {
 
         drlt.readValue();
         drrt.readValue();
-//        cdlt.readValue();
-//        cdrt.readValue();
+        cdlt.readValue();
+        cdrt.readValue();
 
         if (drlt.wasJustPressed()) new InstantCommand(() -> phss.closeLeftGripper()).schedule();
 

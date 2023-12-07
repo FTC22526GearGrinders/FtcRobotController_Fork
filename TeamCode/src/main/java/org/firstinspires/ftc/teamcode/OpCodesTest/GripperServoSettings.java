@@ -4,6 +4,7 @@ import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.command.CommandOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -19,7 +20,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.PixelHandlerSubsystem;
  */
 @Config
 @TeleOp(group = "grippers")
-//@Disabled
+@Disabled
 public class GripperServoSettings extends CommandOpMode {
 
     public static boolean LEFT_DIRECTION = true;

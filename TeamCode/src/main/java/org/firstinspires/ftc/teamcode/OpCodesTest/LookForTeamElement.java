@@ -6,6 +6,7 @@ import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Commands.Auto.LookForTeamProp;
@@ -21,7 +22,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Vision_Subsystem;
  */
 @Config
 @TeleOp(name = "Vision: Team Element", group = "Auto")
-
+@Disabled
 public class LookForTeamElement extends CommandOpMode {
 
     // our DC motor

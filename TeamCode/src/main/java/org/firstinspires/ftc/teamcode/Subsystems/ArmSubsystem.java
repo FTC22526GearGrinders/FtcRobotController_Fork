@@ -7,6 +7,7 @@ import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.arcrobotics.ftclib.controller.wpilibcontroller.ProfiledPIDController;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.arcrobotics.ftclib.trajectory.TrapezoidProfile;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Commands.Arm.PositionHoldArm;
@@ -32,6 +33,9 @@ public class ArmSubsystem extends SubsystemBase {
     private FtcDashboard dashboard;
 
     private Telemetry telemetry;
+
+    ElapsedTime et;
+    private double scanTime;
 
 
     public ArmSubsystem(CommandOpMode opMode) {
@@ -68,12 +72,23 @@ public class ArmSubsystem extends SubsystemBase {
         dashboard = FtcDashboard.getInstance();
 
         opMode.telemetry = new MultipleTelemetry(opMode.telemetry, dashboard.getTelemetry());
+
+
+        et=new ElapsedTime();
     }
 
 
     @Override
 
     public void periodic() {
+
+        if(holdCtr>=100){
+            scanTime = et.milliseconds()/holdCtr;
+            holdCtr=0;
+            et.reset();
+
+
+        }
 
     }
 
@@ -162,6 +177,8 @@ public class ArmSubsystem extends SubsystemBase {
 //        telemetry.addData("EncCtsPerInch", Constants.ArmConstants.ENCODER_COUNTS_PER_INCH);
        telemetry.addData("MaxIPS", Constants.ArmConstants.MAX_INCHES_PER_SECOND);
         telemetry.addData("HoldRng", holdCtr);
+        telemetry.addData("Scantime", scanTime);
+
         telemetry.addData("ArmInches", getPositionInches());
         telemetry.addData("GoalInches", getGoalPosition());
         telemetry.addData("TargetInches", targetInches);

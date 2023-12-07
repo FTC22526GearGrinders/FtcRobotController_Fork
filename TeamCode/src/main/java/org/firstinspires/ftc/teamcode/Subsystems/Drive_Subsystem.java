@@ -37,11 +37,6 @@ public class Drive_Subsystem extends SubsystemBase {
 
     public boolean stopped = false;
 
-    private DistanceSensor sensorDistance;
-
-    private RollingAverage rollingAverage;
-
-    Rev2mDistanceSensor sensorTimeOfFlight;
 
     public ProfiledPIDController profController;
 
@@ -60,13 +55,6 @@ public class Drive_Subsystem extends SubsystemBase {
 
         drive = new SampleMecanumDrive(myOpmode.hardwareMap);
 
-        // you can use this as a regular DistanceSensor.
-        sensorDistance = myOpmode.hardwareMap.get(DistanceSensor.class, "sensor_distance");
-
-        sensorTimeOfFlight = (Rev2mDistanceSensor) sensorDistance;
-
-        rollingAverage = new RollingAverage(5);
-
         runtime.reset();
 
         profController = new ProfiledPIDController(
@@ -80,7 +68,6 @@ public class Drive_Subsystem extends SubsystemBase {
 
     public void periodic() {
 
-        rollingAverage.add(getSensorInches());
 
     }
 
@@ -128,22 +115,10 @@ public class Drive_Subsystem extends SubsystemBase {
         turn_gain = gain;
     }
 
-    public double getSensorInches() {
-        return sensorDistance.getDistance(DistanceUnit.INCH);
-    }
-
-    public double getAveSensorInches() {
-        return rollingAverage.getAverage();
-    }
-
 
     public void showtelemetry(Telemetry telemetry) {
 
-        telemetry.addData("range", String.format("%.01f in", getSensorInches()));
 
-        // Rev2mDistanceSensor specific methods.
-        telemetry.addData("ID", String.format("%x", sensorTimeOfFlight.getModelID()));
-        telemetry.addData("did time out", Boolean.toString(sensorTimeOfFlight.didTimeoutOccur()));
 
         telemetry.update();
 
