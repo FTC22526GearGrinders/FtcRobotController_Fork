@@ -19,7 +19,7 @@ public class MeepMeepTesting {
 
         int lcr = 3;//left tape ==1, center tape = 2, right tape = 3 from robot view
 
-        if (lcr < 0|| lcr > 3) lcr = 2;
+        if (lcr < 0 || lcr > 3) lcr = 2;
 
         boolean useStageDoor = false;
 
@@ -69,7 +69,7 @@ public class MeepMeepTesting {
                         drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
 
 //
-                               .lineToLinearHeading(ActiveMotionValues.getAdvancePose())
+                                .lineToLinearHeading(ActiveMotionValues.getAdvancePose())
 
                                 .lineToLinearHeading(ActiveMotionValues.getDropOffPose())
 
@@ -77,7 +77,7 @@ public class MeepMeepTesting {
 
                                 .lineToLinearHeading(ActiveMotionValues.getRetractPose())
 
-                             .lineToLinearHeading(ActiveMotionValues.getClearPose())
+                                .lineToLinearHeading(ActiveMotionValues.getClearPose())
 
 
                                 .lineToLinearHeading(ActiveMotionValues.getPreTagPose())
@@ -92,10 +92,10 @@ public class MeepMeepTesting {
 
                                 //   .waitSeconds(.1)
 
-                              //  .lineToLinearHeading(ActiveMotionValues.getOptionTargetPose())
+                                //  .lineToLinearHeading(ActiveMotionValues.getOptionTargetPose())
 
 
-                               // .lineToLinearHeading(ActiveMotionValues.getParkPose())
+                                // .lineToLinearHeading(ActiveMotionValues.getParkPose())
 
 
                                 .build());
