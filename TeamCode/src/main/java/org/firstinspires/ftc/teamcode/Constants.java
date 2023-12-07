@@ -205,13 +205,11 @@ public final class Constants {
 
         public static final double ENCODER_COUNTS_PER_MOTOR_REV = 384.5;
 
-        public static final double GEARING_RATIO = 4.72;// motor revs per inch
+        public static final double GEARING_RATIO = 4.72;// motor inches per rev
 
         public static final double ENCODER_COUNTS_PER_INCH = ENCODER_COUNTS_PER_MOTOR_REV / GEARING_RATIO;
-
-        public static final double MOTOR_REVS_PER_INCH = GEARING_RATIO;
-        public static final double MAX_INCHES_PER_SECOND = MAX_MOTOR_RPSEC / GEARING_RATIO;
-        public static final double POSITION_TOLERANCE_INCHES = .25;
+        public static final double MAX_INCHES_PER_SECOND = MAX_MOTOR_RPSEC * GEARING_RATIO;
+        public static final double POSITION_TOLERANCE_INCHES = .5;
         public static final double UPPER_POSITION_LIMIT = 27.00;
         public static final int LOWER_POSITION_LIMIT = -1;
 
@@ -219,12 +217,12 @@ public final class Constants {
         public static final double JOG_DOWN_POWER = -.4;
         public static final double AUTO_DELIVER_POSITION = 7.5;
         public static final double HOME_POSITION = 1;
-        public static final double MAX_VEL = 8;
-        public static final double MAX_ACCEL = 6;
+        public static final double MAX_VEL = 4;
+        public static final double MAX_ACCEL = 2;
         public static double[] armPositionInches = {0,0.5, 5.8, 9, 13.6, 14.3, 16.8, 19};
 
 
-        public static double kP = 1.8;
+        public static double kP = .2;
         public static double kI = 0;
         public static double kD = 0;
 
@@ -256,10 +254,10 @@ public final class Constants {
         public static final double JOG_DOWN_POWER = -.4;
         public static final double AUTO_DELIVER_POSITION = 7.5;
         public static final double HOME_POSITION = 1;
-        public static final double MAX_VEL = 4;
-        public static final double MAX_ACCEL = 2;
+        public static final double MAX_VEL = 8;
+        public static final double MAX_ACCEL = 8;
 
-        public static double kP = .5;
+        public static double kP = .05;
         public static double kI = 0;
         public static double kD = 0;
 

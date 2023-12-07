@@ -38,6 +38,8 @@ public class JogArm extends CommandBase {
             arm.power = 0;
 
         arm.armMotor.set(arm.power);
+
+        arm.setTargetInches(arm.getPositionInches());
     }
 
     @Override

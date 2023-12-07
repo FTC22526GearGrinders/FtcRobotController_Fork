@@ -52,6 +52,8 @@ public class BuildBBCenterTraj extends CommandBase {
 
                 .lineToLinearHeading(ActiveMotionValues.getRetractPose())
 
+                .lineToLinearHeading(ActiveMotionValues.getStartPose())
+
                 .lineToLinearHeading(ActiveMotionValues.getPreTagPose())
 
 

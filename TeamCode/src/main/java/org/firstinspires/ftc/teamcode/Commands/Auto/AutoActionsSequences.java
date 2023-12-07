@@ -27,13 +27,17 @@ public class AutoActionsSequences extends SequentialCommandGroup {
 
                 new SequentialCommandGroup(
 
-                        new InstantCommand(() -> arm.setArmDeliverLevel(1)),
+                        af.closeGrippers(),
+
+                        af.raiseArmOffFloor(),
 
                         af.getTeamProp(),
 
                         af.getAllianceData(opMode, red),
 
                         af.buildAndRunTrajectory(),
+
+                        af.detectAprilTag(),
 
                         new ConditionalCommand(
 
@@ -49,7 +53,7 @@ public class AutoActionsSequences extends SequentialCommandGroup {
 
                                         new WaitCommand(500),
 
-                                        af.detectAndMoveToAprilTag(),
+                                        af.trajToBackboard(),
 
                                         new InstantCommand(()->phss.flipGrippersToLeftDown()),
 

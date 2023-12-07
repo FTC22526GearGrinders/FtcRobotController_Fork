@@ -176,8 +176,6 @@ public class AutoSelectAndRunRed extends CommandOpMode {
 
         dashboard = FtcDashboard.getInstance();
 
-        phss.closeBothGrippers();
-
     }
 
     @Override
@@ -185,9 +183,9 @@ public class AutoSelectAndRunRed extends CommandOpMode {
 
         initialize();
 
-        waitForStart();
-
         if (!vss.getCameraOpened()) vss.openCamera(true);
+
+        waitForStart();
 
         telemetry = new MultipleTelemetry(telemetry, dashboard.getTelemetry());
 

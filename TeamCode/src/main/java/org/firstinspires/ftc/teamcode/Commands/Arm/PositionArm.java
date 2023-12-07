@@ -11,6 +11,7 @@ public class PositionArm extends CommandBase {
 
     private final double targetInches;
 
+    int lpctr;
 
     public PositionArm(ArmSubsystem arm, double targetInches) {
         this.arm = arm;
@@ -20,13 +21,13 @@ public class PositionArm extends CommandBase {
 
     @Override
     public void initialize() {
-        arm.targetInches = targetInches;
-        arm.profController.setGoal(arm.targetInches);
+        arm.setTargetInches(targetInches);
+       lpctr=0;
     }
 
     @Override
     public void execute() {
-
+        lpctr++;
         double output = arm.profController.calculate(
                 arm.getPositionInches());
 
@@ -41,6 +42,6 @@ public class PositionArm extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return arm.profController.atSetpoint();
+        return lpctr > 5 && arm.profController.atGoal();
     }
 }

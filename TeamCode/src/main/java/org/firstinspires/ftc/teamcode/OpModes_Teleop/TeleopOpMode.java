@@ -11,7 +11,10 @@ import com.arcrobotics.ftclib.gamepad.TriggerReader;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Commands.Arm.JogArm;
+import org.firstinspires.ftc.teamcode.Commands.Arm.PositionArm;
 import org.firstinspires.ftc.teamcode.Commands.Climber.JogClimber;
+import org.firstinspires.ftc.teamcode.Commands.Climber.PositionClimber;
+import org.firstinspires.ftc.teamcode.Commands.Climber.PositionHoldClimber;
 import org.firstinspires.ftc.teamcode.Commands.Drive.CancelJog2;
 import org.firstinspires.ftc.teamcode.Commands.Drive.JogDrive;
 import org.firstinspires.ftc.teamcode.Commands.Drive.JogDrive2;
@@ -70,6 +73,8 @@ public class TeleopOpMode extends CommandOpMode {
 
         drive.setDefaultCommand(new JogDrive(this.drive, driver));
 
+        climber.setDefaultCommand(new PositionHoldClimber(climber));
+
 /**
  * Driver gamepad assignmnents
  * */
@@ -87,7 +92,7 @@ public class TeleopOpMode extends CommandOpMode {
                         new WaitCommand(500),
                         new InstantCommand(() -> phss.lowerGrippersToPickup())));
 
-        driver.getGamepadButton(GamepadKeys.Button.B).whenPressed(new InstantCommand(() -> arm.incArmDeliveryLeve()));
+        driver.getGamepadButton(GamepadKeys.Button.B).whenPressed(new InstantCommand(() -> arm.incArmDeliveryLevel()));
 
         driver.getGamepadButton(GamepadKeys.Button.X).whenPressed(new InstantCommand(() -> arm.setArmDeliverLevel(0)));
 
@@ -113,7 +118,7 @@ public class TeleopOpMode extends CommandOpMode {
         driver.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenPressed(new InstantCommand(() -> phss.flipGrippersToDeliver()));
 
 
-        //   driver.getGamepadButton(GamepadKeys.Button.DPAD_DOWN).whenPressed(
+        driver.getGamepadButton(GamepadKeys.Button.DPAD_DOWN).whenPressed(new PositionArm(arm, 10));
 
 
         driver.getGamepadButton(GamepadKeys.Button.BACK).whenPressed(new CancelJog2(drive));
@@ -223,13 +228,13 @@ public class TeleopOpMode extends CommandOpMode {
         switch (teleSwitch) {
 
             case 0:
-                drive.drive.showTelemetry(telemetry);
+                arm.showTelemetry(telemetry);
                 break;
             case 1:
                 drive.showtelemetry(telemetry);
                 break;
             case 2:
-                arm.showTelemetry(telemetry);
+                drive.drive.showTelemetry(telemetry);
                 break;
             case 3:
                 phss.showTelemetry(telemetry);
@@ -237,8 +242,6 @@ public class TeleopOpMode extends CommandOpMode {
             case 4:
                 climber.showTelemetry(telemetry);
                 break;
-
-
             default:
                 break;
 

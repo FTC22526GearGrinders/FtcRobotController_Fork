@@ -80,6 +80,9 @@ public class SelectMotionValuesBlue {
 
                 ActiveMotionValues.setRetractPose(FieldConstantsBlue.XPYP.centerRetractPose);
 
+                ActiveMotionValues.setClearPose(FieldConstantsBlue.XPYP.clearPose);
+
+
                 ActiveMotionValues.setActTag(2);
 
 

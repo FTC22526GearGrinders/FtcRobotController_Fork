@@ -173,17 +173,16 @@ public class AutoSelectAndRunBlueBBStart extends CommandOpMode {
 
         dashboard = FtcDashboard.getInstance();
 
-        phss.closeBothGrippers();
     }
 
     @Override
     public void runOpMode() throws InterruptedException {
 
         initialize();
-
+        if (!vss.getCameraOpened()) vss.openCamera(false);
         waitForStart();
 
-        if (!vss.getCameraOpened()) vss.openCamera(false);
+
 
         telemetry = new MultipleTelemetry(telemetry, dashboard.getTelemetry());
 

@@ -68,6 +68,9 @@ public class SelectMotionValuesBlue extends CommandBase {
 
                 ActiveMotionValues.setRetractPose(FieldConstantsBlue.XPYP.leftRetractPose);
 
+                ActiveMotionValues.setClearPose(FieldConstantsBlue.XPYP.clearPose);
+
+
                 ActiveMotionValues.setActTag(1);
 
                 ActiveMotionValues.setPreTagPose(FieldConstantsBlue.getActiveTagPose(ActiveMotionValues.getActTag())

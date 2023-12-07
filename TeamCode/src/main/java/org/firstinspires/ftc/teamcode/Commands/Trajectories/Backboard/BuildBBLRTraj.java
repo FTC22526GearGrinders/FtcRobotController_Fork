@@ -28,65 +28,29 @@ public class BuildBBLRTraj extends CommandBase {
 
     @Override
     public void execute() {
-        ;
-        boolean trussSideTapeRed = ActiveMotionValues.getRedAlliance() &&
 
-                ActiveMotionValues.getBBStart() && ActiveMotionValues.getLcrpos() == 1;
+        drive.currentTrajSeq = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
 
-        boolean trussSideTapeBlue = !ActiveMotionValues.getRedAlliance() &&
+                .lineToLinearHeading(ActiveMotionValues.getAdvancePose())
 
-                ActiveMotionValues.getBBStart() && ActiveMotionValues.getLcrpos() == 3;
+                .lineToLinearHeading(ActiveMotionValues.getDropOffPose())
 
+                .UNSTABLE_addTemporalMarkerOffset(.5, () -> phss.dropPixel())
 
-        boolean trussSideTape = trussSideTapeRed || trussSideTapeBlue;
+                .waitSeconds(1.)
 
-        /**
-         * Use th 5 step center for stage door selection
-         * <p>
-         * It has the pixel delivery after the first step
-         */
+                .lineToLinearHeading(ActiveMotionValues.getRetractPose())
 
-        if (!trussSideTape) {
+                .lineToLinearHeading(ActiveMotionValues.getClearPose())
 
-            drive.currentTrajSeq = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
+                .lineToLinearHeading(ActiveMotionValues.getStartPose())
 
-                    .lineToLinearHeading(ActiveMotionValues.getAdvancePose())
+                .lineToLinearHeading(ActiveMotionValues.getPreTagPose())
 
-                    .lineToLinearHeading(ActiveMotionValues.getDropOffPose())
+                .build();
 
-                    .UNSTABLE_addTemporalMarkerOffset(.5, () -> phss.dropPixel())
+        drive.trajName = "BBLeftRight";
 
-                    .waitSeconds(1)
-
-                    .lineToLinearHeading(ActiveMotionValues.getRetractPose())
-
-                    .lineToLinearHeading(ActiveMotionValues.getPreTagPose())
-
-
-                    .build();
-
-        } else {
-
-            drive.currentTrajSeq = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
-
-                    .lineToLinearHeading(ActiveMotionValues.getAdvancePose())
-
-                    .lineToLinearHeading(ActiveMotionValues.getDropOffPose())
-
-                    .UNSTABLE_addTemporalMarkerOffset(.5, () -> phss.dropPixel())
-
-                    .waitSeconds(1.)
-
-                    .lineToLinearHeading(ActiveMotionValues.getRetractPose())
-
-                    .lineToLinearHeading(ActiveMotionValues.getClearPose())
-
-                    .lineToLinearHeading(ActiveMotionValues.getPreTagPose())
-
-                    .build();
-
-            drive.trajName = "BBLeftRight";
-        }
         drive.trajectoryBuilt = drive.currentTrajSeq != null;
         opMode.telemetry.addData("Building BBLR", "");
         opMode.telemetry.update();

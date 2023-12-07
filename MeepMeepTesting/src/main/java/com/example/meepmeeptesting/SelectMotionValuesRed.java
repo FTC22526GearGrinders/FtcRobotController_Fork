@@ -125,6 +125,8 @@ public class SelectMotionValuesRed {
 
                 ActiveMotionValues.setRetractPose(FieldConstantsRed.XPYM.rightRetractPose);
 
+                ActiveMotionValues.setClearPose(FieldConstantsRed.XPYM.clearPose);
+
 
                 ActiveMotionValues.setActTag(6);
 

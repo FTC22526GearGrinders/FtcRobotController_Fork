@@ -25,6 +25,7 @@ public class ArmSubsystem extends SubsystemBase {
     public double power;
 
     public ProfiledPIDController profController = null;
+    public int holdCtr;
 
     private int armDeliverLevel;
 
@@ -88,11 +89,11 @@ public class ArmSubsystem extends SubsystemBase {
             n = 0;
         // if (n != armDeliverLevel) {
         armDeliverLevel = n;
-        profController.setGoal(Constants.ArmConstants.armPositionInches[armDeliverLevel]);
-
+        //   profController.setGoal(Constants.ArmConstants.armPositionInches[armDeliverLevel]);
+        setTargetInches(Constants.ArmConstants.armPositionInches[armDeliverLevel]);
     }
 
-    public void incArmDeliveryLeve() {
+    public void incArmDeliveryLevel() {
         int n = armDeliverLevel;
         setArmDeliverLevel(n + 1);
     }
@@ -158,10 +159,11 @@ public class ArmSubsystem extends SubsystemBase {
 
     public void showTelemetry(Telemetry telemetry) {
 
-        telemetry.addData("EncCtsPerInch", Constants.ArmConstants.ENCODER_COUNTS_PER_INCH);
-        telemetry.addData("MaxIPS", Constants.ArmConstants.MAX_INCHES_PER_SECOND);
-        telemetry.addData("ArmPowerCmd", power);
+//        telemetry.addData("EncCtsPerInch", Constants.ArmConstants.ENCODER_COUNTS_PER_INCH);
+       telemetry.addData("MaxIPS", Constants.ArmConstants.MAX_INCHES_PER_SECOND);
+        telemetry.addData("HoldRng", holdCtr);
         telemetry.addData("ArmInches", getPositionInches());
+        telemetry.addData("GoalInches", getGoalPosition());
         telemetry.addData("TargetInches", targetInches);
         telemetry.addData("ArmInches", getPositionInches());
         telemetry.addData("ArmVelocity", armEncoder.getRawVelocity());

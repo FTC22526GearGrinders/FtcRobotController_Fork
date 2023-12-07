@@ -145,6 +145,8 @@ public class SelectMotionValuesRed extends CommandBase {
 
                 ActiveMotionValues.setRetractPose(FieldConstantsRed.XPYM.rightRetractPose);
 
+                ActiveMotionValues.setClearPose(FieldConstantsRed.XPYM.clearPose);
+
 
                 ActiveMotionValues.setActTag(6);
 

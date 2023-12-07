@@ -4,9 +4,11 @@ import com.arcrobotics.ftclib.command.Command;
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.ConditionalCommand;
+import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.ParallelRaceGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 
+import org.firstinspires.ftc.teamcode.Commands.Arm.PositionArm;
 import org.firstinspires.ftc.teamcode.Commands.Drive.MoveToPark;
 import org.firstinspires.ftc.teamcode.Commands.Drive.PositionToBackboard;
 import org.firstinspires.ftc.teamcode.Commands.Drive.TrajectoryToBackboard;
@@ -70,20 +72,31 @@ public class AutoFactory extends CommandBase {
                         new LogTrajectory(drive, opMode)));
     }
 
-    public Command detectAndMoveToAprilTag() {
-        return new SequentialCommandGroup(
-                new DetectAprilTags(opMode, vss, false),
-                new TrajectoryToBackboard(drive, opMode));
+    public Command detectAprilTag() {
+        return new DetectAprilTags(opMode, vss, false);
     }
+
+    public Command trajToBackboard() {
+        return new TrajectoryToBackboard(drive, opMode);
+    }
+
 
     public Command omniDriveToBackboard() {
         return new ParallelRaceGroup(
                 new DetectAprilTags(opMode, vss, true),
                 new PositionToBackboard(drive));
-            }
+    }
 
     public Command getTeamProp() {
         return new LookForTeamProp(opMode, false, vss);
+    }
+
+    public Command closeGrippers() {
+        return new InstantCommand(() -> phss.closeBothGrippers());
+    }
+
+    public Command raiseArmOffFloor() {
+        return new PositionArm(arm, 1);
     }
 
 }

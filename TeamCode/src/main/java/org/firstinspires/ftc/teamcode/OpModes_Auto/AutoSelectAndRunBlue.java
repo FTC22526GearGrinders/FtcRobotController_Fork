@@ -170,7 +170,6 @@ public class AutoSelectAndRunBlue extends CommandOpMode {
 
         dashboard = FtcDashboard.getInstance();
 
-        phss.closeBothGrippers();
 
     }
 
@@ -179,9 +178,11 @@ public class AutoSelectAndRunBlue extends CommandOpMode {
 
         initialize();
 
+        if (!vss.getCameraOpened()) vss.openCamera(false);
+
         waitForStart();
 
-        if (!vss.getCameraOpened()) vss.openCamera(false);
+
 
         telemetry = new MultipleTelemetry(telemetry, dashboard.getTelemetry());
 
