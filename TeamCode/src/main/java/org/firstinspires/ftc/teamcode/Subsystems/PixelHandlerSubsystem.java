@@ -99,7 +99,7 @@ public class PixelHandlerSubsystem extends SubsystemBase {
     }
 
     public void openRightGripper() {
-        rightGripper.setPosition(Constants.PixelHandlerConstants.LeftGripperSet.OPEN.position);
+        rightGripper.setPosition(Constants.PixelHandlerConstants.RightGripperSet.OPEN.position);
     }
 
     public void midRightGripper() {
@@ -107,7 +107,7 @@ public class PixelHandlerSubsystem extends SubsystemBase {
     }
 
     public void closeRightGripper() {
-        rightGripper.setPosition(Constants.PixelHandlerConstants.LeftGripperSet.CLOSED.position);
+        rightGripper.setPosition(Constants.PixelHandlerConstants.RightGripperSet.CLOSED.position);
     }
 
     public void openBothGrippers() {
@@ -130,7 +130,7 @@ public class PixelHandlerSubsystem extends SubsystemBase {
     }
     public void lowerGrippersToPickup() {
         turnGrippers.setPosition(Constants.PixelHandlerConstants.TurnGripperSet.PICKUP.position);
-        turnGrippersPosition = Constants.PixelHandlerConstants.TurnGripperSet.PICKUP.position;
+       turnGrippersPosition = Constants.PixelHandlerConstants.TurnGripperSet.PICKUP.position;
     }
 
     public void flipGrippersToPickup() {

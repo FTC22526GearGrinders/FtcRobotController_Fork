@@ -13,7 +13,7 @@ public final class Constants {
         static final double width = 17.;
 
         static double gripperXOffset = 2;
-        public static Pose2d pixelDropPose = new Pose2d(0, -RobotConstants.length / 2 + 1, 0);
+        public static Pose2d pixelDropPose = new Pose2d(-1, -RobotConstants.length / 2 + 1, 0);
         public static Pose2d leftGripperPose = new Pose2d(-gripperXOffset, -RobotConstants.length / 2 + 1, 0);
         public static Pose2d rightGripperPose = new Pose2d(gripperXOffset, -RobotConstants.length / 2 + 1, 0);
 
@@ -129,9 +129,9 @@ public final class Constants {
         public static final double DROP_CLOSED_POSITION = .7;
 
         public enum LeftGripperSet {
-            OPEN(.4),//open position
+            OPEN(.8),//open position
             MID(.7),//mid
-            CLOSED(.1);//closed
+            CLOSED(.5);//closed
 
             public final double position;
 
@@ -167,11 +167,11 @@ public final class Constants {
         }
 
         public enum FlipGripperSet {
-            PICKUP(.4),
-            LEFT_DOWN(.2),
-            DELIVER(.16),
+            PICKUP(.02),
+            LEFT_DOWN(.15),
+            DELIVER(.24),
 
-            RIGHT_DOWN(.09);
+            RIGHT_DOWN(.35);
 
             public final double position;
 
@@ -217,12 +217,12 @@ public final class Constants {
         public static final double JOG_DOWN_POWER = -.4;
         public static final double AUTO_DELIVER_POSITION = 7.5;
         public static final double HOME_POSITION = 1;
-        public static final double MAX_VEL = 4;
-        public static final double MAX_ACCEL = 2;
+        public static final double MAX_VEL = 30;
+        public static final double MAX_ACCEL = 30;
         public static double[] armPositionInches = {0,0.5, 5.8, 9, 13.6, 14.3, 16.8, 19};
 
 
-        public static double kP = .2;
+        public static double kP = 1.5;
         public static double kI = 0;
         public static double kD = 0;
 
@@ -263,7 +263,7 @@ public final class Constants {
 
         public static double POSITION_Kg = 0;
 
-        public static double CLEAR_BAR_HEIGHT = 14;
+        public static double CLEAR_BAR_HEIGHT = 18;
 
         public static double RAISe_ROBOT_HEIGHT = 10;
 
@@ -272,8 +272,8 @@ public final class Constants {
 
     public static final class CatapultConstants {
 
-        public static final double CATAPULT_LOCK_POSITION = .10;
-        public static final double CATAPULT_RELEASE_POSITION = .90;
+        public static final double CATAPULT_LOCK_POSITION = .0;
+        public static final double CATAPULT_RELEASE_POSITION = .10;
 
 
     }

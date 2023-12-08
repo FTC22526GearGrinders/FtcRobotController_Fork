@@ -22,7 +22,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.ClimberSubsystem;
  */
 @Config
 @TeleOp(name = "Climber: Tune PID", group = "Tune")
-@Disabled
+
 public class TuneClimberPositionPID extends CommandOpMode {
 
     // our DC motor

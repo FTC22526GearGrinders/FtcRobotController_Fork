@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 
 
-public class TrajectoryToBackboard extends CommandBase {
+public class TrajectoryToBackboardSimple extends CommandBase {
     private Drive_Subsystem drive;
 
 
@@ -26,15 +26,9 @@ public class TrajectoryToBackboard extends CommandBase {
 
     private ElapsedTime et;
 
-    Pose2d tagDistancePose = new Pose2d();
+    ;
 
-    Pose2d tagPose = new Pose2d();
-
-    Pose2d finalPose = new Pose2d();
-
-    AprilTagDetection detection;
-
-    public TrajectoryToBackboard(Drive_Subsystem drive, CommandOpMode opMode) {
+    public TrajectoryToBackboardSimple(Drive_Subsystem drive, CommandOpMode opMode) {
         this.drive = drive;
         myOpMode = opMode;
         addRequirements(drive);
@@ -47,26 +41,11 @@ public class TrajectoryToBackboard extends CommandBase {
         myOpMode.telemetry.addData("RunToTagInit", "");
         myOpMode.telemetry.update();
         et = new ElapsedTime();
-        detection = ActiveMotionValues.getDetection();
 
-        Pose2d camPose = new Pose2d(detection.ftcPose.y, detection.ftcPose.x, Math.toRadians(detection.ftcPose.yaw));
 
-        Pose2d tagPose = new Pose2d();
+        Pose2d currentRobotPose = new Pose2d();
+        Pose2d finalPose = new Pose2d(10, 0);
 
-        if (ActiveMotionValues.getActTag() > 3)
-            tagPose = FieldConstantsRed.getActiveTagPose(ActiveMotionValues.getActTag());
-        else
-            tagPose = FieldConstantsBlue.getActiveTagPose(ActiveMotionValues.getActTag());
-
-        Pose2d camFieldPose = tagPose.minus(camPose);
-
-        Pose2d currentRobotPose = camFieldPose.minus(Constants.RobotConstants.kCameraToRobot);
-
-        Pose2d finalTagPose = tagPose.minus(new Pose2d(0, Constants.DriveConstants.BACKBOARD_DISTANCE_OFFSET));
-
-        ActiveMotionValues.setFinalTagPose(tagPose);
-
-        double robotDistance = currentRobotPose.getY();
 
         tagTraj = drive.drive.trajectoryBuilder(currentRobotPose)
                 .lineToLinearHeading(finalPose)

@@ -12,6 +12,7 @@ import org.firstinspires.ftc.teamcode.Commands.Arm.PositionArm;
 import org.firstinspires.ftc.teamcode.Commands.Drive.MoveToPark;
 import org.firstinspires.ftc.teamcode.Commands.Drive.PositionToBackboard;
 import org.firstinspires.ftc.teamcode.Commands.Drive.TrajectoryToBackboard;
+import org.firstinspires.ftc.teamcode.Commands.Drive.TrajectoryToBackboardSimple;
 import org.firstinspires.ftc.teamcode.Commands.Trajectories.LogTrajectory;
 import org.firstinspires.ftc.teamcode.Commands.Trajectories.RunTrajSequence;
 import org.firstinspires.ftc.teamcode.Commands.Trajectories.SelectAndBuildTrajectory;
@@ -80,6 +81,10 @@ public class AutoFactory extends CommandBase {
         return new TrajectoryToBackboard(drive, opMode);
     }
 
+    public Command trajToBackboardSimple() {
+        return new TrajectoryToBackboardSimple(drive, opMode);
+    }
+
 
     public Command omniDriveToBackboard() {
         return new ParallelRaceGroup(
@@ -97,6 +102,10 @@ public class AutoFactory extends CommandBase {
 
     public Command raiseArmOffFloor() {
         return new PositionArm(arm, 1);
+    }
+
+    public Command positionArm(){
+        return new PositionArm(arm,10);
     }
 
 }

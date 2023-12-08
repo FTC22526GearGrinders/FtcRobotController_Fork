@@ -20,7 +20,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.PixelHandlerSubsystem;
  */
 @Config
 @TeleOp(group = "grippers")
-@Disabled
+
 public class GripperServoSettings extends CommandOpMode {
 
     public static boolean LEFT_DIRECTION = true;

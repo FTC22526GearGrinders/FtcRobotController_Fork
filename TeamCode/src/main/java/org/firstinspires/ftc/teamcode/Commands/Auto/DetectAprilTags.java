@@ -36,6 +36,7 @@ public class DetectAprilTags extends CommandBase {
         myOpMode = opMode;
         this.noEnd = noEnd;
     }
+
     @Override
     public void initialize() {
         et = new ElapsedTime();
@@ -70,8 +71,8 @@ public class DetectAprilTags extends CommandBase {
                     Pose2d camPose = new Pose2d(detection.ftcPose.y, detection.ftcPose.x, Math.toRadians(detection.ftcPose.yaw));
 
                     Pose2d tagPose = new Pose2d();
-
-                    if (ActiveMotionValues.getRedAlliance())
+                    //ActiveMotionValues.getRedAlliance()
+                    if (n > 3)
                         tagPose = FieldConstantsRed.getActiveTagPose(ActiveMotionValues.getActTag());
                     else
                         tagPose = FieldConstantsBlue.getActiveTagPose(ActiveMotionValues.getActTag());
@@ -83,12 +84,11 @@ public class DetectAprilTags extends CommandBase {
                     Pose2d finalTagPose = tagPose;
 
 
-
                     if (noEnd) {
                         myOpMode.telemetry.addData("Active Tag", n);
                         myOpMode.telemetry.addData("Tag ID", detection.id);
                         myOpMode.telemetry.addLine();
-
+                        myOpMode.telemetry.addData("Range", detection.ftcPose.range);
                         myOpMode.telemetry.addData("TagPose", tagPose.toString());
                         myOpMode.telemetry.addData("CamPose", camPose.toString());
                         myOpMode.telemetry.addLine();

@@ -51,7 +51,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Vision_Subsystem;
  */
 @Config
 @TeleOp(name = "Auto: Test AprilTag ", group = "Test")
-@Disabled
+//@Disabled
 public class TestAprilTags extends CommandOpMode {
 
     /**

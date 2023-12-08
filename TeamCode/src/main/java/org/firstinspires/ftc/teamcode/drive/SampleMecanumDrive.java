@@ -56,7 +56,7 @@ public class SampleMecanumDrive extends MecanumDrive {
     public static PIDCoefficients TRANSLATIONAL_PID = new PIDCoefficients(6.9, 0, 0);
     public static PIDCoefficients HEADING_PID = new PIDCoefficients(7.5, 0, 0);
 
-    public static final double LATERAL_MULTIPLIER = 1.3953488 * .92;
+    public static final double LATERAL_MULTIPLIER = 1.29;
 
     private static final double kV = Constants.DriveConstants.kV;
 
@@ -403,6 +403,8 @@ public class SampleMecanumDrive extends MecanumDrive {
         telemetry.addData("BackLeftPosn", encoderTicksToInches(leftRear.getCurrentPosition()));
         telemetry.addData("BackRightPosn", encoderTicksToInches(rightRear.getCurrentPosition()));
         telemetry.addData("FrontLeftVel", leftFront.getVelocity());
+        telemetry.addData("y",getPoseEstimate().getY());
+        telemetry.addData("x",getPoseEstimate().getX());
 
         telemetry.addData("Gyro Heading", Math.toDegrees(getRawExternalHeading()));
         telemetry.addData("BatteryVolts", getBatteryVolts());

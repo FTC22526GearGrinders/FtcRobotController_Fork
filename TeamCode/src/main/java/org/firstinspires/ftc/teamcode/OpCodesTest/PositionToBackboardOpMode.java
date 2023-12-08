@@ -32,6 +32,7 @@ package org.firstinspires.ftc.teamcode.OpCodesTest;
 
 
 import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
@@ -45,7 +46,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Vision_Subsystem;
 
 
 @Autonomous(name = "Auto:Position To April Tag", group = "Auto")
-@Disabled
+@Config
 public class PositionToBackboardOpMode extends CommandOpMode {
 
     Vision_Subsystem vss;

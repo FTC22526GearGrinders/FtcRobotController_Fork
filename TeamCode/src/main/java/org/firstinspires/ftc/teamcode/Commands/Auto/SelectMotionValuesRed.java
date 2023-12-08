@@ -132,7 +132,7 @@ public class SelectMotionValuesRed extends CommandBase {
             //******************************************************************************************
             case 3://right ta
 
-                xyOffsetPose = new Pose2d();
+                xyOffsetPose = new Pose2d(2,0);
 
                 ActiveMotionValues.setStartPose(FieldConstantsRed.XPYM.startPos);//start pose
 

@@ -18,6 +18,7 @@ import org.firstinspires.ftc.teamcode.Commands.Climber.PositionHoldClimber;
 import org.firstinspires.ftc.teamcode.Commands.Drive.CancelJog2;
 import org.firstinspires.ftc.teamcode.Commands.Drive.JogDrive;
 import org.firstinspires.ftc.teamcode.Commands.Drive.JogDrive2;
+import org.firstinspires.ftc.teamcode.Commands.Drive.PositionToBackboard;
 import org.firstinspires.ftc.teamcode.Subsystems.ArmSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.ClimberSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive_Subsystem;
@@ -84,7 +85,7 @@ public class TeleopOpMode extends CommandOpMode {
  * */
 
         drlt = new TriggerReader(
-                driver, GamepadKeys.Trigger.LEFT_TRIGGER, .5);
+                driver, GamepadKeys.Trigger.LEFT_TRIGGER);
 
         drrt = new TriggerReader(
                 driver, GamepadKeys.Trigger.RIGHT_TRIGGER);
@@ -92,9 +93,10 @@ public class TeleopOpMode extends CommandOpMode {
 
         driver.getGamepadButton(GamepadKeys.Button.A).whenPressed(
                 new SequentialCommandGroup(
-                        new InstantCommand(() -> phss.flipGrippersToPickup()),
-                        new WaitCommand(500),
-                        new InstantCommand(() -> phss.lowerGrippersToPickup())));
+                        new InstantCommand(() -> phss.lowerGrippersToPickup()),
+                        new WaitCommand(1000),
+                        new InstantCommand(() -> phss.flipGrippersToPickup())));
+
 
         driver.getGamepadButton(GamepadKeys.Button.B).whenPressed(new InstantCommand(() -> arm.incArmDeliveryLevel()));
 
@@ -102,9 +104,11 @@ public class TeleopOpMode extends CommandOpMode {
 
         driver.getGamepadButton(GamepadKeys.Button.Y).whenPressed(
                 new SequentialCommandGroup(
-                        new InstantCommand(() -> phss.raiseGrippersToDeliver()),
+                        new InstantCommand(() -> phss.flipGrippersToDeliver()),
                         new WaitCommand(1000),
-                        new InstantCommand(() -> phss.flipGrippersToDeliver())));
+                        new InstantCommand(() -> phss.raiseGrippersToDeliver())));
+
+
 
 
         driver.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenPressed(new InstantCommand(() -> phss.openLeftGripper()));
@@ -121,11 +125,16 @@ public class TeleopOpMode extends CommandOpMode {
 
         driver.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenPressed(new InstantCommand(() -> phss.flipGrippersToDeliver()));
 
+       // driver.getGamepadButton(GamepadKeys.Button.DPAD_DOWN).whenPressed(new InstantCommand(() -> climber.climberToLiftPosition()));
+
+       //driver.getGamepadButton(GamepadKeys.Button.BACK).whenPressed(new InstantCommand(() -> climber.climberToClearBar()));
+
+
 
         driver.getGamepadButton(GamepadKeys.Button.DPAD_DOWN).whenPressed(new PositionArm(arm, 10));
 
 
-         driver.getGamepadButton(GamepadKeys.Button.BACK).whenPressed(new CancelJog2(drive));
+       //  driver.getGamepadButton(GamepadKeys.Button.BACK).whenPressed(new CancelJog2(drive));
 
 
         // driver.getGamepadButton(GamepadKeys.Button.LEFT_STICK_BUTTON)
@@ -163,7 +172,7 @@ public class TeleopOpMode extends CommandOpMode {
 
         coDriver.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT).whenPressed(new InstantCommand(() -> teleSwitch++));
 
-        // coDriver.getGamepadButton(GamepadKeys.Button.DPAD_LEFT).whenPressed(
+         coDriver.getGamepadButton(GamepadKeys.Button.DPAD_LEFT).whileHeld(new PositionToBackboard(drive));
 
 
         coDriver.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenHeld(new JogClimber(climber, coDriver))

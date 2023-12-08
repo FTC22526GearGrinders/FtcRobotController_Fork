@@ -37,29 +37,30 @@ public class AutoActionsSequences extends SequentialCommandGroup {
 
                         af.buildAndRunTrajectory(),
 
-                        af.detectAprilTag(),
+                        //af.detectAprilTag(),
 
                         new ConditionalCommand(
 
                                 new SequentialCommandGroup(
 
+                                        af.positionArm(),
+                                        // new PositionArm(arm, 10), //Constants.ArmConstants.AUTO_DELIVER_POSITION),
+
                                         new ParallelCommandGroup(
 
-                                                new PositionArm(arm, Constants.ArmConstants.AUTO_DELIVER_POSITION),
+                                                new InstantCommand(() -> phss.raiseGrippersToDeliver()),
 
-                                                new InstantCommand(() -> phss.flipGrippersToDeliver()),
+                                                new InstantCommand(() -> phss.flipGrippersToDeliver())),
 
-                                                new InstantCommand(() -> phss.raiseGrippersToDeliver())),
+                                        new WaitCommand(1500),
 
-                                        new WaitCommand(500),
+                                        af.trajToBackboardSimple(),
 
-                                        af.trajToBackboard(),
+                                        // new InstantCommand(() -> phss.flipGrippersToLeftDown()),
 
-                                        new InstantCommand(()->phss.flipGrippersToLeftDown()),
+                                        new WaitCommand(1500),
 
-                                        new WaitCommand(500),
-
-                                        new InstantCommand(phss::openLeftGripper),
+                                        new InstantCommand(phss::openBothGrippers),
 
                                         new WaitCommand(500),
 

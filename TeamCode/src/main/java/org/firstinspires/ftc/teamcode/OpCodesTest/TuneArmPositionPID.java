@@ -22,7 +22,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.ArmSubsystem;
  */
 @Config
 @TeleOp(name = "Arm: Tune PID", group = "Tune")
-@Disabled
+
 public class TuneArmPositionPID extends CommandOpMode {
 
     // our DC motor
