@@ -50,6 +50,7 @@ public class SelectMotionValuesRed {
 
                 ActiveMotionValues.setActTag(4);
 
+
                 ActiveMotionValues.setPreTagPose(FieldConstantsRed.getActiveTagPose(ActiveMotionValues.getActTag())
                         .minus(FieldConstantsRed.AprilTagConstants.tagLookAheadPose));
 

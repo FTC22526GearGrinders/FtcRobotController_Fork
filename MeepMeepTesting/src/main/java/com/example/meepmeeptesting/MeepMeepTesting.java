@@ -79,8 +79,9 @@ public class MeepMeepTesting {
 
                                 .lineToLinearHeading(ActiveMotionValues.getClearPose())
 
-                                .lineToLinearHeading(ActiveMotionValues.getStartPose())
+                           //     .lineToLinearHeading(ActiveMotionValues.getStartPose())
 
+                                .turn(Math.toRadians(90))
 
                                 .lineToLinearHeading(ActiveMotionValues.getPreTagPose())
 
@@ -89,7 +90,7 @@ public class MeepMeepTesting {
 //
                                 // .lineToLinearHeading(ActiveMotionValues.getTrussSDLineUpPose())
 
-                                //  .lineToLinearHeading(ActiveMotionValues.getOptionStopPose())
+                                 // .lineToLinearHeading(ActiveMotionValues.getOptionStopPose())
 //
 
                                 //   .waitSeconds(.1)
