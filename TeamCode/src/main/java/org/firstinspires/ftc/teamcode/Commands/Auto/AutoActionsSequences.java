@@ -47,9 +47,9 @@ public class AutoActionsSequences extends SequentialCommandGroup {
 
                                                 new PositionArm(arm, Constants.ArmConstants.AUTO_DELIVER_POSITION),
 
-                                                new InstantCommand(() -> phss.flipGrippersToDeliver()),
-
                                                 new InstantCommand(() -> phss.raiseGrippersToDeliver())),
+
+                                                new InstantCommand(() -> phss.flipGrippersToDeliver()),
 
                                         new WaitCommand(500),
 

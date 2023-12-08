@@ -40,7 +40,6 @@ public class TeleopOpMode extends CommandOpMode {
     GamepadEx coDriver;
        private DroneCatapultSubsystem dcatss;
 
-    ElapsedTime et;
 
     int ctr;
 
@@ -77,7 +76,6 @@ public class TeleopOpMode extends CommandOpMode {
 
         climber.setDefaultCommand(new PositionHoldClimber(climber));
 
-        et = new ElapsedTime();
 
 /**
  * Driver gamepad assignmnents
