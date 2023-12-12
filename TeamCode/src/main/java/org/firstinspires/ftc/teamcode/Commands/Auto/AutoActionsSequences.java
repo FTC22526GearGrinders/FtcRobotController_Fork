@@ -37,25 +37,24 @@ public class AutoActionsSequences extends SequentialCommandGroup {
 
                         af.buildAndRunTrajectory(),
 
-                        af.detectAprilTag(),
 
                         new ConditionalCommand(
 
                                 new SequentialCommandGroup(
 
-                                        new ParallelCommandGroup(
 
-                                                new PositionArm(arm, Constants.ArmConstants.AUTO_DELIVER_POSITION),
+                                        af.raiseArmToPosition(),
 
-                                                new InstantCommand(() -> phss.raiseGrippersToDeliver())),
 
-                                                new InstantCommand(() -> phss.flipGrippersToDeliver()),
+                                        new InstantCommand(() -> phss.raiseGrippersToDeliver()),
+
+                                        new InstantCommand(() -> phss.flipGrippersToDeliver()),
 
                                         new WaitCommand(500),
+                                        new InstantCommand(() -> phss.flipGrippersToLeftDown()),
+                                        af.trajToBackboardSimple(),
 
-                                        af.trajToBackboard(),
 
-                                        new InstantCommand(()->phss.flipGrippersToLeftDown()),
 
                                         new WaitCommand(500),
 
@@ -63,22 +62,19 @@ public class AutoActionsSequences extends SequentialCommandGroup {
 
                                         new WaitCommand(500),
 
-                                        new ParallelCommandGroup(
+                                        new InstantCommand(() -> phss.flipGrippersToPickup()),
+                                        new WaitCommand(500),
 
-                                                new InstantCommand(phss::closeBothGrippers),
+                                        new InstantCommand(() -> phss.lowerGrippersToPickup()),
 
-                                                new InstantCommand(phss::flipGrippersToPickup),
+                                        new WaitCommand(500),
 
-                                                new InstantCommand(phss::flipGrippersToPickup),
+                                        af.positionArmHome()),
 
-                                                new PositionArm(arm, Constants.ArmConstants.HOME_POSITION),
-
-                                                af.getMoveToPark())),
 
                                 new DoNothing(),
 
-                                () -> ActiveMotionValues.getBBStart() || !ActiveMotionValues.getBBStart() && ActiveMotionValues.getSecondPixel())))
-        ;
+                                () -> ActiveMotionValues.getBBStart() || !ActiveMotionValues.getBBStart() && ActiveMotionValues.getSecondPixel())));
 
 
     }

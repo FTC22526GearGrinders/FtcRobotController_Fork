@@ -26,26 +26,52 @@ public class BuildTrussSDCenterTape extends CommandBase {
          * <p>
          * It has the pixel delivery after the first step
          */
-        drive.currentTrajSeq = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
 
-                .lineToLinearHeading(ActiveMotionValues.getDropOffPose())
+        if (ActiveMotionValues.getUseStageDoor()) {
 
-                .UNSTABLE_addTemporalMarkerOffset(.5, () -> phss.dropPixel())
+            drive.currentTrajSeq = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
 
-                .waitSeconds(1)
+                    .lineToLinearHeading(ActiveMotionValues.getDropOffPose())
 
-                .lineToLinearHeading(ActiveMotionValues.getRetractPose())
+                    .UNSTABLE_addTemporalMarkerOffset(.5, () -> phss.dropPixel())
 
-                .lineToLinearHeading(ActiveMotionValues.getTrussSDLineUpPose())
+                    .waitSeconds(1)
 
-                .lineToLinearHeading(ActiveMotionValues.getOptionStopPose())
+                    .lineToLinearHeading(ActiveMotionValues.getRetractPose())
 
-                .waitSeconds(ActiveMotionValues.getStopSecs())
+                    .strafeRight(ActiveMotionValues.getStrafeDistance())
 
-                .lineToLinearHeading(ActiveMotionValues.getOptionTargetPose())
+                    .lineToLinearHeading(ActiveMotionValues.getTrussSDLineUpPose())
 
-                .build();
+                    .lineToLinearHeading(ActiveMotionValues.getOptionStopPose())
 
+                    .waitSeconds(ActiveMotionValues.getStopSecs())
+
+                    .lineToLinearHeading(ActiveMotionValues.getOptionTargetPose())
+
+                    .build();
+
+        } else {
+            drive.currentTrajSeq = drive.drive.trajectorySequenceBuilder(ActiveMotionValues.getStartPose())
+
+                    .lineToLinearHeading(ActiveMotionValues.getDropOffPose())
+
+                    .UNSTABLE_addTemporalMarkerOffset(.5, () -> phss.dropPixel())
+
+                    .waitSeconds(1)
+
+                    .lineToLinearHeading(ActiveMotionValues.getRetractPose())
+
+                    .lineToLinearHeading(ActiveMotionValues.getTrussSDLineUpPose())
+
+                    .lineToLinearHeading(ActiveMotionValues.getOptionStopPose())
+
+                    .waitSeconds(ActiveMotionValues.getStopSecs())
+
+                    .lineToLinearHeading(ActiveMotionValues.getOptionTargetPose())
+
+                    .build();
+        }
 
         drive.trajName = "TSDCenter";
 

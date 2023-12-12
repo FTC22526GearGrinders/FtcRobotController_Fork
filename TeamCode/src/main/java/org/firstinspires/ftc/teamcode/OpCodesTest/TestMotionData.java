@@ -11,11 +11,12 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.Commands.Auto.SelectMotionValuesBlue;
 import org.firstinspires.ftc.teamcode.Commands.Auto.SelectMotionValuesRed;
 import org.firstinspires.ftc.teamcode.Commands.Utils.ActiveMotionValues;
+import org.firstinspires.ftc.teamcode.FieldConstantsBlue;
 import org.firstinspires.ftc.teamcode.FieldConstantsRed;
 
 @Config
 @TeleOp(name = "Auto: Values", group = "Test")
-@Disabled
+
 public class TestMotionData extends CommandOpMode {
 
     FtcDashboard dashboard;
@@ -200,10 +201,14 @@ public class TestMotionData extends CommandOpMode {
                 telemetry.addData("OptTagPose",
                         FieldConstantsRed.getActiveTagPose(ActiveMotionValues.getActTag())
                                 .plus(FieldConstantsRed.AprilTagConstants.tagStrafeOffsetPose));
-
-            telemetry.addData("OptTgtPose", ActiveMotionValues.getOptionTargetPose().toString());
+            else
+                telemetry.addData("OptTgtPose", ActiveMotionValues.getOptionTargetPose().toString());
 
             telemetry.addData("Atag", ActiveMotionValues.getActTag());
+
+            telemetry.addData("AtagPose", FieldConstantsBlue.getActiveTagPose(ActiveMotionValues.getActTag()));
+
+
             telemetry.addLine();
 
 

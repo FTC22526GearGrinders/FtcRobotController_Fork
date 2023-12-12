@@ -58,7 +58,7 @@ public class SelectMotionValuesBlue extends CommandBase {
             case 1://left tape
 
 
-                Pose2d xyOffsetPose = new Pose2d();
+                Pose2d  xyOffsetPose = new Pose2d(-2,0);
 
                 ActiveMotionValues.setStartPose(FieldConstantsBlue.XPYP.startPos);//start pose
 

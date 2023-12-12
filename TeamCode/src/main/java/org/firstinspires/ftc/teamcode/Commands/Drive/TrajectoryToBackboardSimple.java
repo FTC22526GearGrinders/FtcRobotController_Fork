@@ -44,7 +44,7 @@ public class TrajectoryToBackboardSimple extends CommandBase {
 
 
         Pose2d currentRobotPose = new Pose2d();
-        Pose2d finalPose = new Pose2d(10, 0);
+        Pose2d finalPose = new Pose2d(6, 0);
 
 
         tagTraj = drive.drive.trajectoryBuilder(currentRobotPose)

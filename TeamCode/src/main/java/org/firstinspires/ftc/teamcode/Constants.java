@@ -129,9 +129,9 @@ public final class Constants {
         public static final double DROP_CLOSED_POSITION = .7;
 
         public enum LeftGripperSet {
-            OPEN(.8),//open position
+            OPEN(.7),//open position
             MID(.7),//mid
-            CLOSED(.5);//closed
+            CLOSED(.4);//closed
 
             public final double position;
 
@@ -142,9 +142,9 @@ public final class Constants {
 
 
         public enum RightGripperSet {
-            OPEN(.2),
+            OPEN(.1),
             MID(.3),
-            CLOSED(.6);
+            CLOSED(.4);
 
             public final double position;
 
@@ -155,9 +155,9 @@ public final class Constants {
 
 
         public enum TurnGripperSet {
-            PICKUP(.79),
+            PICKUP(.2),
             MID(.65),
-            DELIVER(.585);
+            DELIVER(0);
 
             public final double position;
 
@@ -167,11 +167,11 @@ public final class Constants {
         }
 
         public enum FlipGripperSet {
-            PICKUP(.02),
-            LEFT_DOWN(.15),
-            DELIVER(.24),
+            PICKUP(0.08),
+            LEFT_DOWN(.2),
+            DELIVER(.3),
 
-            RIGHT_DOWN(.35);
+            RIGHT_DOWN(.0);
 
             public final double position;
 
@@ -254,16 +254,16 @@ public final class Constants {
         public static final double JOG_DOWN_POWER = -.4;
         public static final double AUTO_DELIVER_POSITION = 7.5;
         public static final double HOME_POSITION = 1;
-        public static final double MAX_VEL = 8;
-        public static final double MAX_ACCEL = 8;
+        public static final double MAX_VEL = 4;
+        public static final double MAX_ACCEL = 2;
 
-        public static double kP = .05;
+        public static double kP = .5;
         public static double kI = 0;
         public static double kD = 0;
 
         public static double POSITION_Kg = 0;
 
-        public static double CLEAR_BAR_HEIGHT = 18;
+        public static double CLEAR_BAR_HEIGHT = 16;
 
         public static double RAISe_ROBOT_HEIGHT = 10;
 

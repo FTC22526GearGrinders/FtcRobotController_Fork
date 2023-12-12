@@ -283,7 +283,7 @@ public class SelectMotionValuesRed extends CommandBase {
                 ActiveMotionValues.setTrussSDLineUpPose((FieldConstantsRed.stageDoorLineUpPose13));
             }
             if (lcr == 12) {
-                ActiveMotionValues.setStrafeDistance(-strafeDistance);
+                ActiveMotionValues.setStrafeDistance(strafeDistance);
                 ActiveMotionValues.setTrussSDLineUpPose((FieldConstantsRed.stageDoorLineUpPose2));
             }
             if (lcr == 13) {

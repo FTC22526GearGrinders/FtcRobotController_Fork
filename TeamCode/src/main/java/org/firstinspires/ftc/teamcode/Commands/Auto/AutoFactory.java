@@ -101,11 +101,15 @@ public class AutoFactory extends CommandBase {
     }
 
     public Command raiseArmOffFloor() {
-        return new PositionArm(arm, 1);
+        return new PositionArm(arm, 1).asProxy();
     }
 
-    public Command positionArm(){
-        return new PositionArm(arm,10);
+    public Command raiseArmToPosition(){
+        return new PositionArm( arm, 10).asProxy();
+    }
+
+    public Command positionArmHome(){
+        return new PositionArm(arm,0).asProxy();
     }
 
 }
