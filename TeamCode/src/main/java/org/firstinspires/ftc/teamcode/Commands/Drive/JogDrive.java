@@ -46,8 +46,8 @@ public class JogDrive extends CommandBase {
 
         if (drive.drive.fieldCentric) {
 
-            double forward = this.gamepad.getLeftY(); /* Invert stick Y axis */
-            double strafe = this.gamepad.getLeftX();
+            double strafe = -this.gamepad.getLeftY(); /* Invert stick Y axis */
+            double forward = this.gamepad.getLeftX();
             double rcw = this.gamepad.getRightX();
 
             /* Adjust Joystick X/Y inputs by navX MXP yaw angle */

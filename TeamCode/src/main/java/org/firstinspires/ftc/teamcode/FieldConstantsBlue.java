@@ -38,7 +38,7 @@ public final class FieldConstantsBlue {
 
         public static final Pose2d tagLookAheadPose = new Pose2d(12 + Constants.RobotConstants.length / 2, 0, Math.toRadians(0));
 
-        public static final Pose2d tagStrafeOffsetPose = new Pose2d(-60.25 + 36, 0, 0);
+        public static final Pose2d tagStrafeOffsetPose = new Pose2d(-60.25 + 36 +2, 0, 0);
 
 
         public static final Pose2d atag1 = new Pose2d(60.25, 42, Math.toRadians(atagAngle));

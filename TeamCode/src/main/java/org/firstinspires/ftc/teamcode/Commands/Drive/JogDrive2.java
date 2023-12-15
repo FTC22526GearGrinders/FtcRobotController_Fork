@@ -34,21 +34,21 @@ public class JogDrive2 extends CommandBase {
     @Override
     public void execute() {
 
-        if (!drive.drive.fieldCentric) {
+//        if (!drive.drive.fieldCentric) {
+//
+//            double y = this.gamepad.getLeftY();
+//            double x = this.gamepad.getLeftX();
+//            double rx = this.gamepad.getRightX();
+//
+//            drive.drive.jog(y, x, rx);
+//
+//        }
 
-            double y = this.gamepad.getLeftY();
-            double x = this.gamepad.getLeftX();
-            double rx = this.gamepad.getRightX();
+       // if (drive.drive.fieldCentric) {
 
-            drive.drive.jog(y, x, rx);
-
-        }
-
-        if (drive.drive.fieldCentric) {
-
-            double forward = this.gamepad.getLeftY(); /* Invert stick Y axis */
-            double strafe = this.gamepad.getLeftX();
-            double rcw = this.gamepad.getRightX();
+            double strafe = -this.gamepad.getLeftY()/2; /* Invert stick Y axis */
+            double forward = this.gamepad.getLeftX()/2;
+            double rcw = this.gamepad.getRightX()/2;
 
             /* Adjust Joystick X/Y inputs by navX MXP yaw angle */
 
@@ -65,7 +65,7 @@ public class JogDrive2 extends CommandBase {
             forward = temp;
 
             drive.drive.jog(forward, strafe, rcw);
-        }
+      //  }
 
     }
 

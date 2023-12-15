@@ -120,6 +120,11 @@ public class PixelHandlerSubsystem extends SubsystemBase {
         closeRightGripper();
     }
 
+    public void toWideOpen(){
+        rightGripper.setPosition(Constants.PixelHandlerConstants.RightGripperSet.WIDE_OPEN.position);
+        leftGripper.setPosition(Constants.PixelHandlerConstants.LeftGripperSet.WIDE_OPEN.position);
+    }
+
     public void raiseGrippersToDeliver() {
         turnGrippers.setPosition(Constants.PixelHandlerConstants.TurnGripperSet.DELIVER.position);
         turnGrippersPosition = Constants.PixelHandlerConstants.TurnGripperSet.DELIVER.position;

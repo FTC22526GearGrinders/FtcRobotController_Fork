@@ -129,6 +129,7 @@ public final class Constants {
         public static final double DROP_CLOSED_POSITION = .7;
 
         public enum LeftGripperSet {
+            WIDE_OPEN(.85),
             OPEN(.7),//open position
             MID(.7),//mid
             CLOSED(.4);//closed
@@ -142,6 +143,7 @@ public final class Constants {
 
 
         public enum RightGripperSet {
+            WIDE_OPEN(0),
             OPEN(.1),
             MID(.3),
             CLOSED(.4);
@@ -167,11 +169,11 @@ public final class Constants {
         }
 
         public enum FlipGripperSet {
-            PICKUP(0.08),
-            LEFT_DOWN(.2),
-            DELIVER(.3),
+            PICKUP(0.31),
+            LEFT_DOWN(.45),
+            DELIVER(.09),
 
-            RIGHT_DOWN(.0);
+            RIGHT_DOWN(.2);
 
             public final double position;
 
