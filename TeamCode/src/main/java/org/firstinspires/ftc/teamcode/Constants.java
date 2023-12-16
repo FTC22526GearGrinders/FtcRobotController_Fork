@@ -58,8 +58,8 @@ public final class Constants {
         public static final double MAX_IPS = MAX_IPM / 60;//65 IPS
         public static final double POSITION_TOLERANCE_INCHES = .25;
         public static final double AT_BACKBOARD_ANGLE_DISTANCE = 6;
-        public static final double POSN_VEL = 4 ;
-        public static final double POSN_ACCEL = 4 ;
+        public static final double POSN_VEL = 4;
+        public static final double POSN_ACCEL = 4;
 
         public static double MAX_VEL = MAX_IPS * .8;
         public static double MAX_ACCEL = 30;
@@ -169,11 +169,11 @@ public final class Constants {
         }
 
         public enum FlipGripperSet {
-            PICKUP(0.31),
-            LEFT_DOWN(.45),
-            DELIVER(.09),
+            PICKUP(0.18),
+            LEFT_DOWN(.3),
+            DELIVER(.4),
 
-            RIGHT_DOWN(.2);
+            RIGHT_DOWN(.05);
 
             public final double position;
 
@@ -221,7 +221,7 @@ public final class Constants {
         public static final double HOME_POSITION = 1;
         public static final double MAX_VEL = 30;
         public static final double MAX_ACCEL = 30;
-        public static double[] armPositionInches = {0,0.5, 5.8, 9, 13.6, 14.3, 16.8, 19};
+        public static double[] armPositionInches = {0, 0.5, 5.8, 9, 13.6, 14.3, 16.8, 19};
 
 
         public static double kP = 1.5;

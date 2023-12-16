@@ -48,7 +48,7 @@ public class AutoActionsSequences extends SequentialCommandGroup {
 
                                         new InstantCommand(() -> phss.raiseGrippersToDeliver()),
 
-                                        new InstantCommand(() -> phss.flipGrippersToDeliver()),
+                                 //       new InstantCommand(() -> phss.flipGrippersToDeliver()),
 
                                         new WaitCommand(500),
                                         new InstantCommand(() -> phss.flipGrippersToLeftDown()),
@@ -58,7 +58,7 @@ public class AutoActionsSequences extends SequentialCommandGroup {
 
                                         new WaitCommand(500),
 
-                                        new InstantCommand(phss::openLeftGripper),
+                                        new InstantCommand(phss::openLeftGripperWide),
 
                                         new WaitCommand(500),
 

@@ -38,6 +38,7 @@ import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigu
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
 import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.Commands.Trajectories.trajectorysequence.TrajectorySequence;
 import org.firstinspires.ftc.teamcode.Commands.Trajectories.trajectorysequence.TrajectorySequenceBuilder;
@@ -396,13 +397,24 @@ public class SampleMecanumDrive extends MecanumDrive {
 
         telemetry.addData("Current Pose", getPoseEstimate().toString());
 
-        telemetry.addData("FrontLeftPosn", encoderTicksToInches(leftFront.getCurrentPosition()));
-        telemetry.addData("FrontLeftTicks", leftFront.getCurrentPosition());
+//        telemetry.addData("FrontLeftPosn", encoderTicksToInches(leftFront.getCurrentPosition()));
+//        telemetry.addData("FrontLeftTicks", leftFront.getCurrentPosition());
+//
+//        telemetry.addData("FrontRightPosn", encoderTicksToInches(rightFront.getCurrentPosition()));
+//        telemetry.addData("BackLeftPosn", encoderTicksToInches(leftRear.getCurrentPosition()));
+//        telemetry.addData("BackRightPosn", encoderTicksToInches(rightRear.getCurrentPosition()));
+//
+//        telemetry.addData("FrontLeftVel", leftFront.getVelocity());
+//        telemetry.addData("BackLeftVel", leftRear.getVelocity());
+//        telemetry.addData("FrontRightVel", rightFront.getVelocity());
+//        telemetry.addData("BackRightVel", rightRear.getVelocity());
 
-        telemetry.addData("FrontRightPosn", encoderTicksToInches(rightFront.getCurrentPosition()));
-        telemetry.addData("BackLeftPosn", encoderTicksToInches(leftRear.getCurrentPosition()));
-        telemetry.addData("BackRightPosn", encoderTicksToInches(rightRear.getCurrentPosition()));
-        telemetry.addData("FrontLeftVel", leftFront.getVelocity());
+        telemetry.addData("FrontLeftAmps", leftFront.getCurrent(CurrentUnit.AMPS));
+        telemetry.addData("BackLeftAmps", leftRear.getCurrent(CurrentUnit.AMPS));
+        telemetry.addData("FrontRightAmps", rightFront.getCurrent(CurrentUnit.AMPS));
+        telemetry.addData("BackRightAmps", rightRear.getCurrent(CurrentUnit.AMPS));
+
+
         telemetry.addData("y",getPoseEstimate().getY());
         telemetry.addData("x",getPoseEstimate().getX());
 
