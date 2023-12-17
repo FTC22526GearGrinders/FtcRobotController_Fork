@@ -99,8 +99,7 @@ public final class Constants {
         public static RevHubOrientationOnRobot.LogoFacingDirection LOGO_FACING_DIR =
                 RevHubOrientationOnRobot.LogoFacingDirection.UP;
         public static RevHubOrientationOnRobot.UsbFacingDirection USB_FACING_DIR =
-                RevHubOrientationOnRobot.UsbFacingDirection.FORWARD;
-
+                RevHubOrientationOnRobot.UsbFacingDirection.BACKWARD;
 
         public static double encoderTicksToInches(double ticks) {
             return WHEEL_DIAMETER_INCH * Math.PI * GEARBOX_RATIO * ticks / ENCODER_COUNTS_PER_MOTOR_REV;

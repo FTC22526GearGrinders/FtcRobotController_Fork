@@ -112,4 +112,10 @@ public class AutoFactory extends CommandBase {
         return new PositionArm(arm,0).asProxy();
     }
 
+    public Command parkCheck() {
+        return new ConditionalCommand(new MoveToPark(drive), new DoNothing(),
+                () -> ActiveMotionValues.getBBStart()
+                        && (ActiveMotionValues.getCenterPark() || ActiveMotionValues.getNearPark()));
+    }
+
 }

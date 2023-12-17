@@ -23,13 +23,14 @@ public class MoveToPark extends CommandBase {
                 .lineToLinearHeading(ActiveMotionValues.getParkPose())
                 .build();
 
+        drive.drive.setPoseEstimate(ActiveMotionValues.getFinalTagPose());
     }
 
     @Override
     public void execute() {
 
 
-        drive.drive.setPoseEstimate(ActiveMotionValues.getFinalTagPose());
+
 
         drive.drive.followTrajectory(parkTraj);
 
